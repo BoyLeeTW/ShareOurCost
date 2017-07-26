@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		A20F2C671F276F9700D446F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20F2C661F276F9700D446F7 /* AppDelegate.swift */; };
-		A20F2C691F276F9700D446F7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20F2C681F276F9700D446F7 /* ViewController.swift */; };
+		A20F2C691F276F9700D446F7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20F2C681F276F9700D446F7 /* LoginViewController.swift */; };
 		A20F2C6C1F276F9700D446F7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A20F2C6A1F276F9700D446F7 /* Main.storyboard */; };
 		A20F2C6F1F276F9700D446F7 /* ShareOurCost.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A20F2C6D1F276F9700D446F7 /* ShareOurCost.xcdatamodeld */; };
 		A20F2C711F276F9700D446F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20F2C701F276F9700D446F7 /* Assets.xcassets */; };
 		A20F2C741F276F9700D446F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A20F2C721F276F9700D446F7 /* LaunchScreen.storyboard */; };
-		A20F2C7D1F284A0900D446F7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A20F2C7C1F284A0900D446F7 /* GoogleService-Info.plist */; };
+		A20F2C801F2896AA00D446F7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A20F2C7F1F2896AA00D446F7 /* GoogleService-Info.plist */; };
+		A20F2C821F28C01B00D446F7 /* MatchingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20F2C811F28C01B00D446F7 /* MatchingViewController.swift */; };
 		E96D74AF233843F582EEB011 /* Pods_ShareOurCost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10CC0D0489CC3AF52482997E /* Pods_ShareOurCost.framework */; };
 /* End PBXBuildFile section */
 
@@ -22,13 +23,14 @@
 		10CC0D0489CC3AF52482997E /* Pods_ShareOurCost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShareOurCost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A20F2C631F276F9700D446F7 /* ShareOurCost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShareOurCost.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A20F2C661F276F9700D446F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A20F2C681F276F9700D446F7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		A20F2C681F276F9700D446F7 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		A20F2C6B1F276F9700D446F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A20F2C6E1F276F9700D446F7 /* ShareOurCost.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ShareOurCost.xcdatamodel; sourceTree = "<group>"; };
 		A20F2C701F276F9700D446F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A20F2C731F276F9700D446F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A20F2C751F276F9700D446F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A20F2C7C1F284A0900D446F7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A20F2C7F1F2896AA00D446F7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A20F2C811F28C01B00D446F7 /* MatchingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchingViewController.swift; sourceTree = "<group>"; };
 		B196AC87C610FC16F941F121 /* Pods-ShareOurCost.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareOurCost.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShareOurCost/Pods-ShareOurCost.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -66,12 +68,13 @@
 			isa = PBXGroup;
 			children = (
 				A20F2C661F276F9700D446F7 /* AppDelegate.swift */,
-				A20F2C681F276F9700D446F7 /* ViewController.swift */,
 				A20F2C6A1F276F9700D446F7 /* Main.storyboard */,
+				A20F2C681F276F9700D446F7 /* LoginViewController.swift */,
+				A20F2C811F28C01B00D446F7 /* MatchingViewController.swift */,
 				A20F2C701F276F9700D446F7 /* Assets.xcassets */,
 				A20F2C721F276F9700D446F7 /* LaunchScreen.storyboard */,
 				A20F2C751F276F9700D446F7 /* Info.plist */,
-				A20F2C7C1F284A0900D446F7 /* GoogleService-Info.plist */,
+				A20F2C7F1F2896AA00D446F7 /* GoogleService-Info.plist */,
 				A20F2C6D1F276F9700D446F7 /* ShareOurCost.xcdatamodeld */,
 			);
 			path = ShareOurCost;
@@ -158,9 +161,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A20F2C741F276F9700D446F7 /* LaunchScreen.storyboard in Resources */,
-				A20F2C7D1F284A0900D446F7 /* GoogleService-Info.plist in Resources */,
 				A20F2C711F276F9700D446F7 /* Assets.xcassets in Resources */,
 				A20F2C6C1F276F9700D446F7 /* Main.storyboard in Resources */,
+				A20F2C801F2896AA00D446F7 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,7 +244,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A20F2C6F1F276F9700D446F7 /* ShareOurCost.xcdatamodeld in Sources */,
-				A20F2C691F276F9700D446F7 /* ViewController.swift in Sources */,
+				A20F2C821F28C01B00D446F7 /* MatchingViewController.swift in Sources */,
+				A20F2C691F276F9700D446F7 /* LoginViewController.swift in Sources */,
 				A20F2C671F276F9700D446F7 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

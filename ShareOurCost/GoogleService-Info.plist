@@ -7,21 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>993870942802-qjvufa6bq8bnjb0ho46lcg6h91flfv2h.apps.googleusercontent.com</string>
+	<string>633241151220-m5k8e2k983qg0mneoud1ergpt98eg7ph.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.993870942802-qjvufa6bq8bnjb0ho46lcg6h91flfv2h</string>
+	<string>com.googleusercontent.apps.633241151220-m5k8e2k983qg0mneoud1ergpt98eg7ph</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCXR_q7BN9LZpfAHw0KaUtY0-Ffx_lNidI</string>
+	<string>AIzaSyAKje7__zXESA7bGseUlh0M8cnw76Aigd0</string>
 	<key>GCM_SENDER_ID</key>
-	<string>993870942802</string>
+	<string>633241151220</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>appworks.FireBaseProject</string>
+	<string>Lee.ShareOurCost</string>
 	<key>PROJECT_ID</key>
-	<string>fir-test-e6c9c</string>
+	<string>shareourcost</string>
 	<key>STORAGE_BUCKET</key>
-	<string>fir-test-e6c9c.appspot.com</string>
+	<string>shareourcost.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true/>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:993870942802:ios:18ae3aa01a0e1c70</string>
+	<string>1:633241151220:ios:3f5790c2c6c50789</string>
 	<key>DATABASE_URL</key>
-	<string>https://fir-test-e6c9c.firebaseio.com</string>
+	<string>https://shareourcost.firebaseio.com</string>
 </dict>
 </plist>
