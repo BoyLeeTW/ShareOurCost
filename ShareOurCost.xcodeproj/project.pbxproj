@@ -13,9 +13,13 @@
 		A20F2C6F1F276F9700D446F7 /* ShareOurCost.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A20F2C6D1F276F9700D446F7 /* ShareOurCost.xcdatamodeld */; };
 		A20F2C711F276F9700D446F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20F2C701F276F9700D446F7 /* Assets.xcassets */; };
 		A20F2C741F276F9700D446F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A20F2C721F276F9700D446F7 /* LaunchScreen.storyboard */; };
+		A20F2C7D1F284A0900D446F7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A20F2C7C1F284A0900D446F7 /* GoogleService-Info.plist */; };
+		E96D74AF233843F582EEB011 /* Pods_ShareOurCost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10CC0D0489CC3AF52482997E /* Pods_ShareOurCost.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0FB66BD0448C110514B370DC /* Pods-ShareOurCost.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareOurCost.release.xcconfig"; path = "Pods/Target Support Files/Pods-ShareOurCost/Pods-ShareOurCost.release.xcconfig"; sourceTree = "<group>"; };
+		10CC0D0489CC3AF52482997E /* Pods_ShareOurCost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShareOurCost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A20F2C631F276F9700D446F7 /* ShareOurCost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShareOurCost.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A20F2C661F276F9700D446F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A20F2C681F276F9700D446F7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -24,6 +28,8 @@
 		A20F2C701F276F9700D446F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A20F2C731F276F9700D446F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A20F2C751F276F9700D446F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A20F2C7C1F284A0900D446F7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B196AC87C610FC16F941F121 /* Pods-ShareOurCost.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareOurCost.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShareOurCost/Pods-ShareOurCost.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E96D74AF233843F582EEB011 /* Pods_ShareOurCost.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +49,8 @@
 			children = (
 				A20F2C651F276F9700D446F7 /* ShareOurCost */,
 				A20F2C641F276F9700D446F7 /* Products */,
+				CD5B69F21542BE2E90FD8293 /* Pods */,
+				FB9E83A024EC2B78A4C7EA92 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -62,9 +71,27 @@
 				A20F2C701F276F9700D446F7 /* Assets.xcassets */,
 				A20F2C721F276F9700D446F7 /* LaunchScreen.storyboard */,
 				A20F2C751F276F9700D446F7 /* Info.plist */,
+				A20F2C7C1F284A0900D446F7 /* GoogleService-Info.plist */,
 				A20F2C6D1F276F9700D446F7 /* ShareOurCost.xcdatamodeld */,
 			);
 			path = ShareOurCost;
+			sourceTree = "<group>";
+		};
+		CD5B69F21542BE2E90FD8293 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B196AC87C610FC16F941F121 /* Pods-ShareOurCost.debug.xcconfig */,
+				0FB66BD0448C110514B370DC /* Pods-ShareOurCost.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		FB9E83A024EC2B78A4C7EA92 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				10CC0D0489CC3AF52482997E /* Pods_ShareOurCost.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +101,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A20F2C781F276F9700D446F7 /* Build configuration list for PBXNativeTarget "ShareOurCost" */;
 			buildPhases = (
+				D457780D2A4F233AF411722A /* [CP] Check Pods Manifest.lock */,
 				A20F2C5F1F276F9700D446F7 /* Sources */,
 				A20F2C601F276F9700D446F7 /* Frameworks */,
 				A20F2C611F276F9700D446F7 /* Resources */,
+				A20F2C7B1F28476E00D446F7 /* ShellScript */,
+				CF78F4D338C486FA68A73538 /* [CP] Embed Pods Frameworks */,
+				3F2141BDAC49AEBED79DAD5C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -127,12 +158,80 @@
 			buildActionMask = 2147483647;
 			files = (
 				A20F2C741F276F9700D446F7 /* LaunchScreen.storyboard in Resources */,
+				A20F2C7D1F284A0900D446F7 /* GoogleService-Info.plist in Resources */,
 				A20F2C711F276F9700D446F7 /* Assets.xcassets in Resources */,
 				A20F2C6C1F276F9700D446F7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3F2141BDAC49AEBED79DAD5C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ShareOurCost/Pods-ShareOurCost-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A20F2C7B1F28476E00D446F7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
+		CF78F4D338C486FA68A73538 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ShareOurCost/Pods-ShareOurCost-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ShareOurCost/Pods-ShareOurCost-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D457780D2A4F233AF411722A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ShareOurCost-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A20F2C5F1F276F9700D446F7 /* Sources */ = {
@@ -262,6 +361,7 @@
 		};
 		A20F2C791F276F9700D446F7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B196AC87C610FC16F941F121 /* Pods-ShareOurCost.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ShareOurCost/Info.plist;
@@ -274,6 +374,7 @@
 		};
 		A20F2C7A1F276F9700D446F7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0FB66BD0448C110514B370DC /* Pods-ShareOurCost.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ShareOurCost/Info.plist;
@@ -303,6 +404,7 @@
 				A20F2C7A1F276F9700D446F7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
