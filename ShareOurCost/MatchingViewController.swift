@@ -7,29 +7,113 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
+import FirebaseDatabase
 
 class MatchingViewController: UIViewController {
+    @IBOutlet weak var phoneNumberTextField: UITextField!
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var addFriendButton: UIButton!
+    @IBOutlet weak var searchFriendButton: UIButton!
+    @IBOutlet weak var friendNameLabel: UILabel!
+    @IBOutlet weak var logOutButton: UIButton!
+
+    var ref: DatabaseReference!
+
+    var addFriendID = String()
+
+    @IBAction func touchSearchFriendButton(_ sender: Any) {
+
+        let phoneNumber = phoneNumberTextField.text!
+
+        ref = Database.database().reference()
+
+        ref.child("userEmailList").observe(.childAdded, with: { (dataSnapshot) in
+            // 之後改成用ID配對
+            if let databasePhoneNumber = dataSnapshot.value as? String {
+
+                if databasePhoneNumber == phoneNumber {
+
+                    self.ref.child("userInfo").child(dataSnapshot.key).child("name").observe(.value, with: { (dataSnapshot) in
+
+                        self.friendNameLabel.text = dataSnapshot.value as? String
+                    })
+
+                    //save corresponding userID
+                    self.addFriendID = dataSnapshot.key
+
+                } else {
+
+                    self.friendNameLabel.text = "Not Found!"
+
+                }
+
+            }
+
+        })
+
+    }
+
+    @IBAction func touchAddFriendButton(_ sender: Any) {
+
+        if self.addFriendID != "" {
+
+            ref = Database.database().reference()
+
+            ref.child("userInfo").child(addFriendID).observe(.value, with: { (dataSnapshot) in
+
+            })
+            ref.child("userInfo").child(addFriendID).child("pendingFriendRequest").updateChildValues([(Auth.auth().currentUser?.uid)!: false])
+
+            ref.child("userInfo").child((Auth.auth().currentUser?.uid)!).child("pendingSentFriendRequest").updateChildValues([addFriendID: false])
+
+        }
+
+    }
+
+    var expenseList = [ExpenseModel]()
+
+    var refExpense: DatabaseReference!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        logOutButton.addTarget(self, action: #selector(handleLouOut), for: .touchUpInside)
+
+// MARK: retriving data from expense
+//        refExpense = Database.database().reference().child("Expenses")
+        refExpense = Database.database().reference()
+
+        refExpense.observe(.value, with: { (dataSnapshot) in
+
+//            guard let datas = dataSnapshot.children.allObjects as? [DataSnapshot] else { return }
+//            print(datas)
+//            for data in datas {
+//                let dataObject = data.value as?[String: AnyObject]
+//                let expenseDate = dataObjeㄩct!["Date"]!
+//                let expenseAmount = dataObject!["Amount"]!
+//                let expenseSharedMethod = dataObject!["SharedMethod"]!
+//                let expenseSharedResult = dataObject!["SharedResult"]!
+//                print(expenseAmount, expenseDate, expenseSharedMethod, expenseSharedResult)
+
+//            }
+
+        })
+
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func handleSearchFriend() {
+
     }
-    
 
-    /*
-    // MARK: - Navigation
+    func handleLouOut() {
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        UserDefaults.standard.setValue(nil, forKey: "userUid")
+
+        let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC")
+
+        self.show(loginVC!, sender: nil)
+
     }
-    */
-
 }

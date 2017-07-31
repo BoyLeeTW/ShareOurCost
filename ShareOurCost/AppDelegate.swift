@@ -20,6 +20,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         FirebaseApp.configure()
 
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+
+        if UserDefaults.standard.value(forKey: "userUid") != nil {
+
+            let tabBarVC = mainStoryboard.instantiateViewController(withIdentifier: "MatchingVC")
+
+            window?.rootViewController = tabBarVC
+
+        } else {
+
+            let loginVC = mainStoryboard.instantiateViewController(withIdentifier: "LoginVC")
+
+            window?.rootViewController = loginVC
+
+        }
+
         return true
     }
 

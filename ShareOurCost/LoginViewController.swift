@@ -6,9 +6,13 @@
 //  Copyright © 2017 Brad. All rights reserved.
 //
 
+// TO DO: Add user's account create time
+
 import UIKit
 import Firebase
 import FirebaseAuth
+import FirebaseDatabase
+import Foundation
 
 class ViewController: UIViewController {
 
@@ -18,6 +22,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var fullNameTextField: UITextField!
     @IBOutlet weak var forgetPasswordButton: UIButton!
+    @IBOutlet weak var userIDTextField: UITextField!
 
     var ref: DatabaseReference!
 
@@ -93,7 +98,14 @@ class ViewController: UIViewController {
 
                     print("Successful logged in!")
 
-                    self.performSegue(withIdentifier: "MatchingVC", sender: self)
+                    print(user!.uid)
+
+                    UserDefaults.standard.setValue(user!.uid, forKey: "userUid")
+
+                    print(UserDefaults.standard.value(forKey: "userUid"))
+
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "MatchingVC")
+                    self.present(vc!, animated: true, completion: nil)
 
                     // MARK: save uid
 
@@ -127,14 +139,17 @@ class ViewController: UIViewController {
                 if error == nil {
                     print("Successful signed up!")
 
-                    self.ref?.child("Users").child("\(user!.uid)").setValue(
+                    self.ref?.child("userInfo").child("\(user!.uid)").setValue(
                         ["email": "\(self.emailTextField.text!)",
-                            "fullName": "\(self.fullNameTextField.text!)"
+                            "fullName": "\(self.fullNameTextField.text!)",
+                            "userID": "\(self.userIDTextField.text!)",
+                            "createdTime": "\(Date().timeIntervalSince1970)"
                         ])
 
                     self.emailTextField.text = ""
                     self.passwordTextField.text = ""
                     self.fullNameTextField.text = ""
+                    self.userIDTextField.text = ""
 
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "MatchingVC")
                     self.present(vc!, animated: true, completion: nil)
