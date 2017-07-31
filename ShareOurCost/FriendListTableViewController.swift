@@ -23,11 +23,6 @@ class FriendListTableViewController: UITableViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(touchBackButton))
 
         ref = Database.database().reference()
-//        ref.child("userInfo").child((Auth.auth().currentUser?.uid)!).child("pendingFriendRequest").observe(.value, with: { (dataSnapshot) in
-//
-//            print(dataSnapshot)
-//        })
-
         ref.child("userInfo").child((Auth.auth().currentUser?.uid)!).child("pendingFriendRequest").observe(.childAdded, with: { (dataSnapshot) in
 
             self.friendRequestList.append(dataSnapshot.key)
@@ -36,7 +31,6 @@ class FriendListTableViewController: UITableViewController {
             //Need to reload data in this queue
             self.friendListTableView.reloadData()
         })
-
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -54,27 +48,27 @@ class FriendListTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+
         return 1
+
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+
         return self.friendRequestList.count
+
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "friendListCell", for: indexPath) as? FriendListTableViewCell else { return UITableViewCell() }
 
-        ref.child("userInfo").child(friendRequestList[indexPath.row]).observe(.childAdded, with: { (dataSnapshot) in
+        ref.child("userInfo").child(friendRequestList[indexPath.row]).child("fullName").observe(.value, with: { (dataSnapshot) in
 
-            guard let datas = dataSnapshot.children.allObjects as? [DataSnapshot] else { return }
-            print(datas)
-            for data in datas {
+            print(dataSnapshot.value!)
 
-                cell.friendNameLabel.text = data.key
+            cell.friendNameLabel.text = dataSnapshot.value! as? String
 
-            }
         })
 
         return cell

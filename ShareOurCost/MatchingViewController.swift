@@ -29,13 +29,13 @@ class MatchingViewController: UIViewController {
 
         ref = Database.database().reference()
 
-        ref.child("userEmailList").observe(.childAdded, with: { (dataSnapshot) in
+        ref.child("userID").observe(.childAdded, with: { (dataSnapshot) in
             // 之後改成用ID配對
             if let databasePhoneNumber = dataSnapshot.value as? String {
 
                 if databasePhoneNumber == phoneNumber {
 
-                    self.ref.child("userInfo").child(dataSnapshot.key).child("name").observe(.value, with: { (dataSnapshot) in
+                    self.ref.child("userInfo").child(dataSnapshot.key).child("fullName").observe(.value, with: { (dataSnapshot) in
 
                         self.friendNameLabel.text = dataSnapshot.value as? String
                     })

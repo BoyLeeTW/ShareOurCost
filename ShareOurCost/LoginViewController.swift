@@ -39,6 +39,10 @@ class ViewController: UIViewController {
 
         forgetPasswordButton.addTarget(self, action: #selector(handleForgetPassword), for: .touchUpInside)
 
+        ref.child("userID").observe(.childAdded, with: { (dataSnapshot) in
+            print(dataSnapshot.value!)
+        })
+
     }
 
     func handleSignInOrRegisterChange() {
@@ -145,6 +149,7 @@ class ViewController: UIViewController {
                             "userID": "\(self.userIDTextField.text!)",
                             "createdTime": "\(Date().timeIntervalSince1970)"
                         ])
+                    self.ref?.child("userID").updateChildValues(["\(user!.uid)": "\(self.userIDTextField.text!)"])
 
                     self.emailTextField.text = ""
                     self.passwordTextField.text = ""
