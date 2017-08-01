@@ -27,7 +27,18 @@ class FriendListTableViewController: UITableViewController {
         ref = Database.database().reference()
         ref.child("userInfo").child((Auth.auth().currentUser?.uid)!).child("pendingFriendRequest").observe(.childAdded, with: { (dataSnapshot) in
 
-            self.friendRequestList.append(dataSnapshot.key)
+            print(type(of: dataSnapshot.value!))
+
+            if let friendRequestStatus = dataSnapshot.value! as? Bool {
+
+                if friendRequestStatus == false {
+
+                    self.friendRequestList.append(dataSnapshot.key)
+
+                }
+
+            }
+
             print(self.friendRequestList)
 
             //Need to reload data in this queue
