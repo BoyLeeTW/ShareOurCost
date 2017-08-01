@@ -79,6 +79,12 @@ class MatchingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+//        var ref: DatabaseReference!
+//
+//        let array = ["0": "A", "1": "B"]
+//
+//        ref.database.reference().childByAutoId().setValue(array)
+
         logOutButton.addTarget(self, action: #selector(handleLouOut), for: .touchUpInside)
 
 // MARK: retriving data from expense

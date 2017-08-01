@@ -197,6 +197,9 @@
                                             <rect key="frame" x="200" y="6" width="49" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" title="Accept"/>
+                                            <connections>
+                                                <action selector="touchAcceptFriendButton:" destination="G8W-8X-A4A" eventType="touchUpInside" id="jbz-sP-xRR"/>
+                                            </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0yk-Th-IFN">
                                             <rect key="frame" x="257" y="8" width="36" height="30"/>

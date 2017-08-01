@@ -12,6 +12,8 @@ import FirebaseDatabase
 
 class FriendListTableViewController: UITableViewController {
     @IBOutlet var friendListTableView: UITableView!
+    @IBAction func touchAcceptFriendButton(_ sender: Any) {
+    }
 
     var friendRequestList = [String]()
 
@@ -71,7 +73,50 @@ class FriendListTableViewController: UITableViewController {
 
         })
 
+        cell.acceptFriendRequestButton.tag = indexPath.row
+
+        cell.denyFriendRequestButton.tag = indexPath.row
+
+        cell.acceptFriendRequestButton.addTarget(self, action: #selector(handleAcceptFriend), for: .touchUpInside)
+
+        cell.denyFriendRequestButton.addTarget(self, action: #selector(handleDenyFriend), for: .touchUpInside)
+
         return cell
+    }
+
+    //change the status in the pendingFriendRequest and add friendID to friendList.
+    func handleAcceptFriend(_ sender: UIButton) {
+
+        let friendID = friendRequestList[sender.tag]
+        print(friendID)
+
+        ref.database.reference().child("userInfo").child(Auth.auth().currentUser!.uid).child("pendingFriendRequest").child("\(friendID)").observe(.value, with: { (dataSnapshot) in
+            print(dataSnapshot)
+
+            //add ID of user who sent friend request to receiver's friend list
+            self.ref.database.reference().child("userInfo").child(Auth.auth().currentUser!.uid).child("friendList").updateChildValues([friendID: true])
+
+            //add ID of user who accepted request to the user sent request friend list
+            self.ref.database.reference().child("userInfo").child(friendID).child("friendList").updateChildValues([Auth.auth().currentUser!.uid: true])
+
+            //change the pendingFriendRequest value of user who accepted request to true
+            self.ref.database.reference().child("userInfo").child(Auth.auth().currentUser!.uid).child("pendingFriendRequest").updateChildValues([friendID: true])
+
+            //change the pendingSentFriendRequest value of user who sent request to true
+            self.ref.database.reference().child("userInfo").child(friendID).child("pendingSentFriendRequest").updateChildValues([Auth.auth().currentUser!.uid: true])
+
+        })
+
+    }
+
+    //NOT FINISH YET
+    func handleDenyFriend(_ sender: UIButton) {
+
+        let friendID = friendRequestList[sender.tag]
+        ref.database.reference().child("userInfo").child(Auth.auth().currentUser!.uid).child("pendingFriendRequest").child("\(friendID)").observe(.value, with: { (dataSnapshot) in
+            print(dataSnapshot)
+        })
+
     }
 
     /*
