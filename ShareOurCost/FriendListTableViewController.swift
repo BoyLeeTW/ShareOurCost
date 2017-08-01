@@ -15,41 +15,46 @@ class FriendListTableViewController: UITableViewController {
     @IBAction func touchAcceptFriendButton(_ sender: Any) {
     }
 
-    var friendRequestList = [String]()
+    var friendRequestIDList = [String]()
+
+    var friendIDList = [String]()
 
     var ref: DatabaseReference!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        ref = Database.database().reference()
+
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(touchBackButton))
 
-        ref = Database.database().reference()
         ref.child("userInfo").child((Auth.auth().currentUser?.uid)!).child("pendingFriendRequest").observe(.childAdded, with: { (dataSnapshot) in
-
-            print(type(of: dataSnapshot.value!))
 
             if let friendRequestStatus = dataSnapshot.value! as? Bool {
 
                 if friendRequestStatus == false {
 
-                    self.friendRequestList.append(dataSnapshot.key)
+                    self.friendRequestIDList.append(dataSnapshot.key)
 
                 }
 
             }
 
-            print(self.friendRequestList)
+            print(self.friendRequestIDList)
 
             //Need to reload data in this queue
             self.friendListTableView.reloadData()
+
         })
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        ref.database.reference().child("userInfo").child(Auth.auth().currentUser!.uid).child("friendList").observe(.childAdded, with: { (dataSnapshot) in
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+            self.friendIDList.append(dataSnapshot.key)
+
+            self.friendListTableView.reloadData()
+
+        })
+
     }
 
     func touchBackButton() {
@@ -62,68 +67,104 @@ class FriendListTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
 
-        return 1
+        return 2
+
+    }
+
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+
+        var sections = ["Your Friends", "Friend Request"]
+
+        return sections[section]
 
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        return self.friendRequestList.count
+        switch section {
+        case 0:
+            return friendIDList.count
+
+        case 1:
+            return friendRequestIDList.count
+
+        default:
+            return 0
+        }
 
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "friendListCell", for: indexPath) as? FriendListTableViewCell else { return UITableViewCell() }
+        switch (indexPath.section) {
+        case 0:
 
-        ref.child("userInfo").child(friendRequestList[indexPath.row]).child("fullName").observe(.value, with: { (dataSnapshot) in
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "friendListCell", for: indexPath) as? FriendListTableViewCell else { return UITableViewCell() }
 
-            print(dataSnapshot.value!)
+            ref.child("userInfo").child(friendIDList[indexPath.row]).child("fullName").observe(.value, with: { (dataSnapshot) in
 
-            cell.friendNameLabel.text = dataSnapshot.value! as? String
+                print(dataSnapshot.value!)
 
-        })
+                cell.friendNameLabel.text = dataSnapshot.value! as? String
 
-        cell.acceptFriendRequestButton.tag = indexPath.row
+            })
 
-        cell.denyFriendRequestButton.tag = indexPath.row
+            return cell
 
-        cell.acceptFriendRequestButton.addTarget(self, action: #selector(handleAcceptFriend), for: .touchUpInside)
+        default:
 
-        cell.denyFriendRequestButton.addTarget(self, action: #selector(handleDenyFriend), for: .touchUpInside)
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "friendRequestListCell", for: indexPath) as? FriendRequestListTableViewCell else { return UITableViewCell() }
 
-        return cell
+            ref.child("userInfo").child(friendRequestIDList[indexPath.row]).child("fullName").observe(.value, with: { (dataSnapshot) in
+
+                print(dataSnapshot.value!)
+
+                cell.friendNameLabel.text = dataSnapshot.value! as? String
+
+            })
+
+            cell.acceptFriendRequestButton.tag = indexPath.row
+
+            cell.denyFriendRequestButton.tag = indexPath.row
+
+            cell.acceptFriendRequestButton.addTarget(self, action: #selector(handleAcceptFriend), for: .touchUpInside)
+
+            cell.denyFriendRequestButton.addTarget(self, action: #selector(handleDenyFriend), for: .touchUpInside)
+
+            return cell
+
+        }
+
     }
 
     //change the status in the pendingFriendRequest and add friendID to friendList.
     func handleAcceptFriend(_ sender: UIButton) {
 
-        let friendID = friendRequestList[sender.tag]
+        let friendID = friendRequestIDList[sender.tag]
         print(friendID)
 
-        ref.database.reference().child("userInfo").child(Auth.auth().currentUser!.uid).child("pendingFriendRequest").child("\(friendID)").observe(.value, with: { (dataSnapshot) in
-            print(dataSnapshot)
+        //add ID of user who sent friend request to receiver's friend list
+        self.ref.database.reference().child("userInfo").child(Auth.auth().currentUser!.uid).child("friendList").updateChildValues([friendID: true])
 
-            //add ID of user who sent friend request to receiver's friend list
-            self.ref.database.reference().child("userInfo").child(Auth.auth().currentUser!.uid).child("friendList").updateChildValues([friendID: true])
+        //add ID of user who accepted request to the user sent request friend list
+        self.ref.database.reference().child("userInfo").child(friendID).child("friendList").updateChildValues([Auth.auth().currentUser!.uid: true])
 
-            //add ID of user who accepted request to the user sent request friend list
-            self.ref.database.reference().child("userInfo").child(friendID).child("friendList").updateChildValues([Auth.auth().currentUser!.uid: true])
+        //change the pendingFriendRequest value of user who accepted request to true
+        self.ref.database.reference().child("userInfo").child(Auth.auth().currentUser!.uid).child("pendingFriendRequest").updateChildValues([friendID: true])
 
-            //change the pendingFriendRequest value of user who accepted request to true
-            self.ref.database.reference().child("userInfo").child(Auth.auth().currentUser!.uid).child("pendingFriendRequest").updateChildValues([friendID: true])
+        //change the pendingSentFriendRequest value of user who sent request to true
+        self.ref.database.reference().child("userInfo").child(friendID).child("pendingSentFriendRequest").updateChildValues([Auth.auth().currentUser!.uid: true])
 
-            //change the pendingSentFriendRequest value of user who sent request to true
-            self.ref.database.reference().child("userInfo").child(friendID).child("pendingSentFriendRequest").updateChildValues([Auth.auth().currentUser!.uid: true])
+        friendRequestIDList.remove(at: sender.tag)
 
-        })
+        self.friendListTableView.reloadData()
 
     }
 
     //NOT FINISH YET
     func handleDenyFriend(_ sender: UIButton) {
 
-        let friendID = friendRequestList[sender.tag]
+        let friendID = friendRequestIDList[sender.tag]
         ref.database.reference().child("userInfo").child(Auth.auth().currentUser!.uid).child("pendingFriendRequest").child("\(friendID)").observe(.value, with: { (dataSnapshot) in
             print(dataSnapshot)
         })

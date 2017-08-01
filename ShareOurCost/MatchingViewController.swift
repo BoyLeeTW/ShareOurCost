@@ -13,7 +13,6 @@ import FirebaseDatabase
 
 class MatchingViewController: UIViewController {
     @IBOutlet weak var phoneNumberTextField: UITextField!
-    @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var addFriendButton: UIButton!
     @IBOutlet weak var searchFriendButton: UIButton!
     @IBOutlet weak var friendNameLabel: UILabel!
@@ -61,9 +60,6 @@ class MatchingViewController: UIViewController {
 
             ref = Database.database().reference()
 
-            ref.child("userInfo").child(addFriendID).observe(.value, with: { (dataSnapshot) in
-
-            })
             ref.child("userInfo").child(addFriendID).child("pendingFriendRequest").updateChildValues([(Auth.auth().currentUser?.uid)!: false])
 
             ref.child("userInfo").child((Auth.auth().currentUser?.uid)!).child("pendingSentFriendRequest").updateChildValues([addFriendID: false])
