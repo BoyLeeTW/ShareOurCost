@@ -147,7 +147,7 @@ class ViewController: UIViewController {
                         ["email": "\(self.emailTextField.text!)",
                             "fullName": "\(self.fullNameTextField.text!)",
                             "userID": "\(self.userIDTextField.text!)",
-                            "createdTime": "\(Date().timeIntervalSince1970)"
+                            "createdTime": (Date().timeIntervalSince1970)
                         ])
                     self.ref?.child("userID").updateChildValues(["\(user!.uid)": "\(self.userIDTextField.text!)"])
 

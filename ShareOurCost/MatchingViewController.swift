@@ -75,11 +75,19 @@ class MatchingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        var ref: DatabaseReference!
+        ref = Database.database().reference()
+
+//        successful test query function
+//        ref.child("userInfo").child("N9dpyqGFCGXjtKXJh5fBwHHv7Zl1").child("friendList").queryOrderedByValue().queryEqual(toValue: true).observe(.childAdded, with: { (dataSnapshot) in
 //
-//        let array = ["0": "A", "1": "B"]
+//            print(dataSnapshot)
+//            print(dataSnapshot.key)
+//            print(dataSnapshot.value)
 //
-//        ref.database.reference().childByAutoId().setValue(array)
+//            for child in dataSnapshot.children {
+//                print(child)
+//            }
+//        })
 
         logOutButton.addTarget(self, action: #selector(handleLouOut), for: .touchUpInside)
 

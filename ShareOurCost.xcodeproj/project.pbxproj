@@ -19,6 +19,8 @@
 		A288F1521F2E2C0C0061F8FF /* FriendListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A288F1511F2E2C0C0061F8FF /* FriendListTableViewController.swift */; };
 		A288F1541F2E337F0061F8FF /* FriendRequestListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A288F1531F2E337F0061F8FF /* FriendRequestListTableViewCell.swift */; };
 		A288F1561F3055F40061F8FF /* FriendListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A288F1551F3055F40061F8FF /* FriendListTableViewCell.swift */; };
+		A288F1581F30A4FA0061F8FF /* AddExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A288F1571F30A4FA0061F8FF /* AddExpenseViewController.swift */; };
+		A288F15A1F3173BF0061F8FF /* ExpenseListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A288F1591F3173BF0061F8FF /* ExpenseListTableViewController.swift */; };
 		E96D74AF233843F582EEB011 /* Pods_ShareOurCost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10CC0D0489CC3AF52482997E /* Pods_ShareOurCost.framework */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +41,8 @@
 		A288F1511F2E2C0C0061F8FF /* FriendListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendListTableViewController.swift; sourceTree = "<group>"; };
 		A288F1531F2E337F0061F8FF /* FriendRequestListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendRequestListTableViewCell.swift; sourceTree = "<group>"; };
 		A288F1551F3055F40061F8FF /* FriendListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendListTableViewCell.swift; sourceTree = "<group>"; };
+		A288F1571F30A4FA0061F8FF /* AddExpenseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddExpenseViewController.swift; sourceTree = "<group>"; };
+		A288F1591F3173BF0061F8FF /* ExpenseListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseListTableViewController.swift; sourceTree = "<group>"; };
 		B196AC87C610FC16F941F121 /* Pods-ShareOurCost.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareOurCost.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShareOurCost/Pods-ShareOurCost.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -77,6 +81,8 @@
 			children = (
 				A20F2C661F276F9700D446F7 /* AppDelegate.swift */,
 				A20F2C6A1F276F9700D446F7 /* Main.storyboard */,
+				A288F1571F30A4FA0061F8FF /* AddExpenseViewController.swift */,
+				A288F1591F3173BF0061F8FF /* ExpenseListTableViewController.swift */,
 				A288F1551F3055F40061F8FF /* FriendListTableViewCell.swift */,
 				A288F1531F2E337F0061F8FF /* FriendRequestListTableViewCell.swift */,
 				A288F1511F2E2C0C0061F8FF /* FriendListTableViewController.swift */,
@@ -259,7 +265,9 @@
 				A20F2C6F1F276F9700D446F7 /* ShareOurCost.xcdatamodeld in Sources */,
 				A288F1541F2E337F0061F8FF /* FriendRequestListTableViewCell.swift in Sources */,
 				A20F2C821F28C01B00D446F7 /* MatchingViewController.swift in Sources */,
+				A288F1581F30A4FA0061F8FF /* AddExpenseViewController.swift in Sources */,
 				A288F1521F2E2C0C0061F8FF /* FriendListTableViewController.swift in Sources */,
+				A288F15A1F3173BF0061F8FF /* ExpenseListTableViewController.swift in Sources */,
 				A20F2C691F276F9700D446F7 /* LoginViewController.swift in Sources */,
 				A20F2C671F276F9700D446F7 /* AppDelegate.swift in Sources */,
 				A288F1561F3055F40061F8FF /* FriendListTableViewCell.swift in Sources */,
