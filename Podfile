@@ -8,5 +8,8 @@ target 'ShareOurCost' do
 pod 'Firebase/Core'
 pod 'Firebase/Auth'
 pod 'Firebase/Database'
+pod 'IQKeyboardManager'
+
+# Pods for ShareOurCost
 
 end

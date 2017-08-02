@@ -102,8 +102,6 @@ class FriendListTableViewController: UITableViewController {
 
             ref.child("userInfo").child(friendIDList[indexPath.row]).child("fullName").observe(.value, with: { (dataSnapshot) in
 
-                print(dataSnapshot.value!)
-
                 cell.friendNameLabel.text = dataSnapshot.value! as? String
 
             })

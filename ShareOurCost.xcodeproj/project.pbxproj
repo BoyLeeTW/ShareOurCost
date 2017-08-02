@@ -21,6 +21,8 @@
 		A288F1561F3055F40061F8FF /* FriendListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A288F1551F3055F40061F8FF /* FriendListTableViewCell.swift */; };
 		A288F1581F30A4FA0061F8FF /* AddExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A288F1571F30A4FA0061F8FF /* AddExpenseViewController.swift */; };
 		A288F15A1F3173BF0061F8FF /* ExpenseListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A288F1591F3173BF0061F8FF /* ExpenseListTableViewController.swift */; };
+		A2D770841F3203BD00FDE9A9 /* ExpenseListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D770831F3203BD00FDE9A9 /* ExpenseListTableViewCell.swift */; };
+		A2D770861F3203CC00FDE9A9 /* PendingExpenseListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D770851F3203CC00FDE9A9 /* PendingExpenseListTableViewCell.swift */; };
 		E96D74AF233843F582EEB011 /* Pods_ShareOurCost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10CC0D0489CC3AF52482997E /* Pods_ShareOurCost.framework */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +45,8 @@
 		A288F1551F3055F40061F8FF /* FriendListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendListTableViewCell.swift; sourceTree = "<group>"; };
 		A288F1571F30A4FA0061F8FF /* AddExpenseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddExpenseViewController.swift; sourceTree = "<group>"; };
 		A288F1591F3173BF0061F8FF /* ExpenseListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseListTableViewController.swift; sourceTree = "<group>"; };
+		A2D770831F3203BD00FDE9A9 /* ExpenseListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseListTableViewCell.swift; sourceTree = "<group>"; };
+		A2D770851F3203CC00FDE9A9 /* PendingExpenseListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PendingExpenseListTableViewCell.swift; sourceTree = "<group>"; };
 		B196AC87C610FC16F941F121 /* Pods-ShareOurCost.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareOurCost.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ShareOurCost/Pods-ShareOurCost.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -81,6 +85,8 @@
 			children = (
 				A20F2C661F276F9700D446F7 /* AppDelegate.swift */,
 				A20F2C6A1F276F9700D446F7 /* Main.storyboard */,
+				A2D770831F3203BD00FDE9A9 /* ExpenseListTableViewCell.swift */,
+				A2D770851F3203CC00FDE9A9 /* PendingExpenseListTableViewCell.swift */,
 				A288F1571F30A4FA0061F8FF /* AddExpenseViewController.swift */,
 				A288F1591F3173BF0061F8FF /* ExpenseListTableViewController.swift */,
 				A288F1551F3055F40061F8FF /* FriendListTableViewCell.swift */,
@@ -151,6 +157,7 @@
 				TargetAttributes = {
 					A20F2C621F276F9700D446F7 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 8KK974MW9K;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -225,11 +232,13 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-ShareOurCost/Pods-ShareOurCost-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -265,12 +274,14 @@
 				A20F2C6F1F276F9700D446F7 /* ShareOurCost.xcdatamodeld in Sources */,
 				A288F1541F2E337F0061F8FF /* FriendRequestListTableViewCell.swift in Sources */,
 				A20F2C821F28C01B00D446F7 /* MatchingViewController.swift in Sources */,
+				A2D770861F3203CC00FDE9A9 /* PendingExpenseListTableViewCell.swift in Sources */,
 				A288F1581F30A4FA0061F8FF /* AddExpenseViewController.swift in Sources */,
 				A288F1521F2E2C0C0061F8FF /* FriendListTableViewController.swift in Sources */,
 				A288F15A1F3173BF0061F8FF /* ExpenseListTableViewController.swift in Sources */,
 				A20F2C691F276F9700D446F7 /* LoginViewController.swift in Sources */,
 				A20F2C671F276F9700D446F7 /* AppDelegate.swift in Sources */,
 				A288F1561F3055F40061F8FF /* FriendListTableViewCell.swift in Sources */,
+				A2D770841F3203BD00FDE9A9 /* ExpenseListTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,7 +348,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -381,7 +392,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -394,7 +405,9 @@
 			baseConfigurationReference = B196AC87C610FC16F941F121 /* Pods-ShareOurCost.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 8KK974MW9K;
 				INFOPLIST_FILE = ShareOurCost/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Lee.ShareOurCost;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -407,7 +420,9 @@
 			baseConfigurationReference = 0FB66BD0448C110514B370DC /* Pods-ShareOurCost.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 8KK974MW9K;
 				INFOPLIST_FILE = ShareOurCost/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Lee.ShareOurCost;
 				PRODUCT_NAME = "$(TARGET_NAME)";
