@@ -45,6 +45,12 @@ class AddExpenseViewController: UIViewController {
 
                 sharedAmountForFriend = -Double(self.expenseAmountTextField.text!)!/2
 
+            } else {
+
+                sharedAmountForUser = -Double(self.expenseAmountTextField.text!)!/2
+                
+                sharedAmountForFriend = Double(self.expenseAmountTextField.text!)!/2
+
             }
 
             self.ref.database.reference().child("userExpense").child(Auth.auth().currentUser!.uid).updateChildValues([expenseID: "pending"])
@@ -72,6 +78,7 @@ class AddExpenseViewController: UIViewController {
             self.expenseDescriptionTextField.text = ""
             self.expenseSharedMethodTextField.text = ""
 
+            self.dismiss(animated: true, completion: nil)
         })
 
     }

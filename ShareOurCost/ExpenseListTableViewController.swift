@@ -61,6 +61,10 @@ class ExpenseListTableViewController: UITableViewController {
 
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        self.expenseListTableView.reloadData()
+    }
+
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -80,7 +84,7 @@ class ExpenseListTableViewController: UITableViewController {
         switch section {
 
         case 0:
-            
+
             if expenseIDList.count == 0 {
 
                 return 1
@@ -145,11 +149,8 @@ class ExpenseListTableViewController: UITableViewController {
 
                 guard let sharedAmount = dataSnapshot.value! as? Int else { return }
 
-                print(type(of: sharedAmount))
-
+                //someone owe you money
                 if sharedAmount > 0 {
-
-                    print("someone owe you money~~")
 
                     self.ref.database.reference().child("expenseList").child((self.pendingExpenseIDList)[indexPath.row]).child("sharedResult").observe(.childAdded, with: { (dataSnapshot) in
                         print(dataSnapshot.key)
@@ -166,9 +167,8 @@ class ExpenseListTableViewController: UITableViewController {
 
                     })
 
+                    // you owe someone money
                 } else {
-
-                    print("you owe someone money yo!")
 
                     self.ref.database.reference().child("expenseList").child((self.pendingExpenseIDList)[indexPath.row]).child("sharedResult").observe(.childAdded, with: { (dataSnapshot) in
                         print(dataSnapshot.key)
@@ -177,7 +177,7 @@ class ExpenseListTableViewController: UITableViewController {
 
                             self.ref.database.reference().child("userInfo").child("\(dataSnapshot.key)").child("fullName").observeSingleEvent(of: .value, with: { (dataSnapshot) in
 
-                                cell.pendingExpenseNameLabel.text = "\(dataSnapshot.value!) owes you \(-sharedAmount)"
+                                cell.pendingExpenseNameLabel.text = "You owe \(dataSnapshot.value!) \(-sharedAmount)"
 
                             })
 
@@ -188,8 +188,6 @@ class ExpenseListTableViewController: UITableViewController {
                 }
 
             })
-
-            cell.pendingExpenseNameLabel.text = pendingExpenseIDList[indexPath.row]
 
         }
 

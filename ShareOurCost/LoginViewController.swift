@@ -31,6 +31,8 @@ class ViewController: UIViewController {
 
         fullNameTextField.isHidden = true
 
+        userIDTextField.isHidden = true
+
         signInOrRegisterSegmentedControl.addTarget(self, action: #selector(handleSignInOrRegisterChange), for: UIControlEvents.valueChanged)
 
         ref = Database.database().reference()
@@ -53,6 +55,8 @@ class ViewController: UIViewController {
 
             fullNameTextField.isHidden = false
 
+            userIDTextField.isHidden = false
+
             forgetPasswordButton.isHidden = true
 
         } else {
@@ -60,6 +64,8 @@ class ViewController: UIViewController {
             signInOrUpButton.setTitle("Sign In", for: .normal)
 
             fullNameTextField.isHidden = true
+
+            userIDTextField.isHidden = true
 
             forgetPasswordButton.isHidden = false
 
