@@ -26,6 +26,8 @@ class ViewController: UIViewController {
 
     var ref: DatabaseReference!
 
+    var accountManager = AccountManager()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -89,9 +91,9 @@ class ViewController: UIViewController {
 
     func handleSignIn() {
 
-        if emailTextField.text == "" {
+        if emailTextField.text == "" || passwordTextField.text == "" {
 
-            let alertController = UIAlertController(title: "Error", message: "Please enter email account", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Error", message: "Please enter all information", preferredStyle: .alert)
 
             //what is handler
             let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
@@ -102,39 +104,20 @@ class ViewController: UIViewController {
 
         } else {
 
-            Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
+            accountManager.firebaseSignIn(email: emailTextField.text!, password: passwordTextField.text!)
 
-                if error == nil {
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "MatchingVC")
 
-                    print("Successful logged in!")
+            self.present(vc!, animated: true, completion: nil)
 
-                    print(user!.uid)
-
-                    UserDefaults.standard.setValue(user!.uid, forKey: "userUid")
-
-                    print(UserDefaults.standard.value(forKey: "userUid"))
-
-                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "MatchingVC")
-                    self.present(vc!, animated: true, completion: nil)
-
-                    // MARK: save uid
-
-                } else {
-
-                    let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
-                    alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-
-                    self.present(alertController, animated: true, completion: nil)
-                }
-            }
         }
     }
 
     func handleRegistration() {
 
-        if emailTextField.text == "" {
+        if emailTextField.text == "" || passwordTextField.text == "" || fullNameTextField.text == "" || userIDTextField.text == "" {
 
-            let alertController = UIAlertController(title: "Error", message: "Enter an email address!", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Error", message: "Please enter all information", preferredStyle: .alert)
 
             let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
 
@@ -144,37 +127,38 @@ class ViewController: UIViewController {
 
         } else {
 
-            Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
+            let result = accountManager.checkIfUserIDUnique(userID: userIDTextField.text!)
 
-                if error == nil {
-                    print("Successful signed up!")
+            if result == true {
+            
+            accountManager.firebaseRigistration(email: emailTextField.text!, password: passwordTextField.text!, userName: fullNameTextField.text!, userID: userIDTextField.text!)
 
-                    self.ref?.child("userInfo").child("\(user!.uid)").setValue(
-                        ["email": "\(self.emailTextField.text!)",
-                            "fullName": "\(self.fullNameTextField.text!)",
-                            "userID": "\(self.userIDTextField.text!)",
-                            "createdTime": (Date().timeIntervalSince1970)
-                        ])
-                    self.ref?.child("userID").updateChildValues(["\(user!.uid)": "\(self.userIDTextField.text!)"])
+            self.emailTextField.text = ""
 
-                    self.emailTextField.text = ""
-                    self.passwordTextField.text = ""
-                    self.fullNameTextField.text = ""
-                    self.userIDTextField.text = ""
+            self.passwordTextField.text = ""
 
-                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "MatchingVC")
-                    self.present(vc!, animated: true, completion: nil)
+            self.fullNameTextField.text = ""
 
-                } else {
+            self.userIDTextField.text = ""
 
-                    let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "MatchingVC")
 
-                    alertController.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            self.present(vc!, animated: true, completion: nil)
 
-                    self.present(alertController, animated: true, completion: nil)
-                }
+            } else {
+
+                let alertController = UIAlertController(title: "Error", message: "UserID is already used!", preferredStyle: .alert)
+
+                let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+
+                alertController.addAction(defaultAction)
+
+                self.present(alertController, animated: true, completion:  nil)
+
             }
+
         }
+
     }
 
     func handleForgetPassword() {

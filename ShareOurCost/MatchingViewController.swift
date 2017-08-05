@@ -24,33 +24,53 @@ class MatchingViewController: UIViewController {
 
     @IBAction func touchSearchFriendButton(_ sender: Any) {
 
-        let phoneNumber = phoneNumberTextField.text!
+        let searchedUserID = phoneNumberTextField.text!
+
+        var userID = String()
+
+        var friendName = String()
 
         ref = Database.database().reference()
 
-        ref.child("userID").observe(.childAdded, with: { (dataSnapshot) in
-            // 之後改成用ID配對
-            if let databasePhoneNumber = dataSnapshot.value as? String {
+        ref.child("userID").child(Auth.auth().currentUser!.uid).observeSingleEvent(of: .value, with: { (dataSnapshot) in
 
-                if databasePhoneNumber == phoneNumber {
+            userID = (dataSnapshot.value as? String)!
 
-                    self.ref.child("userInfo").child(dataSnapshot.key).child("fullName").observe(.value, with: { (dataSnapshot) in
+            if searchedUserID == userID {
 
-                        self.friendNameLabel.text = dataSnapshot.value as? String
-                    })
+                friendName = "It's you!"
 
-                    //save corresponding userID
+                self.friendNameLabel.text = friendName
+
+                self.addFriendButton.isEnabled = false
+
+            } else {
+
+                self.ref = Database.database().reference()
+
+                self.ref.child("userID").queryOrderedByValue().queryEqual(toValue: searchedUserID).observeSingleEvent(of: .childAdded, with: { (dataSnapshot) in
+
                     self.addFriendID = dataSnapshot.key
 
-                } else {
+                    self.ref.child("userInfo").child(dataSnapshot.key).child("fullName").observeSingleEvent(of: .value, with: { (dataSnapshot) in
 
-                    self.friendNameLabel.text = "Not Found!"
+                        friendName = (dataSnapshot.value as? String)!
 
-                }
+                        self.friendNameLabel.text = friendName
+
+                        self.addFriendButton.isEnabled = true
+
+                    })
+
+                })
 
             }
 
         })
+
+        friendName = "Not Found!"
+
+        self.friendNameLabel.text = friendName
 
     }
 
@@ -93,9 +113,9 @@ class MatchingViewController: UIViewController {
 
 // MARK: retriving data from expense
 //        refExpense = Database.database().reference().child("Expenses")
-        refExpense = Database.database().reference()
+//        refExpense = Database.database().reference()
 
-        refExpense.observe(.value, with: { (dataSnapshot) in
+//        refExpense.observe(.value, with: { (dataSnapshot) in
 
 //            guard let datas = dataSnapshot.children.allObjects as? [DataSnapshot] else { return }
 //            print(datas)
@@ -109,7 +129,7 @@ class MatchingViewController: UIViewController {
 
 //            }
 
-        })
+//        })
 
     }
 

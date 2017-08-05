@@ -18,7 +18,9 @@ class ExpenseListTableViewController: UITableViewController {
 
     var expenseIDList = [String]()
 
-    var pendingExpenseIDList = [String]()
+    var recievedPendingExpenseIDList = [String]()
+
+    var sentPendingExpenseIDList = [String]()
 
     var deniedExpenseIDList = [String]()
 
@@ -29,9 +31,17 @@ class ExpenseListTableViewController: UITableViewController {
 
         ref = Database.database().reference()
 
-        ref.child("userExpense").child("\(Auth.auth().currentUser!.uid)").queryOrderedByValue().queryEqual(toValue: "pending").observe(.childAdded, with: { (dataSnapshot) in
+        ref.child("userExpense").child("\(Auth.auth().currentUser!.uid)").queryOrderedByValue().queryEqual(toValue: "receivedPending").observe(.childAdded, with: { (dataSnapshot) in
 
-            self.pendingExpenseIDList.append(dataSnapshot.key)
+            self.recievedPendingExpenseIDList.append(dataSnapshot.key)
+
+            self.expenseListTableView.reloadData()
+
+        })
+
+        ref.child("userExpense").child("\(Auth.auth().currentUser!.uid)").queryOrderedByValue().queryEqual(toValue: "sentPending").observe(.childAdded, with: { (dataSnapshot) in
+
+            self.sentPendingExpenseIDList.append(dataSnapshot.key)
 
             self.expenseListTableView.reloadData()
 
@@ -62,6 +72,7 @@ class ExpenseListTableViewController: UITableViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+
         self.expenseListTableView.reloadData()
     }
 
@@ -69,12 +80,12 @@ class ExpenseListTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 3
+        return 4
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 
-        let sections = ["Expense", "Pending Sent Expense", "Denied Sent Expense"]
+        let sections = ["Expense", "Pending Received Expense", "Pending Sent Expense", "Denied Sent Expense"]
 
         return sections[section]
     }
@@ -97,7 +108,27 @@ class ExpenseListTableViewController: UITableViewController {
 
         case 1:
 
-            return pendingExpenseIDList.count
+            if expenseIDList.count == 0 {
+
+                return 1
+
+            } else {
+
+                return recievedPendingExpenseIDList.count
+
+            }
+
+        case 2:
+
+            if expenseIDList.count == 0 {
+
+                return 1
+
+            } else {
+
+                return sentPendingExpenseIDList.count
+
+            }
 
         default:
 
@@ -129,37 +160,83 @@ class ExpenseListTableViewController: UITableViewController {
 
             } else {
 
-                cell.expenseNameLabel.text = expenseIDList[indexPath.row]
+                ref.database.reference().child("expenseList").child((expenseIDList)[indexPath.row]).child("sharedResult").child(Auth.auth().currentUser!.uid).observeSingleEvent(of: .value, with: { (dataSnapshot) in
+                    
+                    guard let sharedAmount = dataSnapshot.value! as? Int else { return }
 
+                    //someone owe you money
+                    if sharedAmount > 0 {
+                        
+                        self.ref.database.reference().child("expenseList").child((self.expenseIDList)[indexPath.row]).child("sharedResult").observe(.childAdded, with: { (dataSnapshot) in
+                            print(dataSnapshot.key)
+                            
+                            if dataSnapshot.key != Auth.auth().currentUser!.uid {
+                                
+                                self.ref.database.reference().child("userInfo").child("\(dataSnapshot.key)").child("fullName").observeSingleEvent(of: .value, with: { (dataSnapshot) in
+                                    
+                                    cell.expenseNameLabel.text = "\(dataSnapshot.value!) owes you $\(sharedAmount)"
+                                    
+                                })
+                                
+                            }
+                            
+                        })
+                        
+                        // you owe someone money
+                    } else {
+                        
+                        self.ref.database.reference().child("expenseList").child((self.expenseIDList)[indexPath.row]).child("sharedResult").observe(.childAdded, with: { (dataSnapshot) in
+                            print(dataSnapshot.key)
+                            
+                            if dataSnapshot.key != Auth.auth().currentUser!.uid {
+                                
+                                self.ref.database.reference().child("userInfo").child("\(dataSnapshot.key)").child("fullName").observeSingleEvent(of: .value, with: { (dataSnapshot) in
+                                    
+                                    cell.expenseNameLabel.text = "You owe \(dataSnapshot.value!) $\(-sharedAmount)"
+                                    
+                                })
+                                
+                            }
+                            
+                        })
+                        
+                    }
+                    
+                })
+                
             }
 
             return cell
 
         case 1:
 
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "pendingExpenseListCell", for: indexPath) as? PendingExpenseListTableViewCell else { return UITableViewCell() }
+        if recievedPendingExpenseIDList.count == 0 {
 
-        if pendingExpenseIDList.count == 0 {
-
-            cell.pendingExpenseNameLabel.text = "nothing here"
-
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "expenseListCell", for: indexPath) as? ExpenseListTableViewCell else { return UITableViewCell() }
+            
+            cell.expenseNameLabel.text = "nothing here"
+            
+            return cell
+            
         } else {
 
-            ref.database.reference().child("expenseList").child((pendingExpenseIDList)[indexPath.row]).child("sharedResult").child(Auth.auth().currentUser!.uid).observeSingleEvent(of: .value, with: { (dataSnapshot) in
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "pendingExpenseListCell", for: indexPath) as? PendingExpenseListTableViewCell else { return UITableViewCell() }
+
+            ref.database.reference().child("expenseList").child((recievedPendingExpenseIDList)[indexPath.row]).child("sharedResult").child(Auth.auth().currentUser!.uid).observeSingleEvent(of: .value, with: { (dataSnapshot) in
 
                 guard let sharedAmount = dataSnapshot.value! as? Int else { return }
 
                 //someone owe you money
                 if sharedAmount > 0 {
 
-                    self.ref.database.reference().child("expenseList").child((self.pendingExpenseIDList)[indexPath.row]).child("sharedResult").observe(.childAdded, with: { (dataSnapshot) in
+                    self.ref.database.reference().child("expenseList").child((self.recievedPendingExpenseIDList)[indexPath.row]).child("sharedResult").observe(.childAdded, with: { (dataSnapshot) in
                         print(dataSnapshot.key)
 
                         if dataSnapshot.key != Auth.auth().currentUser!.uid {
 
                             self.ref.database.reference().child("userInfo").child("\(dataSnapshot.key)").child("fullName").observeSingleEvent(of: .value, with: { (dataSnapshot) in
 
-                                cell.pendingExpenseNameLabel.text = "\(dataSnapshot.value!) owes you \(sharedAmount)"
+                                cell.pendingExpenseNameLabel.text = "\(dataSnapshot.value!) owes you $\(sharedAmount)"
 
                             })
 
@@ -170,14 +247,14 @@ class ExpenseListTableViewController: UITableViewController {
                     // you owe someone money
                 } else {
 
-                    self.ref.database.reference().child("expenseList").child((self.pendingExpenseIDList)[indexPath.row]).child("sharedResult").observe(.childAdded, with: { (dataSnapshot) in
+                    self.ref.database.reference().child("expenseList").child((self.recievedPendingExpenseIDList)[indexPath.row]).child("sharedResult").observe(.childAdded, with: { (dataSnapshot) in
                         print(dataSnapshot.key)
 
                         if dataSnapshot.key != Auth.auth().currentUser!.uid {
 
                             self.ref.database.reference().child("userInfo").child("\(dataSnapshot.key)").child("fullName").observeSingleEvent(of: .value, with: { (dataSnapshot) in
 
-                                cell.pendingExpenseNameLabel.text = "You owe \(dataSnapshot.value!) \(-sharedAmount)"
+                                cell.pendingExpenseNameLabel.text = "You owe \(dataSnapshot.value!) $\(-sharedAmount)"
 
                             })
 
@@ -189,7 +266,69 @@ class ExpenseListTableViewController: UITableViewController {
 
             })
 
+            cell.acceptExpenseButton.tag = indexPath.row
+            
+            cell.acceptExpenseButton.addTarget(self, action: #selector(handleAcceptFriend), for: .touchUpInside)
+
+            return cell
+
         }
+
+        case 2:
+
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "expenseListCell", for: indexPath) as? ExpenseListTableViewCell else { return UITableViewCell() }
+
+            if sentPendingExpenseIDList.count == 0 {
+
+                cell.expenseNameLabel.text = "nothing here"
+
+            } else {
+
+                ref.database.reference().child("expenseList").child((sentPendingExpenseIDList)[indexPath.row]).child("sharedResult").child(Auth.auth().currentUser!.uid).observeSingleEvent(of: .value, with: { (dataSnapshot) in
+                    
+                    guard let sharedAmount = dataSnapshot.value! as? Int else { return }
+
+                    //someone owe you money
+                    if sharedAmount > 0 {
+
+                        self.ref.database.reference().child("expenseList").child((self.sentPendingExpenseIDList)[indexPath.row]).child("sharedResult").observe(.childAdded, with: { (dataSnapshot) in
+                            print(dataSnapshot.key)
+                            
+                            if dataSnapshot.key != Auth.auth().currentUser!.uid {
+                                
+                                self.ref.database.reference().child("userInfo").child("\(dataSnapshot.key)").child("fullName").observeSingleEvent(of: .value, with: { (dataSnapshot) in
+                                    
+                                    cell.expenseNameLabel.text = "\(dataSnapshot.value!) owes you $\(sharedAmount)"
+                                    
+                                })
+                                
+                            }
+                            
+                        })
+                        
+                        // you owe someone money
+                    } else {
+                        
+                        self.ref.database.reference().child("expenseList").child((self.sentPendingExpenseIDList)[indexPath.row]).child("sharedResult").observe(.childAdded, with: { (dataSnapshot) in
+                            print(dataSnapshot.key)
+                            
+                            if dataSnapshot.key != Auth.auth().currentUser!.uid {
+                                
+                                self.ref.database.reference().child("userInfo").child("\(dataSnapshot.key)").child("fullName").observeSingleEvent(of: .value, with: { (dataSnapshot) in
+                                    
+                                    cell.expenseNameLabel.text = "You owe \(dataSnapshot.value!) $\(-sharedAmount)"
+
+                                })
+
+                            }
+
+                        })
+
+                    }
+
+                })
+
+            }
 
             return cell
 
@@ -203,13 +342,84 @@ class ExpenseListTableViewController: UITableViewController {
 
             } else {
 
-                cell.expenseNameLabel.text = expenseIDList[indexPath.row]
+                ref.database.reference().child("expenseList").child((deniedExpenseIDList)[indexPath.row]).child("sharedResult").child(Auth.auth().currentUser!.uid).observeSingleEvent(of: .value, with: { (dataSnapshot) in
+                    
+                    guard let sharedAmount = dataSnapshot.value! as? Int else { return }
+                    
+                    //someone owe you money
+                    if sharedAmount > 0 {
+                        
+                        self.ref.database.reference().child("expenseList").child((self.deniedExpenseIDList)[indexPath.row]).child("sharedResult").observe(.childAdded, with: { (dataSnapshot) in
+                            print(dataSnapshot.key)
+                            
+                            if dataSnapshot.key != Auth.auth().currentUser!.uid {
+                                
+                                self.ref.database.reference().child("userInfo").child("\(dataSnapshot.key)").child("fullName").observeSingleEvent(of: .value, with: { (dataSnapshot) in
+                                    
+                                    cell.expenseNameLabel.text = "\(dataSnapshot.value!) owes you $\(sharedAmount)"
+                                    
+                                })
+                                
+                            }
+                            
+                        })
+                        
+                        // you owe someone money
+                    } else {
+                        
+                        self.ref.database.reference().child("expenseList").child((self.deniedExpenseIDList)[indexPath.row]).child("sharedResult").observe(.childAdded, with: { (dataSnapshot) in
+                            print(dataSnapshot.key)
+                            
+                            if dataSnapshot.key != Auth.auth().currentUser!.uid {
+                                
+                                self.ref.database.reference().child("userInfo").child("\(dataSnapshot.key)").child("fullName").observeSingleEvent(of: .value, with: { (dataSnapshot) in
+                                    
+                                    cell.expenseNameLabel.text = "You owe \(dataSnapshot.value!) $\(-sharedAmount)"
+                                    
+                                })
+                                
+                            }
+                            
+                        })
+                        
+                    }
+                    
+                })
+                
 
             }
 
             return cell
 
         }
+
+    }
+
+    func handleAcceptFriend(_ sender: UIButton) {
+
+        let expenseID = recievedPendingExpenseIDList[sender.tag]
+
+        ref = Database.database().reference()
+
+        ref.child("expenseList").child(expenseID).child("createdBy").observeSingleEvent(of: .value, with: { (dataSnapshot) in
+
+            if let createdUserID = dataSnapshot.value! as? String {
+
+                self.ref.child("expenseList").child(expenseID).child("sharedWith").observeSingleEvent(of: .value, with: { (dataSnapshot) in
+
+                    if let sharedUserID = dataSnapshot.value! as? String {
+
+                        self.ref.child("userExpense").child(createdUserID).updateChildValues([expenseID: "accepted"])
+
+                        self.ref.child("userExpense").child(sharedUserID).updateChildValues([expenseID: "accepted"])
+
+                        self.recievedPendingExpenseIDList.remove(at: sender.tag)
+                        
+                    }
+                })
+            }
+
+        })
 
     }
 

@@ -138,7 +138,6 @@ class FriendListTableViewController: UITableViewController {
     func handleAcceptFriend(_ sender: UIButton) {
 
         let friendID = friendRequestIDList[sender.tag]
-        print(friendID)
 
         //add ID of user who sent friend request to receiver's friend list
         self.ref.database.reference().child("userInfo").child(Auth.auth().currentUser!.uid).child("friendList").updateChildValues([friendID: true])
@@ -163,7 +162,7 @@ class FriendListTableViewController: UITableViewController {
 
         let friendID = friendRequestIDList[sender.tag]
         ref.database.reference().child("userInfo").child(Auth.auth().currentUser!.uid).child("pendingFriendRequest").child("\(friendID)").observe(.value, with: { (dataSnapshot) in
-            print(dataSnapshot)
+//            print(dataSnapshot)
         })
 
     }

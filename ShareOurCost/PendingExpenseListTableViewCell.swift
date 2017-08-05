@@ -10,18 +10,10 @@ import UIKit
 
 class PendingExpenseListTableViewCell: UITableViewCell {
     @IBOutlet weak var pendingExpenseNameLabel: UILabel!
-    @IBAction func touchAcceptPendingExpense(_ sender: Any) {
-
-        
-
-    }
-
-    @IBAction func touchDenyPendingExpense(_ sender: Any) {
-
+    @IBOutlet weak var acceptExpenseButton: UIButton!
+    @IBOutlet weak var denyExpenseButton: UIButton!
     
-
-    }
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
