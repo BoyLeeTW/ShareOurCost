@@ -9,9 +9,6 @@
 // TO DO: Add user's account create time
 
 import UIKit
-import Firebase
-import FirebaseAuth
-import FirebaseDatabase
 import Foundation
 
 class ViewController: UIViewController {
@@ -24,8 +21,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var forgetPasswordButton: UIButton!
     @IBOutlet weak var userIDTextField: UITextField!
 
-    var ref: DatabaseReference!
-
     var accountManager = AccountManager()
 
     override func viewDidLoad() {
@@ -37,15 +32,10 @@ class ViewController: UIViewController {
 
         signInOrRegisterSegmentedControl.addTarget(self, action: #selector(handleSignInOrRegisterChange), for: UIControlEvents.valueChanged)
 
-        ref = Database.database().reference()
 
         signInOrUpButton.addTarget(self, action: #selector(handleSignInOrRegister), for: .touchUpInside)
 
         forgetPasswordButton.addTarget(self, action: #selector(handleForgetPassword), for: .touchUpInside)
-
-        ref.child("userID").observe(.childAdded, with: { (dataSnapshot) in
-            print(dataSnapshot.value!)
-        })
 
     }
 
@@ -147,7 +137,7 @@ class ViewController: UIViewController {
 
             } else {
 
-                let alertController = UIAlertController(title: "Error", message: "UserID is already used!", preferredStyle: .alert)
+                let alertController = UIAlertController(title: "Oops", message: "UserID is already used!", preferredStyle: .alert)
 
                 let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
 
@@ -163,17 +153,27 @@ class ViewController: UIViewController {
 
     func handleForgetPassword() {
 
-        Auth.auth().sendPasswordReset(withEmail: emailTextField.text!) { ( error ) in
+        if emailTextField.text != "" {
 
-            if let error = error {
+            accountManager.firebaseResetPassword(email: emailTextField.text!)
 
-                print(error.localizedDescription)
+            let alertController = UIAlertController(title: "Success", message: "Please check your email to reset password", preferredStyle: .alert)
 
-            } else {
+            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
 
-                print("Sent password reset mail successfully!")
+            alertController.addAction(defaultAction)
 
-            }
+            self.present(alertController, animated: true, completion:  nil)
+
+        } else {
+
+            let alertController = UIAlertController(title: "Oops", message: "Please fill in your email", preferredStyle: .alert)
+            
+            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            
+            alertController.addAction(defaultAction)
+            
+            self.present(alertController, animated: true, completion:  nil)
 
         }
 

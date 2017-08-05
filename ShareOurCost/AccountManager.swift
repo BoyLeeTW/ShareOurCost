@@ -87,4 +87,22 @@ class AccountManager {
         }
     }
 
+    func firebaseResetPassword(email: String) {
+
+        Auth.auth().sendPasswordReset(withEmail: email) { ( error ) in
+
+            if let error = error {
+
+                print(error.localizedDescription)
+
+            } else {
+
+                print("Sent password reset mail successfully!")
+
+            }
+
+        }
+
+    }
+
 }
