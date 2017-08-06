@@ -97,18 +97,6 @@ class MatchingViewController: UIViewController {
 
         ref = Database.database().reference()
 
-//        successful test query function
-//        ref.child("userInfo").child("N9dpyqGFCGXjtKXJh5fBwHHv7Zl1").child("friendList").queryOrderedByValue().queryEqual(toValue: true).observe(.childAdded, with: { (dataSnapshot) in
-//
-//            print(dataSnapshot)
-//            print(dataSnapshot.key)
-//            print(dataSnapshot.value)
-//
-//            for child in dataSnapshot.children {
-//                print(child)
-//            }
-//        })
-
         logOutButton.addTarget(self, action: #selector(handleLouOut), for: .touchUpInside)
 
 // MARK: retriving data from expense

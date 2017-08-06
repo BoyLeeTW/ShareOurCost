@@ -41,29 +41,16 @@ class AccountManager {
 
     }
 
-    func checkIfUserIDUnique(userID: String) -> Bool {
+    func checkIfUserIDUnique(userID: String, completion: ((Bool) -> ())? = nil) {
 
         ref = Database.database().reference()
 
         //check if userID is unique
 
-        var result = Bool()
-
         ref.child("userID").queryOrderedByValue().queryEqual(toValue: userID).observeSingleEvent(of: .value, with: { (dataSnapshot) in
-
-            if dataSnapshot.exists() {
-
-                result = false
-
-            } else {
-
-                result = true
-
-            }
+            completion?(!dataSnapshot.exists())
 
         })
-
-        return result
 
     }
 
