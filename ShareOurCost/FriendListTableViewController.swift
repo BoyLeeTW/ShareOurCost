@@ -27,6 +27,7 @@ class FriendListTableViewController: UITableViewController {
         ref = Database.database().reference()
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(touchBackButton))
+
         ref.child("userInfo").child((Auth.auth().currentUser?.uid)!).child("pendingFriendRequest").observe(.childAdded, with: { (dataSnapshot) in
 
             if let friendRequestStatus = dataSnapshot.value! as? Bool {

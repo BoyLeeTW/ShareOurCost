@@ -24,6 +24,10 @@ class ExpenseListTableViewController: UITableViewController {
 
     var deniedExpenseIDList = [String]()
 
+    var selectedRow = Int()
+
+    var selectedSection = Int()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -168,7 +172,6 @@ class ExpenseListTableViewController: UITableViewController {
                     if sharedAmount > 0 {
                         
                         self.ref.database.reference().child("expenseList").child((self.expenseIDList)[indexPath.row]).child("sharedResult").observe(.childAdded, with: { (dataSnapshot) in
-                            print(dataSnapshot.key)
                             
                             if dataSnapshot.key != Auth.auth().currentUser!.uid {
                                 
@@ -186,7 +189,6 @@ class ExpenseListTableViewController: UITableViewController {
                     } else {
                         
                         self.ref.database.reference().child("expenseList").child((self.expenseIDList)[indexPath.row]).child("sharedResult").observe(.childAdded, with: { (dataSnapshot) in
-                            print(dataSnapshot.key)
                             
                             if dataSnapshot.key != Auth.auth().currentUser!.uid {
                                 
@@ -230,7 +232,6 @@ class ExpenseListTableViewController: UITableViewController {
                 if sharedAmount > 0 {
 
                     self.ref.database.reference().child("expenseList").child((self.recievedPendingExpenseIDList)[indexPath.row]).child("sharedResult").observe(.childAdded, with: { (dataSnapshot) in
-                        print(dataSnapshot.key)
 
                         if dataSnapshot.key != Auth.auth().currentUser!.uid {
 
@@ -248,7 +249,6 @@ class ExpenseListTableViewController: UITableViewController {
                 } else {
 
                     self.ref.database.reference().child("expenseList").child((self.recievedPendingExpenseIDList)[indexPath.row]).child("sharedResult").observe(.childAdded, with: { (dataSnapshot) in
-                        print(dataSnapshot.key)
 
                         if dataSnapshot.key != Auth.auth().currentUser!.uid {
 
@@ -292,7 +292,6 @@ class ExpenseListTableViewController: UITableViewController {
                     if sharedAmount > 0 {
 
                         self.ref.database.reference().child("expenseList").child((self.sentPendingExpenseIDList)[indexPath.row]).child("sharedResult").observe(.childAdded, with: { (dataSnapshot) in
-                            print(dataSnapshot.key)
                             
                             if dataSnapshot.key != Auth.auth().currentUser!.uid {
                                 
@@ -310,7 +309,6 @@ class ExpenseListTableViewController: UITableViewController {
                     } else {
                         
                         self.ref.database.reference().child("expenseList").child((self.sentPendingExpenseIDList)[indexPath.row]).child("sharedResult").observe(.childAdded, with: { (dataSnapshot) in
-                            print(dataSnapshot.key)
                             
                             if dataSnapshot.key != Auth.auth().currentUser!.uid {
                                 
@@ -350,7 +348,6 @@ class ExpenseListTableViewController: UITableViewController {
                     if sharedAmount > 0 {
                         
                         self.ref.database.reference().child("expenseList").child((self.deniedExpenseIDList)[indexPath.row]).child("sharedResult").observe(.childAdded, with: { (dataSnapshot) in
-                            print(dataSnapshot.key)
                             
                             if dataSnapshot.key != Auth.auth().currentUser!.uid {
                                 
@@ -368,7 +365,6 @@ class ExpenseListTableViewController: UITableViewController {
                     } else {
                         
                         self.ref.database.reference().child("expenseList").child((self.deniedExpenseIDList)[indexPath.row]).child("sharedResult").observe(.childAdded, with: { (dataSnapshot) in
-                            print(dataSnapshot.key)
                             
                             if dataSnapshot.key != Auth.auth().currentUser!.uid {
                                 
@@ -386,7 +382,6 @@ class ExpenseListTableViewController: UITableViewController {
                     
                 })
                 
-
             }
 
             return cell
@@ -420,6 +415,66 @@ class ExpenseListTableViewController: UITableViewController {
             }
 
         })
+
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        selectedRow = indexPath.row
+
+        switch indexPath.section {
+
+        case 0:
+
+            selectedSection = 0
+
+        case 1:
+
+            selectedSection = 1
+
+        case 2:
+
+            selectedSection = 2
+
+        default:
+
+            selectedSection = 3
+ 
+        }
+
+        self.performSegue(withIdentifier: "showExpenseDetailVC", sender: self)
+
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+        if segue.identifier == "showExpenseDetailVC" {
+
+            let expenseDetailNC = segue.destination as? UINavigationController
+
+            let destinationVC = expenseDetailNC?.viewControllers.first
+                as? ExpeneseDetailViewController
+            
+            switch selectedSection {
+            case 0 :
+
+                destinationVC?.expenseID = self.expenseIDList[selectedRow]
+
+            case 1:
+
+                destinationVC?.expenseID = self.recievedPendingExpenseIDList[selectedRow]
+
+            case 2:
+
+                destinationVC?.expenseID = self.sentPendingExpenseIDList[selectedRow]
+
+            default:
+
+                destinationVC?.expenseID = self.deniedExpenseIDList[selectedRow]
+
+            }
+
+        }
 
     }
 
