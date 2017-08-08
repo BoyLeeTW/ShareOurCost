@@ -9,6 +9,7 @@ pod 'Firebase/Core'
 pod 'Firebase/Auth'
 pod 'Firebase/Database'
 pod 'IQKeyboardManager'
+pod 'JTAppleCalendar', '~> 7.0'
 
 # Pods for ShareOurCost
 

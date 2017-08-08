@@ -28,8 +28,6 @@ class MatchingViewController: UIViewController {
 
         let searchedUserID = phoneNumberTextField.text!
 
-        var friendName = String()
-
         ref = Database.database().reference()
 
         friendManager.checkFriendID(userID: searchedUserID, completion: { (userSelfID, searchResult, searchedUID) in
@@ -57,46 +55,6 @@ class MatchingViewController: UIViewController {
             }
 
         })
-
-//        ref.child("userID").child(Auth.auth().currentUser!.uid).observeSingleEvent(of: .value, with: { (dataSnapshot) in
-//
-//            userID = (dataSnapshot.value as? String)!
-//
-//            if searchedUserID == userID {
-//
-//                friendName = "It's you!"
-//
-//                self.friendNameLabel.text = friendName
-//
-//                self.addFriendButton.isEnabled = false
-//
-//            } else {
-//
-//                self.ref = Database.database().reference()
-//
-//                self.ref.child("userID").queryOrderedByValue().queryEqual(toValue: searchedUserID).observeSingleEvent(of: .childAdded, with: { (dataSnapshot) in
-//
-//                    self.addFriendID = dataSnapshot.key
-//
-//                    self.ref.child("userInfo").child(dataSnapshot.key).child("fullName").observeSingleEvent(of: .value, with: { (dataSnapshot) in
-//
-//                        friendName = (dataSnapshot.value as? String)!
-//
-//                        self.friendNameLabel.text = friendName
-//
-//                        self.addFriendButton.isEnabled = true
-//
-//                    })
-//
-//                })
-//
-//            }
-//
-//        })
-//
-//        friendName = "Not Found!"
-//
-//        self.friendNameLabel.text = friendName
 
     }
 
