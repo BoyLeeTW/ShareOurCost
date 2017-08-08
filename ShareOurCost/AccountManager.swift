@@ -12,9 +12,6 @@ import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 
-
-
-
 class AccountManager {
 
     var ref: DatabaseReference!

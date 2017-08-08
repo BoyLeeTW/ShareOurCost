@@ -57,6 +57,17 @@ class AddExpenseViewController: UIViewController {
 
             self.ref.database.reference().child("userExpense").child(friendUID).updateChildValues([expenseID: "receivedPending"])
 
+            let yearFormatter = DateFormatter()
+            yearFormatter.dateFormat = "yyyy"
+            let monthFormatter = DateFormatter()
+            monthFormatter.dateFormat = "MM"
+            let dayFormatter = DateFormatter()
+            dayFormatter.dateFormat = "dd"
+            let hourFormatter = DateFormatter()
+            hourFormatter.dateFormat = "HH"
+            let minuteFormatter = DateFormatter()
+            minuteFormatter.dateFormat = "mm"
+            
             expenseRef.updateChildValues(
                 ["amount": Int(self.expenseAmountTextField.text!)!,
                 "description": "\(self.expenseDescriptionTextField.text!)",
@@ -64,7 +75,7 @@ class AddExpenseViewController: UIViewController {
                 "sharedMember": "\(self.expenseSharedMemberTextField.text!)",
                 "sharedMethod": "\(self.expenseSharedMethodTextField.text!)",
                 "expensePaidBy": "\(self.expensePaidByTestField.text!)",
-                "createdTime": (Date().timeIntervalSince1970),
+                "createdTime": (String(describing: Date())),
                 "createdBy": "\(Auth.auth().currentUser!.uid)",
                 "sharedWith": "\(friendUID)",
                 "sharedResult": ["\(Auth.auth().currentUser!.uid)": sharedAmountForUser, "\(friendUID)": sharedAmountForFriend]

@@ -1,4 +1,4 @@
-//
+ //
 //  MatchingViewController.swift
 //  ShareOurCost
 //
@@ -22,55 +22,81 @@ class MatchingViewController: UIViewController {
 
     var addFriendID = String()
 
+    var friendManager = FriendManager()
+
     @IBAction func touchSearchFriendButton(_ sender: Any) {
 
         let searchedUserID = phoneNumberTextField.text!
-
-        var userID = String()
 
         var friendName = String()
 
         ref = Database.database().reference()
 
-        ref.child("userID").child(Auth.auth().currentUser!.uid).observeSingleEvent(of: .value, with: { (dataSnapshot) in
+        friendManager.checkFriendID(userID: searchedUserID, completion: { (userSelfID, searchResult, searchedUID) in
 
-            userID = (dataSnapshot.value as? String)!
+            if searchResult == true {
 
-            if searchedUserID == userID {
+                if userSelfID == searchedUserID {
 
-                friendName = "It's you!"
+                    self.friendNameLabel.text = "It's you!"
 
-                self.friendNameLabel.text = friendName
+                } else {
 
-                self.addFriendButton.isEnabled = false
+                    self.friendManager.fetchUserInformation(searchedUID: searchedUID, completion: { (userName) in
 
-            } else {
-
-                self.ref = Database.database().reference()
-
-                self.ref.child("userID").queryOrderedByValue().queryEqual(toValue: searchedUserID).observeSingleEvent(of: .childAdded, with: { (dataSnapshot) in
-
-                    self.addFriendID = dataSnapshot.key
-
-                    self.ref.child("userInfo").child(dataSnapshot.key).child("fullName").observeSingleEvent(of: .value, with: { (dataSnapshot) in
-
-                        friendName = (dataSnapshot.value as? String)!
-
-                        self.friendNameLabel.text = friendName
-
-                        self.addFriendButton.isEnabled = true
+                        self.friendNameLabel.text = userName
 
                     })
 
-                })
+                }
+
+            } else {
+
+               self.friendNameLabel.text = "Not Found!"
 
             }
 
         })
 
-        friendName = "Not Found!"
-
-        self.friendNameLabel.text = friendName
+//        ref.child("userID").child(Auth.auth().currentUser!.uid).observeSingleEvent(of: .value, with: { (dataSnapshot) in
+//
+//            userID = (dataSnapshot.value as? String)!
+//
+//            if searchedUserID == userID {
+//
+//                friendName = "It's you!"
+//
+//                self.friendNameLabel.text = friendName
+//
+//                self.addFriendButton.isEnabled = false
+//
+//            } else {
+//
+//                self.ref = Database.database().reference()
+//
+//                self.ref.child("userID").queryOrderedByValue().queryEqual(toValue: searchedUserID).observeSingleEvent(of: .childAdded, with: { (dataSnapshot) in
+//
+//                    self.addFriendID = dataSnapshot.key
+//
+//                    self.ref.child("userInfo").child(dataSnapshot.key).child("fullName").observeSingleEvent(of: .value, with: { (dataSnapshot) in
+//
+//                        friendName = (dataSnapshot.value as? String)!
+//
+//                        self.friendNameLabel.text = friendName
+//
+//                        self.addFriendButton.isEnabled = true
+//
+//                    })
+//
+//                })
+//
+//            }
+//
+//        })
+//
+//        friendName = "Not Found!"
+//
+//        self.friendNameLabel.text = friendName
 
     }
 
@@ -94,7 +120,7 @@ class MatchingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         ref = Database.database().reference()
 
         logOutButton.addTarget(self, action: #selector(handleLouOut), for: .touchUpInside)
@@ -120,11 +146,7 @@ class MatchingViewController: UIViewController {
 //        })
 
     }
-
-    func handleSearchFriend() {
-
-    }
-
+    
     func handleLouOut() {
 
         UserDefaults.standard.setValue(nil, forKey: "userUid")
@@ -135,3 +157,4 @@ class MatchingViewController: UIViewController {
 
     }
 }
+ 

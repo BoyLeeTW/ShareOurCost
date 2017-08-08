@@ -64,14 +64,21 @@ class ExpeneseDetailViewController: UIViewController {
                   let amountYouShared = sharedAmount["\(Auth.auth().currentUser!.uid)"] as? Int
             
                 else { return }
+
+//            let dateFormetter = DateFormatter()
+//            DateFormatter.dateFormat(fromTemplate: <#T##String#>, options: <#T##Int#>, locale: <#T##Locale?#>)
+//            let dateFormat = "YYYY MMM dd hh:mm"()
+
+
+            self.totalAmountLabel.text = "Total Amount: \(expenseTotalAmount)"
+            self.expenseCreatedByLabel.text = "Created By: \(expenseCreatedBy)"
+            self.expenseCreatedDayLabel.text = "Create Day: \(expenseCreatedDay)"
+            self.expenseDescriptionLabel.text = "Description: \(expenseDescription)"
+            self.amountYouSharedLabel.text = "Amount You Shared: \(amountYouShared)"
+            self.expenseDateLabel.text = "\(NSDate(timeIntervalSince1970: expenseCreatedDay))"
+
             
-            self.totalAmountLabel.text = String(expenseTotalAmount)
-            self.expenseCreatedByLabel.text = expenseCreatedBy
-            self.expenseCreatedDayLabel.text = String(expenseCreatedDay)
-            self.expenseDescriptionLabel.text = expenseDescription
-            self.amountYouSharedLabel.text = String(amountYouShared)
-            self.expenseDateLabel.text = expenseDay
-            
+
         })
 
     }
