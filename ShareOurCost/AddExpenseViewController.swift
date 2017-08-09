@@ -9,11 +9,12 @@
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
-import JTAppleCalendar
 
-class AddExpenseViewController: UIViewController {
+class AddExpenseViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
     var ref: DatabaseReference!
+
+    var cellStatus = "left"
 
     @IBOutlet weak var expenseAmountTextField: UITextField!
     @IBOutlet weak var expenseDescriptionTextField: UITextField!
@@ -21,6 +22,13 @@ class AddExpenseViewController: UIViewController {
     @IBOutlet weak var expenseSharedMemberTextField: UITextField!
     @IBOutlet weak var expenseSharedMethodTextField: UITextField!
     @IBOutlet weak var expensePaidByTestField: UITextField!
+    @IBOutlet weak var sharedResultCollectionView: UICollectionView!
+    @IBAction func reloadCollectionView(_ sender: Any) {
+
+        print(sharedResultCollectionView)
+
+
+    }
     @IBAction func touchSaveExpenseButton(_ sender: Any) {
 
         ref = Database.database().reference()
@@ -97,7 +105,7 @@ class AddExpenseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        var datePicker = UIDatePicker()
+        let datePicker = UIDatePicker()
 
         datePicker.datePickerMode = .date
 
@@ -129,6 +137,28 @@ class AddExpenseViewController: UIViewController {
 
     }
 
-    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 2
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SharedRseultCell", for: indexPath) as! ExpenseSharedResultCollectionViewCell
+
+        return cell
+
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+
+        if self.cellStatus == "left" {
+            self.cellStatus = "right"
+            print("it's right now")
+        } else {
+            self.cellStatus = "left"
+            print("it's left now")
+        }
+
+    }
 
 }
