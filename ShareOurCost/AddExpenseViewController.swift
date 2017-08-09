@@ -96,8 +96,30 @@ class AddExpenseViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        var datePicker = UIDatePicker()
+
+        datePicker.datePickerMode = .date
+
+        expenseDayTextField.inputView = datePicker
+
+        let dateFormatter = DateFormatter()
+
+        dateFormatter.dateFormat = "yyyy/MM/dd"
+
+        expenseDayTextField.text = dateFormatter.string(from: Date())
+
+        datePicker.addTarget(self, action: #selector(handleDatePicker(sender:)), for: .valueChanged)
+
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(touchBackButton))
+
+    }
+
+    func handleDatePicker(sender: UIDatePicker) {
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy/MM/dd"
+        expenseDayTextField.text = dateFormatter.string(from: sender.date)
 
     }
 
@@ -106,5 +128,7 @@ class AddExpenseViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
 
     }
+
+    
 
 }
