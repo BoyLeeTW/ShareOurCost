@@ -44,6 +44,8 @@ class MatchingViewController: UIViewController {
 
                         self.friendNameLabel.text = userName
 
+                        self.addFriendID = searchedUID
+
                     })
 
                 }

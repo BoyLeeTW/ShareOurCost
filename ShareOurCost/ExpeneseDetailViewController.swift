@@ -56,7 +56,8 @@ class ExpeneseDetailViewController: UIViewController {
             guard let expenseData = dataSnapshot.value as? [String: Any],
                   let expenseTotalAmount = expenseData["amount"] as? Int,
                   let expenseCreatedBy = expenseData["createdBy"] as? String,
-                  let expenseCreatedDay = expenseData["createdTime"] as? Double,
+//                  let expenseCreatedDay = expenseData["createdTime"] as? Double,
+                  let expenseCreatedDay = expenseData["createdTime"] as? String,
                   let expensePaidby = expenseData["expensePaidBy"] as? String,
                   let expenseDescription = expenseData["description"] as? String,
                   let expenseDay = expenseData["expenseDay"] as? String,
@@ -75,7 +76,7 @@ class ExpeneseDetailViewController: UIViewController {
             self.expenseCreatedDayLabel.text = "Create Day: \(expenseCreatedDay)"
             self.expenseDescriptionLabel.text = "Description: \(expenseDescription)"
             self.amountYouSharedLabel.text = "Amount You Shared: \(amountYouShared)"
-            self.expenseDateLabel.text = "\(NSDate(timeIntervalSince1970: expenseCreatedDay))"
+            self.expenseDateLabel.text = "\(expenseDay)"
 
         })
 

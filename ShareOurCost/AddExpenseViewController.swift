@@ -10,25 +10,46 @@ import UIKit
 import FirebaseAuth
 import FirebaseDatabase
 
-class AddExpenseViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+enum PaidBy {
+
+    case user
+
+    case friend
+
+}
+
+enum SharedMethod {
+
+    case byNumber
+
+    case byPercent
+}
+
+class AddExpenseViewController: UIViewController {
 
     var ref: DatabaseReference!
 
-    var cellStatus = "left"
+    var friendList = [String: String]()
+
+    var paidByResult = PaidBy.user
+
+    var sharedMethod = SharedMethod.byNumber
 
     @IBOutlet weak var expenseAmountTextField: UITextField!
     @IBOutlet weak var expenseDescriptionTextField: UITextField!
     @IBOutlet weak var expenseDayTextField: UITextField!
     @IBOutlet weak var expenseSharedMemberTextField: UITextField!
-    @IBOutlet weak var expenseSharedMethodTextField: UITextField!
-    @IBOutlet weak var expensePaidByTestField: UITextField!
-    @IBOutlet weak var sharedResultCollectionView: UICollectionView!
-    @IBAction func reloadCollectionView(_ sender: Any) {
+    @IBOutlet weak var paidByUserButton: UIButton!
+    @IBOutlet weak var paidByFriendButton: UIButton!
+    @IBOutlet weak var userSharedAmountTextField: UITextField!
+    @IBOutlet weak var friendSharedAmountTextField: UITextField!
+    @IBOutlet weak var shareExpenseEquallyButton: UIButton!
+    @IBOutlet weak var shareExpenseByPercentButton: UIButton!
+    @IBOutlet weak var userSharedPercentTextField: UITextField!
+    @IBOutlet weak var friendSharedPercentTextField: UITextField!
+    @IBOutlet weak var userPercentLabel: UILabel!
+    @IBOutlet weak var friendPercentLabel: UILabel!
 
-        print(sharedResultCollectionView)
-
-
-    }
     @IBAction func touchSaveExpenseButton(_ sender: Any) {
 
         ref = Database.database().reference()
@@ -48,17 +69,23 @@ class AddExpenseViewController: UIViewController, UICollectionViewDataSource, UI
 
             var sharedAmountForFriend = Double()
 
-            if self.expensePaidByTestField.text! == "Y" {
+            var paidBy = ""
+
+            if self.paidByResult == .user {
 
                 sharedAmountForUser = Double(self.expenseAmountTextField.text!)!/2
 
                 sharedAmountForFriend = -Double(self.expenseAmountTextField.text!)!/2
+
+                paidBy = Auth.auth().currentUser!.uid
 
             } else {
 
                 sharedAmountForUser = -Double(self.expenseAmountTextField.text!)!/2
 
                 sharedAmountForFriend = Double(self.expenseAmountTextField.text!)!/2
+
+                paidBy = friendUID
 
             }
 
@@ -82,8 +109,7 @@ class AddExpenseViewController: UIViewController, UICollectionViewDataSource, UI
                 "description": "\(self.expenseDescriptionTextField.text!)",
                 "expenseDay": "\(self.expenseDayTextField.text!)",
                 "sharedMember": "\(self.expenseSharedMemberTextField.text!)",
-                "sharedMethod": "\(self.expenseSharedMethodTextField.text!)",
-                "expensePaidBy": "\(self.expensePaidByTestField.text!)",
+                "expensePaidBy": "\(paidBy)",
                 "createdTime": (String(describing: Date())),
                 "createdBy": "\(Auth.auth().currentUser!.uid)",
                 "sharedWith": "\(friendUID)",
@@ -92,11 +118,9 @@ class AddExpenseViewController: UIViewController, UICollectionViewDataSource, UI
             )
 
             self.expenseSharedMemberTextField.text = ""
-            self.expensePaidByTestField.text = ""
             self.expenseDayTextField.text = ""
             self.expenseAmountTextField.text = ""
             self.expenseDescriptionTextField.text = ""
-            self.expenseSharedMethodTextField.text = ""
 
         })
 
@@ -105,21 +129,226 @@ class AddExpenseViewController: UIViewController, UICollectionViewDataSource, UI
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let datePicker = UIDatePicker()
+        fetchFriendList()
 
-        datePicker.datePickerMode = .date
+        setUpDatePicker()
 
-        expenseDayTextField.inputView = datePicker
+        userPercentLabel.isHidden = true
+        friendPercentLabel.isHidden = true
+        userSharedPercentTextField.isHidden = true
+        friendSharedPercentTextField.isHidden = true
+        
+        paidByUserButton.addTarget(self, action: #selector(touchPaidByUser(_:)), for: .touchUpInside)
 
-        let dateFormatter = DateFormatter()
+        paidByFriendButton.addTarget(self, action: #selector(touchPaidByFriend(_:)), for: .touchUpInside)
 
-        dateFormatter.dateFormat = "yyyy/MM/dd"
+        shareExpenseEquallyButton.addTarget(self, action: #selector(touchShareExpenseEquallyButton), for: .touchUpInside)
 
-        expenseDayTextField.text = dateFormatter.string(from: Date())
-
-        datePicker.addTarget(self, action: #selector(handleDatePicker(sender:)), for: .valueChanged)
+        shareExpenseByPercentButton.addTarget(self, action: #selector(touchShareExpenseByPercentButton), for: .touchUpInside)
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(touchBackButton))
+
+        expenseAmountTextField.addTarget(self, action: #selector(expenseAmountTextFieldChanged(_:)), for: .editingChanged)
+
+        expenseSharedMemberTextField.addTarget(self, action: #selector(expenseSharedMamberTextFieldChanged(_:)), for: .editingChanged)
+
+        userSharedAmountTextField.addTarget(self, action: #selector(userSharedAmountTextFieldChagned), for: .editingChanged)
+
+        friendSharedAmountTextField.addTarget(self, action: #selector(friendSharedAmountTextFieldChagned), for: .editingChanged)
+
+        userSharedPercentTextField.addTarget(self, action: #selector(userSharedPercentTextFieldChanged), for: .editingChanged)
+
+        friendSharedPercentTextField.addTarget(self, action: #selector(friendSharedPercentTextFieldChanged), for: .editingChanged)
+
+    }
+
+    func touchShareExpenseEquallyButton() {
+
+        guard let totalAmountText = expenseAmountTextField.text else { return }
+        let totalAmount: Double = Double(totalAmountText) ?? 0
+        
+        userSharedAmountTextField.text = "\(Int(round(totalAmount / 2)))"
+        friendSharedAmountTextField.text = "\(Int(floor(totalAmount / 2)))"
+
+        shareExpenseEquallyButton.backgroundColor = UIColor.red
+        shareExpenseEquallyButton.setTitleColor(UIColor.white, for: .normal)
+        
+        shareExpenseByPercentButton.backgroundColor = UIColor.clear
+        shareExpenseByPercentButton.setTitleColor(UIColor.blue, for: .normal)
+
+        userPercentLabel.isHidden = true
+        friendPercentLabel.isHidden = true
+        userSharedPercentTextField.isHidden = true
+        friendSharedPercentTextField.isHidden = true
+        userSharedAmountTextField.isHidden = false
+        friendSharedAmountTextField.isHidden = false
+
+        sharedMethod = SharedMethod.byNumber
+
+    }
+
+    func touchShareExpenseByPercentButton() {
+        
+        userSharedPercentTextField.text = "50"
+        friendSharedPercentTextField.text = "50"
+
+        userPercentLabel.isHidden = false
+        friendPercentLabel.isHidden = false
+        userSharedPercentTextField.isHidden = false
+        friendSharedPercentTextField.isHidden = false
+        userSharedAmountTextField.isHidden = true
+        friendSharedAmountTextField.isHidden = true
+        
+        shareExpenseEquallyButton.backgroundColor = UIColor.clear
+        shareExpenseEquallyButton.setTitleColor(UIColor.blue, for: .normal)
+        
+        shareExpenseByPercentButton.backgroundColor = UIColor.red
+        shareExpenseByPercentButton.setTitleColor(UIColor.white, for: .normal)
+
+        sharedMethod = SharedMethod.byPercent
+
+    }
+
+    func userSharedPercentTextFieldChanged() {
+
+        guard let userSharedPercentText = userSharedPercentTextField.text else { return }
+
+        let userSharedPercent = Int(userSharedPercentText) ?? 0
+        friendSharedPercentTextField.text = "\(100 - userSharedPercent)"
+        
+    }
+
+    func friendSharedPercentTextFieldChanged() {
+
+        guard let friendSharedPercentText = friendSharedPercentTextField.text else { return }
+        
+        let friendSharedPercent = Int(friendSharedPercentText) ?? 0
+        userSharedPercentTextField.text = "\(100 - friendSharedPercent)"
+
+    }
+
+    func userSharedAmountTextFieldChagned() {
+
+        guard let totalAmountText = expenseAmountTextField.text,
+              let userSharedAmountText = userSharedAmountTextField.text
+        
+            else { return }
+
+        let totalAmount = Int(totalAmountText) ?? 0,
+            userSharedAmount = Int(userSharedAmountText) ?? 0
+
+        friendSharedAmountTextField.text = "\((totalAmount - userSharedAmount))"
+
+    }
+
+    func friendSharedAmountTextFieldChagned() {
+
+        guard let totalAmountText = expenseAmountTextField.text,
+            let friendSharedAmountText = friendSharedAmountTextField.text
+            
+            else { return }
+        
+        let totalAmount = Int(totalAmountText) ?? 0,
+        friendSharedAmount = Int(friendSharedAmountText) ?? 0
+        
+        userSharedAmountTextField.text = "\((totalAmount - friendSharedAmount))"
+
+    }
+
+    func touchPaidByUser(_ sender: UIButton) {
+
+        paidByResult = PaidBy.user
+
+        paidByUserButton.backgroundColor = UIColor.red
+        paidByUserButton.setTitleColor(UIColor.white, for: .normal)
+        
+        paidByFriendButton.backgroundColor = UIColor.clear
+        paidByFriendButton.setTitleColor(UIColor.blue, for: .normal)
+
+    }
+
+    func touchPaidByFriend(_ sender: UIButton) {
+
+        paidByResult = PaidBy.friend
+
+        paidByUserButton.backgroundColor = UIColor.clear
+        paidByUserButton.setTitleColor(UIColor.blue, for: .normal)
+
+        
+        paidByFriendButton.backgroundColor = UIColor.red
+        paidByFriendButton.setTitleColor(UIColor.white, for: .normal)
+
+    }
+
+    func setUpDatePicker() {
+
+        let datePicker = UIDatePicker()
+        
+        datePicker.datePickerMode = .date
+        
+        expenseDayTextField.inputView = datePicker
+        
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "yyyy/MM/dd"
+        
+        expenseDayTextField.text = dateFormatter.string(from: Date())
+        
+        datePicker.addTarget(self, action: #selector(handleDatePicker(sender:)), for: .valueChanged)
+
+    }
+
+    func fetchFriendList() {
+
+        ref = Database.database().reference()
+
+        ref.child("userInfo").child(Auth.auth().currentUser!.uid).child("friendList").observe(.childAdded, with: { (dataSnapshot) in
+
+            let friendUID = dataSnapshot.key
+
+                self.ref.child("userID").child(friendUID).observeSingleEvent(of: .value, with: { (dataSnapshot) in
+
+                    guard let userID = dataSnapshot.value as? String else { return }
+
+                    self.ref.child("userInfo").child(friendUID).child("fullName").observeSingleEvent(of: .value, with: { (dataSnapshot) in
+
+                        guard let friendName = dataSnapshot.value as? String else { return }
+
+                        self.friendList.updateValue(friendName, forKey: userID)
+
+                    })
+
+
+                })
+
+        })
+
+        ref.removeAllObservers()
+
+    }
+
+    func expenseAmountTextFieldChanged(_ sender: UITextField) {
+        guard let amountText = sender.text else { return }
+        let amount: Double = Double(amountText) ?? 0
+
+        userSharedAmountTextField.text = "\(Int(round(amount / 2)))"
+        friendSharedAmountTextField.text = "\(Int(floor(amount / 2)))"
+
+    }
+
+    func expenseSharedMamberTextFieldChanged(_ sender: UITextField) {
+
+        guard let enteredSharedMember = sender.text else { return }
+
+        if let enteredFriendName = friendList[enteredSharedMember] {
+                
+            paidByFriendButton.setTitle(enteredFriendName, for: .normal)
+
+        } else {
+
+            self.paidByFriendButton.setTitle("Not Found!", for: .normal)
+
+        }
 
     }
 
@@ -134,30 +363,6 @@ class AddExpenseViewController: UIViewController, UICollectionViewDataSource, UI
     func touchBackButton() {
 
         self.dismiss(animated: true, completion: nil)
-
-    }
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SharedRseultCell", for: indexPath) as! ExpenseSharedResultCollectionViewCell
-
-        return cell
-
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-
-        if self.cellStatus == "left" {
-            self.cellStatus = "right"
-            print("it's right now")
-        } else {
-            self.cellStatus = "left"
-            print("it's left now")
-        }
 
     }
 

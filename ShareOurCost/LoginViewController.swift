@@ -91,11 +91,28 @@ class ViewController: UIViewController {
 
         } else {
 
-            accountManager.firebaseSignIn(email: emailTextField.text!, password: passwordTextField.text!)
+            accountManager.firebaseSignIn(email: emailTextField.text!, password: passwordTextField.text!, completion: { (loginResultBool, error) in
 
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "MatchingVC")
+                if loginResultBool == true {
 
-            self.present(vc!, animated: true, completion: nil)
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "MatchingVC")
+                    
+                    self.present(vc!, animated: true, completion: nil)
+
+                }
+            
+                else {
+
+                    let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
+
+                    let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+
+                    alertController.addAction(defaultAction)
+
+                    self.present(alertController, animated: true, completion: nil)
+
+                }
+            })
 
         }
     }

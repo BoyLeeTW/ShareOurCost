@@ -16,21 +16,25 @@ class AccountManager {
 
     var ref: DatabaseReference!
 
-    func firebaseSignIn(email: String, password: String) {
-        
+    func firebaseSignIn(email: String, password: String, completion: @escaping ((Bool, Error?) -> ())) {
+
+        var loginResult = false
+
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
                 
             if error == nil {
-                    
-                print("Successful logged in!")
-                    
-                print(user!.uid)
-                    
+
+                loginResult = true
+
                 UserDefaults.standard.setValue(user!.uid, forKey: "userUid")
 
-            } else {
+                completion(loginResult, nil)
 
+            } else {
+                
                 print(error?.localizedDescription as Any)
+
+                completion(loginResult, error)
 
             }
 

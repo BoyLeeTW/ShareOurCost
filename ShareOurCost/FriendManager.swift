@@ -45,7 +45,7 @@ class FriendManager {
                 })
                 .first
             
-            guard let searchedUID = pair?.key as? String else {
+            guard let searchedUID = pair?.key else {
 
                 completion(userSelfID, dataSnapshot.exists(), "nothing")
 
