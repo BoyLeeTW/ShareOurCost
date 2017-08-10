@@ -71,23 +71,54 @@ class AddExpenseViewController: UIViewController {
 
             var paidBy = ""
 
-            if self.paidByResult == .user {
+            if self.sharedMethod == .byNumber {
 
-                sharedAmountForUser = Double(self.expenseAmountTextField.text!)!/2
-
-                sharedAmountForFriend = -Double(self.expenseAmountTextField.text!)!/2
-
-                paidBy = Auth.auth().currentUser!.uid
+                if self.paidByResult == .user {
+                    
+                    sharedAmountForUser = Double(self.userSharedAmountTextField.text!)!
+                    
+                    sharedAmountForFriend = -Double(self.friendSharedAmountTextField.text!)!
+                    
+                    paidBy = Auth.auth().currentUser!.uid
+                    
+                } else {
+                    
+                    sharedAmountForUser = -Double(self.userSharedAmountTextField.text!)!
+                    
+                    sharedAmountForFriend = Double(self.friendSharedAmountTextField.text!)!/2
+                    
+                    paidBy = friendUID
+                    
+                }
 
             } else {
 
-                sharedAmountForUser = -Double(self.expenseAmountTextField.text!)!/2
-
-                sharedAmountForFriend = Double(self.expenseAmountTextField.text!)!/2
-
-                paidBy = friendUID
+                guard let sharedPercentAmountForUserText = self.userSharedPercentTextField.text,
+                      let totalExepnseAmountText = self.expenseAmountTextField.text
+                    else { return }
+                let sharedPercentAmountForUser = Double(sharedPercentAmountForUserText) ?? 0
+                let totalExpenseAmount = Double(totalExepnseAmountText) ?? 0
+                
+                if self.paidByResult == .user {
+                    
+                    sharedAmountForUser = round(Double(sharedPercentAmountForUser * totalExpenseAmount / 100))
+                    
+                    sharedAmountForFriend = -floor(Double((100 - sharedPercentAmountForUser) * totalExpenseAmount / 100))
+                    
+                    paidBy = Auth.auth().currentUser!.uid
+                    
+                } else {
+                    
+                    sharedAmountForUser = -round(Double(sharedPercentAmountForUser * totalExpenseAmount / 100))
+                    
+                    sharedAmountForFriend = floor(Double((100 - sharedPercentAmountForUser) * totalExpenseAmount / 100))
+                    
+                    paidBy = friendUID
+                    
+                }
 
             }
+
 
             self.ref.database.reference().child("userExpense").child(Auth.auth().currentUser!.uid).updateChildValues([expenseID: "sentPending"])
 

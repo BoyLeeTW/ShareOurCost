@@ -81,17 +81,20 @@ class ViewController: UIViewController {
 
         if emailTextField.text == "" || passwordTextField.text == "" {
 
-            let alertController = UIAlertController(title: "Error", message: "Please enter all information", preferredStyle: .alert)
-
-            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-
+            let alertController = UIAlertController(title: "Error",
+                                                    message: "Please enter all information",
+                                                    preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "OK",
+                                              style: .cancel,
+                                              handler: nil)
             alertController.addAction(defaultAction)
-
             present(alertController, animated: true, completion: nil)
 
         } else {
 
-            accountManager.firebaseSignIn(email: emailTextField.text!, password: passwordTextField.text!, completion: { (loginResultBool, error) in
+            accountManager.firebaseSignIn(email: emailTextField.text!,
+                                          password: passwordTextField.text!,
+                                          completion: { (loginResultBool, error) in
 
                 if loginResultBool == true {
 
@@ -104,11 +107,8 @@ class ViewController: UIViewController {
                 else {
 
                     let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
-
                     let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-
                     alertController.addAction(defaultAction)
-
                     self.present(alertController, animated: true, completion: nil)
 
                 }

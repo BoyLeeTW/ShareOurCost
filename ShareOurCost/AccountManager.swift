@@ -31,8 +31,6 @@ class AccountManager {
                 completion(loginResult, nil)
 
             } else {
-                
-                print(error?.localizedDescription as Any)
 
                 completion(loginResult, error)
 
