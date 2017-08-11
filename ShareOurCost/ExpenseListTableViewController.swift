@@ -450,10 +450,7 @@ class ExpenseListTableViewController: UITableViewController {
 
         if segue.identifier == "showExpenseDetailVC" {
 
-            let expenseDetailNC = segue.destination as? UINavigationController
-
-            let destinationVC = expenseDetailNC?.viewControllers.first
-                as? ExpeneseDetailViewController
+            let destinationVC = segue.destination as? ExpeneseDetailViewController
             
             switch selectedSection {
             case 0 :

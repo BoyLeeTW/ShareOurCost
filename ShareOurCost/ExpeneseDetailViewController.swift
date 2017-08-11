@@ -29,7 +29,7 @@ class ExpeneseDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(touchBackButton))
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(touchBackButton))
 
         setUpExpenseDetailLabel()
 
@@ -52,7 +52,6 @@ class ExpeneseDetailViewController: UIViewController {
         
         ref.child("expenseList").child(expenseID).observe(.value, with: { (dataSnapshot) in
 
-
             guard let expenseData = dataSnapshot.value as? [String: Any],
                   let expenseTotalAmount = expenseData["amount"] as? Int,
                   let expenseCreatedBy = expenseData["createdBy"] as? String,
@@ -65,10 +64,6 @@ class ExpeneseDetailViewController: UIViewController {
                   let amountYouShared = sharedAmount["\(Auth.auth().currentUser!.uid)"] as? Int
             
                 else { return }
-
-//            let dateFormetter = DateFormatter()
-//            DateFormatter.dateFormat(fromTemplate: <#T##String#>, options: <#T##Int#>, locale: <#T##Locale?#>)
-//            let dateFormat = "YYYY MMM dd hh:mm"()
 
 
             self.totalAmountLabel.text = "Total Amount: \(expenseTotalAmount)"

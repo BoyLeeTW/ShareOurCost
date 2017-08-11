@@ -120,9 +120,9 @@ class AddExpenseViewController: UIViewController {
             }
 
 
-            self.ref.database.reference().child("userExpense").child(Auth.auth().currentUser!.uid).updateChildValues([expenseID: "sentPending"])
+            self.ref.database.reference().child("userExpense").child(Auth.auth().currentUser!.uid).child(friendUID).updateChildValues([expenseID: "sentPending"])
 
-            self.ref.database.reference().child("userExpense").child(friendUID).updateChildValues([expenseID: "receivedPending"])
+            self.ref.database.reference().child("userExpense").child(friendUID).child(Auth.auth().currentUser!.uid).updateChildValues([expenseID: "receivedPending"])
 
             let yearFormatter = DateFormatter()
             yearFormatter.dateFormat = "yyyy"
@@ -160,7 +160,7 @@ class AddExpenseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        fetchFriendList()
+        fetchFriendUIDToIDList()
 
         setUpDatePicker()
 
@@ -177,7 +177,7 @@ class AddExpenseViewController: UIViewController {
 
         shareExpenseByPercentButton.addTarget(self, action: #selector(touchShareExpenseByPercentButton), for: .touchUpInside)
 
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(touchBackButton))
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(touchBackButton))
 
         expenseAmountTextField.addTarget(self, action: #selector(expenseAmountTextFieldChanged(_:)), for: .editingChanged)
 
@@ -329,7 +329,7 @@ class AddExpenseViewController: UIViewController {
 
     }
 
-    func fetchFriendList() {
+    func fetchFriendUIDToIDList() {
 
         ref = Database.database().reference()
 
@@ -348,7 +348,6 @@ class AddExpenseViewController: UIViewController {
                         self.friendList.updateValue(friendName, forKey: userID)
 
                     })
-
 
                 })
 
@@ -392,8 +391,8 @@ class AddExpenseViewController: UIViewController {
     }
 
     func touchBackButton() {
-
-        self.dismiss(animated: true, completion: nil)
+        _ = navigationController?.popViewController(animated: true)
+//        self.dismiss(animated: true, completion: nil)
 
     }
 

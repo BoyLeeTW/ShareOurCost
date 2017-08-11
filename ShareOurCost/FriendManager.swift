@@ -84,5 +84,24 @@ class FriendManager {
 
     }
 
+    func fetchFriendUIDList(completion: @escaping ((Array<String>) -> ())) {
+
+        var friendUIDList = [String]()
+
+        ref = Database.database().reference()
+
+        ref.child("userInfo").child(Auth.auth().currentUser!.uid).child("friendList").observe(.value, with: { (dataSnapshot) in
+
+            guard let friendListData = dataSnapshot.value as?[String: Bool] else { return }
+
+            for (friendID, _) in friendListData {
+
+                friendUIDList.append(friendID)
+            }
+
+            completion(friendUIDList)
+        })
+
+    }
 
 }
