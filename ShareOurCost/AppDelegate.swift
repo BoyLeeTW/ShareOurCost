@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import Firebase
+import IQKeyboardManager
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +20,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
 
         FirebaseApp.configure()
+
+        IQKeyboardManager.shared().isEnabled = true
+
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+
+        if UserDefaults.standard.value(forKey: "userUid") != nil {
+
+            let tabBarVC = mainStoryboard.instantiateViewController(withIdentifier: "MatchingVC")
+
+            window?.rootViewController = tabBarVC
+
+        } else {
+
+            let loginVC = mainStoryboard.instantiateViewController(withIdentifier: "LoginVC")
+
+            window?.rootViewController = loginVC
+
+        }
 
         return true
     }
