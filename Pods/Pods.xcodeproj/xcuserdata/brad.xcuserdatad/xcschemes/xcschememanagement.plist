@@ -4,11 +4,6 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>FoldingCell.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>GTMSessionFetcher.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -42,12 +37,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8A81A246892A539F670403CAC927F1C1</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>B626E472969D6F87698AF0041EAAFC38</key>
+		<key>B3421C2C62635B477C623E0049B52673</key>
 		<dict>
 			<key>primary</key>
 			<true/>

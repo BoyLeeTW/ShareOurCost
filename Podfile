@@ -9,7 +9,6 @@ pod 'Firebase/Core'
 pod 'Firebase/Auth'
 pod 'Firebase/Database'
 pod 'IQKeyboardManager'
-pod 'FoldingCell'
 
 # Pods for ShareOurCost
 
