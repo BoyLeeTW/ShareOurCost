@@ -334,7 +334,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lqu-aD-qOV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4044" y="1198"/>
+            <point key="canvasLocation" x="4403" y="225"/>
         </scene>
         <!--Friend List Table View Controller-->
         <scene sceneID="cB5-qP-Kk4">
@@ -484,7 +484,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="6Xb-H5-H2g"/>
+                    <navigationItem key="navigationItem" id="6Xb-H5-H2g">
+                        <barButtonItem key="rightBarButtonItem" title="Add" id="QoP-IJ-lhp">
+                            <connections>
+                                <segue destination="0jq-iu-og4" kind="show" id="EN1-Cb-XnZ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="expenseListTableView" destination="nH6-Ff-pQp" id="BP1-zt-t9c"/>
                         <outlet property="expenseStatusSegmentController" destination="eHj-UN-dPX" id="O7w-df-l6v"/>
@@ -649,12 +655,30 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0NX-ia-Kt3">
+                                <rect key="frame" x="40" y="405" width="240" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Deny"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6EA-xX-2fW">
+                                <rect key="frame" x="40" y="353" width="240" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Accept"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ula-Im-4pr">
+                                <rect key="frame" x="40" y="463" width="240" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Delete"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="l6p-r6-SDT"/>
                     <connections>
+                        <outlet property="acceptExpenseButton" destination="6EA-xX-2fW" id="RkF-1E-Scg"/>
                         <outlet property="amountYouSharedLabel" destination="7Am-Q4-0iy" id="fMD-6P-qoS"/>
+                        <outlet property="deleteExpenseButton" destination="ula-Im-4pr" id="FAn-d5-Ibj"/>
+                        <outlet property="denyExpenseButton" destination="0NX-ia-Kt3" id="ZdA-MK-jNa"/>
                         <outlet property="expenseCreatedByLabel" destination="h0X-b1-bpe" id="F8a-1G-LzE"/>
                         <outlet property="expenseCreatedDayLabel" destination="MJy-gg-mYh" id="3aP-2Q-wHn"/>
                         <outlet property="expenseDateLabel" destination="Ach-M2-c8L" id="iaY-gH-p5P"/>
@@ -664,7 +688,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XzU-g4-8Uv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4196" y="415"/>
+            <point key="canvasLocation" x="4175.625" y="-597.88732394366195"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Vtr-oK-XbX">
@@ -703,4 +727,7 @@
             <point key="canvasLocation" x="2199.375" y="-596.83098591549299"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="1vk-ng-Osa"/>
+    </inferredMetricsTieBreakers>
 </document>

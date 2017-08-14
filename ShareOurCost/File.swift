@@ -11,6 +11,8 @@ import Foundation
 
 var userUID = String()
 
+var friendUIDandNameList = [String: String]()
+
 class ExpenseModel {
 
     var amount: Int

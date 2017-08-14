@@ -27,7 +27,6 @@ class FriendManager {
 
             userSelfID = userID
 
-            self.ref.removeAllObservers()
         })
 
         ref.child("userID").queryOrderedByValue().queryEqual(toValue: userID).observeSingleEvent(of: .value, with: { (dataSnapshot) in
@@ -49,13 +48,9 @@ class FriendManager {
 
                 completion(userSelfID, dataSnapshot.exists(), "nothing")
 
-                self.ref.removeAllObservers()
-
                 return }
             
             completion(userSelfID, dataSnapshot.exists(), searchedUID)
-            
-            self.ref.removeAllObservers()
 
         })
         

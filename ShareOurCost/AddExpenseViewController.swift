@@ -343,8 +343,6 @@ class AddExpenseViewController: UIViewController {
 
         })
 
-        ref.removeAllObservers()
-
     }
 
     func expenseAmountTextFieldChanged(_ sender: UITextField) {

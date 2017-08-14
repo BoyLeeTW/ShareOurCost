@@ -40,6 +40,8 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
     var deniedExpenseIDList = ExpenseIDList()
 
+    var toBeDeletedExpenseIDList = ExpenseIDList()
+
     var selectedRow = Int()
 
     var selectedSection = Int()
@@ -47,12 +49,16 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        expenseStatusSegmentController.selectedSegmentIndex = 0
-
         expenseStatusSegmentController.addTarget(self, action: #selector(expenseStatusSegmentControllerChanged), for: .valueChanged)
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(touchBackButton))
-        
+
+        fetchData()
+
+    }
+
+    func fetchData() {
+
         DispatchQueue.global().async {
             
             self.friendManager.fetchFriendUIDList { (friendUIDList) in
@@ -61,19 +67,22 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                 
                 self.friendManager.fetchFriendUIDtoNameList(friendUIDList: self.friendUIDList, completion: { (friendUIDtoNameList) in
                     
+                    friendUIDandNameList = friendUIDtoNameList
+                    
                     self.friendUIDtoNameList = friendUIDtoNameList
-
+                    
                     self.expenseListTableView.reloadData()
                     
                 })
                 
-                self.expenseManager.newFetchExpenseIDList { (acceptedExpenseIDList, receivedPendingExpenseIDList, sentPendingExpenseIDList, deniedExpenseIDList) in
-
+                self.expenseManager.newFetchExpenseIDList { (acceptedExpenseIDList, receivedPendingExpenseIDList, sentPendingExpenseIDList, deniedExpenseIDList, toBeDeletedExpenseIDList) in
+                    
                     self.acceptedExpenseIDList = acceptedExpenseIDList
                     self.receivedPendingExpenseIDList = receivedPendingExpenseIDList
                     self.sentPendingExpenseIDList = sentPendingExpenseIDList
                     self.deniedExpenseIDList = deniedExpenseIDList
-
+                    self.toBeDeletedExpenseIDList = toBeDeletedExpenseIDList
+                    
                     self.expenseListTableView.reloadData()
                     
                 }
@@ -82,6 +91,8 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
     }
 
     override func viewWillAppear(_ animated: Bool) {
+
+        fetchData()
 
         self.expenseListTableView.reloadData()
 
@@ -126,9 +137,13 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
             rowInSection = sentPendingExpenseIDList[friendUIDList[section]]?.count ?? 0
 
-        default:
+        case 3:
 
             rowInSection = deniedExpenseIDList[friendUIDList[section]]?.count ?? 0
+
+        default:
+
+            rowInSection = toBeDeletedExpenseIDList[friendUIDList[section]]?.count ?? 0
 
         }
 
@@ -144,12 +159,22 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
         case 0:
 
             guard let expenseData = acceptedExpenseIDList[friendUIDList[indexPath.section]]?[indexPath.row],
-
                   let expenseDescription = expenseData["description"] as? String,
                   let sharedResult = expenseData["sharedResult"] as? [String: Int],
+                let isRead = expenseData["isRead"] as? Bool,
                   let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]]
 
             else { return cell }
+
+            if isRead == true {
+                
+                cell.contentView.backgroundColor = UIColor.clear
+                
+            } else {
+                
+                cell.contentView.backgroundColor = UIColor.yellow
+                
+            }
 
             for (key, value) in sharedResult where value < 0 {
                 
@@ -171,14 +196,14 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
         case 1:
 
         guard let expenseData = receivedPendingExpenseIDList[friendUIDList[indexPath.section]]?[indexPath.row],
-            
+            let dicArray = receivedPendingExpenseIDList[friendUIDList[indexPath.section]],
             let expenseDescription = expenseData["description"] as? String,
             let sharedResult = expenseData["sharedResult"] as? [String: Int],
-            let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]] as? String
-            
+            let isRead = expenseData["isRead"] as? Bool,
+            let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]]
+        
             else { return cell }
-        
-        
+
         for (key, value) in sharedResult where value < 0 {
             
             if key == userUID {
@@ -191,6 +216,16 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                 
             }
             
+        }
+
+        if isRead == true {
+
+            cell.contentView.backgroundColor = UIColor.clear
+
+        } else {
+
+            cell.contentView.backgroundColor = UIColor.yellow
+
         }
 
         cell.acceptButton.isHidden = false
@@ -211,10 +246,20 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                 
                 let expenseDescription = expenseData["description"] as? String,
                 let sharedResult = expenseData["sharedResult"] as? [String: Int],
-                let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]] as? String
+                let isRead = expenseData["isRead"] as? Bool,
+                let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]]
                 
                 else { return cell }
-            
+
+            if isRead == true {
+                
+                cell.contentView.backgroundColor = UIColor.clear
+                
+            } else {
+                
+                cell.contentView.backgroundColor = UIColor.yellow
+                
+            }
             
             for (key, value) in sharedResult where value < 0 {
                 
@@ -239,11 +284,21 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                 
                 let expenseDescription = expenseData["description"] as? String,
                 let sharedResult = expenseData["sharedResult"] as? [String: Int],
-                let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]] as? String
+                let isRead = expenseData["isRead"] as? Bool,
+                let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]]
                 
                 else { return cell }
             
-            
+            if isRead == true {
+                
+                cell.contentView.backgroundColor = UIColor.clear
+                
+            } else {
+                
+                cell.contentView.backgroundColor = UIColor.yellow
+                
+            }
+
             for (key, value) in sharedResult where value < 0 {
                 
                 if key == userUID {
@@ -262,15 +317,43 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
             cell.denyButton.isHidden = true
 
 
-        default: break
+        default:
 
-//            expenseManager.fetchExpenseDetail(friendUID: friendUIDList[indexPath.section], expenseID: (deniedExpenseIDList[friendUIDList[indexPath.section]]?[indexPath.row])!, completion: { (sharedResult) in
-//                
-//                cell.friendNameLabel.text = sharedResult
-//                cell.acceptButton.isHidden = true
-//                cell.denyButton.isHidden = true
-//
-//            })
+            guard let expenseData = toBeDeletedExpenseIDList[friendUIDList[indexPath.section]]?[indexPath.row],
+                
+                let expenseDescription = expenseData["description"] as? String,
+                let sharedResult = expenseData["sharedResult"] as? [String: Int],
+                let isRead = expenseData["isRead"] as? Bool,
+                let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]]
+                
+                else { return cell }
+            
+            if isRead == true {
+                
+                cell.contentView.backgroundColor = UIColor.clear
+                
+            } else {
+                
+                cell.contentView.backgroundColor = UIColor.yellow
+                
+            }
+
+            for (key, value) in sharedResult where value < 0 {
+                
+                if key == userUID {
+                    
+                    cell.friendNameLabel.text = ("You owe \(friendName) $\(-value) for \(expenseDescription)" )
+                    
+                } else {
+                    
+                    cell.friendNameLabel.text = ("\(friendName) owes you $\(-value) for \(expenseDescription)")
+                    
+                }
+                
+            }
+            
+            cell.acceptButton.isHidden = true
+            cell.denyButton.isHidden = true
 
         }
 
@@ -284,7 +367,8 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
         cell.friendNameLabel.text = ""
         cell.acceptButton.isHidden = true
         cell.denyButton.isHidden = true
-        
+        cell.contentView.backgroundColor = UIColor.clear
+
     }
 
     func touchAcceptButton(sender: MyButton) {
@@ -294,6 +378,8 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
         else { return }
 
         expenseManager.changeExpenseStatus(friendUID: friendUID, expenseID: expenseID, changeStatus: "accepted")
+
+        expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: false)
 
     }
 
@@ -305,6 +391,8 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
         expenseManager.changeExpenseStatus(friendUID: friendUID, expenseID: expenseID, changeStatus: "denied")
 
+        expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: false)
+
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -312,6 +400,51 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
         selectedRow = indexPath.row
 
         selectedSection = indexPath.section
+
+        switch expenseStatusSegmentController.selectedSegmentIndex {
+        case 0:
+
+            guard let expenseID = acceptedExpenseIDList[friendUIDList[selectedSection]]![selectedRow]["id"] as? String,
+                let friendUID = friendUIDList[selectedSection] as? String
+                else { return }
+            
+            expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: nil)
+
+        case 1:
+
+            guard let expenseID = receivedPendingExpenseIDList[friendUIDList[selectedSection]]![selectedRow]["id"] as? String,
+                let friendUID = friendUIDList[selectedSection] as? String
+                else { return }
+            
+            expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: nil)
+
+
+        case 2:
+
+            guard let expenseID = sentPendingExpenseIDList[friendUIDList[selectedSection]]![selectedRow]["id"] as? String,
+                let friendUID = friendUIDList[selectedSection] as? String
+                else { return }
+            
+            expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: nil)
+
+
+        case 3:
+
+            guard let expenseID = deniedExpenseIDList[friendUIDList[selectedSection]]![selectedRow]["id"] as? String,
+                let friendUID = friendUIDList[selectedSection] as? String
+                else { return }
+            
+            expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: nil)
+
+        default:
+
+            guard let expenseID = toBeDeletedExpenseIDList[friendUIDList[selectedSection]]![selectedRow]["id"] as? String,
+                let friendUID = friendUIDList[selectedSection] as? String
+                else { return }
+            
+            expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: nil)
+
+        }
 
         self.performSegue(withIdentifier: "showExpenseDetailVC", sender: self)
     }
@@ -330,25 +463,19 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                 
             case 1:
 
-                destinationVC?.expenseInformation = (acceptedExpenseIDList[friendUIDList[selectedSection]]?[selectedRow])!
+                destinationVC?.expenseInformation = (receivedPendingExpenseIDList[friendUIDList[selectedSection]]?[selectedRow])!
 
             case 2:
 
-                destinationVC?.expenseInformation = (receivedPendingExpenseIDList[friendUIDList[selectedSection]]?[selectedRow])!
+                destinationVC?.expenseInformation = (sentPendingExpenseIDList[friendUIDList[selectedSection]]?[selectedRow])!
 
             case 3:
 
-                destinationVC?.expenseInformation = (sentPendingExpenseIDList[friendUIDList[selectedSection]]?[selectedRow])!
-
-
-            case 4:
-
                 destinationVC?.expenseInformation = (deniedExpenseIDList[friendUIDList[selectedSection]]?[selectedRow])!
-
 
             default:
 
-                destinationVC?.expenseInformation = (acceptedExpenseIDList[friendUIDList[selectedSection]]?[selectedRow])!
+                destinationVC?.expenseInformation = (toBeDeletedExpenseIDList[friendUIDList[selectedSection]]?[selectedRow])!
 
 
             }

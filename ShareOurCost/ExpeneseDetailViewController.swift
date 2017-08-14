@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Firebase
 
 class ExpeneseDetailViewController: UIViewController {
 
@@ -17,8 +16,9 @@ class ExpeneseDetailViewController: UIViewController {
     @IBOutlet weak var expenseDescriptionLabel: UILabel!
     @IBOutlet weak var expenseCreatedByLabel: UILabel!
     @IBOutlet weak var expenseCreatedDayLabel: UILabel!
-
-    var ref: DatabaseReference!
+    @IBOutlet weak var acceptExpenseButton: UIButton!
+    @IBOutlet weak var denyExpenseButton: UIButton!
+    @IBOutlet weak var deleteExpenseButton: UIButton!
 
     var allExpenseIDList = [String]()
 
@@ -28,13 +28,18 @@ class ExpeneseDetailViewController: UIViewController {
 
     var expenseID = String()
 
+    var sharedFriendUID = String()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         print(expenseInformation)
 
-//        setUpExpenseDetailLabel()
+        setUpExpenseDetailLabel()
 
+        acceptExpenseButton.addTarget(self, action: #selector(touchAcceptButton), for: .touchUpInside)
+        denyExpenseButton.addTarget(self, action: #selector(touchDenyButton), for: .touchUpInside)
+        deleteExpenseButton.addTarget(self, action: #selector(touchDeleteButton), for: .touchUpInside)
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,33 +55,107 @@ class ExpeneseDetailViewController: UIViewController {
 
     func setUpExpenseDetailLabel() {
 
-        ref = Database.database().reference()
+        var expenseCreatedByName = String()
+
+        guard let expenseTotalAmount = expenseInformation["amount"] as? Int,
+              let expenseCreatedBy = expenseInformation["createdBy"] as? String,
+              let expenseCreatedDay = expenseInformation["createdTime"] as? String,
+              let expensePaidBy = expenseInformation["expensePaidBy"] as? String,
+              let expenseDescription = expenseInformation["description"] as? String,
+              let expenseDay = expenseInformation["expenseDay"] as? String,
+              let sharedAmount = expenseInformation["sharedResult"] as? [String: Any],
+              let amountYouShared = sharedAmount["\(userUID)"] as? Int
         
-        ref.child("expenseList").child(expenseID).observe(.value, with: { (dataSnapshot) in
+            else { return }
 
-            guard let expenseData = dataSnapshot.value as? [String: Any],
-                  let expenseTotalAmount = expenseData["amount"] as? Int,
-                  let expenseCreatedBy = expenseData["createdBy"] as? String,
-//                  let expenseCreatedDay = expenseData["createdTime"] as? Double,
-                  let expenseCreatedDay = expenseData["createdTime"] as? String,
-                  let expensePaidby = expenseData["expensePaidBy"] as? String,
-                  let expenseDescription = expenseData["description"] as? String,
-                  let expenseDay = expenseData["expenseDay"] as? String,
-                  let sharedAmount = expenseData["sharedResult"] as? [String: Any],
-                  let amountYouShared = sharedAmount["\(Auth.auth().currentUser!.uid)"] as? Int
+        if friendUIDandNameList[expenseCreatedBy] == nil {
+
+            expenseCreatedByName = "You"
+
+        } else {
+
+            expenseCreatedByName = friendUIDandNameList[expenseCreatedBy]!
+
+        }
+
+        print(expenseCreatedByName)
+
+        self.totalAmountLabel.text = "Total Amount: \(expenseTotalAmount)"
+        self.expenseCreatedByLabel.text = "Created By: \(expenseCreatedByName)"
+        self.expenseCreatedDayLabel.text = "Create Day: \(expenseCreatedDay)"
+        self.expenseDescriptionLabel.text = "Description: \(expenseDescription)"
+        self.amountYouSharedLabel.text = "Amount You Shared: \(amountYouShared)"
+        self.expenseDateLabel.text = "\(expenseDay)"
+
+    }
+
+    func touchAcceptButton() {
+
+        guard let expenseCreatedBy = expenseInformation["createdBy"] as? String,
+            let expenseSahreWith = expenseInformation["sharedWith"] as? String,
+            let expenseID = expenseInformation["id"] as? String
+            else { return }
+        
+        if expenseCreatedBy == userUID {
             
-                else { return }
+            sharedFriendUID = expenseSahreWith
+            
+        } else {
+            
+            sharedFriendUID = expenseCreatedBy
+            
+        }
 
+        let expenseManager = ExpenseManager()
 
-            self.totalAmountLabel.text = "Total Amount: \(expenseTotalAmount)"
-            self.expenseCreatedByLabel.text = "Created By: \(expenseCreatedBy)"
-            self.expenseCreatedDayLabel.text = "Create Day: \(expenseCreatedDay)"
-            self.expenseDescriptionLabel.text = "Description: \(expenseDescription)"
-            self.amountYouSharedLabel.text = "Amount You Shared: \(amountYouShared)"
-            self.expenseDateLabel.text = "\(expenseDay)"
+        expenseManager.changeExpenseStatus(friendUID: sharedFriendUID, expenseID: expenseID, changeStatus: "accepted")
 
-        })
+    }
 
+    func touchDenyButton() {
+        
+        guard let expenseCreatedBy = expenseInformation["createdBy"] as? String,
+            let expenseSahreWith = expenseInformation["sharedWith"] as? String,
+            let expenseID = expenseInformation["id"] as? String
+            else { return }
+        
+        if expenseCreatedBy == userUID {
+            
+            sharedFriendUID = expenseSahreWith
+            
+        } else {
+            
+            sharedFriendUID = expenseCreatedBy
+            
+        }
+        
+        let expenseManager = ExpenseManager()
+        
+        expenseManager.changeExpenseStatus(friendUID: sharedFriendUID, expenseID: expenseID, changeStatus: "denied")
+        
+    }
+
+    func touchDeleteButton() {
+        
+        guard let expenseCreatedBy = expenseInformation["createdBy"] as? String,
+            let expenseSahreWith = expenseInformation["sharedWith"] as? String,
+            let expenseID = expenseInformation["id"] as? String
+            else { return }
+        
+        if expenseCreatedBy == userUID {
+            
+            sharedFriendUID = expenseSahreWith
+            
+        } else {
+            
+            sharedFriendUID = expenseCreatedBy
+            
+        }
+        
+        let expenseManager = ExpenseManager()
+        
+        expenseManager.changeExpenseStatus(friendUID: sharedFriendUID, expenseID: expenseID, changeStatus: "toBeDeleted")
+        
     }
 
 }

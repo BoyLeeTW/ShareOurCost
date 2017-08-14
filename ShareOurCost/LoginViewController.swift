@@ -143,7 +143,7 @@ class ViewController: UIViewController {
                 
             if resultBool == true {
                     
-                self.accountManager.firebaseRigistration(email: emailText,
+                self.accountManager.firebaseRegistration(email: emailText,
                                                          password: passwordText,
                                                          userName: nameText,
                                                          userID: userIDText)

@@ -56,7 +56,7 @@ class AccountManager {
 
     }
 
-    func firebaseRigistration(email: String, password: String, userName: String, userID: String) {
+    func firebaseRegistration(email: String, password: String, userName: String, userID: String) {
 
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
 
