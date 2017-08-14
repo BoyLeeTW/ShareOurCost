@@ -119,7 +119,6 @@ class AddExpenseViewController: UIViewController {
 
             }
 
-
             self.ref.database.reference().child("userExpense").child(Auth.auth().currentUser!.uid).child(expenseID).updateChildValues(["status": "sentPending", "isRead": true])
 
             self.ref.database.reference().child("userExpense").child(friendUID).child(expenseID).updateChildValues(["status": "receivedPending", "isRead": false])
@@ -136,7 +135,7 @@ class AddExpenseViewController: UIViewController {
                 "createdTime": (dateFormatter.string(from: Date())),
                 "createdBy": "\(Auth.auth().currentUser!.uid)",
                 "sharedWith": "\(friendUID)",
-                "sharedResult": ["\(Auth.auth().currentUser!.uid)": sharedAmountForUser, "\(friendUID)": sharedAmountForFriend]
+                "sharedResult": ["\(Auth.auth().currentUser!.uid)": Int(sharedAmountForUser), "\(friendUID)": Int(sharedAmountForFriend)]
                 ]
             )
 
@@ -144,6 +143,8 @@ class AddExpenseViewController: UIViewController {
             self.expenseDayTextField.text = ""
             self.expenseAmountTextField.text = ""
             self.expenseDescriptionTextField.text = ""
+
+            self.navigationController?.popViewController(animated: true)
 
         })
 

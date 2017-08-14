@@ -32,7 +32,7 @@ class ExpenseManager {
 
         for friendUID in friendUIDList {
 
-            ref.child("userExpense").child("\(Auth.auth().currentUser!.uid)").child("\(friendUID)").observe(.value, with: { (dataSnapshot) in
+            ref.child("userExpense").child("\(userUID)").child("\(friendUID)").observe(.value, with: { (dataSnapshot) in
 
                 var acceptedExpenseIDList = ExpenseList()
                 
@@ -110,17 +110,17 @@ class ExpenseManager {
 
         ref = Database.database().reference()
 
-        ref.child("userExpense").child(Auth.auth().currentUser!.uid).queryOrdered(byChild: "status").observe(.value, with: { (dataSnapshot) in
+        var acceptedExpenseIDList = ExpenseInfoList()
+        
+        var sentPendingExpenseIDList = ExpenseInfoList()
+        
+        var receivedPendingExpenseIDList = ExpenseInfoList()
+        
+        var deniedExpenseIDList = ExpenseInfoList()
+        
+        var toBeDeletedExpenseIDList = ExpenseInfoList()
 
-            var acceptedExpenseIDList = ExpenseInfoList()
-            
-            var sentPendingExpenseIDList = ExpenseInfoList()
-            
-            var receivedPendingExpenseIDList = ExpenseInfoList()
-            
-            var deniedExpenseIDList = ExpenseInfoList()
-
-            var toBeDeletedExpenseIDList = ExpenseInfoList()
+        ref.child("userExpense").child(userUID).observe(.value, with: { (dataSnapshot) in
 
             //key is the ID of expense
             guard let expenseData = dataSnapshot.value as? [String: Any] else { return }
@@ -144,10 +144,10 @@ class ExpenseManager {
                         let expenseDay = expenseDetailData["expenseDay"] as? String,
                         let expenseSahreWith = expenseDetailData["sharedWith"] as? String,
                         let sharedAmount = expenseDetailData["sharedResult"] as? [String: Int],
-                        let amountYouShared = sharedAmount["\(Auth.auth().currentUser!.uid)"]
+                        let amountYouShared = sharedAmount["\(userUID)"]
                         else { return }
                     
-                    if expenseCreatedBy == Auth.auth().currentUser!.uid {
+                    if expenseCreatedBy == userUID {
                         
                         sharedFriendID = expenseSahreWith
                         
@@ -254,7 +254,7 @@ class ExpenseManager {
                 let expenseDescription = expenseData["description"] as? String,
                 let expenseDay = expenseData["expenseDay"] as? String,
                 let sharedAmount = expenseData["sharedResult"] as? [String: Int],
-                let amountYouShared = sharedAmount["\(Auth.auth().currentUser!.uid)"]
+                let amountYouShared = sharedAmount["\(userUID)"]
                 
                 else { return }
 
@@ -264,7 +264,7 @@ class ExpenseManager {
 
                 for (key, value) in sharedAmount where value < 0 {
                     
-                    if key == Auth.auth().currentUser!.uid {
+                    if key == userUID {
 
                         completion("You owe \(friendName) $\(-value) for \(expenseDescription)" )
                         
@@ -295,7 +295,7 @@ class ExpenseManager {
     func changeExpenseReadStatus(friendUID: String, expenseID: String, changeSelfStatus: Bool, changeFriendStatus: Bool?) {
 
         ref = Database.database().reference()
-        
+
         ref.child("userExpense").child(userUID).child(expenseID).updateChildValues(["isRead": changeSelfStatus])
 
         if changeFriendStatus != nil {

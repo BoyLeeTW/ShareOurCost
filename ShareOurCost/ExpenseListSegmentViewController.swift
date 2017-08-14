@@ -82,7 +82,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                     self.sentPendingExpenseIDList = sentPendingExpenseIDList
                     self.deniedExpenseIDList = deniedExpenseIDList
                     self.toBeDeletedExpenseIDList = toBeDeletedExpenseIDList
-                    
+
                     self.expenseListTableView.reloadData()
                     
                 }
@@ -105,6 +105,8 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
     }
 
     func expenseStatusSegmentControllerChanged() {
+
+        fetchData()
 
         expenseListTableView.reloadData()
 
@@ -161,7 +163,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
             guard let expenseData = acceptedExpenseIDList[friendUIDList[indexPath.section]]?[indexPath.row],
                   let expenseDescription = expenseData["description"] as? String,
                   let sharedResult = expenseData["sharedResult"] as? [String: Int],
-                let isRead = expenseData["isRead"] as? Bool,
+                  let isRead = expenseData["isRead"] as? Bool,
                   let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]]
 
             else { return cell }
@@ -196,12 +198,10 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
         case 1:
 
         guard let expenseData = receivedPendingExpenseIDList[friendUIDList[indexPath.section]]?[indexPath.row],
-            let dicArray = receivedPendingExpenseIDList[friendUIDList[indexPath.section]],
             let expenseDescription = expenseData["description"] as? String,
             let sharedResult = expenseData["sharedResult"] as? [String: Int],
             let isRead = expenseData["isRead"] as? Bool,
             let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]]
-        
             else { return cell }
 
         for (key, value) in sharedResult where value < 0 {
