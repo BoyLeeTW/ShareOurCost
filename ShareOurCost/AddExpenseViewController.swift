@@ -120,20 +120,12 @@ class AddExpenseViewController: UIViewController {
             }
 
 
-            self.ref.database.reference().child("userExpense").child(Auth.auth().currentUser!.uid).child(friendUID).updateChildValues([expenseID: "sentPending"])
+            self.ref.database.reference().child("userExpense").child(Auth.auth().currentUser!.uid).child(expenseID).updateChildValues(["status": "sentPending", "isRead": true])
 
-            self.ref.database.reference().child("userExpense").child(friendUID).child(Auth.auth().currentUser!.uid).updateChildValues([expenseID: "receivedPending"])
+            self.ref.database.reference().child("userExpense").child(friendUID).child(expenseID).updateChildValues(["status": "receivedPending", "isRead": false])
 
-            let yearFormatter = DateFormatter()
-            yearFormatter.dateFormat = "yyyy"
-            let monthFormatter = DateFormatter()
-            monthFormatter.dateFormat = "MM"
-            let dayFormatter = DateFormatter()
-            dayFormatter.dateFormat = "dd"
-            let hourFormatter = DateFormatter()
-            hourFormatter.dateFormat = "HH"
-            let minuteFormatter = DateFormatter()
-            minuteFormatter.dateFormat = "mm"
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy/MM/dd"
             
             expenseRef.updateChildValues(
                 ["amount": Int(self.expenseAmountTextField.text!)!,
@@ -141,7 +133,7 @@ class AddExpenseViewController: UIViewController {
                 "expenseDay": "\(self.expenseDayTextField.text!)",
                 "sharedMember": "\(self.expenseSharedMemberTextField.text!)",
                 "expensePaidBy": "\(paidBy)",
-                "createdTime": (String(describing: Date())),
+                "createdTime": (dateFormatter.string(from: Date())),
                 "createdBy": "\(Auth.auth().currentUser!.uid)",
                 "sharedWith": "\(friendUID)",
                 "sharedResult": ["\(Auth.auth().currentUser!.uid)": sharedAmountForUser, "\(friendUID)": sharedAmountForFriend]
@@ -176,8 +168,6 @@ class AddExpenseViewController: UIViewController {
         shareExpenseEquallyButton.addTarget(self, action: #selector(touchShareExpenseEquallyButton), for: .touchUpInside)
 
         shareExpenseByPercentButton.addTarget(self, action: #selector(touchShareExpenseByPercentButton), for: .touchUpInside)
-
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(touchBackButton))
 
         expenseAmountTextField.addTarget(self, action: #selector(expenseAmountTextFieldChanged(_:)), for: .editingChanged)
 

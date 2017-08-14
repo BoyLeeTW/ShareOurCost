@@ -22,19 +22,23 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
     @IBOutlet weak var expenseStatusSegmentController: UISegmentedControl!
     @IBOutlet weak var expenseListTableView: UITableView!
 
+    typealias ExpenseIDList = [String: [[String: Any]]]
+
     var friendManager = FriendManager()
 
     var expenseManager = ExpenseManager()
 
     var friendUIDList = [String]()
 
-    var acceptedExpenseIDList = [String: [String]]()
+    var friendUIDtoNameList = [String: String]()
 
-    var receivedPendingExpenseIDList = [String: [String]]()
+    var acceptedExpenseIDList = ExpenseIDList()
 
-    var sentPendingExpenseIDList = [String: [String]]()
+    var receivedPendingExpenseIDList = ExpenseIDList()
 
-    var deniedExpenseIDList = [String: [String]]()
+    var sentPendingExpenseIDList = ExpenseIDList()
+
+    var deniedExpenseIDList = ExpenseIDList()
 
     var selectedRow = Int()
 
@@ -43,23 +47,44 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        expenseStatusSegmentController.selectedSegmentIndex = 0
+
         expenseStatusSegmentController.addTarget(self, action: #selector(expenseStatusSegmentControllerChanged), for: .valueChanged)
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(touchBackButton))
+        
+        DispatchQueue.global().async {
+            
+            self.friendManager.fetchFriendUIDList { (friendUIDList) in
+                
+                self.friendUIDList = friendUIDList
+                
+                self.friendManager.fetchFriendUIDtoNameList(friendUIDList: self.friendUIDList, completion: { (friendUIDtoNameList) in
+                    
+                    self.friendUIDtoNameList = friendUIDtoNameList
 
-        friendManager.fetchFriendUIDList { (friendUIDList) in
+                    self.expenseListTableView.reloadData()
+                    
+                })
+                
+                self.expenseManager.newFetchExpenseIDList { (acceptedExpenseIDList, receivedPendingExpenseIDList, sentPendingExpenseIDList, deniedExpenseIDList) in
 
-            self.friendUIDList = friendUIDList
+                    self.acceptedExpenseIDList = acceptedExpenseIDList
+                    self.receivedPendingExpenseIDList = receivedPendingExpenseIDList
+                    self.sentPendingExpenseIDList = sentPendingExpenseIDList
+                    self.deniedExpenseIDList = deniedExpenseIDList
 
-            self.expenseManager.fetchExpenseIDList(friendUIDList: friendUIDList, completion: { (acceptedExpenseIDList, sentPendingExpenseIDList, receivedPendingExpenseIDList, deniedExpenseIDList) in
-                self.acceptedExpenseIDList = acceptedExpenseIDList
-                self.sentPendingExpenseIDList = sentPendingExpenseIDList
-                self.receivedPendingExpenseIDList = receivedPendingExpenseIDList
-                self.deniedExpenseIDList = deniedExpenseIDList
-
-                self.expenseListTableView.reloadData()
-            })
+                    self.expenseListTableView.reloadData()
+                    
+                }
+            }
         }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+
+        self.expenseListTableView.reloadData()
+
     }
 
     func touchBackButton() {
@@ -75,7 +100,8 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return friendUIDList[section]
+
+        return friendUIDtoNameList[friendUIDList[section]]
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -117,40 +143,134 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
         switch expenseStatusSegmentController.selectedSegmentIndex {
         case 0:
 
-            expenseManager.fetchExpenseDetail(friendUID: friendUIDList[indexPath.section], expenseID: (acceptedExpenseIDList[friendUIDList[indexPath.section]]?[indexPath.row])!, completion: { (sharedResult) in
-                
-                cell.friendNameLabel.text = sharedResult
-                cell.acceptButton.isHidden = true
-                cell.denyButton.isHidden = true
+            guard let expenseData = acceptedExpenseIDList[friendUIDList[indexPath.section]]?[indexPath.row],
 
-            })
+                  let expenseDescription = expenseData["description"] as? String,
+                  let sharedResult = expenseData["sharedResult"] as? [String: Int],
+                  let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]]
+
+            else { return cell }
+
+            for (key, value) in sharedResult where value < 0 {
+                
+                if key == userUID {
+                    
+                    cell.friendNameLabel.text = ("You owe \(friendName) $\(-value) for \(expenseDescription)" )
+                    
+                } else {
+                    
+                    cell.friendNameLabel.text = ("\(friendName) owes you $\(-value) for \(expenseDescription)")
+                    
+                }
+                
+            }
+
+            cell.acceptButton.isHidden = true
+            cell.denyButton.isHidden = true
 
         case 1:
 
-            expenseManager.fetchExpenseDetail(friendUID: friendUIDList[indexPath.section], expenseID: (receivedPendingExpenseIDList[friendUIDList[indexPath.section]]?[indexPath.row])!, completion: { (sharedResult) in
+        guard let expenseData = receivedPendingExpenseIDList[friendUIDList[indexPath.section]]?[indexPath.row],
+            
+            let expenseDescription = expenseData["description"] as? String,
+            let sharedResult = expenseData["sharedResult"] as? [String: Int],
+            let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]] as? String
+            
+            else { return cell }
+        
+        
+        for (key, value) in sharedResult where value < 0 {
+            
+            if key == userUID {
+                
+                cell.friendNameLabel.text = ("You owe \(friendName) $\(-value) for \(expenseDescription)" )
+                
+            } else {
+                
+                cell.friendNameLabel.text = ("\(friendName) owes you $\(-value) for \(expenseDescription)")
+                
+            }
+            
+        }
 
-                cell.friendNameLabel.text = sharedResult
-            })
+        cell.acceptButton.isHidden = false
+        cell.denyButton.isHidden = false
+
+        cell.acceptButton.section = indexPath.section
+        cell.acceptButton.row = indexPath.row
+        cell.denyButton.section = indexPath.section
+        cell.denyButton.row = indexPath.row
+
+        cell.acceptButton.addTarget(self, action: #selector(self.touchAcceptButton(sender:)), for: .touchUpInside)
+
+        cell.denyButton.addTarget(self, action: #selector(self.touchDenyButton(sender:)), for: .touchUpInside)
 
         case 2:
 
-            expenseManager.fetchExpenseDetail(friendUID: friendUIDList[indexPath.section], expenseID: (sentPendingExpenseIDList[friendUIDList[indexPath.section]]?[indexPath.row])!, completion: { (sharedResult) in
+            guard let expenseData = sentPendingExpenseIDList[friendUIDList[indexPath.section]]?[indexPath.row],
                 
-                cell.friendNameLabel.text = sharedResult
-                cell.acceptButton.isHidden = true
-                cell.denyButton.isHidden = true
-
-            })
-
-        default:
-
-            expenseManager.fetchExpenseDetail(friendUID: friendUIDList[indexPath.section], expenseID: (deniedExpenseIDList[friendUIDList[indexPath.section]]?[indexPath.row])!, completion: { (sharedResult) in
+                let expenseDescription = expenseData["description"] as? String,
+                let sharedResult = expenseData["sharedResult"] as? [String: Int],
+                let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]] as? String
                 
-                cell.friendNameLabel.text = sharedResult
-                cell.acceptButton.isHidden = true
-                cell.denyButton.isHidden = true
+                else { return cell }
+            
+            
+            for (key, value) in sharedResult where value < 0 {
+                
+                if key == userUID {
+                    
+                    cell.friendNameLabel.text = ("You owe \(friendName) $\(-value) for \(expenseDescription)" )
+                    
+                } else {
+                    
+                    cell.friendNameLabel.text = ("\(friendName) owes you $\(-value) for \(expenseDescription)")
+                    
+                }
+                
+            }
 
-            })
+            cell.acceptButton.isHidden = true
+            cell.denyButton.isHidden = true
+
+        case 3:
+
+            guard let expenseData = deniedExpenseIDList[friendUIDList[indexPath.section]]?[indexPath.row],
+                
+                let expenseDescription = expenseData["description"] as? String,
+                let sharedResult = expenseData["sharedResult"] as? [String: Int],
+                let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]] as? String
+                
+                else { return cell }
+            
+            
+            for (key, value) in sharedResult where value < 0 {
+                
+                if key == userUID {
+                    
+                    cell.friendNameLabel.text = ("You owe \(friendName) $\(-value) for \(expenseDescription)" )
+                    
+                } else {
+                    
+                    cell.friendNameLabel.text = ("\(friendName) owes you $\(-value) for \(expenseDescription)")
+                    
+                }
+                
+            }
+            
+            cell.acceptButton.isHidden = true
+            cell.denyButton.isHidden = true
+
+
+        default: break
+
+//            expenseManager.fetchExpenseDetail(friendUID: friendUIDList[indexPath.section], expenseID: (deniedExpenseIDList[friendUIDList[indexPath.section]]?[indexPath.row])!, completion: { (sharedResult) in
+//                
+//                cell.friendNameLabel.text = sharedResult
+//                cell.acceptButton.isHidden = true
+//                cell.denyButton.isHidden = true
+//
+//            })
 
         }
 
@@ -162,23 +282,79 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
         let cell = tableView.dequeueReusableCell(withIdentifier: "ExpenseListSegmentCell", for: indexPath) as! ExpenseListSegmentTableViewCell
 
         cell.friendNameLabel.text = ""
-
-    }
-
-    func touchAcceptButton(sender: UIButton) {
-
+        cell.acceptButton.isHidden = true
+        cell.denyButton.isHidden = true
         
+    }
+
+    func touchAcceptButton(sender: MyButton) {
+
+        guard let expenseID = receivedPendingExpenseIDList[friendUIDList[sender.section!]]![sender.row!]["id"] as? String,
+              let friendUID = friendUIDList[sender.section!] as? String
+        else { return }
+
+        expenseManager.changeExpenseStatus(friendUID: friendUID, expenseID: expenseID, changeStatus: "accepted")
 
     }
 
-    /*
-    // MARK: - Navigation
+    func touchDenyButton(sender: MyButton) {
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+        guard let expenseID = receivedPendingExpenseIDList[friendUIDList[sender.section!]]![sender.row!]["id"] as? String,
+            let friendUID = friendUIDList[sender.section!] as? String
+            else { return }
+
+        expenseManager.changeExpenseStatus(friendUID: friendUID, expenseID: expenseID, changeStatus: "denied")
+
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        selectedRow = indexPath.row
+
+        selectedSection = indexPath.section
+
+        self.performSegue(withIdentifier: "showExpenseDetailVC", sender: self)
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+
+        if segue.identifier == "showExpenseDetailVC" {
+
+            let destinationVC = segue.destination as? ExpeneseDetailViewController
+
+            switch expenseStatusSegmentController.selectedSegmentIndex {
+
+            case 0:
+
+                destinationVC?.expenseInformation = (acceptedExpenseIDList[friendUIDList[selectedSection]]?[selectedRow])!
+                
+            case 1:
+
+                destinationVC?.expenseInformation = (acceptedExpenseIDList[friendUIDList[selectedSection]]?[selectedRow])!
+
+            case 2:
+
+                destinationVC?.expenseInformation = (receivedPendingExpenseIDList[friendUIDList[selectedSection]]?[selectedRow])!
+
+            case 3:
+
+                destinationVC?.expenseInformation = (sentPendingExpenseIDList[friendUIDList[selectedSection]]?[selectedRow])!
+
+
+            case 4:
+
+                destinationVC?.expenseInformation = (deniedExpenseIDList[friendUIDList[selectedSection]]?[selectedRow])!
+
+
+            default:
+
+                destinationVC?.expenseInformation = (acceptedExpenseIDList[friendUIDList[selectedSection]]?[selectedRow])!
+
+
+            }
+
+        }
+
     }
-    */
 
 }

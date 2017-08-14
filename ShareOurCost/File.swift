@@ -6,10 +6,12 @@
 //  Copyright © 2017 Brad. All rights reserved.
 //
 
+import UIKit
 import Foundation
 
+var userUID = String()
 
-class ExpenseModel{
+class ExpenseModel {
 
     var amount: Int
     var date: String
@@ -24,4 +26,12 @@ class ExpenseModel{
         self.sharedMethod = sharedMethod
         self.sharedResult = sharedResult
     }
+}
+
+
+class MyButton: UIButton {
+
+    var section: Int?
+    var row: Int?
+
 }

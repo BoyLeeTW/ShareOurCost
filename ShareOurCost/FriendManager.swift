@@ -104,4 +104,30 @@ class FriendManager {
 
     }
 
+    func fetchFriendUIDtoNameList(friendUIDList: Array<String>, completion: @escaping ([String: String]) -> () ) {
+
+        ref = Database.database().reference()
+
+        var friendUIDtoNameList = [String: String]()
+
+        for friendUID in friendUIDList {
+
+            ref.child("userInfo").child(friendUID).child("fullName").observeSingleEvent(of: .value, with: { (dataSnapshot) in
+
+                guard let friendName = dataSnapshot.value as? String else { return }
+
+                friendUIDtoNameList[friendUID] = friendName
+
+                DispatchQueue.main.async {
+                 
+                    completion(friendUIDtoNameList)
+                    
+                }
+
+            })
+
+        }
+
+    }
+
 }

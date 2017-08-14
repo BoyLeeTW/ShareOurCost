@@ -85,26 +85,6 @@ class MatchingViewController: UIViewController {
 
         logOutButton.addTarget(self, action: #selector(handleLouOut), for: .touchUpInside)
 
-// MARK: retriving data from expense
-//        refExpense = Database.database().reference().child("Expenses")
-//        refExpense = Database.database().reference()
-
-//        refExpense.observe(.value, with: { (dataSnapshot) in
-
-//            guard let datas = dataSnapshot.children.allObjects as? [DataSnapshot] else { return }
-//            print(datas)
-//            for data in datas {
-//                let dataObject = data.value as?[String: AnyObject]
-//                let expenseDate = dataObjeㄩct!["Date"]!
-//                let expenseAmount = dataObject!["Amount"]!
-//                let expenseSharedMethod = dataObject!["SharedMethod"]!
-//                let expenseSharedResult = dataObject!["SharedResult"]!
-//                print(expenseAmount, expenseDate, expenseSharedMethod, expenseSharedResult)
-
-//            }
-
-//        })
-
     }
     
     func handleLouOut() {

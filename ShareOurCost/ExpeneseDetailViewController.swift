@@ -22,6 +22,8 @@ class ExpeneseDetailViewController: UIViewController {
 
     var allExpenseIDList = [String]()
 
+    var expenseInformation = [String: Any]()
+
     var selectedRow = Int()
 
     var expenseID = String()
@@ -29,9 +31,9 @@ class ExpeneseDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(touchBackButton))
+        print(expenseInformation)
 
-        setUpExpenseDetailLabel()
+//        setUpExpenseDetailLabel()
 
     }
 

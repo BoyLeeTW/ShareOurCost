@@ -28,6 +28,8 @@ class AccountManager {
 
                 UserDefaults.standard.setValue(user!.uid, forKey: "userUid")
 
+                userUID = Auth.auth().currentUser!.uid
+
                 completion(loginResult, nil)
 
             } else {
@@ -67,7 +69,9 @@ class AccountManager {
                         "userID": "\(userID)",
                         "createdTime": (Date().timeIntervalSince1970)
                     ])
-                
+
+                userUID = Auth.auth().currentUser!.uid
+
                 self.ref?.child("userID").updateChildValues(["\(user!.uid)": "\(userID)"])
 
             }

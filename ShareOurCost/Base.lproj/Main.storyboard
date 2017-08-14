@@ -334,7 +334,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lqu-aD-qOV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2889" y="986"/>
+            <point key="canvasLocation" x="4044" y="1198"/>
         </scene>
         <!--Friend List Table View Controller-->
         <scene sceneID="cB5-qP-Kk4">
@@ -439,12 +439,12 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v7W-in-k5I">
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v7W-in-k5I" customClass="MyButton" customModule="ShareOurCost" customModuleProvider="target">
                                                     <rect key="frame" x="212" y="5" width="49" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Accept"/>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r4O-XG-gYx">
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r4O-XG-gYx" customClass="MyButton" customModule="ShareOurCost" customModuleProvider="target">
                                                     <rect key="frame" x="269" y="5" width="36" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Deny"/>
@@ -471,13 +471,14 @@
                                 </connections>
                             </tableView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="eHj-UN-dPX">
-                                <rect key="frame" x="15" y="83" width="291" height="29"/>
+                                <rect key="frame" x="0.0" y="83" width="320" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Accepted"/>
                                     <segment title="Received"/>
                                     <segment title="Sent"/>
                                     <segment title="Denied"/>
+                                    <segment title="Deleted"/>
                                 </segments>
                             </segmentedControl>
                         </subviews>
@@ -487,6 +488,7 @@
                     <connections>
                         <outlet property="expenseListTableView" destination="nH6-Ff-pQp" id="BP1-zt-t9c"/>
                         <outlet property="expenseStatusSegmentController" destination="eHj-UN-dPX" id="O7w-df-l6v"/>
+                        <segue destination="FG0-dq-QVU" kind="show" identifier="showExpenseDetailVC" id="tE4-oa-zXx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ee7-8a-1n3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -587,7 +589,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="expenseListTableView" destination="MZh-gR-5Bb" id="zEE-aT-ErW"/>
-                        <segue destination="FG0-dq-QVU" kind="show" identifier="showExpenseDetailVC" id="ozz-lh-MVk"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hUH-tt-ghu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -651,13 +652,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="l6p-r6-SDT">
-                        <barButtonItem key="rightBarButtonItem" title="Edit" id="Qlk-1P-SMK">
-                            <connections>
-                                <segue destination="0jq-iu-og4" kind="show" identifier="EditExpense" id="D3r-c8-00e"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="l6p-r6-SDT"/>
                     <connections>
                         <outlet property="amountYouSharedLabel" destination="7Am-Q4-0iy" id="fMD-6P-qoS"/>
                         <outlet property="expenseCreatedByLabel" destination="h0X-b1-bpe" id="F8a-1G-LzE"/>
@@ -669,7 +664,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XzU-g4-8Uv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1974" y="1739"/>
+            <point key="canvasLocation" x="4196" y="415"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Vtr-oK-XbX">
@@ -708,7 +703,4 @@
             <point key="canvasLocation" x="2199.375" y="-596.83098591549299"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="1vk-ng-Osa"/>
-    </inferredMetricsTieBreakers>
 </document>

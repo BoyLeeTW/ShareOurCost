@@ -29,6 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
             let tabBarVC = mainStoryboard.instantiateViewController(withIdentifier: "MatchingVC")
 
+            userUID = Auth.auth().currentUser!.uid
+
             window?.rootViewController = tabBarVC
 
         } else {
