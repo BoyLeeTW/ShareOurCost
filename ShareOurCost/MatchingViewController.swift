@@ -28,8 +28,6 @@ class MatchingViewController: UIViewController {
 
         let searchedUserID = phoneNumberTextField.text!
 
-        ref = Database.database().reference()
-
         friendManager.checkFriendID(userID: searchedUserID, completion: { (userSelfID, searchResult, searchedUID) in
 
             if searchResult == true {
@@ -68,20 +66,14 @@ class MatchingViewController: UIViewController {
 
             ref.child("userInfo").child(addFriendID).child("pendingFriendRequest").updateChildValues([(Auth.auth().currentUser?.uid)!: false])
 
-            ref.child("userInfo").child((Auth.auth().currentUser?.uid)!).child("pendingSentFriendRequest").updateChildValues([addFriendID: false])
+            ref.child("userInfo").child(userUID).child("pendingSentFriendRequest").updateChildValues([addFriendID: false])
 
         }
 
     }
 
-    var expenseList = [ExpenseModel]()
-
-    var refExpense: DatabaseReference!
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        ref = Database.database().reference()
 
         logOutButton.addTarget(self, action: #selector(handleLouOut), for: .touchUpInside)
 

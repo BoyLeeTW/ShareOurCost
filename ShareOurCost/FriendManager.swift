@@ -129,4 +129,44 @@ class FriendManager {
 
     }
 
+    func searchFriendNameByUserID(userID: String, completion: @escaping ( (Bool ,String?, String?) -> () )) {
+
+        ref = Database.database().reference()
+
+        ref.child("userInfo").queryOrdered(byChild: "userID").queryEqual(toValue: userID).observe(.value, with: { (dataSnapshot) in
+
+            if dataSnapshot.exists() == true {
+
+                guard let searchedUserInfoOrigin = dataSnapshot.value as? [String: Any]                 else { return }
+                
+                //key is userUID
+                for (key, value) in searchedUserInfoOrigin {
+                    
+                    guard let searchedUserInfo = value as? [String: Any],
+                        let searchedUserName = searchedUserInfo["fullName"] as? String
+                        else { return }
+                    
+                    completion(dataSnapshot.exists(), key, searchedUserName)
+
+                }
+
+            } else {
+
+                completion(dataSnapshot.exists(), nil, nil)
+
+            }
+            
+
+            self.ref.child("userInfo").queryOrdered(byChild: "userID").queryEqual(toValue: userID).removeAllObservers()
+
+        })
+
+    }
+
+    func sendFriendRequest(friendUID: String) {
+
+        
+
+    }
+
 }
