@@ -75,6 +75,10 @@ class MatchingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+//        let expenseManager = ExpenseManager()
+//
+//        expenseManager.fetchAcceptedExpense()
+
         logOutButton.addTarget(self, action: #selector(handleLouOut), for: .touchUpInside)
 
     }

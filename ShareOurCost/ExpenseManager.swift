@@ -193,6 +193,23 @@ class ExpenseManager {
 
         }
 
+    }
+
+    func fetchAcceptedExpense() {
+
+        ref = Database.database().reference()
+
+        ref.child("userExpense").child(userUID).queryOrdered(byChild: "status").queryEqual(toValue: "accepted").observe(.value, with: { (dataSnapshot) in
+
+            guard let expenseListResource = dataSnapshot.value as? [String: Any] else { return }
+
+            for (key, value) in expenseListResource {
+
+             print(key)
+
+            }
+
+        })
 
     }
 

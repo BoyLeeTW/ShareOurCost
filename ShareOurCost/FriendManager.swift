@@ -165,7 +165,9 @@ class FriendManager {
 
     func sendFriendRequest(friendUID: String) {
 
+        ref.child("userInfo").child(friendUID).child("pendingFriendRequest").updateChildValues([userUID: false])
         
+        ref.child("userInfo").child(userUID).child("pendingSentFriendRequest").updateChildValues([friendUID: false])
 
     }
 

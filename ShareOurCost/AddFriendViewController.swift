@@ -17,20 +17,22 @@ class AddFriendViewController: UIViewController {
     let friendManager = FriendManager()
 
     var searchedFriendUID = String()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.addFriendButton.isHidden = true
+        self.searchFriendUIDResultLabel.isHidden = true
+        
         searchFriendUIDButton.addTarget(self, action: #selector(touchSearchFriendButton), for: .touchUpInside)
 
-        // Do any additional setup after loading the view.
+        addFriendButton.addTarget(self, action: #selector(touchAddFriend), for: .touchUpInside)
+
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     func touchSearchFriendButton() {
+
+        searchedFriendUID = ""
 
         guard let searchedUserUID = searchFriendUIDTextField.text else { return }
 
@@ -39,20 +41,29 @@ class AddFriendViewController: UIViewController {
             if searchResult == true {
 
                 self.searchedFriendUID = searchedFriendUID!
-                
+
                 if searchedFriendUID == userUID {
-                    
+
                     self.searchFriendUIDResultLabel.text = "Cannot add yourself lol"
-                    
+                    self.searchFriendUIDResultLabel.isHidden = false
+
+                    self.addFriendButton.isHidden = true
+
                 } else {
                     
                     self.searchFriendUIDResultLabel.text = searchedUserName
-                    
+                    self.searchFriendUIDResultLabel.isHidden = false
+
+                    self.addFriendButton.isHidden = false
+
                 }
 
             } else {
 
                 self.searchFriendUIDResultLabel.text = "Not found!"
+                self.searchFriendUIDResultLabel.isHidden = false
+
+                self.addFriendButton.isHidden = true
 
             }
 
@@ -60,6 +71,21 @@ class AddFriendViewController: UIViewController {
 
     }
 
-//    func
+    func touchAddFriend() {
+
+        if self.searchedFriendUID != "" {
+
+            friendManager.sendFriendRequest(friendUID: searchedFriendUID)
+
+            let alertController = UIAlertController(title: "Success",
+                                                    message: "Already sent your friend request!",
+                                                    preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alertController.addAction(defaultAction)
+            self.present(alertController, animated: true, completion:  nil)
+
+        }
+
+    }
 
 }

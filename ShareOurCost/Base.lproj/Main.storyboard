@@ -415,11 +415,30 @@
                     </navigationItem>
                     <connections>
                         <outlet property="friendListTableView" destination="AgC-0q-I0t" id="j38-Ga-c85"/>
+                        <segue destination="Ajg-y3-Nmg" kind="show" id="qga-ub-FvZ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K6r-c8-pIL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3197" y="596"/>
+        </scene>
+        <!--Friend Detail List View Controller-->
+        <scene sceneID="dTa-GI-df0">
+            <objects>
+                <viewController id="Ajg-y3-Nmg" customClass="FriendDetailListViewController" customModule="ShareOurCost" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="KIJ-XA-fOt"/>
+                        <viewControllerLayoutGuide type="bottom" id="jA6-er-izi"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Y9v-qi-br2">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CyQ-tB-yDF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4509" y="437"/>
         </scene>
         <!--Add Friend View Controller-->
         <scene sceneID="iLz-0s-ioG">
@@ -469,7 +488,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gco-RA-JZ9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4059.375" y="600"/>
+            <point key="canvasLocation" x="4509" y="1185"/>
         </scene>
         <!--Expense List Segment View Controller-->
         <scene sceneID="VxQ-25-h2I">
