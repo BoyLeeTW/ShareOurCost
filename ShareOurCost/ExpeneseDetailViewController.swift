@@ -108,7 +108,7 @@ class ExpeneseDetailViewController: UIViewController {
 
         let expenseManager = ExpenseManager()
 
-        expenseManager.changeExpenseStatus(friendUID: sharedFriendUID, expenseID: expenseID, changeStatus: "accepted")
+        expenseManager.changeExpenseStatus(friendUID: sharedFriendUID, expenseID: expenseID, changeSelfStatus: "accepted", changeFriendStatus: nil)
 
     }
 
@@ -131,7 +131,7 @@ class ExpeneseDetailViewController: UIViewController {
         
         let expenseManager = ExpenseManager()
         
-        expenseManager.changeExpenseStatus(friendUID: sharedFriendUID, expenseID: expenseID, changeStatus: "denied")
+        expenseManager.changeExpenseStatus(friendUID: sharedFriendUID, expenseID: expenseID, changeSelfStatus: "denied", changeFriendStatus: nil)
         
     }
 
@@ -154,7 +154,7 @@ class ExpeneseDetailViewController: UIViewController {
         
         let expenseManager = ExpenseManager()
         
-        expenseManager.changeExpenseStatus(friendUID: sharedFriendUID, expenseID: expenseID, changeStatus: "toBeDeleted")
+        expenseManager.changeExpenseStatus(friendUID: sharedFriendUID, expenseID: expenseID, changeSelfStatus: "sentDeleted", changeFriendStatus: "receivedDeleted")
         
     }
 

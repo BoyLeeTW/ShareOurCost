@@ -15,7 +15,7 @@ enum ExpenseStatus: String {
     case sentPending = "sentPending"
     case receivedPending = "receivedPending"
     case denied = "denied"
-    case toBeDeleted = "toBeDeleted"
+    case receivedDeleted = "receivedDeleted"
 }
 
 class ExpenseManager {
@@ -118,7 +118,7 @@ class ExpenseManager {
         
         var deniedExpenseIDList = ExpenseInfoList()
         
-        var toBeDeletedExpenseIDList = ExpenseInfoList()
+        var receivedDeletedExpenseIDList = ExpenseInfoList()
 
         ref.child("userExpense").child(userUID).observe(.value, with: { (dataSnapshot) in
 
@@ -212,15 +212,15 @@ class ExpenseManager {
                             
                         }
 
-                    } else if expenseStatus == ExpenseStatus.toBeDeleted.rawValue{
+                    } else if expenseStatus == ExpenseStatus.receivedDeleted.rawValue{
                         
-                        if toBeDeletedExpenseIDList[sharedFriendID] == nil {
+                        if receivedDeletedExpenseIDList[sharedFriendID] == nil {
                             
-                            toBeDeletedExpenseIDList.updateValue([expenseDetailDataVar], forKey: sharedFriendID)
+                            receivedDeletedExpenseIDList.updateValue([expenseDetailDataVar], forKey: sharedFriendID)
                             
                         } else {
                             
-                            toBeDeletedExpenseIDList[sharedFriendID]?.append(expenseDetailDataVar)
+                            receivedDeletedExpenseIDList[sharedFriendID]?.append(expenseDetailDataVar)
                             
                         }
                         
@@ -228,7 +228,7 @@ class ExpenseManager {
                     
                     DispatchQueue.main.async {
 
-                        completion(acceptedExpenseIDList, receivedPendingExpenseIDList, sentPendingExpenseIDList, deniedExpenseIDList, toBeDeletedExpenseIDList)
+                        completion(acceptedExpenseIDList, receivedPendingExpenseIDList, sentPendingExpenseIDList, deniedExpenseIDList, receivedDeletedExpenseIDList)
                         
                     }
 
@@ -283,12 +283,23 @@ class ExpenseManager {
 
     }
 
-    func changeExpenseStatus(friendUID: String, expenseID: String, changeStatus: String) {
+    func changeExpenseStatus(friendUID: String, expenseID: String, changeSelfStatus: String, changeFriendStatus: String?) {
 
         ref = Database.database().reference()
 
-        ref.child("userExpense").child(userUID).child(expenseID).updateChildValues(["status": changeStatus])
-        ref.child("userExpense").child(friendUID).child(expenseID).updateChildValues(["status": changeStatus])
+        if changeFriendStatus == nil {
+
+            ref.child("userExpense").child(userUID).child(expenseID).updateChildValues(["status": changeSelfStatus])
+            ref.child("userExpense").child(friendUID).child(expenseID).updateChildValues(["status": changeSelfStatus])
+
+        } else {
+
+            ref.child("userExpense").child(userUID).child(expenseID).updateChildValues(["status": changeSelfStatus])
+            ref.child("userExpense").child(friendUID).child(expenseID).updateChildValues(["status": changeFriendStatus])
+
+
+        }
+
 
     }
 

@@ -16,6 +16,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
         case sentPending
         case receivedPending
         case denied
+        case receivedDeleted
 
     }
 
@@ -40,7 +41,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
     var deniedExpenseIDList = ExpenseIDList()
 
-    var toBeDeletedExpenseIDList = ExpenseIDList()
+    var receivedDeletedExpenseIDList = ExpenseIDList()
 
     var selectedRow = Int()
 
@@ -75,13 +76,13 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                     
                 })
                 
-                self.expenseManager.newFetchExpenseIDList { (acceptedExpenseIDList, receivedPendingExpenseIDList, sentPendingExpenseIDList, deniedExpenseIDList, toBeDeletedExpenseIDList) in
+                self.expenseManager.newFetchExpenseIDList { (acceptedExpenseIDList, receivedPendingExpenseIDList, sentPendingExpenseIDList, deniedExpenseIDList, receivedDeletedExpenseIDList) in
                     
                     self.acceptedExpenseIDList = acceptedExpenseIDList
                     self.receivedPendingExpenseIDList = receivedPendingExpenseIDList
                     self.sentPendingExpenseIDList = sentPendingExpenseIDList
                     self.deniedExpenseIDList = deniedExpenseIDList
-                    self.toBeDeletedExpenseIDList = toBeDeletedExpenseIDList
+                    self.receivedDeletedExpenseIDList = receivedDeletedExpenseIDList
 
                     self.expenseListTableView.reloadData()
                     
@@ -92,7 +93,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
     override func viewWillAppear(_ animated: Bool) {
 
-        fetchData()
+//        fetchData()
 
         self.expenseListTableView.reloadData()
 
@@ -106,7 +107,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
     func expenseStatusSegmentControllerChanged() {
 
-        fetchData()
+//        fetchData()
 
         expenseListTableView.reloadData()
 
@@ -145,7 +146,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
         default:
 
-            rowInSection = toBeDeletedExpenseIDList[friendUIDList[section]]?.count ?? 0
+            rowInSection = receivedDeletedExpenseIDList[friendUIDList[section]]?.count ?? 0
 
         }
 
@@ -319,7 +320,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
         default:
 
-            guard let expenseData = toBeDeletedExpenseIDList[friendUIDList[indexPath.section]]?[indexPath.row],
+            guard let expenseData = receivedDeletedExpenseIDList[friendUIDList[indexPath.section]]?[indexPath.row],
                 
                 let expenseDescription = expenseData["description"] as? String,
                 let sharedResult = expenseData["sharedResult"] as? [String: Int],
@@ -377,7 +378,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
               let friendUID = friendUIDList[sender.section!] as? String
         else { return }
 
-        expenseManager.changeExpenseStatus(friendUID: friendUID, expenseID: expenseID, changeStatus: "accepted")
+        expenseManager.changeExpenseStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: "accepted", changeFriendStatus: nil)
 
         expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: false)
 
@@ -389,7 +390,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
             let friendUID = friendUIDList[sender.section!] as? String
             else { return }
 
-        expenseManager.changeExpenseStatus(friendUID: friendUID, expenseID: expenseID, changeStatus: "denied")
+        expenseManager.changeExpenseStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: "denied", changeFriendStatus: nil)
 
         expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: false)
 
@@ -438,7 +439,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
         default:
 
-            guard let expenseID = toBeDeletedExpenseIDList[friendUIDList[selectedSection]]![selectedRow]["id"] as? String,
+            guard let expenseID = receivedDeletedExpenseIDList[friendUIDList[selectedSection]]![selectedRow]["id"] as? String,
                 let friendUID = friendUIDList[selectedSection] as? String
                 else { return }
             
@@ -475,7 +476,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
             default:
 
-                destinationVC?.expenseInformation = (toBeDeletedExpenseIDList[friendUIDList[selectedSection]]?[selectedRow])!
+                destinationVC?.expenseInformation = (receivedDeletedExpenseIDList[friendUIDList[selectedSection]]?[selectedRow])!
 
 
             }
