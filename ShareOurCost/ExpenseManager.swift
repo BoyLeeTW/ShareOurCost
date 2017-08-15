@@ -16,111 +16,30 @@ enum ExpenseStatus: String {
     case receivedPending = "receivedPending"
     case denied = "denied"
     case receivedDeleted = "receivedDeleted"
+
 }
 
 class ExpenseManager {
-
-    typealias ExpenseList = [String: [String]]
 
     typealias ExpenseInfoList = [String: [[String: Any]]]
 
     var ref: DatabaseReference!
 
-    func fetchExpenseIDList(friendUIDList: Array<String>, completion:@escaping (ExpenseList, ExpenseList, ExpenseList, ExpenseList) -> () ) {
-
-        ref = Database.database().reference()
-
-        for friendUID in friendUIDList {
-
-            ref.child("userExpense").child("\(userUID)").child("\(friendUID)").observe(.value, with: { (dataSnapshot) in
-
-                var acceptedExpenseIDList = ExpenseList()
-                
-                var sentPendingExpenseIDList = ExpenseList()
-                
-                var receivedPendingExpenseIDList = ExpenseList()
-                
-                var deniedExpenseIDList = ExpenseList()
-
-                guard let expenseListData = dataSnapshot.value! as? [String: String] else { return }
-
-                for (key, value) in expenseListData {
-
-                    if value == ExpenseStatus.accepted.rawValue {
-
-                        if acceptedExpenseIDList[friendUID] == nil {
-
-                            acceptedExpenseIDList.updateValue([key], forKey: friendUID)
-
-                        } else {
-
-                            acceptedExpenseIDList[friendUID]!.append(key)
-
-                        }
-
-                    } else if value == ExpenseStatus.sentPending.rawValue {
-
-                        if sentPendingExpenseIDList[friendUID] == nil {
-                            
-                            sentPendingExpenseIDList.updateValue([key], forKey: friendUID)
-                            
-                        } else {
-                            
-                            sentPendingExpenseIDList[friendUID]!.append(key)
-                            
-                        }
-
-                    } else if value == ExpenseStatus.receivedPending.rawValue {
-                        
-                        if receivedPendingExpenseIDList[friendUID] == nil {
-                            
-                            receivedPendingExpenseIDList.updateValue([key], forKey: friendUID)
-                            
-                        } else {
-                            
-                            receivedPendingExpenseIDList[friendUID]!.append(key)
-                            
-                        }
-                        
-                    } else if value == ExpenseStatus.denied.rawValue {
-                        
-                        if deniedExpenseIDList[friendUID] == nil {
-                            
-                            deniedExpenseIDList.updateValue([key], forKey: friendUID)
-                            
-                        } else {
-                            
-                            deniedExpenseIDList[friendUID]!.append(key)
-                            
-                        }
-                        
-                    }
-
-                }
-
-                completion(acceptedExpenseIDList, sentPendingExpenseIDList, receivedPendingExpenseIDList, deniedExpenseIDList)
-
-            })
-
-        }
-
-    }
-
     func newFetchExpenseIDList(completion: @escaping (ExpenseInfoList, ExpenseInfoList, ExpenseInfoList, ExpenseInfoList, ExpenseInfoList) -> () ) {
 
         ref = Database.database().reference()
 
-        var acceptedExpenseIDList = ExpenseInfoList()
-        
-        var sentPendingExpenseIDList = ExpenseInfoList()
-        
-        var receivedPendingExpenseIDList = ExpenseInfoList()
-        
-        var deniedExpenseIDList = ExpenseInfoList()
-        
-        var receivedDeletedExpenseIDList = ExpenseInfoList()
-
         ref.child("userExpense").child(userUID).observe(.value, with: { (dataSnapshot) in
+
+            var acceptedExpenseIDList = ExpenseInfoList()
+            
+            var sentPendingExpenseIDList = ExpenseInfoList()
+            
+            var receivedPendingExpenseIDList = ExpenseInfoList()
+            
+            var deniedExpenseIDList = ExpenseInfoList()
+            
+            var receivedDeletedExpenseIDList = ExpenseInfoList()
 
             //key is the ID of expense
             guard let expenseData = dataSnapshot.value as? [String: Any] else { return }
@@ -200,7 +119,7 @@ class ExpenseManager {
                         }
 
 
-                    } else if expenseStatus == ExpenseStatus.denied.rawValue{
+                    } else if expenseStatus == ExpenseStatus.denied.rawValue {
 
                         if deniedExpenseIDList[sharedFriendID] == nil {
                             
@@ -212,7 +131,7 @@ class ExpenseManager {
                             
                         }
 
-                    } else if expenseStatus == ExpenseStatus.receivedDeleted.rawValue{
+                    } else if expenseStatus == ExpenseStatus.receivedDeleted.rawValue {
                         
                         if receivedDeletedExpenseIDList[sharedFriendID] == nil {
                             
@@ -233,53 +152,12 @@ class ExpenseManager {
                     }
 
                 })
-                
+
+                self.ref.child("expenseList").removeAllObservers()
+
             }
 
         })
-
-    }
-
-    func fetchExpenseDetail(friendUID: String, expenseID: String, completion: @escaping ((String) -> ())) {
-
-        ref = Database.database().reference()
-
-        ref.child("expenseList").child(expenseID).observeSingleEvent(of: .value, with: { (dataSnapshot) in
-
-            guard let expenseData = dataSnapshot.value as? [String: Any],
-                let expenseTotalAmount = expenseData["amount"] as? Int,
-                let expenseCreatedBy = expenseData["createdBy"] as? String,
-                let expenseCreatedDay = expenseData["createdTime"] as? String,
-                let expensePaidby = expenseData["expensePaidBy"] as? String,
-                let expenseDescription = expenseData["description"] as? String,
-                let expenseDay = expenseData["expenseDay"] as? String,
-                let sharedAmount = expenseData["sharedResult"] as? [String: Int],
-                let amountYouShared = sharedAmount["\(userUID)"]
-                
-                else { return }
-
-            self.ref.child("userInfo").child(friendUID).child("fullName").observeSingleEvent(of: .value, with: { (dataSnapshot) in
-
-                guard let friendName = dataSnapshot.value as? String else { return }
-
-                for (key, value) in sharedAmount where value < 0 {
-                    
-                    if key == userUID {
-
-                        completion("You owe \(friendName) $\(-value) for \(expenseDescription)" )
-                        
-                    } else {
-                        
-                        completion("\(friendName) owes you $\(-value) for \(expenseDescription)")
-                        
-                    }
-                    
-                }
-            })
-
-        })
-
-        ref.removeAllObservers()
 
     }
 
@@ -295,7 +173,7 @@ class ExpenseManager {
         } else {
 
             ref.child("userExpense").child(userUID).child(expenseID).updateChildValues(["status": changeSelfStatus])
-            ref.child("userExpense").child(friendUID).child(expenseID).updateChildValues(["status": changeFriendStatus])
+            ref.child("userExpense").child(friendUID).child(expenseID).updateChildValues(["status": changeFriendStatus!])
 
 
         }
@@ -311,7 +189,7 @@ class ExpenseManager {
 
         if changeFriendStatus != nil {
 
-            ref.child("userExpense").child(friendUID).child(expenseID).updateChildValues(["isRead": changeFriendStatus])
+            ref.child("userExpense").child(friendUID).child(expenseID).updateChildValues(["isRead": changeFriendStatus!])
 
         }
 

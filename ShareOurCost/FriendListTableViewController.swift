@@ -40,8 +40,6 @@ class FriendListTableViewController: UITableViewController {
 
             }
 
-            print(self.friendRequestIDList)
-
             //Need to reload data in this queue
             self.friendListTableView.reloadData()
 
@@ -115,8 +113,6 @@ class FriendListTableViewController: UITableViewController {
 
             ref.child("userInfo").child(friendRequestIDList[indexPath.row]).child("fullName").observe(.value, with: { (dataSnapshot) in
 
-                print(dataSnapshot.value!)
-
                 cell.friendNameLabel.text = dataSnapshot.value! as? String
 
             })
@@ -163,7 +159,6 @@ class FriendListTableViewController: UITableViewController {
 
         let friendID = friendRequestIDList[sender.tag]
         ref.database.reference().child("userInfo").child(Auth.auth().currentUser!.uid).child("pendingFriendRequest").child("\(friendID)").observe(.value, with: { (dataSnapshot) in
-//            print(dataSnapshot)
         })
 
     }

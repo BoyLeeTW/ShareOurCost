@@ -52,7 +52,7 @@ class AccountManager {
             completion(!dataSnapshot.exists())
         })
 
-        ref.removeAllObservers()
+        ref.child("userID").queryOrderedByValue().queryEqual(toValue: userID).removeAllObservers()
 
     }
 

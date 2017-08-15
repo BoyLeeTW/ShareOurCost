@@ -33,8 +33,6 @@ class ExpeneseDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        print(expenseInformation)
-
         setUpExpenseDetailLabel()
 
         acceptExpenseButton.addTarget(self, action: #selector(touchAcceptButton), for: .touchUpInside)
@@ -77,8 +75,6 @@ class ExpeneseDetailViewController: UIViewController {
             expenseCreatedByName = friendUIDandNameList[expenseCreatedBy]!
 
         }
-
-        print(expenseCreatedByName)
 
         self.totalAmountLabel.text = "Total Amount: \(expenseTotalAmount)"
         self.expenseCreatedByLabel.text = "Created By: \(expenseCreatedByName)"

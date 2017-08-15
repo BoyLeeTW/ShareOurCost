@@ -21,11 +21,13 @@ class FriendManager {
 
         ref = Database.database().reference()
 
-        ref.child("userID").child(Auth.auth().currentUser!.uid).observeSingleEvent(of: .value, with: { (dataSnapshot) in
+        ref.child("userID").child(userUID).observeSingleEvent(of: .value, with: { (dataSnapshot) in
 
             guard let userID = dataSnapshot.value as? String else { return }
 
             userSelfID = userID
+
+            self.ref.child("userID").child(userUID).removeAllObservers()
 
         })
 
@@ -51,6 +53,8 @@ class FriendManager {
                 return }
             
             completion(userSelfID, dataSnapshot.exists(), searchedUID)
+
+            self.ref.child("userID").removeAllObservers()
 
         })
         
@@ -85,7 +89,7 @@ class FriendManager {
 
         ref = Database.database().reference()
 
-        ref.child("userInfo").child(Auth.auth().currentUser!.uid).child("friendList").observe(.value, with: { (dataSnapshot) in
+        ref.child("userInfo").child(userUID).child("friendList").observe(.value, with: { (dataSnapshot) in
 
             guard let friendListData = dataSnapshot.value as?[String: Bool] else { return }
 

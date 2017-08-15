@@ -93,8 +93,6 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
     override func viewWillAppear(_ animated: Bool) {
 
-//        fetchData()
-
         self.expenseListTableView.reloadData()
 
     }
@@ -106,8 +104,6 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
     }
 
     func expenseStatusSegmentControllerChanged() {
-
-//        fetchData()
 
         expenseListTableView.reloadData()
 
@@ -382,6 +378,8 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
         expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: false)
 
+        self.expenseListTableView.reloadData()
+
     }
 
     func touchDenyButton(sender: MyButton) {
@@ -393,6 +391,8 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
         expenseManager.changeExpenseStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: "denied", changeFriendStatus: nil)
 
         expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: false)
+
+        self.expenseListTableView.reloadData()
 
     }
 
