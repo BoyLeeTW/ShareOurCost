@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if UserDefaults.standard.value(forKey: "userUid") != nil {
 
-            let tabBarVC = mainStoryboard.instantiateViewController(withIdentifier: "MatchingVC")
+            let tabBarVC = mainStoryboard.instantiateViewController(withIdentifier: "TabBarController")
 
             userUID = Auth.auth().currentUser!.uid
 
