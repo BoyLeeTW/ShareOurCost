@@ -42,7 +42,7 @@ class AccountManager {
 
     }
 
-    func checkIfUserIDUnique(userID: String, completion: @escaping ((Bool) -> ())) {
+    func checkIfUserIDUnique(userID: String, completion:  @escaping ((Bool) -> ())) {
 
         ref = Database.database().reference()
 

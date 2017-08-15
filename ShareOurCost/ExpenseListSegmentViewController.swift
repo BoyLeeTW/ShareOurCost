@@ -50,11 +50,12 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        fetchData()
+
         expenseStatusSegmentController.addTarget(self, action: #selector(expenseStatusSegmentControllerChanged), for: .valueChanged)
 
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(touchBackButton))
+        self.navigationController?.navigationBar.topItem?.title = "Expense List"
 
-        fetchData()
 
     }
 
@@ -461,23 +462,42 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
             case 0:
 
                 destinationVC?.expenseInformation = (acceptedExpenseIDList[friendUIDList[selectedSection]]?[selectedRow])!
-                
+
+                destinationVC?.isAcceptButtonHidden = true
+                destinationVC?.isDenyButtonHidden = true
+                destinationVC?.isDeleteButtonHidden = false
+
             case 1:
 
                 destinationVC?.expenseInformation = (receivedPendingExpenseIDList[friendUIDList[selectedSection]]?[selectedRow])!
+
+                destinationVC?.isAcceptButtonHidden = false
+                    destinationVC?.isDenyButtonHidden = false
+                    destinationVC?.isDeleteButtonHidden = true
 
             case 2:
 
                 destinationVC?.expenseInformation = (sentPendingExpenseIDList[friendUIDList[selectedSection]]?[selectedRow])!
 
+                destinationVC?.isAcceptButtonHidden = true
+                destinationVC?.isDenyButtonHidden = true
+                destinationVC?.isDeleteButtonHidden = false
+
             case 3:
 
                 destinationVC?.expenseInformation = (deniedExpenseIDList[friendUIDList[selectedSection]]?[selectedRow])!
+
+                destinationVC?.isAcceptButtonHidden = true
+                destinationVC?.isDenyButtonHidden = true
+                destinationVC?.isDeleteButtonHidden = false
 
             default:
 
                 destinationVC?.expenseInformation = (receivedDeletedExpenseIDList[friendUIDList[selectedSection]]?[selectedRow])!
 
+                destinationVC?.isAcceptButtonHidden = true
+                destinationVC?.isDenyButtonHidden = true
+                destinationVC?.isDeleteButtonHidden = false
 
             }
 

@@ -24,25 +24,26 @@ class ExpeneseDetailViewController: UIViewController {
 
     var expenseInformation = [String: Any]()
 
-    var selectedRow = Int()
-
     var expenseID = String()
 
     var sharedFriendUID = String()
+
+    var isAcceptButtonHidden = Bool()
+
+    var isDenyButtonHidden = Bool()
+
+    var isDeleteButtonHidden = Bool()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setUpExpenseDetailLabel()
 
+        setUpButton()
+
         acceptExpenseButton.addTarget(self, action: #selector(touchAcceptButton), for: .touchUpInside)
         denyExpenseButton.addTarget(self, action: #selector(touchDenyButton), for: .touchUpInside)
         deleteExpenseButton.addTarget(self, action: #selector(touchDeleteButton), for: .touchUpInside)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     func touchBackButton() {
@@ -82,6 +83,16 @@ class ExpeneseDetailViewController: UIViewController {
         self.expenseDescriptionLabel.text = "Description: \(expenseDescription)"
         self.amountYouSharedLabel.text = "Amount You Shared: \(amountYouShared)"
         self.expenseDateLabel.text = "\(expenseDay)"
+
+    }
+
+    func setUpButton() {
+
+        acceptExpenseButton.isHidden = isAcceptButtonHidden
+
+        denyExpenseButton.isHidden = isDenyButtonHidden
+
+        deleteExpenseButton.isHidden = isDeleteButtonHidden
 
     }
 
@@ -151,7 +162,9 @@ class ExpeneseDetailViewController: UIViewController {
         let expenseManager = ExpenseManager()
         
         expenseManager.changeExpenseStatus(friendUID: sharedFriendUID, expenseID: expenseID, changeSelfStatus: "sentDeleted", changeFriendStatus: "receivedDeleted")
+
         
+
     }
 
 }

@@ -408,8 +408,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="5ab-YD-qiA">
-                        <barButtonItem key="leftBarButtonItem" image="ic_perm_identity_36pt" id="Zkl-5X-mMA"/>
+                        <barButtonItem key="leftBarButtonItem" image="ic_perm_identity_36pt" id="Zkl-5X-mMA">
+                            <color key="tintColor" red="0.92941176469999998" green="0.37647058820000001" blue="0.31764705879999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="ic_add_36pt" id="GgI-7C-Rvu">
+                            <color key="tintColor" red="0.92941176469999998" green="0.37647058820000001" blue="0.31764705879999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
                                 <segue destination="bPg-qr-N0h" kind="show" id="6Kk-qu-vLK"/>
                             </connections>
@@ -588,7 +591,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="6Xb-H5-H2g">
                         <barButtonItem key="rightBarButtonItem" image="ic_add_36pt" id="QoP-IJ-lhp">
-                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="tintColor" red="0.92941176469999998" green="0.37647058820000001" blue="0.31764705879999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
                                 <segue destination="0jq-iu-og4" kind="show" id="EN1-Cb-XnZ"/>
                             </connections>

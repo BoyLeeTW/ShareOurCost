@@ -36,34 +36,36 @@ class AddFriendViewController: UIViewController {
 
         guard let searchedUserUID = searchFriendUIDTextField.text else { return }
 
-        friendManager.searchFriendNameByUserID(userID: searchedUserUID, completion: { (searchResult, searchedFriendUID, searchedUserName) in
+        friendManager.searchFriendNameByUserID(userID: searchedUserUID, completion: { [weak self] (searchResult, searchedFriendUID, searchedUserName) in
+
+            guard let weakSelf = self else { return }
 
             if searchResult == true {
 
-                self.searchedFriendUID = searchedFriendUID!
+                weakSelf.searchedFriendUID = searchedFriendUID!
 
                 if searchedFriendUID == userUID {
 
-                    self.searchFriendUIDResultLabel.text = "Cannot add yourself lol"
-                    self.searchFriendUIDResultLabel.isHidden = false
+                    weakSelf.searchFriendUIDResultLabel.text = "Cannot add yourself lol"
+                    weakSelf.searchFriendUIDResultLabel.isHidden = false
 
-                    self.addFriendButton.isHidden = true
+                    weakSelf.addFriendButton.isHidden = true
 
                 } else {
                     
-                    self.searchFriendUIDResultLabel.text = searchedUserName
-                    self.searchFriendUIDResultLabel.isHidden = false
+                    weakSelf.searchFriendUIDResultLabel.text = searchedUserName
+                    weakSelf.searchFriendUIDResultLabel.isHidden = false
 
-                    self.addFriendButton.isHidden = false
+                    weakSelf.addFriendButton.isHidden = false
 
                 }
 
             } else {
 
-                self.searchFriendUIDResultLabel.text = "Not found!"
-                self.searchFriendUIDResultLabel.isHidden = false
+                weakSelf.searchFriendUIDResultLabel.text = "Not found!"
+                weakSelf.searchFriendUIDResultLabel.isHidden = false
 
-                self.addFriendButton.isHidden = true
+                weakSelf.addFriendButton.isHidden = true
 
             }
 
