@@ -13,23 +13,17 @@ var userUID = String()
 
 var friendUIDandNameList = [String: String]()
 
-class ExpenseModel {
+var friendNameList = Array<String>()
 
-    var amount: Int
-    var date: String
-    var member: String
-    var sharedMethod: String
-    var sharedResult: Dictionary<String, Int>
+enum ExpenseStatus: String {
     
-    init(amount: Int, date:String, member:String, sharedMethod:String, sharedResult:Dictionary<String, Int>){
-        self.amount = amount
-        self.date = date
-        self.member = member
-        self.sharedMethod = sharedMethod
-        self.sharedResult = sharedResult
-    }
+    case accepted = "accepted"
+    case sentPending = "sentPending"
+    case receivedPending = "receivedPending"
+    case denied = "denied"
+    case receivedDeleted = "receivedDeleted"
+    
 }
-
 
 class MyButton: UIButton {
 

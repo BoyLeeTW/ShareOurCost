@@ -98,7 +98,7 @@ class ViewController: UIViewController {
 
                 if loginResultBool == true {
 
-                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "MatchingVC")
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "TabBarController")
                     
                     self.present(vc!, animated: true, completion: nil)
 
@@ -153,7 +153,7 @@ class ViewController: UIViewController {
                 self.fullNameTextField.text = ""
                 self.userIDTextField.text = ""
                     
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "MatchingVC")
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "TabBarController")
                 self.present(vc!, animated: true, completion: nil)
                     
             } else {

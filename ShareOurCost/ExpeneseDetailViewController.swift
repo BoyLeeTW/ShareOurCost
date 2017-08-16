@@ -28,6 +28,8 @@ class ExpeneseDetailViewController: UIViewController {
 
     var sharedFriendUID = String()
 
+    var expenseStatus = String()
+
     var isAcceptButtonHidden = Bool()
 
     var isDenyButtonHidden = Bool()

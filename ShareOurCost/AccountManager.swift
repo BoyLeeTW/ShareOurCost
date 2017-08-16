@@ -96,4 +96,11 @@ class AccountManager {
 
     }
 
+    func logOut() {
+        
+        UserDefaults.standard.setValue(nil, forKey: "userUid")
+        
+        
+    }
+
 }

@@ -21,12 +21,16 @@ class FriendListTableViewController: UITableViewController {
 
     var ref: DatabaseReference!
 
+    let accountManager = AccountManager()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         ref = Database.database().reference()
 
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(touchBackButton))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_perm_identity_36pt"), style: .plain, target: self, action: #selector(handleLogout))
+
+        //        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(touchBackButton))
 
         ref.child("userInfo").child((Auth.auth().currentUser?.uid)!).child("pendingFriendRequest").observe(.childAdded, with: { (dataSnapshot) in
 
@@ -160,6 +164,16 @@ class FriendListTableViewController: UITableViewController {
         let friendID = friendRequestIDList[sender.tag]
         ref.database.reference().child("userInfo").child(Auth.auth().currentUser!.uid).child("pendingFriendRequest").child("\(friendID)").observe(.value, with: { (dataSnapshot) in
         })
+
+    }
+
+    func handleLogout() {
+
+        accountManager.logOut()
+
+        let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC")
+        
+        self.present(loginVC!, animated: true)
 
     }
 

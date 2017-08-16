@@ -10,15 +10,15 @@ import UIKit
 
 class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    enum ExpenseStatus {
-
-        case accepted
-        case sentPending
-        case receivedPending
-        case denied
-        case receivedDeleted
-
-    }
+//    enum ExpenseStatus {
+//
+//        case accepted
+//        case sentPending
+//        case receivedPending
+//        case denied
+//        case receivedDeleted
+//
+//    }
 
     @IBOutlet weak var expenseStatusSegmentController: UISegmentedControl!
     @IBOutlet weak var expenseListTableView: UITableView!
@@ -466,14 +466,16 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                 destinationVC?.isAcceptButtonHidden = true
                 destinationVC?.isDenyButtonHidden = true
                 destinationVC?.isDeleteButtonHidden = false
+                destinationVC?.expenseStatus = ExpenseStatus.accepted.rawValue
 
             case 1:
 
                 destinationVC?.expenseInformation = (receivedPendingExpenseIDList[friendUIDList[selectedSection]]?[selectedRow])!
 
                 destinationVC?.isAcceptButtonHidden = false
-                    destinationVC?.isDenyButtonHidden = false
-                    destinationVC?.isDeleteButtonHidden = true
+                destinationVC?.isDenyButtonHidden = false
+                destinationVC?.isDeleteButtonHidden = true
+                destinationVC?.expenseStatus = ExpenseStatus.receivedPending.rawValue
 
             case 2:
 
@@ -482,6 +484,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                 destinationVC?.isAcceptButtonHidden = true
                 destinationVC?.isDenyButtonHidden = true
                 destinationVC?.isDeleteButtonHidden = false
+                destinationVC?.expenseStatus = ExpenseStatus.sentPending.rawValue
 
             case 3:
 
@@ -490,6 +493,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                 destinationVC?.isAcceptButtonHidden = true
                 destinationVC?.isDenyButtonHidden = true
                 destinationVC?.isDeleteButtonHidden = false
+                destinationVC?.expenseStatus = ExpenseStatus.denied.rawValue
 
             default:
 
@@ -498,6 +502,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                 destinationVC?.isAcceptButtonHidden = true
                 destinationVC?.isDenyButtonHidden = true
                 destinationVC?.isDeleteButtonHidden = false
+                destinationVC?.expenseStatus = ExpenseStatus.receivedPending.rawValue
 
             }
 
