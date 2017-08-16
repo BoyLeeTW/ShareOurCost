@@ -105,6 +105,7 @@
         <!--Matching View Controller-->
         <scene sceneID="ia6-rX-kg3">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wva-Dw-QtK" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="MatchingVC" id="cel-Wn-QLz" customClass="MatchingViewController" customModule="ShareOurCost" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8dc-u2-kCl"/>
@@ -184,7 +185,6 @@
                         <outlet property="searchFriendButton" destination="NGC-u6-ITe" id="cgo-uT-ygy"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wva-Dw-QtK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="193" y="138"/>
         </scene>
@@ -408,10 +408,10 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="5ab-YD-qiA">
-                        <barButtonItem key="leftBarButtonItem" image="ic_perm_identity_36pt" id="Zkl-5X-mMA">
+                        <barButtonItem key="leftBarButtonItem" image="ic_person_white" id="Zkl-5X-mMA">
                             <color key="tintColor" red="0.92941176469999998" green="0.37647058820000001" blue="0.31764705879999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="ic_add_36pt" id="GgI-7C-Rvu">
+                        <barButtonItem key="rightBarButtonItem" image="ic_add_white" id="GgI-7C-Rvu">
                             <color key="tintColor" red="0.92941176469999998" green="0.37647058820000001" blue="0.31764705879999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
                                 <segue destination="bPg-qr-N0h" kind="show" id="6Kk-qu-vLK"/>
@@ -438,12 +438,29 @@
                     <view key="view" contentMode="scaleToFill" id="Y9v-qi-br2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hhW-O5-jjf">
+                                <rect key="frame" x="131" y="218" width="62" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Settle up"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WOC-vf-WTW">
+                                <rect key="frame" x="45" y="117" width="231" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="balanceLabel" destination="WOC-vf-WTW" id="uS5-4r-era"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CyQ-tB-yDF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3879" y="-877"/>
+            <point key="canvasLocation" x="3877.5" y="-877.81690140845069"/>
         </scene>
         <!--Add Friend View Controller-->
         <scene sceneID="iLz-0s-ioG">
@@ -508,7 +525,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nH6-Ff-pQp">
-                                <rect key="frame" x="0.0" y="105.5" width="320" height="413.5"/>
+                                <rect key="frame" x="0.0" y="96.5" width="320" height="471.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ExpenseListSegmentCell" id="IRN-up-F5C" customClass="ExpenseListSegmentTableViewCell" customModule="ShareOurCost" customModuleProvider="target">
@@ -519,23 +536,23 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v7W-in-k5I" customClass="MyButton" customModule="ShareOurCost" customModuleProvider="target">
-                                                    <rect key="frame" x="212" y="5" width="49" height="36"/>
+                                                    <rect key="frame" x="232" y="9.5" width="30" height="24"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="49" id="rWl-jA-vd5"/>
+                                                        <constraint firstAttribute="width" constant="30" id="rWl-jA-vd5"/>
                                                     </constraints>
                                                     <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <state key="normal" image="ic_done_36pt"/>
+                                                    <state key="normal" image="ic_thumb_up_white"/>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r4O-XG-gYx" customClass="MyButton" customModule="ShareOurCost" customModuleProvider="target">
-                                                    <rect key="frame" x="269" y="5" width="36" height="36"/>
+                                                    <rect key="frame" x="275" y="9.5" width="30" height="24"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="36" id="pgW-cG-VEg"/>
+                                                        <constraint firstAttribute="width" constant="30" id="pgW-cG-VEg"/>
                                                     </constraints>
                                                     <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <state key="normal" image="ic_clear_white_36pt"/>
+                                                    <state key="normal" image="ic_thumb_down_white"/>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dtx-hm-uRo">
-                                                    <rect key="frame" x="15" y="11" width="172" height="21"/>
+                                                    <rect key="frame" x="15" y="11" width="192" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -545,10 +562,10 @@
                                                 <constraint firstItem="dtx-hm-uRo" firstAttribute="leading" secondItem="agb-Q9-XV4" secondAttribute="leadingMargin" constant="7" id="Dsc-cV-vi9"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="r4O-XG-gYx" secondAttribute="trailing" constant="7" id="LTY-4u-gPa"/>
                                                 <constraint firstItem="v7W-in-k5I" firstAttribute="leading" secondItem="dtx-hm-uRo" secondAttribute="trailing" constant="25" id="YSo-gq-zkz"/>
-                                                <constraint firstItem="v7W-in-k5I" firstAttribute="top" secondItem="agb-Q9-XV4" secondAttribute="topMargin" constant="-3" id="fmv-bM-OGO"/>
-                                                <constraint firstItem="r4O-XG-gYx" firstAttribute="leading" secondItem="v7W-in-k5I" secondAttribute="trailing" constant="8" symbolic="YES" id="kav-5L-izC"/>
+                                                <constraint firstItem="r4O-XG-gYx" firstAttribute="leading" secondItem="v7W-in-k5I" secondAttribute="trailing" constant="13" id="kav-5L-izC"/>
                                                 <constraint firstItem="dtx-hm-uRo" firstAttribute="top" secondItem="agb-Q9-XV4" secondAttribute="topMargin" constant="3" id="mYb-eO-CvC"/>
-                                                <constraint firstItem="v7W-in-k5I" firstAttribute="baseline" secondItem="r4O-XG-gYx" secondAttribute="baseline" id="tNt-tk-sKf"/>
+                                                <constraint firstItem="v7W-in-k5I" firstAttribute="centerY" secondItem="dtx-hm-uRo" secondAttribute="centerY" id="oqA-an-Tbr"/>
+                                                <constraint firstItem="r4O-XG-gYx" firstAttribute="centerY" secondItem="v7W-in-k5I" secondAttribute="centerY" id="qyh-n0-hAZ"/>
                                                 <constraint firstItem="dtx-hm-uRo" firstAttribute="centerY" secondItem="agb-Q9-XV4" secondAttribute="centerY" id="wsX-ra-Fe9"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -565,17 +582,17 @@
                                 </connections>
                             </tableView>
                             <segmentedControl opaque="NO" contentMode="center" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="eHj-UN-dPX">
-                                <rect key="frame" x="0.0" y="64" width="320" height="42.5"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="33.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="eHj-UN-dPX" secondAttribute="height" multiplier="100:13" id="RCq-rH-BVx"/>
+                                    <constraint firstAttribute="width" secondItem="eHj-UN-dPX" secondAttribute="height" multiplier="100:10" constant="-3.0769230769230944" id="RCq-rH-BVx"/>
                                 </constraints>
                                 <segments>
-                                    <segment title="" image="ic_done_36pt"/>
-                                    <segment title="" image="receive-mail"/>
-                                    <segment title="" image="send-mail"/>
-                                    <segment title="" image="ic_clear_white_36pt"/>
-                                    <segment title="" image="ic_delete_white_36pt"/>
+                                    <segment title="" image="ic_thumb_up_white"/>
+                                    <segment title="" image="ic_thumb_down_white"/>
+                                    <segment title="" image="receive-mail-3"/>
+                                    <segment title="" image="send-mail-3"/>
+                                    <segment title="" image="ic_delete_white"/>
                                 </segments>
                                 <color key="tintColor" red="1" green="0.36862745099999999" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </segmentedControl>
@@ -592,7 +609,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="6Xb-H5-H2g">
-                        <barButtonItem key="rightBarButtonItem" image="ic_add_36pt" id="QoP-IJ-lhp">
+                        <barButtonItem key="rightBarButtonItem" image="ic_add_white" id="QoP-IJ-lhp">
                             <color key="tintColor" red="0.92941176469999998" green="0.37647058820000001" blue="0.31764705879999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
                                 <segue destination="0jq-iu-og4" kind="show" id="EN1-Cb-XnZ"/>
@@ -612,7 +629,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="W86-G1-W1T">
             <objects>
-                <tabBarController storyboardIdentifier="TabBarController" id="J0a-SS-grn" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" id="J0a-SS-grn" customClass="TabBarController" customModule="ShareOurCost" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Yq7-bW-VOQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -631,7 +648,7 @@
         <scene sceneID="dcG-EZ-n5f">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Ixh-hK-zse" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Friend" image="ic_people_outline_36pt" id="Y2T-dR-nQ4"/>
+                    <tabBarItem key="tabBarItem" title="Friend" image="ic_people_outline_white" id="Y2T-dR-nQ4"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="xJm-uV-aV7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -739,7 +756,7 @@
         <scene sceneID="Wkd-4f-om7">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="JOc-3g-wBH" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Expense" image="ic_attach_money_36pt" id="wF8-gb-38d"/>
+                    <tabBarItem key="tabBarItem" title="Expense" image="ic_attach_money_white" id="wF8-gb-38d"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Nfu-3t-8Lz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -756,18 +773,18 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ic_add_36pt" width="36" height="36"/>
-        <image name="ic_attach_money_36pt" width="36" height="36"/>
-        <image name="ic_clear_white_36pt" width="36" height="36"/>
-        <image name="ic_delete_white_36pt" width="36" height="36"/>
-        <image name="ic_done_36pt" width="36" height="36"/>
-        <image name="ic_people_outline_36pt" width="36" height="36"/>
-        <image name="ic_perm_identity_36pt" width="36" height="36"/>
-        <image name="receive-mail" width="32" height="32"/>
-        <image name="send-mail" width="32" height="32"/>
+        <image name="ic_add_white" width="24" height="24"/>
+        <image name="ic_attach_money_white" width="24" height="24"/>
+        <image name="ic_delete_white" width="24" height="24"/>
+        <image name="ic_people_outline_white" width="24" height="24"/>
+        <image name="ic_person_white" width="24" height="24"/>
+        <image name="ic_thumb_down_white" width="24" height="24"/>
+        <image name="ic_thumb_up_white" width="24" height="24"/>
+        <image name="receive-mail-3" width="24" height="24"/>
+        <image name="send-mail-3" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Ghq-je-wQw"/>
-        <segue reference="WN7-8O-oL6"/>
+        <segue reference="kGC-O1-K4I"/>
+        <segue reference="2qK-NH-A0Q"/>
     </inferredMetricsTieBreakers>
 </document>

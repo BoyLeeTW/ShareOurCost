@@ -198,9 +198,9 @@ class ExpenseManager {
     func fetchAcceptedExpenseList(completion: @escaping (ExpenseInfoList) -> () ) {
         
         ref = Database.database().reference()
-        
+
         ref.child("userExpense").child(userUID).queryOrdered(byChild: "status").queryEqual(toValue: "accepted").observe(.value, with: { (dataSnapshot) in
-            
+
             var acceptedExpenseList = ExpenseInfoList()
 
             //key is the ID of expense
@@ -263,5 +263,12 @@ class ExpenseManager {
         
     }
 
+    func settleUpBalance(friendUID: String, expenseIDList: Array<String>) {
+
+        ref = Database.database().reference()
+
+        
+
+    }
 
 }

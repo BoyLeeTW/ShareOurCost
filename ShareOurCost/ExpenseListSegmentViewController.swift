@@ -132,15 +132,15 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
             rowInSection = acceptedExpenseIDList[friendUIDList[section]]?.count ?? 0
 
-        case 1:
+        case 2:
 
             rowInSection = receivedPendingExpenseIDList[friendUIDList[section]]?.count ?? 0
 
-        case 2:
+        case 3:
 
             rowInSection = sentPendingExpenseIDList[friendUIDList[section]]?.count ?? 0
 
-        case 3:
+        case 1:
 
             rowInSection = deniedExpenseIDList[friendUIDList[section]]?.count ?? 0
 
@@ -196,7 +196,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
             cell.acceptButton.isHidden = true
             cell.denyButton.isHidden = true
 
-        case 1:
+        case 2:
 
         guard let expenseData = receivedPendingExpenseIDList[friendUIDList[indexPath.section]]?[indexPath.row],
             let expenseDescription = expenseData["description"] as? String,
@@ -241,7 +241,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
         cell.denyButton.addTarget(self, action: #selector(self.touchDenyButton(sender:)), for: .touchUpInside)
 
-        case 2:
+        case 3:
 
             guard let expenseData = sentPendingExpenseIDList[friendUIDList[indexPath.section]]?[indexPath.row],
                 
@@ -279,7 +279,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
             cell.acceptButton.isHidden = true
             cell.denyButton.isHidden = true
 
-        case 3:
+        case 1:
 
             guard let expenseData = deniedExpenseIDList[friendUIDList[indexPath.section]]?[indexPath.row],
                 
@@ -415,7 +415,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
             
             expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: nil)
 
-        case 1:
+        case 2:
 
             guard let expenseID = receivedPendingExpenseIDList[friendUIDList[selectedSection]]![selectedRow]["id"] as? String,
                 let friendUID = friendUIDList[selectedSection] as? String
@@ -424,7 +424,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
             expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: nil)
 
 
-        case 2:
+        case 3:
 
             guard let expenseID = sentPendingExpenseIDList[friendUIDList[selectedSection]]![selectedRow]["id"] as? String,
                 let friendUID = friendUIDList[selectedSection] as? String
@@ -433,7 +433,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
             expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: nil)
 
 
-        case 3:
+        case 1:
 
             guard let expenseID = deniedExpenseIDList[friendUIDList[selectedSection]]![selectedRow]["id"] as? String,
                 let friendUID = friendUIDList[selectedSection] as? String
@@ -471,7 +471,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                 destinationVC?.isDeleteButtonHidden = false
                 destinationVC?.expenseStatus = ExpenseStatus.accepted.rawValue
 
-            case 1:
+            case 2:
 
                 destinationVC?.expenseInformation = (receivedPendingExpenseIDList[friendUIDList[selectedSection]]?[selectedRow])!
 
@@ -480,7 +480,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                 destinationVC?.isDeleteButtonHidden = true
                 destinationVC?.expenseStatus = ExpenseStatus.receivedPending.rawValue
 
-            case 2:
+            case 3:
 
                 destinationVC?.expenseInformation = (sentPendingExpenseIDList[friendUIDList[selectedSection]]?[selectedRow])!
 
@@ -489,7 +489,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                 destinationVC?.isDeleteButtonHidden = false
                 destinationVC?.expenseStatus = ExpenseStatus.sentPending.rawValue
 
-            case 3:
+            case 1:
 
                 destinationVC?.expenseInformation = (deniedExpenseIDList[friendUIDList[selectedSection]]?[selectedRow])!
 

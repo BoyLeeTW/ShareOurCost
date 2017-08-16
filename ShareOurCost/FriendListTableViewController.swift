@@ -17,7 +17,7 @@ class FriendListTableViewController: UITableViewController {
 
     var friendRequestIDList = [String]()
 
-    var friendIDList = [String]()
+//    var friendUIDList = [String]()
 
     var selectedRow = Int()
 
@@ -38,14 +38,15 @@ class FriendListTableViewController: UITableViewController {
 
                 friendUIDandNameList = friendUIDtoNameListOfBlock
 
+                self.friendListTableView.reloadData()
+
             })
+
         }
 
         ref = Database.database().reference()
 
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_perm_identity_36pt"), style: .plain, target: self, action: #selector(handleLogout))
-
-        //        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(touchBackButton))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_person_white"), style: .plain, target: self, action: #selector(handleLogout))
 
         ref.child("userInfo").child(userUID).child("pendingFriendRequest").observe(.childAdded, with: { (dataSnapshot) in
 
@@ -60,14 +61,6 @@ class FriendListTableViewController: UITableViewController {
             }
 
             //Need to reload data in this queue
-            self.friendListTableView.reloadData()
-
-        })
-
-        ref.database.reference().child("userInfo").child(userUID).child("friendList").observe(.childAdded, with: { (dataSnapshot) in
-
-            self.friendIDList.append(dataSnapshot.key)
-
             self.friendListTableView.reloadData()
 
         })
@@ -100,7 +93,7 @@ class FriendListTableViewController: UITableViewController {
 
         switch section {
         case 0:
-            return friendIDList.count
+            return friendUIDList.count
 
         case 1:
             return friendRequestIDList.count
@@ -118,11 +111,9 @@ class FriendListTableViewController: UITableViewController {
 
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "friendListCell", for: indexPath) as? FriendListTableViewCell else { return UITableViewCell() }
 
-            ref.child("userInfo").child(friendIDList[indexPath.row]).child("fullName").observe(.value, with: { (dataSnapshot) in
+            guard let friendName = friendUIDandNameList[friendUIDList[indexPath.row]] else { return cell }
 
-                cell.friendNameLabel.text = dataSnapshot.value! as? String
-
-            })
+            cell.friendNameLabel.text = friendName
 
             return cell
 
@@ -211,40 +202,5 @@ class FriendListTableViewController: UITableViewController {
         performSegue(withIdentifier: "ShowFriendDetailSegue", sender: self)
 
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
 }

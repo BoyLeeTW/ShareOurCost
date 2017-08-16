@@ -9,6 +9,7 @@
 import UIKit
 
 class FriendDetailListViewController: UIViewController {
+    @IBOutlet weak var balanceLabel: UILabel!
 
     var friendUID = String()
 
@@ -66,12 +67,16 @@ class FriendDetailListViewController: UIViewController {
 
                 if self.balanceToFriend < 0 {
 
-                    print("You owe your friend $\(abs(self.balanceToFriend))")
+                    self.balanceLabel.text = "You owe \(friendName) $\(abs(self.balanceToFriend))"
+
+                    print("You owe \(friendName) $\(abs(self.balanceToFriend))")
 
                     
                 } else {
 
-                    print("Your friend owes you $\(abs(self.balanceToFriend))")
+                    self.balanceLabel.text = "\(friendName) owes you $\(abs(self.balanceToFriend))"
+
+                    print("\(friendName) owes you $\(abs(self.balanceToFriend))")
 
                 }
 
