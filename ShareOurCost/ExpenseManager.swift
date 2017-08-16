@@ -263,11 +263,25 @@ class ExpenseManager {
         
     }
 
+    //Action: View expense detail or accept directly
+    func sendSettleUpRequest() {
+
+        
+
+    }
+
     func settleUpBalance(friendUID: String, expenseIDList: Array<String>) {
 
         ref = Database.database().reference()
 
-        
+        for expenseID in expenseIDList {
+
+            ref.child("userExpense").child(friendUID).child(expenseID).removeValue()
+
+            ref.child("expenseList").child(expenseID).removeValue()
+
+            ref.child("userExpense").child(userUID).child(expenseID).removeValue()
+        }
 
     }
 

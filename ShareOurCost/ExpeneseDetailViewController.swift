@@ -36,6 +36,8 @@ class ExpeneseDetailViewController: UIViewController {
 
     var isDeleteButtonHidden = Bool()
 
+    let expenseManager = ExpenseManager()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -46,6 +48,7 @@ class ExpeneseDetailViewController: UIViewController {
         acceptExpenseButton.addTarget(self, action: #selector(touchAcceptButton), for: .touchUpInside)
         denyExpenseButton.addTarget(self, action: #selector(touchDenyButton), for: .touchUpInside)
         deleteExpenseButton.addTarget(self, action: #selector(touchDeleteButton), for: .touchUpInside)
+
     }
 
     func touchBackButton() {
@@ -79,11 +82,11 @@ class ExpeneseDetailViewController: UIViewController {
 
         }
 
-        self.totalAmountLabel.text = "Total Amount: \(expenseTotalAmount)"
+        self.totalAmountLabel.text = "Total Amount: $\(expenseTotalAmount)"
         self.expenseCreatedByLabel.text = "Created By: \(expenseCreatedByName)"
         self.expenseCreatedDayLabel.text = "Create Day: \(expenseCreatedDay)"
         self.expenseDescriptionLabel.text = "Description: \(expenseDescription)"
-        self.amountYouSharedLabel.text = "Amount You Shared: \(amountYouShared)"
+        self.amountYouSharedLabel.text = "Amount You Shared: $\(abs(amountYouShared))"
         self.expenseDateLabel.text = "\(expenseDay)"
 
     }
@@ -122,30 +125,54 @@ class ExpeneseDetailViewController: UIViewController {
     }
 
     func touchDenyButton() {
-        
+
         guard let expenseCreatedBy = expenseInformation["createdBy"] as? String,
             let expenseSahreWith = expenseInformation["sharedWith"] as? String,
             let expenseID = expenseInformation["id"] as? String
             else { return }
-        
+
         if expenseCreatedBy == userUID {
-            
+
             sharedFriendUID = expenseSahreWith
-            
+
         } else {
-            
+
             sharedFriendUID = expenseCreatedBy
-            
+
         }
-        
+
         let expenseManager = ExpenseManager()
-        
+
         expenseManager.changeExpenseStatus(friendUID: sharedFriendUID, expenseID: expenseID, changeSelfStatus: "denied", changeFriendStatus: nil)
-        
+
     }
 
     func touchDeleteButton() {
-        
+
+        let alertController = UIAlertController(title: "Attention",
+                                                message: "Do you really want to delete?",
+                                                preferredStyle: .alert)
+        let deleteAction = UIAlertAction(title: "Delete", style: .default, handler: { _ in
+
+            let alertController = UIAlertController(title: "Success",
+                                                   message: "This expense will be deleted after your friend's approve",
+                                                   preferredStyle: .alert)
+            let notificationAction = UIAlertAction(title: "OK", style: .default, handler: { _ in 
+
+                self.navigationController?.popViewController(animated: true)
+
+            })
+            alertController.addAction(notificationAction)
+            self.present(alertController, animated: true, completion:  nil)
+
+        })
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(deleteAction)
+        alertController.addAction(cancelAction)
+
+        self.present(alertController, animated: true, completion:  nil)
+
         guard let expenseCreatedBy = expenseInformation["createdBy"] as? String,
             let expenseSahreWith = expenseInformation["sharedWith"] as? String,
             let expenseID = expenseInformation["id"] as? String
@@ -160,10 +187,8 @@ class ExpeneseDetailViewController: UIViewController {
             sharedFriendUID = expenseCreatedBy
             
         }
-        
-        let expenseManager = ExpenseManager()
-        
-        expenseManager.changeExpenseStatus(friendUID: sharedFriendUID, expenseID: expenseID, changeSelfStatus: "sentDeleted", changeFriendStatus: "receivedDeleted")
+
+//        expenseManager.changeExpenseStatus(friendUID: sharedFriendUID, expenseID: expenseID, changeSelfStatus: "sentDeleted", changeFriendStatus: "receivedDeleted")
 
         
 

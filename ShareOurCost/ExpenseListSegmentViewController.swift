@@ -113,6 +113,22 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
     }
 
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//
+//        let headerView = UIView()
+//        headerView.backgroundColor = UIColor.red
+//
+//        let headerLabel = UILabel()
+//        headerLabel.text = friendUIDtoNameList[friendUIDList[section]]
+//        headerLabel.font = UIFont(name: "System", size: 13)
+//        headerLabel.textColor = UIColor.orange
+//
+//        headerView.addSubview(headerLabel)
+//        
+//        return headerView
+//
+//    }
+//
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 
         return friendUIDtoNameList[friendUIDList[section]]
