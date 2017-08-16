@@ -19,12 +19,27 @@ class FriendListTableViewController: UITableViewController {
 
     var friendIDList = [String]()
 
+    var selectedRow = Int()
+
     var ref: DatabaseReference!
 
     let accountManager = AccountManager()
 
+    let friendManager = FriendManager()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        friendManager.fetchFriendUIDList { (friendUIDListOfBlock) in
+
+            friendUIDList = friendUIDListOfBlock
+
+            self.friendManager.fetchFriendUIDtoNameList(friendUIDList: friendUIDList, completion: { (friendUIDtoNameListOfBlock) in
+
+                friendUIDandNameList = friendUIDtoNameListOfBlock
+
+            })
+        }
 
         ref = Database.database().reference()
 
@@ -32,7 +47,7 @@ class FriendListTableViewController: UITableViewController {
 
         //        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(touchBackButton))
 
-        ref.child("userInfo").child((Auth.auth().currentUser?.uid)!).child("pendingFriendRequest").observe(.childAdded, with: { (dataSnapshot) in
+        ref.child("userInfo").child(userUID).child("pendingFriendRequest").observe(.childAdded, with: { (dataSnapshot) in
 
             if let friendRequestStatus = dataSnapshot.value! as? Bool {
 
@@ -49,7 +64,7 @@ class FriendListTableViewController: UITableViewController {
 
         })
 
-        ref.database.reference().child("userInfo").child(Auth.auth().currentUser!.uid).child("friendList").observe(.childAdded, with: { (dataSnapshot) in
+        ref.database.reference().child("userInfo").child(userUID).child("friendList").observe(.childAdded, with: { (dataSnapshot) in
 
             self.friendIDList.append(dataSnapshot.key)
 
@@ -141,16 +156,16 @@ class FriendListTableViewController: UITableViewController {
         let friendID = friendRequestIDList[sender.tag]
 
         //add ID of user who sent friend request to receiver's friend list
-        self.ref.database.reference().child("userInfo").child(Auth.auth().currentUser!.uid).child("friendList").updateChildValues([friendID: true])
+        self.ref.database.reference().child("userInfo").child(userUID).child("friendList").updateChildValues([friendID: true])
 
         //add ID of user who accepted request to the user sent request friend list
-        self.ref.database.reference().child("userInfo").child(friendID).child("friendList").updateChildValues([Auth.auth().currentUser!.uid: true])
+        self.ref.database.reference().child("userInfo").child(friendID).child("friendList").updateChildValues([userUID: true])
 
         //change the pendingFriendRequest value of user who accepted request to true
-        self.ref.database.reference().child("userInfo").child(Auth.auth().currentUser!.uid).child("pendingFriendRequest").updateChildValues([friendID: true])
+        self.ref.database.reference().child("userInfo").child(userUID).child("pendingFriendRequest").updateChildValues([friendID: true])
 
         //change the pendingSentFriendRequest value of user who sent request to true
-        self.ref.database.reference().child("userInfo").child(friendID).child("pendingSentFriendRequest").updateChildValues([Auth.auth().currentUser!.uid: true])
+        self.ref.database.reference().child("userInfo").child(friendID).child("pendingSentFriendRequest").updateChildValues([userUID: true])
 
         friendRequestIDList.remove(at: sender.tag)
 
@@ -162,7 +177,7 @@ class FriendListTableViewController: UITableViewController {
     func handleDenyFriend(_ sender: UIButton) {
 
         let friendID = friendRequestIDList[sender.tag]
-        ref.database.reference().child("userInfo").child(Auth.auth().currentUser!.uid).child("pendingFriendRequest").child("\(friendID)").observe(.value, with: { (dataSnapshot) in
+        ref.database.reference().child("userInfo").child(userUID).child("pendingFriendRequest").child("\(friendID)").observe(.value, with: { (dataSnapshot) in
         })
 
     }
@@ -174,6 +189,26 @@ class FriendListTableViewController: UITableViewController {
         let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC")
         
         self.present(loginVC!, animated: true)
+
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+        if segue.identifier == "ShowFriendDetailSegue" {
+
+            let destinationVC = segue.destination as! FriendDetailListViewController
+
+            destinationVC.friendUID = friendUIDList[selectedRow]
+
+        }
+
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        selectedRow = indexPath.row
+
+        performSegue(withIdentifier: "ShowFriendDetailSegue", sender: self)
 
     }
 

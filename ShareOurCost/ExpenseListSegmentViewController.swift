@@ -56,6 +56,9 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
         self.navigationController?.navigationBar.topItem?.title = "Expense List"
 
+        expenseManager.fetchAcceptedExpenseList { (acceptedExpenseList) in
+            print(acceptedExpenseList)
+        }
 
     }
 

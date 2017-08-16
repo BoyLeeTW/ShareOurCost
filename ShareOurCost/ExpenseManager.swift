@@ -195,22 +195,73 @@ class ExpenseManager {
 
     }
 
-    func fetchAcceptedExpense() {
-
+    func fetchAcceptedExpenseList(completion: @escaping (ExpenseInfoList) -> () ) {
+        
         ref = Database.database().reference()
-
+        
         ref.child("userExpense").child(userUID).queryOrdered(byChild: "status").queryEqual(toValue: "accepted").observe(.value, with: { (dataSnapshot) in
+            
+            var acceptedExpenseList = ExpenseInfoList()
 
-            guard let expenseListResource = dataSnapshot.value as? [String: Any] else { return }
+            //key is the ID of expense
+            guard let expenseData = dataSnapshot.value as? [String: Any] else { return }
+            for (key, value) in expenseData {
+                
+                guard let expenseStatusDic = value as? [String: Any],
+                    let isReadStatus = expenseStatusDic["isRead"] as? Bool,
+                    let expenseStatus = expenseStatusDic["status"] as? String
+                    else { return }
+                
+                self.ref.child("expenseList").child(key).observe(.value, with: { (dataSnapshot) in
+                    
+                    var sharedFriendID = String()
+                    
+                    guard let expenseDetailData = dataSnapshot.value as? [String: Any],
+                        let expenseCreatedBy = expenseDetailData["createdBy"] as? String,
+                        let expenseSahreWith = expenseDetailData["sharedWith"] as? String
+                        else { return }
+                    
+                    if expenseCreatedBy == userUID {
+                        
+                        sharedFriendID = expenseSahreWith
+                        
+                    } else {
+                        
+                        sharedFriendID = expenseCreatedBy
+                        
+                    }
+                    
+                    var expenseDetailDataVar = expenseDetailData
+                    
+                    expenseDetailDataVar.updateValue(isReadStatus, forKey: "isRead")
+                    expenseDetailDataVar.updateValue(expenseStatus, forKey: "status")
+                    expenseDetailDataVar.updateValue(key, forKey: "id")
 
-            for (key, value) in expenseListResource {
+                    if acceptedExpenseList[sharedFriendID] == nil {
+                            
+                        acceptedExpenseList.updateValue([expenseDetailDataVar], forKey: sharedFriendID)
+                            
+                    } else {
+                            
+                        acceptedExpenseList[sharedFriendID]?.append(expenseDetailDataVar)
+                            
+                    }
 
-             print(key)
-
+                    DispatchQueue.main.async {
+                        
+                        completion(acceptedExpenseList)
+                        
+                    }
+                    
+                })
+                
+                self.ref.child("expenseList").removeAllObservers()
+                
             }
-
+            
         })
-
+        
     }
+
 
 }
