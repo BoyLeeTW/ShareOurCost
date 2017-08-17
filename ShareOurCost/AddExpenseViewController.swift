@@ -157,30 +157,55 @@ class AddExpenseViewController: UIViewController {
 
         setUpDatePicker()
 
+        setUpLayout()
+
+        setUpButtons()
+
         userPercentLabel.isHidden = true
         friendPercentLabel.isHidden = true
         userSharedPercentTextField.isHidden = true
         friendSharedPercentTextField.isHidden = true
-        
+
+    }
+
+    func setUpButtons() {
+
         paidByUserButton.addTarget(self, action: #selector(touchPaidByUser(_:)), for: .touchUpInside)
-
+        
         paidByFriendButton.addTarget(self, action: #selector(touchPaidByFriend(_:)), for: .touchUpInside)
-
+        
         shareExpenseEquallyButton.addTarget(self, action: #selector(touchShareExpenseEquallyButton), for: .touchUpInside)
-
+        
         shareExpenseByPercentButton.addTarget(self, action: #selector(touchShareExpenseByPercentButton), for: .touchUpInside)
-
+        
         expenseAmountTextField.addTarget(self, action: #selector(expenseAmountTextFieldChanged(_:)), for: .editingChanged)
-
+        
         expenseSharedMemberTextField.addTarget(self, action: #selector(expenseSharedMamberTextFieldChanged(_:)), for: .editingChanged)
-
+        
         userSharedAmountTextField.addTarget(self, action: #selector(userSharedAmountTextFieldChagned), for: .editingChanged)
-
+        
         friendSharedAmountTextField.addTarget(self, action: #selector(friendSharedAmountTextFieldChagned), for: .editingChanged)
-
+        
         userSharedPercentTextField.addTarget(self, action: #selector(userSharedPercentTextFieldChanged), for: .editingChanged)
-
+        
         friendSharedPercentTextField.addTarget(self, action: #selector(friendSharedPercentTextFieldChanged), for: .editingChanged)
+
+    }
+
+    func setUpLayout() {
+
+//        self.searchFriendUIDTextField.layer.borderWidth = 4
+//        self.searchFriendUIDTextField.layer.borderColor = UIColor.white.cgColor
+//        self.searchFriendUIDTextField.attributedPlaceholder = NSAttributedString(string: "Please enter your friend's ID", attributes: [NSForegroundColorAttributeName: UIColor.white])
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_navigate_before_white_36pt"), style: .plain, target: self, action: #selector(touchBackButton))
+        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
+
+    }
+
+    func touchBackButton() {
+
+        self.navigationController?.popViewController(animated: true)
 
     }
 

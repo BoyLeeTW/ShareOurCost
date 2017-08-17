@@ -21,12 +21,32 @@ class AddFriendViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setUpLayout()
+
+    }
+
+    func setUpLayout() {
+
         self.addFriendButton.isHidden = true
         self.searchFriendUIDResultLabel.isHidden = true
-        
-        searchFriendUIDButton.addTarget(self, action: #selector(touchSearchFriendButton), for: .touchUpInside)
 
+        self.searchFriendUIDTextField.layer.borderWidth = 4
+        self.searchFriendUIDTextField.layer.borderColor = UIColor.white.cgColor
+        self.searchFriendUIDTextField.attributedPlaceholder = NSAttributedString(string: "Please enter your friend's ID", attributes: [NSForegroundColorAttributeName: UIColor.white])
+
+        searchFriendUIDButton.addTarget(self, action: #selector(touchSearchFriendButton), for: .touchUpInside)
+        
         addFriendButton.addTarget(self, action: #selector(touchAddFriend), for: .touchUpInside)
+
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_navigate_before_white_36pt"), style: .plain, target: self, action: #selector(touchBackButton))
+        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
+
+
+    }
+
+    func touchBackButton() {
+
+        self.navigationController?.popViewController(animated: true)
 
     }
 

@@ -52,13 +52,19 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
         fetchData()
 
-        expenseStatusSegmentController.addTarget(self, action: #selector(expenseStatusSegmentControllerChanged), for: .valueChanged)
+        setUpSegmentController()
 
-        self.navigationController?.navigationBar.topItem?.title = "Expense List"
+        setUpNavigationBar()
 
         expenseManager.fetchAcceptedExpenseList { (acceptedExpenseList) in
 
         }
+
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+
+        self.expenseListTableView.reloadData()
 
     }
 
@@ -95,9 +101,21 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
         }
     }
 
-    override func viewWillAppear(_ animated: Bool) {
+    func setUpNavigationBar() {
 
-        self.expenseListTableView.reloadData()
+        self.navigationController?.navigationBar.topItem?.title = "Shared Expense"
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0)
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.layer.borderColor = UIColor.clear.cgColor
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+
+    }
+
+    func setUpSegmentController() {
+
+        expenseStatusSegmentController.addTarget(self, action: #selector(expenseStatusSegmentControllerChanged), for: .valueChanged)
 
     }
 
@@ -113,22 +131,26 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
     }
 
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//
-//        let headerView = UIView()
-//        headerView.backgroundColor = UIColor.red
-//
-//        let headerLabel = UILabel()
-//        headerLabel.text = friendUIDtoNameList[friendUIDList[section]]
-//        headerLabel.font = UIFont(name: "System", size: 13)
-//        headerLabel.textColor = UIColor.orange
-//
-//        headerView.addSubview(headerLabel)
-//        
-//        return headerView
-//
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 30))
+        headerView.backgroundColor = UIColor.white
+
+        let headerLabel = UILabel(frame: CGRect(x: 10, y: 5, width: tableView.bounds.size.width, height: 25))
+        headerLabel.text = friendUIDtoNameList[friendUIDList[section]]
+        headerLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        headerLabel.textColor = UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0)
+
+        headerView.addSubview(headerLabel)
+        
+        return headerView
+
+    }
+
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 40
 //    }
-//
+
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 
         return friendUIDtoNameList[friendUIDList[section]]
@@ -179,6 +201,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
             guard let expenseData = acceptedExpenseIDList[friendUIDList[indexPath.section]]?[indexPath.row],
                   let expenseDescription = expenseData["description"] as? String,
+                  let expenseDate = expenseData["expenseDay"] as? String,
                   let sharedResult = expenseData["sharedResult"] as? [String: Int],
                   let isRead = expenseData["isRead"] as? Bool,
                   let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]]
@@ -209,6 +232,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                 
             }
 
+            cell.expenseCreatedDateLabel.text = expenseDate
             cell.acceptButton.isHidden = true
             cell.denyButton.isHidden = true
 
@@ -216,6 +240,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
         guard let expenseData = receivedPendingExpenseIDList[friendUIDList[indexPath.section]]?[indexPath.row],
             let expenseDescription = expenseData["description"] as? String,
+            let expenseDate = expenseData["expenseDay"] as? String,
             let sharedResult = expenseData["sharedResult"] as? [String: Int],
             let isRead = expenseData["isRead"] as? Bool,
             let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]]
@@ -245,6 +270,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
         }
 
+        cell.expenseCreatedDateLabel.text = expenseDate
         cell.acceptButton.isHidden = false
         cell.denyButton.isHidden = false
 
@@ -260,7 +286,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
         case 3:
 
             guard let expenseData = sentPendingExpenseIDList[friendUIDList[indexPath.section]]?[indexPath.row],
-                
+                let expenseDate = expenseData["expenseDay"] as? String,
                 let expenseDescription = expenseData["description"] as? String,
                 let sharedResult = expenseData["sharedResult"] as? [String: Int],
                 let isRead = expenseData["isRead"] as? Bool,
@@ -292,13 +318,14 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                 
             }
 
+            cell.expenseCreatedDateLabel.text = expenseDate
             cell.acceptButton.isHidden = true
             cell.denyButton.isHidden = true
 
         case 1:
 
             guard let expenseData = deniedExpenseIDList[friendUIDList[indexPath.section]]?[indexPath.row],
-                
+                let expenseDate = expenseData["expenseDay"] as? String,
                 let expenseDescription = expenseData["description"] as? String,
                 let sharedResult = expenseData["sharedResult"] as? [String: Int],
                 let isRead = expenseData["isRead"] as? Bool,
@@ -329,15 +356,15 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                 }
                 
             }
-            
+
+            cell.expenseCreatedDateLabel.text = expenseDate
             cell.acceptButton.isHidden = true
             cell.denyButton.isHidden = true
-
 
         default:
 
             guard let expenseData = receivedDeletedExpenseIDList[friendUIDList[indexPath.section]]?[indexPath.row],
-                
+                let expenseDate = expenseData["expenseDay"] as? String,
                 let expenseDescription = expenseData["description"] as? String,
                 let sharedResult = expenseData["sharedResult"] as? [String: Int],
                 let isRead = expenseData["isRead"] as? Bool,
@@ -368,7 +395,8 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                 }
                 
             }
-            
+
+            cell.expenseCreatedDateLabel.text = expenseDate
             cell.acceptButton.isHidden = true
             cell.denyButton.isHidden = true
 

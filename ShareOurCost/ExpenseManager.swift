@@ -9,16 +9,6 @@
 import Foundation
 import Firebase
 
-//enum ExpenseStatus: String {
-//
-//    case accepted = "accepted"
-//    case sentPending = "sentPending"
-//    case receivedPending = "receivedPending"
-//    case denied = "denied"
-//    case receivedDeleted = "receivedDeleted"
-//
-//}
-
 class ExpenseManager {
 
     typealias ExpenseInfoList = [String: [[String: Any]]]

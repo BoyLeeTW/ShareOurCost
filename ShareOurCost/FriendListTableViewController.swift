@@ -28,6 +28,8 @@ class FriendListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setUpNavigationBar()
+
         friendManager.fetchFriendUIDList { (friendUIDListOfBlock) in
 
             friendUIDList = friendUIDListOfBlock
@@ -43,8 +45,6 @@ class FriendListTableViewController: UITableViewController {
         }
 
         ref = Database.database().reference()
-
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_person_white"), style: .plain, target: self, action: #selector(handleLogout))
 
         ref.child("userInfo").child(userUID).child("pendingFriendRequest").observe(.childAdded, with: { (dataSnapshot) in
 
@@ -65,6 +65,19 @@ class FriendListTableViewController: UITableViewController {
 
     }
 
+    func setUpNavigationBar() {
+        
+        self.navigationController?.navigationBar.topItem?.title = "Friend"
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0)
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_person_white"), style: .plain, target: self, action: #selector(handleLogout))
+        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
+    }
+
     func touchBackButton() {
 
         self.dismiss(animated: true, completion: nil)
@@ -78,6 +91,25 @@ class FriendListTableViewController: UITableViewController {
         return 2
 
     }
+
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+
+        var sections = ["Your Friends", "Friend Request"]
+
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 30))
+        headerView.backgroundColor = UIColor.white
+        
+        let headerLabel = UILabel(frame: CGRect(x: 10, y: 5, width: tableView.bounds.size.width, height: 25))
+        headerLabel.text = sections[section]
+        headerLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        headerLabel.textColor = UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0)
+        
+        headerView.addSubview(headerLabel)
+        
+        return headerView
+        
+    }
+
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 
