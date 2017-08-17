@@ -79,13 +79,13 @@ class AddExpenseViewController: UIViewController {
                     
                     sharedAmountForFriend = -Double(self.friendSharedAmountTextField.text!)!
                     
-                    paidBy = Auth.auth().currentUser!.uid
+                    paidBy = userUID
                     
                 } else {
                     
                     sharedAmountForUser = -Double(self.userSharedAmountTextField.text!)!
                     
-                    sharedAmountForFriend = Double(self.friendSharedAmountTextField.text!)!/2
+                    sharedAmountForFriend = Double(self.friendSharedAmountTextField.text!)!
                     
                     paidBy = friendUID
                     
@@ -105,7 +105,7 @@ class AddExpenseViewController: UIViewController {
                     
                     sharedAmountForFriend = -floor(Double((100 - sharedPercentAmountForUser) * totalExpenseAmount / 100))
                     
-                    paidBy = Auth.auth().currentUser!.uid
+                    paidBy = userUID
                     
                 } else {
                     
@@ -119,7 +119,7 @@ class AddExpenseViewController: UIViewController {
 
             }
 
-            self.ref.database.reference().child("userExpense").child(Auth.auth().currentUser!.uid).child(expenseID).updateChildValues(["status": "sentPending", "isRead": true])
+            self.ref.database.reference().child("userExpense").child(userUID).child(expenseID).updateChildValues(["status": "sentPending", "isRead": true])
 
             self.ref.database.reference().child("userExpense").child(friendUID).child(expenseID).updateChildValues(["status": "receivedPending", "isRead": false])
 
@@ -133,9 +133,9 @@ class AddExpenseViewController: UIViewController {
                 "sharedMember": "\(self.expenseSharedMemberTextField.text!)",
                 "expensePaidBy": "\(paidBy)",
                 "createdTime": (dateFormatter.string(from: Date())),
-                "createdBy": "\(Auth.auth().currentUser!.uid)",
+                "createdBy": "\(userUID)",
                 "sharedWith": "\(friendUID)",
-                "sharedResult": ["\(Auth.auth().currentUser!.uid)": Int(sharedAmountForUser), "\(friendUID)": Int(sharedAmountForFriend)]
+                "sharedResult": ["\(userUID)": Int(sharedAmountForUser), "\(friendUID)": Int(sharedAmountForFriend)]
                 ]
             )
 
@@ -200,6 +200,8 @@ class AddExpenseViewController: UIViewController {
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_navigate_before_white_36pt"), style: .plain, target: self, action: #selector(touchBackButton))
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
+
+        self.navigationItem.title = "Add Expense"
 
     }
 
@@ -349,7 +351,7 @@ class AddExpenseViewController: UIViewController {
 
         ref = Database.database().reference()
 
-        ref.child("userInfo").child(Auth.auth().currentUser!.uid).child("friendList").observe(.childAdded, with: { (dataSnapshot) in
+        ref.child("userInfo").child(userUID).child("friendList").observe(.childAdded, with: { (dataSnapshot) in
 
             let friendUID = dataSnapshot.key
 

@@ -45,15 +45,20 @@ class ExpeneseDetailViewController: UIViewController {
 
         setUpButton()
 
-        acceptExpenseButton.addTarget(self, action: #selector(touchAcceptButton), for: .touchUpInside)
-        denyExpenseButton.addTarget(self, action: #selector(touchDenyButton), for: .touchUpInside)
-        deleteExpenseButton.addTarget(self, action: #selector(touchDeleteButton), for: .touchUpInside)
+        setUpNavigationBar()
+
+    }
+
+    func setUpNavigationBar() {
+
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_navigate_before_white_36pt"), style: .plain, target: self, action: #selector(touchBackButton))
+        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
 
     }
 
     func touchBackButton() {
 
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
 
     }
 
@@ -102,17 +107,19 @@ class ExpeneseDetailViewController: UIViewController {
         self.expenseCreatedDayLabel.text = "Create Day: \(expenseCreatedDay)"
         self.expenseDescriptionLabel.text = "Description: \(expenseDescription)"
         self.amountYouSharedLabel.text = "Amount You Shared: $\(abs(amountYouShared))"
-        self.expenseDateLabel.text = "\(expenseDay)"
+        self.expenseDateLabel.text = "Expense Day: \(expenseDay)"
 
     }
 
     func setUpButton() {
 
         acceptExpenseButton.isHidden = isAcceptButtonHidden
-
         denyExpenseButton.isHidden = isDenyButtonHidden
-
         deleteExpenseButton.isHidden = isDeleteButtonHidden
+
+        acceptExpenseButton.addTarget(self, action: #selector(touchAcceptButton), for: .touchUpInside)
+        denyExpenseButton.addTarget(self, action: #selector(touchDenyButton), for: .touchUpInside)
+        deleteExpenseButton.addTarget(self, action: #selector(touchDeleteButton), for: .touchUpInside)
 
     }
 

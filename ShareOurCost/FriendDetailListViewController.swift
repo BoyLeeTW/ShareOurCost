@@ -27,71 +27,101 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        fetchAcceptedExpenseData()
+
+        setUpNavigationBar()
+
+        setUpLayOut()
+
+    }
+
+    func fetchAcceptedExpenseData() {
+
         expenseManager.fetchAcceptedExpenseList { (acceptedExepnseList) in
-
+            
             self.acceptedExpenseList = acceptedExepnseList
-
+            
             self.friendDetailExpenseListTableView.reloadData()
-
+            
             guard let expenseInfoSource = acceptedExepnseList[self.friendUID] else {
-
+                
                 self.balanceLabel.text = "There is no expense yet!"
-
+                
                 return }
-
+            
             for expenseInfo in expenseInfoSource {
-
+                
                 guard let expenseDescription = expenseInfo["description"] as? String,
                     let sharedResult = expenseInfo["sharedResult"] as? [String: Int],
                     let isRead = expenseInfo["isRead"] as? Bool,
                     let expenseID = expenseInfo["id"] as? String,
                     let friendName = friendUIDandNameList[self.friendUID]
-                
+                    
                     else { return }
-
+                
                 if self.existingExpenseIDList.contains(expenseID) {
-
+                    
                     continue
-
-                } else {
-
-                    self.existingExpenseIDList.append(expenseID)
-                }
-
-                for (key, value) in sharedResult where value < 0 {
-
-                    //you own friend money
-                    if key == userUID {
-
-                        self.balanceToFriend += value
-
-                    // friend owes you money
-                    } else {
-
-                        self.balanceToFriend -= value
-
-                    }
-
-                }
-
-                if self.balanceToFriend < 0 {
-
-                    self.balanceLabel.text = "You owe \(friendName) $\(abs(self.balanceToFriend))"
-
-                    print("You owe \(friendName) $\(abs(self.balanceToFriend))")
-
                     
                 } else {
-
-                    self.balanceLabel.text = "\(friendName) owes you $\(abs(self.balanceToFriend))"
-
-                    print("\(friendName) owes you $\(abs(self.balanceToFriend))")
-
+                    
+                    self.existingExpenseIDList.append(expenseID)
                 }
-
+                
+                for (key, value) in sharedResult where value < 0 {
+                    
+                    //you own friend money
+                    if key == userUID {
+                        
+                        self.balanceToFriend += value
+                        
+                        // friend owes you money
+                    } else {
+                        
+                        self.balanceToFriend -= value
+                        
+                    }
+                    
+                }
+                
+                if self.balanceToFriend < 0 {
+                    
+                    self.balanceLabel.text = "You owe \(friendName) $\(abs(self.balanceToFriend))"
+                    
+                    print("You owe \(friendName) $\(abs(self.balanceToFriend))")
+                    
+                    
+                } else {
+                    
+                    self.balanceLabel.text = "\(friendName) owes you $\(abs(self.balanceToFriend))"
+                    
+                    print("\(friendName) owes you $\(abs(self.balanceToFriend))")
+                    
+                }
+                
             }
-
+            
         }
+
+    }
+
+    func setUpLayOut() {
+
+        self.balanceLabel.layer.borderWidth = 4
+        self.balanceLabel.layer.borderColor = UIColor.white.cgColor
+
+    }
+
+    func setUpNavigationBar() {
+
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_navigate_before_white_36pt"), style: .plain, target: self, action: #selector(touchBackButton))
+        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
+
+    }
+
+    func touchBackButton() {
+
+        self.navigationController?.popViewController(animated: true)
 
     }
 
@@ -152,6 +182,8 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
         selectedRow = indexPath.row
+
+        tableView.deselectRow(at: indexPath, animated: true)
 
         guard let expenseID = acceptedExpenseList[friendUID]![indexPath.row]["id"] as? String
             else { return }
