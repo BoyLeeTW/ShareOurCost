@@ -22,6 +22,8 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
 
     var existingExpenseIDList = Array<String>()
 
+    var selectedRow = Int()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,7 +33,11 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
 
             self.friendDetailExpenseListTableView.reloadData()
 
-            guard let expenseInfoSource = acceptedExepnseList[self.friendUID] else { return }
+            guard let expenseInfoSource = acceptedExepnseList[self.friendUID] else {
+
+                self.balanceLabel.text = "There is no expense yet!"
+
+                return }
 
             for expenseInfo in expenseInfoSource {
 
@@ -141,6 +147,35 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
 
         return cell
 
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        selectedRow = indexPath.row
+
+        guard let expenseID = acceptedExpenseList[friendUID]![indexPath.row]["id"] as? String
+            else { return }
+        
+        expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: nil)
+
+        self.performSegue(withIdentifier: "showExpenseDetailVC", sender: self)
+
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+        if segue.identifier == "showExpenseDetailVC" {
+
+            let destinationVC = segue.destination as? ExpeneseDetailViewController
+
+            destinationVC?.expenseInformation = (self.acceptedExpenseList[friendUID]?[selectedRow])!
+            
+            destinationVC?.isAcceptButtonHidden = true
+            destinationVC?.isDenyButtonHidden = true
+            destinationVC?.isDeleteButtonHidden = false
+            destinationVC?.expenseStatus = ExpenseStatus.accepted.rawValue
+
+        }
     }
 
 }

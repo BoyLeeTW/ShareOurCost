@@ -171,8 +171,6 @@ class ExpeneseDetailViewController: UIViewController {
 
             if self.expenseStatus == "sentPending" || self.expenseStatus == "denied" || self.expenseStatus == "receivedDeleted" {
 
-                print("delete it!!!!!")
-
                 self.navigationController?.popViewController(animated: true)
 
                 self.expenseManager.deleteExpense(friendUID: self.sharedFriendUID, expenseID: self.expenseID)

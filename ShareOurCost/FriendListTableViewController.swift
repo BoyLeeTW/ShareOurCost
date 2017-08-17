@@ -139,6 +139,15 @@ class FriendListTableViewController: UITableViewController {
 
     }
 
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "friendRequestListCell", for: indexPath) as? FriendRequestListTableViewCell else { return }
+
+        cell.friendNameLabel.text = ""
+        
+
+    }
+
     //change the status in the pendingFriendRequest and add friendID to friendList.
     func handleAcceptFriend(_ sender: UIButton) {
 
