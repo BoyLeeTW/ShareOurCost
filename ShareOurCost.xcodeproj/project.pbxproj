@@ -20,6 +20,7 @@
 		A26EB00B1F42C51B009E5C6F /* AddFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26EB00A1F42C51B009E5C6F /* AddFriendViewController.swift */; };
 		A26EB00D1F42D0E8009E5C6F /* FriendDetailListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26EB00C1F42D0E8009E5C6F /* FriendDetailListViewController.swift */; };
 		A26EB00F1F444AF2009E5C6F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26EB00E1F444AF2009E5C6F /* TabBarController.swift */; };
+		A26EB0111F454129009E5C6F /* FriendDetailListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26EB0101F454129009E5C6F /* FriendDetailListTableViewCell.swift */; };
 		A288F1521F2E2C0C0061F8FF /* FriendListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A288F1511F2E2C0C0061F8FF /* FriendListTableViewController.swift */; };
 		A288F1541F2E337F0061F8FF /* FriendRequestListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A288F1531F2E337F0061F8FF /* FriendRequestListTableViewCell.swift */; };
 		A288F1561F3055F40061F8FF /* FriendListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A288F1551F3055F40061F8FF /* FriendListTableViewCell.swift */; };
@@ -50,6 +51,7 @@
 		A26EB00A1F42C51B009E5C6F /* AddFriendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFriendViewController.swift; sourceTree = "<group>"; };
 		A26EB00C1F42D0E8009E5C6F /* FriendDetailListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendDetailListViewController.swift; sourceTree = "<group>"; };
 		A26EB00E1F444AF2009E5C6F /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		A26EB0101F454129009E5C6F /* FriendDetailListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendDetailListTableViewCell.swift; sourceTree = "<group>"; };
 		A288F1511F2E2C0C0061F8FF /* FriendListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendListTableViewController.swift; sourceTree = "<group>"; };
 		A288F1531F2E337F0061F8FF /* FriendRequestListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendRequestListTableViewCell.swift; sourceTree = "<group>"; };
 		A288F1551F3055F40061F8FF /* FriendListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendListTableViewCell.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 				A288F1531F2E337F0061F8FF /* FriendRequestListTableViewCell.swift */,
 				A288F1511F2E2C0C0061F8FF /* FriendListTableViewController.swift */,
 				A26EB00C1F42D0E8009E5C6F /* FriendDetailListViewController.swift */,
+				A26EB0101F454129009E5C6F /* FriendDetailListTableViewCell.swift */,
 				A26EB00E1F444AF2009E5C6F /* TabBarController.swift */,
 				A26EB00A1F42C51B009E5C6F /* AddFriendViewController.swift */,
 				A20F2C681F276F9700D446F7 /* LoginViewController.swift */,
@@ -293,6 +296,7 @@
 				A2FE33F81F374B6400C3A793 /* FriendManager.swift in Sources */,
 				A26EB00D1F42D0E8009E5C6F /* FriendDetailListViewController.swift in Sources */,
 				A26EB00F1F444AF2009E5C6F /* TabBarController.swift in Sources */,
+				A26EB0111F454129009E5C6F /* FriendDetailListTableViewCell.swift in Sources */,
 				A2FE33FC1F37EC9000C3A793 /* ExpenseManager.swift in Sources */,
 				A20F2C6F1F276F9700D446F7 /* ShareOurCost.xcdatamodeld in Sources */,
 				A288F1541F2E337F0061F8FF /* FriendRequestListTableViewCell.swift in Sources */,

@@ -8,8 +8,9 @@
 
 import UIKit
 
-class FriendDetailListViewController: UIViewController {
+class FriendDetailListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var balanceLabel: UILabel!
+    @IBOutlet weak var friendDetailExpenseListTableView: UITableView!
 
     var friendUID = String()
 
@@ -27,6 +28,8 @@ class FriendDetailListViewController: UIViewController {
         expenseManager.fetchAcceptedExpenseList { (acceptedExepnseList) in
 
             self.acceptedExpenseList = acceptedExepnseList
+
+            self.friendDetailExpenseListTableView.reloadData()
 
             guard let expenseInfoSource = acceptedExepnseList[self.friendUID] else { return }
 
@@ -83,6 +86,60 @@ class FriendDetailListViewController: UIViewController {
             }
 
         }
+
+    }
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+
+        return 1
+
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+        guard let numberOfRowsInSectionList = acceptedExpenseList[self.friendUID] else { return 0 }
+
+        return numberOfRowsInSectionList.count
+
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FriendDetailListCell", for: indexPath) as! FriendDetailListTableViewCell
+
+        guard let expenseData = acceptedExpenseList[friendUID]?[indexPath.row],
+            let expenseDescription = expenseData["description"] as? String,
+            let sharedResult = expenseData["sharedResult"] as? [String: Int],
+            let isRead = expenseData["isRead"] as? Bool,
+            let friendName = friendUIDandNameList[friendUID]
+            
+            else { return cell }
+        
+        if isRead == true {
+            
+            cell.contentView.backgroundColor = UIColor.clear
+            
+        } else {
+            
+            cell.contentView.backgroundColor = UIColor.yellow
+            
+        }
+        
+        for (key, value) in sharedResult where value < 0 {
+            
+            if key == userUID {
+                
+                cell.expenseDescriptionLabel.text = ("You owe \(friendName) $\(-value) for \(expenseDescription)" )
+                
+            } else {
+                
+                cell.expenseDescriptionLabel.text = ("\(friendName) owes you $\(-value) for \(expenseDescription)")
+                
+            }
+            
+        }
+
+        return cell
 
     }
 
