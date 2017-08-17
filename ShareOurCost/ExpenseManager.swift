@@ -109,9 +109,9 @@ class ExpenseManager {
                     } else if expenseStatus == ExpenseStatus.sentPending.rawValue {
 
                         if sentPendingExpenseIDList[sharedFriendID] == nil {
-                            
+
                             sentPendingExpenseIDList.updateValue([expenseDetailDataVar], forKey: sharedFriendID)
-                            
+
                         } else {
                             
                             sentPendingExpenseIDList[sharedFriendID]?.append(expenseDetailDataVar)
@@ -276,12 +276,24 @@ class ExpenseManager {
 
         for expenseID in expenseIDList {
 
-            ref.child("userExpense").child(friendUID).child(expenseID).removeValue()
-
             ref.child("expenseList").child(expenseID).removeValue()
+
+            ref.child("userExpense").child(friendUID).child(expenseID).removeValue()
 
             ref.child("userExpense").child(userUID).child(expenseID).removeValue()
         }
+
+    }
+
+    func deleteExpense(friendUID: String, expenseID: String) {
+
+        ref = Database.database().reference()
+
+        ref.child("expenseList").child(expenseID).removeValue()
+
+        ref.child("userExpense").child(friendUID).child(expenseID).removeValue()
+        
+        ref.child("userExpense").child(userUID).child(expenseID).removeValue()
 
     }
 

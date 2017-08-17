@@ -67,10 +67,13 @@ class ExpeneseDetailViewController: UIViewController {
               let expensePaidBy = expenseInformation["expensePaidBy"] as? String,
               let expenseDescription = expenseInformation["description"] as? String,
               let expenseDay = expenseInformation["expenseDay"] as? String,
+              let expenseID = expenseInformation["id"] as? String,
               let sharedAmount = expenseInformation["sharedResult"] as? [String: Any],
               let amountYouShared = sharedAmount["\(userUID)"] as? Int
         
             else { return }
+
+        self.expenseID = expenseID
 
         if friendUIDandNameList[expenseCreatedBy] == nil {
 
@@ -154,16 +157,30 @@ class ExpeneseDetailViewController: UIViewController {
                                                 preferredStyle: .alert)
         let deleteAction = UIAlertAction(title: "Delete", style: .default, handler: { _ in
 
-            let alertController = UIAlertController(title: "Success",
-                                                   message: "This expense will be deleted after your friend's approve",
-                                                   preferredStyle: .alert)
-            let notificationAction = UIAlertAction(title: "OK", style: .default, handler: { _ in 
+            if self.expenseStatus == "sentPending" || self.expenseStatus == "denied" || self.expenseStatus == "receivedDeleted" {
+
+                print("delete it!!!!!")
 
                 self.navigationController?.popViewController(animated: true)
 
-            })
-            alertController.addAction(notificationAction)
-            self.present(alertController, animated: true, completion:  nil)
+                self.expenseManager.deleteExpense(friendUID: self.sharedFriendUID, expenseID: self.expenseID)
+
+            } else {
+
+                let alertController = UIAlertController(title: "Success",
+                                                        message: "This expense will be deleted after your friend approve it",
+                                                        preferredStyle: .alert)
+                let notificationAction = UIAlertAction(title: "OK", style: .default, handler: { _ in
+                    
+                    print("sent delete invitation!")
+                    self.navigationController?.popViewController(animated: true)
+                    
+                })
+
+                alertController.addAction(notificationAction)
+                self.present(alertController, animated: true, completion:  nil)
+
+            }
 
         })
 
