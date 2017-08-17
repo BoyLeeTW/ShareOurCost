@@ -17,8 +17,6 @@ class FriendListTableViewController: UITableViewController {
 
     var friendRequestIDList = [String]()
 
-//    var friendUIDList = [String]()
-
     var selectedRow = Int()
 
     var ref: DatabaseReference!

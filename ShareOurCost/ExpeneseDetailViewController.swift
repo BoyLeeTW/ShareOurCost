@@ -68,12 +68,24 @@ class ExpeneseDetailViewController: UIViewController {
               let expenseDescription = expenseInformation["description"] as? String,
               let expenseDay = expenseInformation["expenseDay"] as? String,
               let expenseID = expenseInformation["id"] as? String,
+              let expenseSahreWith = expenseInformation["sharedWith"] as? String,
               let sharedAmount = expenseInformation["sharedResult"] as? [String: Any],
               let amountYouShared = sharedAmount["\(userUID)"] as? Int
         
             else { return }
 
         self.expenseID = expenseID
+
+        if expenseCreatedBy == userUID {
+            
+            self.sharedFriendUID = expenseSahreWith
+            
+        } else {
+            
+            
+            self.sharedFriendUID = expenseCreatedBy
+            
+        }
 
         if friendUIDandNameList[expenseCreatedBy] == nil {
 
@@ -174,7 +186,12 @@ class ExpeneseDetailViewController: UIViewController {
                     
                     print("sent delete invitation!")
                     self.navigationController?.popViewController(animated: true)
+
+                    self.expenseManager.changeExpenseStatus(friendUID: self.sharedFriendUID, expenseID: self.expenseID, changeSelfStatus: "sentDeleted", changeFriendStatus: "receivedDeleted")
                     
+                    self.expenseManager.changeExpenseReadStatus(friendUID: self.sharedFriendUID, expenseID: self.expenseID, changeSelfStatus: true, changeFriendStatus: false)
+
+
                 })
 
                 alertController.addAction(notificationAction)
@@ -189,25 +206,6 @@ class ExpeneseDetailViewController: UIViewController {
         alertController.addAction(cancelAction)
 
         self.present(alertController, animated: true, completion:  nil)
-
-        guard let expenseCreatedBy = expenseInformation["createdBy"] as? String,
-            let expenseSahreWith = expenseInformation["sharedWith"] as? String,
-            let expenseID = expenseInformation["id"] as? String
-            else { return }
-        
-        if expenseCreatedBy == userUID {
-            
-            sharedFriendUID = expenseSahreWith
-            
-        } else {
-            
-            sharedFriendUID = expenseCreatedBy
-            
-        }
-
-//        expenseManager.changeExpenseStatus(friendUID: sharedFriendUID, expenseID: expenseID, changeSelfStatus: "sentDeleted", changeFriendStatus: "receivedDeleted")
-
-        
 
     }
 

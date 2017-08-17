@@ -27,8 +27,6 @@ class FriendManager {
 
             userSelfID = userID
 
-            self.ref.child("userID").child(userUID).removeAllObservers()
-
         })
 
         ref.child("userID").queryOrderedByValue().queryEqual(toValue: userID).observeSingleEvent(of: .value, with: { (dataSnapshot) in
@@ -53,8 +51,6 @@ class FriendManager {
                 return }
             
             completion(userSelfID, dataSnapshot.exists(), searchedUID)
-
-            self.ref.child("userID").removeAllObservers()
 
         })
         
@@ -85,20 +81,20 @@ class FriendManager {
 
     func fetchFriendUIDList(completion: @escaping ((Array<String>) -> ())) {
 
-        var friendUIDList = [String]()
-
         ref = Database.database().reference()
 
         ref.child("userInfo").child(userUID).child("friendList").observe(.value, with: { (dataSnapshot) in
 
+            var friendUIDListInClosure = [String]()
+            
             guard let friendListData = dataSnapshot.value as?[String: Bool] else { return }
 
             for (friendID, _) in friendListData {
 
-                friendUIDList.append(friendID)
+                friendUIDListInClosure.append(friendID)
             }
 
-            completion(friendUIDList)
+            completion(friendUIDListInClosure)
         })
 
     }
@@ -133,7 +129,7 @@ class FriendManager {
 
         ref = Database.database().reference()
 
-        ref.child("userInfo").queryOrdered(byChild: "userID").queryEqual(toValue: userID).observe(.value, with: { (dataSnapshot) in
+        ref.child("userInfo").queryOrdered(byChild: "userID").queryEqual(toValue: userID).observeSingleEvent(of: .value, with: { (dataSnapshot) in
 
             if dataSnapshot.exists() == true {
 
@@ -155,9 +151,6 @@ class FriendManager {
                 completion(dataSnapshot.exists(), nil, nil)
 
             }
-            
-
-            self.ref.child("userInfo").queryOrdered(byChild: "userID").queryEqual(toValue: userID).removeAllObservers()
 
         })
 
