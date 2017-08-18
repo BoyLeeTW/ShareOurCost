@@ -252,13 +252,14 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
         }
 
         if isRead == true {
-
-            cell.contentView.backgroundColor = UIColor.clear
-
+            
+            cell.friendNameLabel.font = UIFont.systemFont(ofSize: 15.0)
+            cell.expenseCreatedDateLabel.font = UIFont.systemFont(ofSize: 10.0)
+            
         } else {
-
-            cell.contentView.backgroundColor = UIColor.yellow
-
+            
+            cell.friendNameLabel.font = UIFont.systemFont(ofSize: 15.0, weight: 1)
+            cell.expenseCreatedDateLabel.font = UIFont.systemFont(ofSize: 10.0, weight: 1)
         }
 
         cell.expenseCreatedDateLabel.text = expenseDate
@@ -326,12 +327,13 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
             
             if isRead == true {
                 
-                cell.contentView.backgroundColor = UIColor.clear
+                cell.friendNameLabel.font = UIFont.systemFont(ofSize: 15.0)
+                cell.expenseCreatedDateLabel.font = UIFont.systemFont(ofSize: 10.0)
                 
             } else {
                 
-                cell.contentView.backgroundColor = UIColor.yellow
-                
+                cell.friendNameLabel.font = UIFont.systemFont(ofSize: 15.0, weight: 1)
+                cell.expenseCreatedDateLabel.font = UIFont.systemFont(ofSize: 10.0, weight: 1)
             }
 
             for (key, value) in sharedResult where value < 0 {
@@ -365,12 +367,13 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
             
             if isRead == true {
                 
-                cell.contentView.backgroundColor = UIColor.clear
+                cell.friendNameLabel.font = UIFont.systemFont(ofSize: 15.0)
+                cell.expenseCreatedDateLabel.font = UIFont.systemFont(ofSize: 10.0)
                 
             } else {
                 
-                cell.contentView.backgroundColor = UIColor.yellow
-                
+                cell.friendNameLabel.font = UIFont.systemFont(ofSize: 15.0, weight: 1)
+                cell.expenseCreatedDateLabel.font = UIFont.systemFont(ofSize: 10.0, weight: 1)
             }
 
             for (key, value) in sharedResult where value < 0 {

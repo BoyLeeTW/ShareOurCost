@@ -19,6 +19,7 @@ class ExpeneseDetailViewController: UIViewController {
     @IBOutlet weak var acceptExpenseButton: UIButton!
     @IBOutlet weak var denyExpenseButton: UIButton!
     @IBOutlet weak var deleteExpenseButton: UIButton!
+    @IBOutlet weak var biggestView: UIView!
 
     var allExpenseIDList = [String]()
 
@@ -45,6 +46,8 @@ class ExpeneseDetailViewController: UIViewController {
 
         setUpButton()
 
+        setUpViews()
+
         setUpNavigationBar()
 
     }
@@ -59,6 +62,15 @@ class ExpeneseDetailViewController: UIViewController {
     func touchBackButton() {
 
         self.navigationController?.popViewController(animated: true)
+
+    }
+
+    func setUpViews() {
+
+        biggestView.layer.borderWidth = 4
+        biggestView.layer.borderColor = UIColor.white.cgColor
+//        biggestView.attributedPlaceholder = NSAttributedString(string: "Please enter your friend's ID", attributes: [NSForegroundColorAttributeName: UIColor(red: 172/255, green: 206/255, blue: 211/255, alpha: 1.0)])
+
 
     }
 

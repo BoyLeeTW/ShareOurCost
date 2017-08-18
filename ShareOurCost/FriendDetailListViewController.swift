@@ -154,12 +154,13 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
         
         if isRead == true {
             
-            cell.contentView.backgroundColor = UIColor.clear
+            cell.expenseDescriptionLabel.font = UIFont.systemFont(ofSize: 15.0)
+            cell.expenseDateLabel.font = UIFont.systemFont(ofSize: 10.0)
             
         } else {
             
-            cell.contentView.backgroundColor = UIColor.yellow
-            
+            cell.expenseDescriptionLabel.font = UIFont.systemFont(ofSize: 15.0, weight: 1)
+            cell.expenseDateLabel.font = UIFont.systemFont(ofSize: 10.0, weight: 1)
         }
         
         for (key, value) in sharedResult where value < 0 {

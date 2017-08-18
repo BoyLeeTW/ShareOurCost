@@ -287,4 +287,12 @@ class ExpenseManager {
 
     }
 
+    func sendSettleUpInvitation() {
+
+        ref = Database.database().reference()
+
+//        ref.child("")
+
+    }
+
 }

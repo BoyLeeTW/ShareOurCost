@@ -100,7 +100,6 @@ class AccountManager {
         
         UserDefaults.standard.setValue(nil, forKey: "userUid")
         
-        
     }
 
 }

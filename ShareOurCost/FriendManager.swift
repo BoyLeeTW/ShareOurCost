@@ -164,4 +164,23 @@ class FriendManager {
 
     }
 
+    func fetchFriendNameAndUIDList(completion: @escaping () -> () ) {
+
+        ref = Database.database().reference()
+
+        for friendUID in friendUIDList {
+
+        ref.child("userInfo").child(friendUID).child("fullName").observeSingleEvent(of: .value, with: { (dataSnapshot) in
+
+            guard let friendName = dataSnapshot.value as? String else { return }
+
+            friendNameAndUIDList.updateValue(friendUID, forKey: friendName)
+
+            completion()
+
+        })
+
+        }
+    }
+
 }

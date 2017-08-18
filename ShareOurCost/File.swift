@@ -13,6 +13,8 @@ var userUID = String()
 
 var friendUIDandNameList = [String: String]()
 
+var friendNameAndUIDList = [String: String]()
+
 var friendUIDList = Array<String>()
 
 enum ExpenseStatus: String {
