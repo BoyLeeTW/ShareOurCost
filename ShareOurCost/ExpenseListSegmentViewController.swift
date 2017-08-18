@@ -10,16 +10,6 @@ import UIKit
 
 class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-//    enum ExpenseStatus {
-//
-//        case accepted
-//        case sentPending
-//        case receivedPending
-//        case denied
-//        case receivedDeleted
-//
-//    }
-
     @IBOutlet weak var expenseStatusSegmentController: UISegmentedControl!
     @IBOutlet weak var expenseListTableView: UITableView!
 
@@ -210,12 +200,13 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
             if isRead == true {
                 
-                cell.contentView.backgroundColor = UIColor.clear
+                cell.friendNameLabel.font = UIFont.systemFont(ofSize: 15.0)
+                cell.expenseCreatedDateLabel.font = UIFont.systemFont(ofSize: 10.0)
                 
             } else {
                 
-                cell.contentView.backgroundColor = UIColor.yellow
-                
+                cell.friendNameLabel.font = UIFont.systemFont(ofSize: 15.0, weight: 1)
+                cell.expenseCreatedDateLabel.font = UIFont.systemFont(ofSize: 10.0, weight: 1)
             }
 
             for (key, value) in sharedResult where value < 0 {
@@ -300,7 +291,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                 
             } else {
                 
-                cell.contentView.backgroundColor = UIColor.yellow
+                cell.contentView.backgroundColor = UIColor.black
                 
             }
             

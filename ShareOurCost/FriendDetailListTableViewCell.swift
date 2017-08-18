@@ -9,6 +9,7 @@
 import UIKit
 
 class FriendDetailListTableViewCell: UITableViewCell {
+    @IBOutlet weak var expenseDateLabel: UILabel!
     @IBOutlet weak var expenseDescriptionLabel: UILabel!
 
     override func awakeFromNib() {

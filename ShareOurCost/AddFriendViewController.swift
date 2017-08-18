@@ -32,7 +32,7 @@ class AddFriendViewController: UIViewController {
 
         self.searchFriendUIDTextField.layer.borderWidth = 4
         self.searchFriendUIDTextField.layer.borderColor = UIColor.white.cgColor
-        self.searchFriendUIDTextField.attributedPlaceholder = NSAttributedString(string: "Please enter your friend's ID", attributes: [NSForegroundColorAttributeName: UIColor.white])
+        self.searchFriendUIDTextField.attributedPlaceholder = NSAttributedString(string: "Please enter your friend's ID", attributes: [NSForegroundColorAttributeName: UIColor(red: 172/255, green: 206/255, blue: 211/255, alpha: 1.0)])
 
         searchFriendUIDButton.addTarget(self, action: #selector(touchSearchFriendButton), for: .touchUpInside)
         

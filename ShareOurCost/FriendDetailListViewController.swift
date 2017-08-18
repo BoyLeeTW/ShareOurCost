@@ -147,6 +147,7 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
             let expenseDescription = expenseData["description"] as? String,
             let sharedResult = expenseData["sharedResult"] as? [String: Int],
             let isRead = expenseData["isRead"] as? Bool,
+            let expenseDate = expenseData["expenseDay"] as? String,
             let friendName = friendUIDandNameList[friendUID]
             
             else { return cell }
@@ -174,6 +175,8 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
             }
             
         }
+
+        cell.expenseDateLabel.text = expenseDate
 
         return cell
 

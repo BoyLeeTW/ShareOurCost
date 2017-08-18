@@ -24,15 +24,36 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setUpButtons()
+
         fullNameTextField.isHidden = true
 
         userIDTextField.isHidden = true
 
         signInOrRegisterSegmentedControl.addTarget(self, action: #selector(handleSignInOrRegisterChange), for: UIControlEvents.valueChanged)
 
+    }
+
+    func setUpButtons() {
+
+        self.emailTextField.layer.borderWidth = 3
+        self.emailTextField.layer.borderColor = UIColor.white.cgColor
+        self.emailTextField.attributedPlaceholder = NSAttributedString(string: "E-mail", attributes: [NSForegroundColorAttributeName: UIColor(red: 172/255, green: 206/255, blue: 211/255, alpha: 1.0)])
+
+        self.passwordTextField.layer.borderWidth = 3
+        self.passwordTextField.layer.borderColor = UIColor.white.cgColor
+        self.passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: UIColor(red: 172/255, green: 206/255, blue: 211/255, alpha: 1.0)])
+
+        self.fullNameTextField.layer.borderWidth = 3
+        self.fullNameTextField.layer.borderColor = UIColor.white.cgColor
+        self.fullNameTextField.attributedPlaceholder = NSAttributedString(string: "Name", attributes: [NSForegroundColorAttributeName: UIColor(red: 172/255, green: 206/255, blue: 211/255, alpha: 1.0)])
+
+        self.userIDTextField.layer.borderWidth = 3
+        self.userIDTextField.layer.borderColor = UIColor.white.cgColor
+        self.userIDTextField.attributedPlaceholder = NSAttributedString(string: "User ID", attributes: [NSForegroundColorAttributeName: UIColor(red: 172/255, green: 206/255, blue: 211/255, alpha: 1.0)])
 
         signInOrUpButton.addTarget(self, action: #selector(handleSignInOrRegister), for: .touchUpInside)
-
+        
         forgetPasswordButton.addTarget(self, action: #selector(handleForgetPassword), for: .touchUpInside)
 
     }
