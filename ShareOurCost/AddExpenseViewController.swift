@@ -65,19 +65,6 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
             self.setUpFriendNamePicker()
 
-            let alertController = UIAlertController(title: "Oops",
-                                                    message: "Please add friend so you can share cost with them",
-                                                    preferredStyle: .alert)
-            let defaultAction = UIAlertAction(title: "OK",
-                                              style: .cancel,
-                                              handler: nil)
-            alertController.addAction(defaultAction)
-            self.present(alertController, animated: true, completion: {
-                
-                self.navigationController?.popViewController(animated: true)
-                
-            })
-
         })
 
         setUpDatePicker()
@@ -214,17 +201,49 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
     }
 
+    func touchSharedMemberText() {
+
+        if friendNameList.count == 0 {
+
+            let alertController = UIAlertController(title: "Oops",
+                                                    message: "Please add friend so you can share cost with them",
+                                                    preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "OK",
+                                              style: .default,
+                                              handler: nil)
+            alertController.addAction(defaultAction)
+            self.present(alertController, animated: true, completion: {
+                
+                self.navigationController?.popViewController(animated: true)
+                
+            })
+
+        }
+
+    }
+
     func setUpButtons() {
 
         paidByUserButton.addTarget(self, action: #selector(touchPaidByUser(_:)), for: .touchUpInside)
-        
+        paidByUserButton.layer.borderWidth = 2
+        paidByUserButton.layer.borderColor = UIColor.white.cgColor
+
         paidByFriendButton.addTarget(self, action: #selector(touchPaidByFriend(_:)), for: .touchUpInside)
-        
+        paidByFriendButton.layer.borderWidth = 2
+        paidByFriendButton.layer.borderColor = UIColor.white.cgColor
+
         shareExpenseEquallyButton.addTarget(self, action: #selector(touchShareExpenseEquallyButton), for: .touchUpInside)
-        
+        shareExpenseEquallyButton.layer.borderWidth = 2
+        shareExpenseEquallyButton.layer.borderColor = UIColor.white.cgColor
+
         shareExpenseByPercentButton.addTarget(self, action: #selector(touchShareExpenseByPercentButton), for: .touchUpInside)
-        
+        shareExpenseByPercentButton.layer.borderWidth = 2
+        shareExpenseByPercentButton.layer.borderColor = UIColor.white.cgColor
+
+
         expenseAmountTextField.addTarget(self, action: #selector(expenseAmountTextFieldChanged(_:)), for: .editingChanged)
+
+        expenseSharedMemberTextField.addTarget(self, action: #selector(touchSharedMemberText), for: .allEditingEvents)
 
         userSharedAmountTextField.addTarget(self, action: #selector(userSharedAmountTextFieldChagned), for: .editingChanged)
         
@@ -278,11 +297,11 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         userSharedAmountTextField.text = "\(Int(round(totalAmount / 2)))"
         friendSharedAmountTextField.text = "\(Int(floor(totalAmount / 2)))"
 
-        shareExpenseEquallyButton.backgroundColor = UIColor.red
-        shareExpenseEquallyButton.setTitleColor(UIColor.white, for: .normal)
+        shareExpenseByPercentButton.backgroundColor = UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0)
+        shareExpenseByPercentButton.setTitleColor(UIColor.white, for: .normal)
         
-        shareExpenseByPercentButton.backgroundColor = UIColor.clear
-        shareExpenseByPercentButton.setTitleColor(UIColor.blue, for: .normal)
+        shareExpenseEquallyButton.backgroundColor = UIColor.white
+        shareExpenseEquallyButton.setTitleColor(UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0), for: .normal)
 
         userPercentLabel.isHidden = true
         friendPercentLabel.isHidden = true
@@ -307,11 +326,11 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         userSharedAmountTextField.isHidden = true
         friendSharedAmountTextField.isHidden = true
         
-        shareExpenseEquallyButton.backgroundColor = UIColor.clear
-        shareExpenseEquallyButton.setTitleColor(UIColor.blue, for: .normal)
+        shareExpenseByPercentButton.backgroundColor = UIColor.white
+        shareExpenseByPercentButton.setTitleColor(UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0), for: .normal)
         
-        shareExpenseByPercentButton.backgroundColor = UIColor.red
-        shareExpenseByPercentButton.setTitleColor(UIColor.white, for: .normal)
+        shareExpenseEquallyButton.backgroundColor = UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0)
+        shareExpenseEquallyButton.setTitleColor(UIColor.white, for: .normal)
 
         sharedMethod = SharedMethod.byPercent
 
@@ -367,11 +386,11 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
         paidByResult = PaidBy.user
 
-        paidByUserButton.backgroundColor = UIColor.red
-        paidByUserButton.setTitleColor(UIColor.white, for: .normal)
+        paidByFriendButton.backgroundColor = UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0)
+        paidByFriendButton.setTitleColor(UIColor.white, for: .normal)
         
-        paidByFriendButton.backgroundColor = UIColor.clear
-        paidByFriendButton.setTitleColor(UIColor.blue, for: .normal)
+        paidByUserButton.backgroundColor = UIColor.white
+        paidByUserButton.setTitleColor(UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0), for: .normal)
 
     }
 
@@ -379,12 +398,11 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
         paidByResult = PaidBy.friend
 
-        paidByUserButton.backgroundColor = UIColor.clear
-        paidByUserButton.setTitleColor(UIColor.blue, for: .normal)
+        paidByFriendButton.backgroundColor = UIColor.white
+        paidByFriendButton.setTitleColor(UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0), for: .normal)
 
-        
-        paidByFriendButton.backgroundColor = UIColor.red
-        paidByFriendButton.setTitleColor(UIColor.white, for: .normal)
+        paidByUserButton.backgroundColor = UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0)
+        paidByUserButton.setTitleColor(UIColor.white, for: .normal)
 
     }
 

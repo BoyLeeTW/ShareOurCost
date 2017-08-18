@@ -155,6 +155,9 @@ class ExpeneseDetailViewController: UIViewController {
         let expenseManager = ExpenseManager()
 
         expenseManager.changeExpenseStatus(friendUID: sharedFriendUID, expenseID: expenseID, changeSelfStatus: "accepted", changeFriendStatus: nil)
+        expenseManager.changeExpenseReadStatus(friendUID: self.sharedFriendUID, expenseID: self.expenseID, changeSelfStatus: true, changeFriendStatus: false)
+
+        self.navigationController?.popViewController(animated: true)
 
     }
 
@@ -177,7 +180,21 @@ class ExpeneseDetailViewController: UIViewController {
 
         let expenseManager = ExpenseManager()
 
-        expenseManager.changeExpenseStatus(friendUID: sharedFriendUID, expenseID: expenseID, changeSelfStatus: "denied", changeFriendStatus: nil)
+        if expenseStatus == "receivedDeleted" {
+
+            expenseManager.changeExpenseStatus(friendUID: sharedFriendUID, expenseID: expenseID, changeSelfStatus: "accepted", changeFriendStatus: nil)
+            expenseManager.changeExpenseReadStatus(friendUID: self.sharedFriendUID, expenseID: self.expenseID, changeSelfStatus: true, changeFriendStatus: false)
+
+            self.navigationController?.popViewController(animated: true)
+
+        } else {
+
+            expenseManager.changeExpenseStatus(friendUID: sharedFriendUID, expenseID: expenseID, changeSelfStatus: "denied", changeFriendStatus: nil)
+            expenseManager.changeExpenseReadStatus(friendUID: self.sharedFriendUID, expenseID: self.expenseID, changeSelfStatus: true, changeFriendStatus: false)
+         
+            self.navigationController?.popViewController(animated: true)
+
+        }
 
     }
 

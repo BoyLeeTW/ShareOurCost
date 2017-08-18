@@ -169,11 +169,11 @@ class ViewController: UIViewController {
                                                          userName: nameText,
                                                          userID: userIDText)
                     
-                self.emailTextField.text = ""
-                self.passwordTextField.text = ""
-                self.fullNameTextField.text = ""
-                self.userIDTextField.text = ""
-                    
+//                self.emailTextField.text = ""
+//                self.passwordTextField.text = ""
+//                self.fullNameTextField.text = ""
+//                self.userIDTextField.text = ""
+                
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "TabBarController")
                 self.present(vc!, animated: true, completion: nil)
                     

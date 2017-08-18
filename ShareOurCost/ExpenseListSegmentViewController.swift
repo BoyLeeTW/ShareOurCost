@@ -541,7 +541,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                 destinationVC?.expenseInformation = (receivedDeletedExpenseIDList[friendUIDList[selectedSection]]?[selectedRow])!
 
                 destinationVC?.isAcceptButtonHidden = true
-                destinationVC?.isDenyButtonHidden = true
+                destinationVC?.isDenyButtonHidden = false
                 destinationVC?.isDeleteButtonHidden = false
                 destinationVC?.expenseStatus = ExpenseStatus.receivedDeleted.rawValue
 

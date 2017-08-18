@@ -52,16 +52,18 @@ class AccountManager {
             completion(!dataSnapshot.exists())
         })
 
-        ref.child("userID").queryOrderedByValue().queryEqual(toValue: userID).removeAllObservers()
-
     }
 
     func firebaseRegistration(email: String, password: String, userName: String, userID: String) {
+
+        ref = Database.database().reference()
 
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
 
             if error == nil {
                 print("Successful signed up!")
+
+                userUID = Auth.auth().currentUser!.uid
 
                 self.ref?.child("userInfo").child("\(user!.uid)").setValue(
                     ["email": "\(email)",
@@ -70,11 +72,16 @@ class AccountManager {
                         "createdTime": (Date().timeIntervalSince1970)
                     ])
 
-                userUID = Auth.auth().currentUser!.uid
+                self.ref.child("userID").updateChildValues(["\(user!.uid)": "\(userID)"])
 
-                self.ref?.child("userID").updateChildValues(["\(user!.uid)": "\(userID)"])
+            } else {
+
+                print("sonething went wrong!")
 
             }
+
+            userUID = Auth.auth().currentUser!.uid
+
         }
     }
 
