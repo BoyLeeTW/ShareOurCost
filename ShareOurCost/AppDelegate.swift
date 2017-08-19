@@ -23,11 +23,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         IQKeyboardManager.shared().isEnabled = true
 
+        UIApplication.shared.statusBarStyle = .lightContent
+
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
 
         if UserDefaults.standard.value(forKey: "userUid") != nil {
 
-            let tabBarVC = mainStoryboard.instantiateViewController(withIdentifier: "MatchingVC")
+            let tabBarVC = mainStoryboard.instantiateViewController(withIdentifier: "TabBarController")
+
+            userUID = Auth.auth().currentUser!.uid
 
             window?.rootViewController = tabBarVC
 

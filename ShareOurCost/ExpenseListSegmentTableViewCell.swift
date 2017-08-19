@@ -10,8 +10,9 @@ import UIKit
 
 class ExpenseListSegmentTableViewCell: UITableViewCell {
     @IBOutlet weak var friendNameLabel: UILabel!
-    @IBOutlet weak var acceptButton: UIButton!
-    @IBOutlet weak var denyButton: UIButton!
+    @IBOutlet weak var expenseCreatedDateLabel: UILabel!
+    @IBOutlet weak var acceptButton: MyButton!
+    @IBOutlet weak var denyButton: MyButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()

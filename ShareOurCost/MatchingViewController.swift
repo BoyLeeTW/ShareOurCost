@@ -28,8 +28,6 @@ class MatchingViewController: UIViewController {
 
         let searchedUserID = phoneNumberTextField.text!
 
-        ref = Database.database().reference()
-
         friendManager.checkFriendID(userID: searchedUserID, completion: { (userSelfID, searchResult, searchedUID) in
 
             if searchResult == true {
@@ -68,42 +66,16 @@ class MatchingViewController: UIViewController {
 
             ref.child("userInfo").child(addFriendID).child("pendingFriendRequest").updateChildValues([(Auth.auth().currentUser?.uid)!: false])
 
-            ref.child("userInfo").child((Auth.auth().currentUser?.uid)!).child("pendingSentFriendRequest").updateChildValues([addFriendID: false])
+            ref.child("userInfo").child(userUID).child("pendingSentFriendRequest").updateChildValues([addFriendID: false])
 
         }
 
     }
 
-    var expenseList = [ExpenseModel]()
-
-    var refExpense: DatabaseReference!
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        ref = Database.database().reference()
 
         logOutButton.addTarget(self, action: #selector(handleLouOut), for: .touchUpInside)
-
-// MARK: retriving data from expense
-//        refExpense = Database.database().reference().child("Expenses")
-//        refExpense = Database.database().reference()
-
-//        refExpense.observe(.value, with: { (dataSnapshot) in
-
-//            guard let datas = dataSnapshot.children.allObjects as? [DataSnapshot] else { return }
-//            print(datas)
-//            for data in datas {
-//                let dataObject = data.value as?[String: AnyObject]
-//                let expenseDate = dataObjeㄩct!["Date"]!
-//                let expenseAmount = dataObject!["Amount"]!
-//                let expenseSharedMethod = dataObject!["SharedMethod"]!
-//                let expenseSharedResult = dataObject!["SharedResult"]!
-//                print(expenseAmount, expenseDate, expenseSharedMethod, expenseSharedResult)
-
-//            }
-
-//        })
 
     }
     

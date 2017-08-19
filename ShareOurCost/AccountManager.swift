@@ -28,6 +28,8 @@ class AccountManager {
 
                 UserDefaults.standard.setValue(user!.uid, forKey: "userUid")
 
+                userUID = Auth.auth().currentUser!.uid
+
                 completion(loginResult, nil)
 
             } else {
@@ -40,7 +42,7 @@ class AccountManager {
 
     }
 
-    func checkIfUserIDUnique(userID: String, completion: @escaping ((Bool) -> ())) {
+    func checkIfUserIDUnique(userID: String, completion:  @escaping ((Bool) -> ())) {
 
         ref = Database.database().reference()
 
@@ -50,16 +52,18 @@ class AccountManager {
             completion(!dataSnapshot.exists())
         })
 
-        ref.removeAllObservers()
-
     }
 
-    func firebaseRigistration(email: String, password: String, userName: String, userID: String) {
+    func firebaseRegistration(email: String, password: String, userName: String, userID: String, completion:
+        @escaping () -> ()) {
+
+        ref = Database.database().reference()
 
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
 
             if error == nil {
-                print("Successful signed up!")
+
+                userUID = Auth.auth().currentUser!.uid
 
                 self.ref?.child("userInfo").child("\(user!.uid)").setValue(
                     ["email": "\(email)",
@@ -67,10 +71,17 @@ class AccountManager {
                         "userID": "\(userID)",
                         "createdTime": (Date().timeIntervalSince1970)
                     ])
-                
-                self.ref?.child("userID").updateChildValues(["\(user!.uid)": "\(userID)"])
+
+                self.ref.child("userID").updateChildValues(["\(user!.uid)": "\(userID)"])
+
+                completion()
+
+            } else {
 
             }
+
+            userUID = Auth.auth().currentUser!.uid
+
         }
     }
 
@@ -78,15 +89,29 @@ class AccountManager {
 
         Auth.auth().sendPasswordReset(withEmail: email) { ( error ) in
 
-            if let error = error {
-
-                print(error.localizedDescription)
+            if error != nil {
 
             } else {
 
-                print("Sent password reset mail successfully!")
-
             }
+
+        }
+
+    }
+
+    func logOut() {
+
+        UserDefaults.standard.setValue(nil, forKey: "userUid")
+
+        do {
+
+           try Auth.auth().signOut()
+
+        }
+
+        catch {
+
+            print("Something went wrong with sign out!")
 
         }
 

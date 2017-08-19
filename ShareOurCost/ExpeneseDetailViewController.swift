@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Firebase
 
 class ExpeneseDetailViewController: UIViewController {
 
@@ -17,63 +16,229 @@ class ExpeneseDetailViewController: UIViewController {
     @IBOutlet weak var expenseDescriptionLabel: UILabel!
     @IBOutlet weak var expenseCreatedByLabel: UILabel!
     @IBOutlet weak var expenseCreatedDayLabel: UILabel!
-
-    var ref: DatabaseReference!
+    @IBOutlet weak var acceptExpenseButton: UIButton!
+    @IBOutlet weak var denyExpenseButton: UIButton!
+    @IBOutlet weak var deleteExpenseButton: UIButton!
+    @IBOutlet weak var biggestView: UIView!
 
     var allExpenseIDList = [String]()
 
-    var selectedRow = Int()
+    var expenseInformation = [String: Any]()
 
     var expenseID = String()
+
+    var sharedFriendUID = String()
+
+    var expenseStatus = String()
+
+    var isAcceptButtonHidden = Bool()
+
+    var isDenyButtonHidden = Bool()
+
+    var isDeleteButtonHidden = Bool()
+
+    let expenseManager = ExpenseManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(touchBackButton))
-
         setUpExpenseDetailLabel()
+
+        setUpButton()
+
+        setUpViews()
+
+        setUpNavigationBar()
 
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func setUpNavigationBar() {
+
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_navigate_before_white_36pt"), style: .plain, target: self, action: #selector(touchBackButton))
+        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
+
     }
 
     func touchBackButton() {
 
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
+
+    }
+
+    func setUpViews() {
+
+        biggestView.layer.borderWidth = 4
+        biggestView.layer.borderColor = UIColor.white.cgColor
+//        biggestView.attributedPlaceholder = NSAttributedString(string: "Please enter your friend's ID", attributes: [NSForegroundColorAttributeName: UIColor(red: 172/255, green: 206/255, blue: 211/255, alpha: 1.0)])
+
 
     }
 
     func setUpExpenseDetailLabel() {
 
-        ref = Database.database().reference()
+        var expenseCreatedByName = String()
+
+        guard let expenseTotalAmount = expenseInformation["amount"] as? Int,
+              let expenseCreatedBy = expenseInformation["createdBy"] as? String,
+              let expenseCreatedDay = expenseInformation["createdTime"] as? String,
+              let expensePaidBy = expenseInformation["expensePaidBy"] as? String,
+              let expenseDescription = expenseInformation["description"] as? String,
+              let expenseDay = expenseInformation["expenseDay"] as? String,
+              let expenseID = expenseInformation["id"] as? String,
+              let expenseSahreWith = expenseInformation["sharedWith"] as? String,
+              let sharedAmount = expenseInformation["sharedResult"] as? [String: Any],
+              let amountYouShared = sharedAmount["\(userUID)"] as? Int
         
-        ref.child("expenseList").child(expenseID).observe(.value, with: { (dataSnapshot) in
+            else { return }
 
-            guard let expenseData = dataSnapshot.value as? [String: Any],
-                  let expenseTotalAmount = expenseData["amount"] as? Int,
-                  let expenseCreatedBy = expenseData["createdBy"] as? String,
-//                  let expenseCreatedDay = expenseData["createdTime"] as? Double,
-                  let expenseCreatedDay = expenseData["createdTime"] as? String,
-                  let expensePaidby = expenseData["expensePaidBy"] as? String,
-                  let expenseDescription = expenseData["description"] as? String,
-                  let expenseDay = expenseData["expenseDay"] as? String,
-                  let sharedAmount = expenseData["sharedResult"] as? [String: Any],
-                  let amountYouShared = sharedAmount["\(Auth.auth().currentUser!.uid)"] as? Int
+        self.expenseID = expenseID
+
+        if expenseCreatedBy == userUID {
             
-                else { return }
+            self.sharedFriendUID = expenseSahreWith
+            
+        } else {
+            
+            
+            self.sharedFriendUID = expenseCreatedBy
+            
+        }
+
+        if friendUIDandNameList[expenseCreatedBy] == nil {
+
+            expenseCreatedByName = "You"
+
+        } else {
+
+            expenseCreatedByName = friendUIDandNameList[expenseCreatedBy]!
+
+        }
+
+        self.totalAmountLabel.text = "Total Amount: $\(expenseTotalAmount)"
+        self.expenseCreatedByLabel.text = "Created By: \(expenseCreatedByName)"
+        self.expenseCreatedDayLabel.text = "Create Day: \(expenseCreatedDay)"
+        self.expenseDescriptionLabel.text = "Description: \(expenseDescription)"
+        self.amountYouSharedLabel.text = "Amount You Shared: $\(abs(amountYouShared))"
+        self.expenseDateLabel.text = "Expense Day: \(expenseDay)"
+
+    }
+
+    func setUpButton() {
+
+        acceptExpenseButton.isHidden = isAcceptButtonHidden
+        denyExpenseButton.isHidden = isDenyButtonHidden
+        deleteExpenseButton.isHidden = isDeleteButtonHidden
+
+        acceptExpenseButton.addTarget(self, action: #selector(touchAcceptButton), for: .touchUpInside)
+        denyExpenseButton.addTarget(self, action: #selector(touchDenyButton), for: .touchUpInside)
+        deleteExpenseButton.addTarget(self, action: #selector(touchDeleteButton), for: .touchUpInside)
+
+    }
+
+    func touchAcceptButton() {
+
+        guard let expenseCreatedBy = expenseInformation["createdBy"] as? String,
+            let expenseSahreWith = expenseInformation["sharedWith"] as? String,
+            let expenseID = expenseInformation["id"] as? String
+            else { return }
+        
+        if expenseCreatedBy == userUID {
+            
+            sharedFriendUID = expenseSahreWith
+            
+        } else {
+            
+            sharedFriendUID = expenseCreatedBy
+            
+        }
+
+        let expenseManager = ExpenseManager()
+
+        expenseManager.changeExpenseStatus(friendUID: sharedFriendUID, expenseID: expenseID, changeSelfStatus: "accepted", changeFriendStatus: nil)
+        expenseManager.changeExpenseReadStatus(friendUID: self.sharedFriendUID, expenseID: self.expenseID, changeSelfStatus: true, changeFriendStatus: false)
+
+        self.navigationController?.popViewController(animated: true)
+
+    }
+
+    func touchDenyButton() {
+
+        guard let expenseCreatedBy = expenseInformation["createdBy"] as? String,
+            let expenseSahreWith = expenseInformation["sharedWith"] as? String,
+            let expenseID = expenseInformation["id"] as? String
+            else { return }
+
+        if expenseCreatedBy == userUID {
+
+            sharedFriendUID = expenseSahreWith
+
+        } else {
+
+            sharedFriendUID = expenseCreatedBy
+
+        }
+
+        let expenseManager = ExpenseManager()
+
+        if expenseStatus == "receivedDeleted" {
+
+            expenseManager.changeExpenseStatus(friendUID: sharedFriendUID, expenseID: expenseID, changeSelfStatus: "accepted", changeFriendStatus: nil)
+            expenseManager.changeExpenseReadStatus(friendUID: self.sharedFriendUID, expenseID: self.expenseID, changeSelfStatus: true, changeFriendStatus: false)
+
+            self.navigationController?.popViewController(animated: true)
+
+        } else {
+
+            expenseManager.changeExpenseStatus(friendUID: sharedFriendUID, expenseID: expenseID, changeSelfStatus: "denied", changeFriendStatus: nil)
+            expenseManager.changeExpenseReadStatus(friendUID: self.sharedFriendUID, expenseID: self.expenseID, changeSelfStatus: true, changeFriendStatus: false)
+         
+            self.navigationController?.popViewController(animated: true)
+
+        }
+
+    }
+
+    func touchDeleteButton() {
+
+        let alertController = UIAlertController(title: "Attention",
+                                                message: "Do you really want to delete?",
+                                                preferredStyle: .alert)
+        let deleteAction = UIAlertAction(title: "Delete", style: .default, handler: { _ in
+
+            if self.expenseStatus == "sentPending" || self.expenseStatus == "denied" || self.expenseStatus == "receivedDeleted" {
+
+                self.navigationController?.popViewController(animated: true)
+
+                self.expenseManager.deleteExpense(friendUID: self.sharedFriendUID, expenseID: self.expenseID)
+
+            } else {
+
+                let alertController = UIAlertController(title: "Success",
+                                                        message: "This expense will be deleted after your friend approve it",
+                                                        preferredStyle: .alert)
+                let notificationAction = UIAlertAction(title: "OK", style: .default, handler: { _ in
+                    
+                    self.navigationController?.popViewController(animated: true)
+
+                    self.expenseManager.changeExpenseStatus(friendUID: self.sharedFriendUID, expenseID: self.expenseID, changeSelfStatus: "sentDeleted", changeFriendStatus: "receivedDeleted")
+                    
+                    self.expenseManager.changeExpenseReadStatus(friendUID: self.sharedFriendUID, expenseID: self.expenseID, changeSelfStatus: true, changeFriendStatus: false)
 
 
-            self.totalAmountLabel.text = "Total Amount: \(expenseTotalAmount)"
-            self.expenseCreatedByLabel.text = "Created By: \(expenseCreatedBy)"
-            self.expenseCreatedDayLabel.text = "Create Day: \(expenseCreatedDay)"
-            self.expenseDescriptionLabel.text = "Description: \(expenseDescription)"
-            self.amountYouSharedLabel.text = "Amount You Shared: \(amountYouShared)"
-            self.expenseDateLabel.text = "\(expenseDay)"
+                })
+
+                alertController.addAction(notificationAction)
+                self.present(alertController, animated: true, completion:  nil)
+
+            }
 
         })
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(deleteAction)
+        alertController.addAction(cancelAction)
+
+        self.present(alertController, animated: true, completion:  nil)
 
     }
 
