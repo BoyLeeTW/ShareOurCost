@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
+import NVActivityIndicatorView
 
 class FriendListTableViewController: UITableViewController {
     @IBOutlet var friendListTableView: UITableView!
@@ -28,6 +29,10 @@ class FriendListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let activityData = ActivityData(message: "Loading...")
+
+        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
+
         setUpNavigationBar()
 
         friendManager.fetchFriendUIDList { (friendUIDListOfBlock) in
@@ -39,6 +44,8 @@ class FriendListTableViewController: UITableViewController {
                 friendUIDandNameList = friendUIDtoNameListOfBlock
 
                 self.friendListTableView.reloadData()
+
+                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
 
             })
 

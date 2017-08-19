@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
 class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -46,10 +47,6 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
         setUpNavigationBar()
 
-        expenseManager.fetchAcceptedExpenseList { (acceptedExpenseList) in
-
-        }
-
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -60,24 +57,28 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
     func fetchData() {
 
+        let activityData = ActivityData(message: "Loading...")
+
+        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
+
         DispatchQueue.global().async {
-            
+
             self.friendManager.fetchFriendUIDList { (friendUIDList) in
-                
+
                 self.friendUIDList = friendUIDList
-                
+
                 self.friendManager.fetchFriendUIDtoNameList(friendUIDList: self.friendUIDList, completion: { (friendUIDtoNameList) in
-                    
+
                     friendUIDandNameList = friendUIDtoNameList
-                    
+
                     self.friendUIDtoNameList = friendUIDtoNameList
-                    
+
                     self.expenseListTableView.reloadData()
-                    
+
                 })
-                
+
                 self.expenseManager.newFetchExpenseIDList { (acceptedExpenseIDList, receivedPendingExpenseIDList, sentPendingExpenseIDList, deniedExpenseIDList, receivedDeletedExpenseIDList) in
-                    
+
                     self.acceptedExpenseIDList = acceptedExpenseIDList
                     self.receivedPendingExpenseIDList = receivedPendingExpenseIDList
                     self.sentPendingExpenseIDList = sentPendingExpenseIDList
@@ -85,7 +86,9 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                     self.receivedDeletedExpenseIDList = receivedDeletedExpenseIDList
 
                     self.expenseListTableView.reloadData()
-                    
+
+                    NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+
                 }
             }
         }
@@ -132,14 +135,10 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
         headerLabel.textColor = UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0)
 
         headerView.addSubview(headerLabel)
-        
+
         return headerView
 
     }
-
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 40
-//    }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 

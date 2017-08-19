@@ -37,6 +37,9 @@ PODS:
   - GoogleToolboxForMac/NSString+URLArguments (2.1.1)
   - GTMSessionFetcher/Core (1.1.10)
   - IQKeyboardManager (4.0.10)
+  - NVActivityIndicatorView (3.7.0):
+    - NVActivityIndicatorView/Presenter (= 3.7.0)
+  - NVActivityIndicatorView/Presenter (3.7.0)
 
 DEPENDENCIES:
   - Crashlytics
@@ -45,6 +48,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
   - IQKeyboardManager
+  - NVActivityIndicatorView
 
 SPEC CHECKSUMS:
   Crashlytics: dfbae35ef22ca189240d230ad501feea4ee85d2d
@@ -58,7 +62,8 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMSessionFetcher: 30d874b96d0d76028f61fbd122801e3f030d47db
   IQKeyboardManager: 593ee99b88381f4b9ccb22bd680f22606351bd41
+  NVActivityIndicatorView: d3738df7e2e476aca0ba6bf32a8c9fbcfc33d64b
 
-PODFILE CHECKSUM: 3523f577cb4c016c7b69f3e2aa75ec60a8a85114
+PODFILE CHECKSUM: 2900fab6dceedf0ed422dd8939a3c8545d9844f7
 
 COCOAPODS: 1.3.0.beta.2

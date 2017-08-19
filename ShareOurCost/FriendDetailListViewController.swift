@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
 class FriendDetailListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var balanceLabel: UILabel!
@@ -37,12 +38,18 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
 
     func fetchAcceptedExpenseData() {
 
+        let activityData = ActivityData(message: "Loading...")
+
+        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
+
         expenseManager.fetchAcceptedExpenseList { (acceptedExepnseList) in
-            
+
             self.acceptedExpenseList = acceptedExepnseList
-            
+
             self.friendDetailExpenseListTableView.reloadData()
-            
+
+            NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+
             guard let expenseInfoSource = acceptedExepnseList[self.friendUID] else {
                 
                 self.balanceLabel.text = "There is no expense yet!"

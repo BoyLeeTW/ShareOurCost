@@ -11,6 +11,7 @@ pod 'Firebase/Database'
 pod 'IQKeyboardManager'
 pod 'Fabric'
 pod 'Crashlytics'
+pod 'NVActivityIndicatorView'
 
 # Pods for ShareOurCost
 

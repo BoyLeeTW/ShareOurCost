@@ -93,6 +93,7 @@ class AccountManager {
 
             } else {
 
+                print("NOT WORK!")
             }
 
         }

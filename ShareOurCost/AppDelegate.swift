@@ -12,6 +12,7 @@ import Firebase
 import IQKeyboardManager
 import Fabric
 import Crashlytics
+import NVActivityIndicatorView
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,6 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
 
         IQKeyboardManager.shared().isEnabled = true
+
+        NVActivityIndicatorView.DEFAULT_TYPE  = .ballRotateChase
 
         UIApplication.shared.statusBarStyle = .lightContent
 

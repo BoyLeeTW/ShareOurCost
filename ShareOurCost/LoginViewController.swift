@@ -8,6 +8,7 @@
 
 import UIKit
 import Foundation
+import NVActivityIndicatorView
 
 class ViewController: UIViewController {
 
@@ -113,11 +114,17 @@ class ViewController: UIViewController {
 
         } else {
 
+            let activityData = ActivityData(message: "Loading...")
+
+            NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
+
             accountManager.firebaseSignIn(email: emailTextField.text!,
                                           password: passwordTextField.text!,
                                           completion: { (loginResultBool, error) in
 
                 if loginResultBool == true {
+
+                    NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
 
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "TabBarController")
 
@@ -126,6 +133,8 @@ class ViewController: UIViewController {
                 }
 
                 else {
+
+                    NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
 
                     let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
                     let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
@@ -167,16 +176,37 @@ class ViewController: UIViewController {
 
             if resultBool == true {
 
+                if self.emailTextField.text == "" || self.passwordTextField.text == "" || self.fullNameTextField.text == "" || self.userIDTextField.text == "" {
+
+                    let alertController = UIAlertController(title: "Oops",
+                                                            message: "Please fill in all information",
+                                                            preferredStyle: .alert)
+                    let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                    alertController.addAction(defaultAction)
+                    self.present(alertController, animated: true, completion:  nil)
+
+                    return
+
+                }
+
+                let activityData = ActivityData(message: "Loading...")
+
+                NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
+
                 self.accountManager.firebaseRegistration(email: emailText,
                                                          password: passwordText,
                                                          userName: nameText,
                                                          userID: userIDText,
                                                          completion: {
 
+                                                            
+
                                                             self.emailTextField.text = ""
                                                             self.passwordTextField.text = ""
                                                             self.fullNameTextField.text = ""
                                                             self.userIDTextField.text = ""
+
+                                                            NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
 
                                                             let vc = self.storyboard?.instantiateViewController(withIdentifier: "TabBarController")
                                                             self.present(vc!, animated: true, completion: nil)
@@ -188,11 +218,8 @@ class ViewController: UIViewController {
                 let alertController = UIAlertController(title: "Oops",
                                                         message: "UserID is already used!",
                                                         preferredStyle: .alert)
-
                 let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-
                 alertController.addAction(defaultAction)
-
                 self.present(alertController, animated: true, completion:  nil)
 
             }
