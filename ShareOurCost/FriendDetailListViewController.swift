@@ -9,7 +9,7 @@
 import UIKit
 import NVActivityIndicatorView
 
-class FriendDetailListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class FriendDetailListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
     @IBOutlet weak var balanceLabel: UILabel!
     @IBOutlet weak var friendDetailExpenseListTableView: UITableView!
 
@@ -118,6 +118,14 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
 
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_navigate_before_white_36pt"), style: .plain, target: self, action: #selector(touchBackButton))
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+
+    }
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+
+        return true
 
     }
 

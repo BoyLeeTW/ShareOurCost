@@ -25,7 +25,7 @@ enum SharedMethod {
 }
 
 
-class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate {
 
     var ref: DatabaseReference!
 
@@ -294,7 +294,15 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_navigate_before_white_36pt"), style: .plain, target: self, action: #selector(touchBackButton))
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
         self.navigationItem.title = "Add Expense"
-
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        
+        return true
+        
     }
 
     func touchBackButton() {

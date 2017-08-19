@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ExpeneseDetailViewController: UIViewController {
+class ExpeneseDetailViewController: UIViewController, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var totalAmountLabel: UILabel!
     @IBOutlet weak var amountYouSharedLabel: UILabel!
@@ -58,7 +58,15 @@ class ExpeneseDetailViewController: UIViewController {
                                                                 target: self,
                                                                 action: #selector(touchBackButton))
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
-
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        
+        return true
+        
     }
 
     func touchBackButton() {
