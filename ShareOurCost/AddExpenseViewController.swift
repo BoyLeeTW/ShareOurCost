@@ -55,6 +55,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var friendSharedPercentTextField: UITextField!
     @IBOutlet weak var userPercentLabel: UILabel!
     @IBOutlet weak var friendPercentLabel: UILabel!
+    @IBOutlet weak var friendSharesLabel: UILabel!
     @IBOutlet weak var biggestView: UIView!
 
     override func viewDidLoad() {
@@ -172,11 +173,6 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 ]
             )
 
-            self.expenseSharedMemberTextField.text = ""
-            self.expenseDayTextField.text = ""
-            self.expenseAmountTextField.text = ""
-            self.expenseDescriptionTextField.text = ""
-
             self.navigationController?.popViewController(animated: true)
 
     }
@@ -201,6 +197,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         expenseSharedMemberTextField.inputView = friendNamePickerView
         if friendNameList.count > 0 {
 
+            friendSharesLabel.text = "\(friendNameList[0])\nshares"
             expenseSharedMemberTextField.text = friendNameList[0]
             paidByFriendButton.setTitle(friendNameList[0], for: .normal)
 
@@ -255,13 +252,13 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         
         expenseSharedMemberTextField.addTarget(self, action: #selector(touchSharedMemberText), for: .editingChanged)
 
-        userSharedAmountTextField.addTarget(self, action: #selector(userSharedAmountTextFieldChagned), for: .editingDidEnd)
+        userSharedAmountTextField.addTarget(self, action: #selector(userSharedAmountTextFieldChagned), for: .editingChanged)
 
-        friendSharedAmountTextField.addTarget(self, action: #selector(friendSharedAmountTextFieldChagned), for: .editingDidEnd)
+        friendSharedAmountTextField.addTarget(self, action: #selector(friendSharedAmountTextFieldChagned), for: .editingChanged)
 
-        userSharedPercentTextField.addTarget(self, action: #selector(userSharedPercentTextFieldChanged), for: .editingDidEnd)
+        userSharedPercentTextField.addTarget(self, action: #selector(userSharedPercentTextFieldChanged), for: .editingChanged)
 
-        friendSharedPercentTextField.addTarget(self, action: #selector(friendSharedPercentTextFieldChanged), for: .editingDidEnd)
+        friendSharedPercentTextField.addTarget(self, action: #selector(friendSharedPercentTextFieldChanged), for: .editingChanged)
 
     }
 
@@ -513,7 +510,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
             expenseAmountTextField.deleteBackward()
 
-            let alertController = UIAlertController(title: "Oops", message: "Amount cannot be large than 9999999", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Oops", message: "Amount cannot have more than 7 digits", preferredStyle: .alert)
             let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
             alertController.addAction(defaultAction)
             self.present(alertController, animated: true, completion: nil)
@@ -559,6 +556,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
         expenseSharedMemberTextField.text = friendNameList[row]
         paidByFriendButton.setTitle(friendNameList[row], for: .normal)
+        friendSharesLabel.text = "\(friendNameList[row])\nshares"
 
         self.view.endEditing(true)
     }

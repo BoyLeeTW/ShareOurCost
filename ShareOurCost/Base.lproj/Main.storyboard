@@ -188,7 +188,7 @@
                                             <color key="titleColor" red="0.26897078749999997" green="0.60757797960000004" blue="0.70563191179999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                     </button>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nva-I9-GVB">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Amount" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nva-I9-GVB">
                                         <rect key="frame" x="100" y="301" width="132" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="B1F-Yk-bZV"/>
@@ -198,7 +198,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CI8-VE-JpX">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Amount" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CI8-VE-JpX">
                                         <rect key="frame" x="100" y="346" width="132" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="132" id="1QI-Bv-yzn"/>
@@ -305,7 +305,7 @@ share</string>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rik-qx-hhN">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rik-qx-hhN">
                                         <rect key="frame" x="27" y="344" width="66" height="34"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="34" id="D1w-tb-fvE"/>
@@ -394,6 +394,7 @@ shares</string>
                         <outlet property="friendPercentLabel" destination="tSn-l6-Uci" id="zP9-Id-88C"/>
                         <outlet property="friendSharedAmountTextField" destination="CI8-VE-JpX" id="6MS-sa-F8a"/>
                         <outlet property="friendSharedPercentTextField" destination="xuA-p4-WY6" id="ISs-X7-MRL"/>
+                        <outlet property="friendSharesLabel" destination="rik-qx-hhN" id="MeH-H8-kKX"/>
                         <outlet property="paidByFriendButton" destination="6Cc-Z7-UUr" id="Dc2-Uo-cBh"/>
                         <outlet property="paidByUserButton" destination="p6N-Nb-iut" id="Xb2-c5-QlC"/>
                         <outlet property="shareExpenseByPercentButton" destination="tfJ-l9-Bps" id="UkZ-4e-BwG"/>
