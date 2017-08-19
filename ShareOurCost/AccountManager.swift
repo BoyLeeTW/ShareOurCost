@@ -54,7 +54,8 @@ class AccountManager {
 
     }
 
-    func firebaseRegistration(email: String, password: String, userName: String, userID: String) {
+    func firebaseRegistration(email: String, password: String, userName: String, userID: String, completion:
+        @escaping () -> ()) {
 
         ref = Database.database().reference()
 
@@ -74,9 +75,11 @@ class AccountManager {
 
                 self.ref.child("userID").updateChildValues(["\(user!.uid)": "\(userID)"])
 
+                completion()
+
             } else {
 
-                print("sonething went wrong!")
+                print("something went wrong!")
 
             }
 

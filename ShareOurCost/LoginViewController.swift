@@ -8,6 +8,7 @@
 
 import UIKit
 import Foundation
+import Firebase
 
 class ViewController: UIViewController {
 
@@ -120,11 +121,11 @@ class ViewController: UIViewController {
                 if loginResultBool == true {
 
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "TabBarController")
-                    
+
                     self.present(vc!, animated: true, completion: nil)
 
                 }
-            
+
                 else {
 
                     let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
@@ -133,18 +134,21 @@ class ViewController: UIViewController {
                     self.present(alertController, animated: true, completion: nil)
 
                 }
+
             })
 
         }
+
     }
 
     func handleRegistration() {
-        
+
         guard let emailText = emailTextField.text,
               let passwordText = passwordTextField.text,
               let nameText = fullNameTextField.text,
               let userIDText = userIDTextField.text
         else {
+
             let alertController = UIAlertController(title: "Error",
                                                     message: "Please enter all information",
                                                     preferredStyle: .alert)
@@ -161,34 +165,37 @@ class ViewController: UIViewController {
         accountManager.checkIfUserIDUnique(userID: userIDText, completion: { [weak self] (resultBool) in
             //in order to use self instead of self?
             guard let `self` = self else { return }
-                
+
             if resultBool == true {
-                    
+
                 self.accountManager.firebaseRegistration(email: emailText,
                                                          password: passwordText,
                                                          userName: nameText,
-                                                         userID: userIDText)
-                    
-//                self.emailTextField.text = ""
-//                self.passwordTextField.text = ""
-//                self.fullNameTextField.text = ""
-//                self.userIDTextField.text = ""
-                
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "TabBarController")
-                self.present(vc!, animated: true, completion: nil)
-                    
+                                                         userID: userIDText,
+                                                         completion: {
+
+                                                            self.emailTextField.text = ""
+                                                            self.passwordTextField.text = ""
+                                                            self.fullNameTextField.text = ""
+                                                            self.userIDTextField.text = ""
+
+                                                            let vc = self.storyboard?.instantiateViewController(withIdentifier: "TabBarController")
+                                                            self.present(vc!, animated: true, completion: nil)
+
+                })
+
             } else {
-                    
+
                 let alertController = UIAlertController(title: "Oops",
                                                         message: "UserID is already used!",
                                                         preferredStyle: .alert)
-                    
+
                 let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-                    
+
                 alertController.addAction(defaultAction)
-                    
+
                 self.present(alertController, animated: true, completion:  nil)
-                    
+
             }
         })
     }
