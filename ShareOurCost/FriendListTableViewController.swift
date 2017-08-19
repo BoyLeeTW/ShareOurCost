@@ -83,6 +83,7 @@ class FriendListTableViewController: UITableViewController {
 
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "icon-exit"), style: .plain, target: self, action: #selector(handleLogout))
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
+
     }
 
     func touchBackButton() {
@@ -90,8 +91,6 @@ class FriendListTableViewController: UITableViewController {
         self.dismiss(animated: true, completion: nil)
 
     }
-
-    // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
 

@@ -252,8 +252,8 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
     func setUpTextFieldTarget() {
 
         expenseAmountTextField.addTarget(self, action: #selector(expenseAmountTextFieldChanged(_:)), for: .editingChanged)
-
-        expenseSharedMemberTextField.addTarget(self, action: #selector(touchSharedMemberText), for: .allEditingEvents)
+        
+        expenseSharedMemberTextField.addTarget(self, action: #selector(touchSharedMemberText), for: .editingChanged)
 
         userSharedAmountTextField.addTarget(self, action: #selector(userSharedAmountTextFieldChagned), for: .editingDidEnd)
 
@@ -307,13 +307,13 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
         guard let totalAmountText = expenseAmountTextField.text else { return }
         let totalAmount: Double = Double(totalAmountText) ?? 0
-        
+
         userSharedAmountTextField.text = "\(Int(round(totalAmount / 2)))"
         friendSharedAmountTextField.text = "\(Int(floor(totalAmount / 2)))"
 
         shareExpenseByPercentButton.backgroundColor = UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0)
         shareExpenseByPercentButton.setTitleColor(UIColor.white, for: .normal)
-        
+
         shareExpenseEquallyButton.backgroundColor = UIColor.white
         shareExpenseEquallyButton.setTitleColor(UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0), for: .normal)
 
@@ -329,7 +329,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
 
     func touchShareExpenseByPercentButton() {
-        
+
         userSharedPercentTextField.text = "50"
         friendSharedPercentTextField.text = "50"
 
@@ -339,10 +339,10 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         friendSharedPercentTextField.isHidden = false
         userSharedAmountTextField.isHidden = true
         friendSharedAmountTextField.isHidden = true
-        
+
         shareExpenseByPercentButton.backgroundColor = UIColor.white
         shareExpenseByPercentButton.setTitleColor(UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0), for: .normal)
-        
+
         shareExpenseEquallyButton.backgroundColor = UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0)
         shareExpenseEquallyButton.setTitleColor(UIColor.white, for: .normal)
 
@@ -403,8 +403,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
         guard let totalAmountText = expenseAmountTextField.text,
               let userSharedAmountText = userSharedAmountTextField.text
-        
-            else { return }
+        else { return }
 
         let totalAmount = Int(totalAmountText) ?? 0,
             userSharedAmount = Int(userSharedAmountText) ?? 0
@@ -431,9 +430,8 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
     func friendSharedAmountTextFieldChagned() {
 
         guard let totalAmountText = expenseAmountTextField.text,
-            let friendSharedAmountText = friendSharedAmountTextField.text
-
-            else { return }
+              let friendSharedAmountText = friendSharedAmountTextField.text
+        else { return }
 
         let totalAmount = Int(totalAmountText) ?? 0,
         friendSharedAmount = Int(friendSharedAmountText) ?? 0
@@ -463,7 +461,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
         paidByFriendButton.backgroundColor = UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0)
         paidByFriendButton.setTitleColor(UIColor.white, for: .normal)
-        
+
         paidByUserButton.backgroundColor = UIColor.white
         paidByUserButton.setTitleColor(UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0), for: .normal)
 
@@ -484,27 +482,42 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
     func setUpDatePicker() {
 
         let datePicker = UIDatePicker()
-        
+
         datePicker.datePickerMode = .date
-        
+
         expenseDayTextField.inputView = datePicker
-        
+
         let dateFormatter = DateFormatter()
-        
+
         dateFormatter.dateFormat = "yyyy/MM/dd"
-        
+
         expenseDayTextField.text = dateFormatter.string(from: Date())
-        
+
         datePicker.addTarget(self, action: #selector(handleDatePicker(sender:)), for: .valueChanged)
 
     }
 
     func expenseAmountTextFieldChanged(_ sender: UITextField) {
-        guard let amountText = sender.text else { return }
-        let amount: Double = Double(amountText) ?? 0
 
-        userSharedAmountTextField.text = "\(Int(round(amount / 2)))"
-        friendSharedAmountTextField.text = "\(Int(floor(amount / 2)))"
+        guard let amountText = sender.text else { return }
+
+        if amountText.characters.count > 7 {
+
+            expenseAmountTextField.deleteBackward()
+
+            let alertController = UIAlertController(title: "Oops", message: "Amount cannot be large than 9999999", preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alertController.addAction(defaultAction)
+            self.present(alertController, animated: true, completion: nil)
+
+        } else {
+
+            let amount: Double = Double(amountText) ?? 0
+
+            userSharedAmountTextField.text = "\(Int(round(amount / 2)))"
+            friendSharedAmountTextField.text = "\(Int(floor(amount / 2)))"
+
+        }
 
     }
 

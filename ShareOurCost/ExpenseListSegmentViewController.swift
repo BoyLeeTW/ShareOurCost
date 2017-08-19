@@ -159,6 +159,10 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
             rowInSection = acceptedExpenseIDList[friendUIDList[section]]?.count ?? 0
 
+        case 1:
+
+            rowInSection = deniedExpenseIDList[friendUIDList[section]]?.count ?? 0
+
         case 2:
 
             rowInSection = receivedPendingExpenseIDList[friendUIDList[section]]?.count ?? 0
@@ -166,10 +170,6 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
         case 3:
 
             rowInSection = sentPendingExpenseIDList[friendUIDList[section]]?.count ?? 0
-
-        case 1:
-
-            rowInSection = deniedExpenseIDList[friendUIDList[section]]?.count ?? 0
 
         default:
 
@@ -194,7 +194,6 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                   let sharedResult = expenseData["sharedResult"] as? [String: Int],
                   let isRead = expenseData["isRead"] as? Bool,
                   let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]]
-
             else { return cell }
 
             if isRead == true {
@@ -226,15 +225,54 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
             cell.acceptButton.isHidden = true
             cell.denyButton.isHidden = true
 
+        case 1:
+
+            guard let expenseData = deniedExpenseIDList[friendUIDList[indexPath.section]]?[indexPath.row],
+                  let expenseDate = expenseData["expenseDay"] as? String,
+                  let expenseDescription = expenseData["description"] as? String,
+                  let sharedResult = expenseData["sharedResult"] as? [String: Int],
+                  let isRead = expenseData["isRead"] as? Bool,
+                  let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]]
+            else { return cell }
+
+            if isRead == true {
+
+                cell.friendNameLabel.font = UIFont.systemFont(ofSize: 15.0)
+                cell.expenseCreatedDateLabel.font = UIFont.systemFont(ofSize: 10.0)
+
+            } else {
+
+                cell.friendNameLabel.font = UIFont.systemFont(ofSize: 15.0, weight: 1)
+                cell.expenseCreatedDateLabel.font = UIFont.systemFont(ofSize: 10.0, weight: 1)
+            }
+
+            for (key, value) in sharedResult where value < 0 {
+
+                if key == userUID {
+
+                    cell.friendNameLabel.text = ("You owe \(friendName) $\(-value) for \(expenseDescription)" )
+
+                } else {
+
+                    cell.friendNameLabel.text = ("\(friendName) owes you $\(-value) for \(expenseDescription)")
+
+                }
+
+            }
+
+            cell.expenseCreatedDateLabel.text = expenseDate
+            cell.acceptButton.isHidden = true
+            cell.denyButton.isHidden = true
+
         case 2:
 
         guard let expenseData = receivedPendingExpenseIDList[friendUIDList[indexPath.section]]?[indexPath.row],
-            let expenseDescription = expenseData["description"] as? String,
-            let expenseDate = expenseData["expenseDay"] as? String,
-            let sharedResult = expenseData["sharedResult"] as? [String: Int],
-            let isRead = expenseData["isRead"] as? Bool,
-            let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]]
-            else { return cell }
+              let expenseDescription = expenseData["description"] as? String,
+              let expenseDate = expenseData["expenseDay"] as? String,
+              let sharedResult = expenseData["sharedResult"] as? [String: Int],
+              let isRead = expenseData["isRead"] as? Bool,
+              let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]]
+        else { return cell }
 
         for (key, value) in sharedResult where value < 0 {
             
@@ -277,13 +315,12 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
         case 3:
 
             guard let expenseData = sentPendingExpenseIDList[friendUIDList[indexPath.section]]?[indexPath.row],
-                let expenseDate = expenseData["expenseDay"] as? String,
-                let expenseDescription = expenseData["description"] as? String,
-                let sharedResult = expenseData["sharedResult"] as? [String: Int],
-                let isRead = expenseData["isRead"] as? Bool,
-                let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]]
-                
-                else { return cell }
+                  let expenseDate = expenseData["expenseDay"] as? String,
+                  let expenseDescription = expenseData["description"] as? String,
+                  let sharedResult = expenseData["sharedResult"] as? [String: Int],
+                  let isRead = expenseData["isRead"] as? Bool,
+                  let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]]
+            else { return cell }
 
             if isRead == true {
                 
@@ -313,56 +350,15 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
             cell.acceptButton.isHidden = true
             cell.denyButton.isHidden = true
 
-        case 1:
-
-            guard let expenseData = deniedExpenseIDList[friendUIDList[indexPath.section]]?[indexPath.row],
-                let expenseDate = expenseData["expenseDay"] as? String,
-                let expenseDescription = expenseData["description"] as? String,
-                let sharedResult = expenseData["sharedResult"] as? [String: Int],
-                let isRead = expenseData["isRead"] as? Bool,
-                let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]]
-                
-                else { return cell }
-            
-            if isRead == true {
-                
-                cell.friendNameLabel.font = UIFont.systemFont(ofSize: 15.0)
-                cell.expenseCreatedDateLabel.font = UIFont.systemFont(ofSize: 10.0)
-                
-            } else {
-                
-                cell.friendNameLabel.font = UIFont.systemFont(ofSize: 15.0, weight: 1)
-                cell.expenseCreatedDateLabel.font = UIFont.systemFont(ofSize: 10.0, weight: 1)
-            }
-
-            for (key, value) in sharedResult where value < 0 {
-                
-                if key == userUID {
-                    
-                    cell.friendNameLabel.text = ("You owe \(friendName) $\(-value) for \(expenseDescription)" )
-                    
-                } else {
-                    
-                    cell.friendNameLabel.text = ("\(friendName) owes you $\(-value) for \(expenseDescription)")
-                    
-                }
-                
-            }
-
-            cell.expenseCreatedDateLabel.text = expenseDate
-            cell.acceptButton.isHidden = true
-            cell.denyButton.isHidden = true
-
         default:
 
             guard let expenseData = receivedDeletedExpenseIDList[friendUIDList[indexPath.section]]?[indexPath.row],
-                let expenseDate = expenseData["expenseDay"] as? String,
-                let expenseDescription = expenseData["description"] as? String,
-                let sharedResult = expenseData["sharedResult"] as? [String: Int],
-                let isRead = expenseData["isRead"] as? Bool,
-                let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]]
-                
-                else { return cell }
+                  let expenseDate = expenseData["expenseDay"] as? String,
+                  let expenseDescription = expenseData["description"] as? String,
+                  let sharedResult = expenseData["sharedResult"] as? [String: Int],
+                  let isRead = expenseData["isRead"] as? Bool,
+                  let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]]
+            else { return cell }
             
             if isRead == true {
                 
@@ -452,6 +448,14 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
             
             expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: nil)
 
+        case 1:
+
+            guard let expenseID = deniedExpenseIDList[friendUIDList[selectedSection]]![selectedRow]["id"] as? String,
+                let friendUID = friendUIDList[selectedSection] as? String
+                else { return }
+
+            expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: nil)
+
         case 2:
 
             guard let expenseID = receivedPendingExpenseIDList[friendUIDList[selectedSection]]![selectedRow]["id"] as? String,
@@ -464,15 +468,6 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
         case 3:
 
             guard let expenseID = sentPendingExpenseIDList[friendUIDList[selectedSection]]![selectedRow]["id"] as? String,
-                let friendUID = friendUIDList[selectedSection] as? String
-                else { return }
-            
-            expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: nil)
-
-
-        case 1:
-
-            guard let expenseID = deniedExpenseIDList[friendUIDList[selectedSection]]![selectedRow]["id"] as? String,
                 let friendUID = friendUIDList[selectedSection] as? String
                 else { return }
             
@@ -502,16 +497,22 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
             case 0:
 
                 destinationVC?.expenseInformation = (acceptedExpenseIDList[friendUIDList[selectedSection]]?[selectedRow])!
-
                 destinationVC?.isAcceptButtonHidden = true
                 destinationVC?.isDenyButtonHidden = true
                 destinationVC?.isDeleteButtonHidden = false
                 destinationVC?.expenseStatus = ExpenseStatus.accepted.rawValue
 
+            case 1:
+
+                destinationVC?.expenseInformation = (deniedExpenseIDList[friendUIDList[selectedSection]]?[selectedRow])!
+                destinationVC?.isAcceptButtonHidden = true
+                destinationVC?.isDenyButtonHidden = true
+                destinationVC?.isDeleteButtonHidden = false
+                destinationVC?.expenseStatus = ExpenseStatus.denied.rawValue
+
             case 2:
 
                 destinationVC?.expenseInformation = (receivedPendingExpenseIDList[friendUIDList[selectedSection]]?[selectedRow])!
-
                 destinationVC?.isAcceptButtonHidden = false
                 destinationVC?.isDenyButtonHidden = false
                 destinationVC?.isDeleteButtonHidden = true
@@ -520,25 +521,14 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
             case 3:
 
                 destinationVC?.expenseInformation = (sentPendingExpenseIDList[friendUIDList[selectedSection]]?[selectedRow])!
-
                 destinationVC?.isAcceptButtonHidden = true
                 destinationVC?.isDenyButtonHidden = true
                 destinationVC?.isDeleteButtonHidden = false
                 destinationVC?.expenseStatus = ExpenseStatus.sentPending.rawValue
 
-            case 1:
-
-                destinationVC?.expenseInformation = (deniedExpenseIDList[friendUIDList[selectedSection]]?[selectedRow])!
-
-                destinationVC?.isAcceptButtonHidden = true
-                destinationVC?.isDenyButtonHidden = true
-                destinationVC?.isDeleteButtonHidden = false
-                destinationVC?.expenseStatus = ExpenseStatus.denied.rawValue
-
             default:
 
                 destinationVC?.expenseInformation = (receivedDeletedExpenseIDList[friendUIDList[selectedSection]]?[selectedRow])!
-
                 destinationVC?.isAcceptButtonHidden = true
                 destinationVC?.isDenyButtonHidden = false
                 destinationVC?.isDeleteButtonHidden = false

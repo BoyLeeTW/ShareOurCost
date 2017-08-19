@@ -54,7 +54,9 @@ class ExpeneseDetailViewController: UIViewController {
 
     func setUpNavigationBar() {
 
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_navigate_before_white_36pt"), style: .plain, target: self, action: #selector(touchBackButton))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_navigate_before_white_36pt"), style: .plain,
+                                                                target: self,
+                                                                action: #selector(touchBackButton))
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
 
     }
@@ -69,8 +71,6 @@ class ExpeneseDetailViewController: UIViewController {
 
         biggestView.layer.borderWidth = 4
         biggestView.layer.borderColor = UIColor.white.cgColor
-//        biggestView.attributedPlaceholder = NSAttributedString(string: "Please enter your friend's ID", attributes: [NSForegroundColorAttributeName: UIColor(red: 172/255, green: 206/255, blue: 211/255, alpha: 1.0)])
-
 
     }
 
@@ -88,20 +88,18 @@ class ExpeneseDetailViewController: UIViewController {
               let expenseSahreWith = expenseInformation["sharedWith"] as? String,
               let sharedAmount = expenseInformation["sharedResult"] as? [String: Any],
               let amountYouShared = sharedAmount["\(userUID)"] as? Int
-        
-            else { return }
+        else { return }
 
         self.expenseID = expenseID
 
         if expenseCreatedBy == userUID {
-            
+
             self.sharedFriendUID = expenseSahreWith
-            
+
         } else {
-            
-            
+
             self.sharedFriendUID = expenseCreatedBy
-            
+
         }
 
         if friendUIDandNameList[expenseCreatedBy] == nil {
@@ -138,24 +136,31 @@ class ExpeneseDetailViewController: UIViewController {
     func touchAcceptButton() {
 
         guard let expenseCreatedBy = expenseInformation["createdBy"] as? String,
-            let expenseSahreWith = expenseInformation["sharedWith"] as? String,
-            let expenseID = expenseInformation["id"] as? String
-            else { return }
-        
+              let expenseSahreWith = expenseInformation["sharedWith"] as? String,
+              let expenseID = expenseInformation["id"] as? String
+        else { return }
+
         if expenseCreatedBy == userUID {
-            
+
             sharedFriendUID = expenseSahreWith
-            
+
         } else {
-            
+
             sharedFriendUID = expenseCreatedBy
-            
+
         }
 
         let expenseManager = ExpenseManager()
 
-        expenseManager.changeExpenseStatus(friendUID: sharedFriendUID, expenseID: expenseID, changeSelfStatus: "accepted", changeFriendStatus: nil)
-        expenseManager.changeExpenseReadStatus(friendUID: self.sharedFriendUID, expenseID: self.expenseID, changeSelfStatus: true, changeFriendStatus: false)
+        expenseManager.changeExpenseStatus(friendUID: sharedFriendUID,
+                                           expenseID: expenseID,
+                                           changeSelfStatus: "accepted",
+                                           changeFriendStatus: nil)
+
+        expenseManager.changeExpenseReadStatus(friendUID: self.sharedFriendUID,
+                                               expenseID: self.expenseID,
+                                               changeSelfStatus: true,
+                                               changeFriendStatus: false)
 
         self.navigationController?.popViewController(animated: true)
 
@@ -164,9 +169,9 @@ class ExpeneseDetailViewController: UIViewController {
     func touchDenyButton() {
 
         guard let expenseCreatedBy = expenseInformation["createdBy"] as? String,
-            let expenseSahreWith = expenseInformation["sharedWith"] as? String,
-            let expenseID = expenseInformation["id"] as? String
-            else { return }
+              let expenseSahreWith = expenseInformation["sharedWith"] as? String,
+              let expenseID = expenseInformation["id"] as? String
+        else { return }
 
         if expenseCreatedBy == userUID {
 
@@ -182,15 +187,29 @@ class ExpeneseDetailViewController: UIViewController {
 
         if expenseStatus == "receivedDeleted" {
 
-            expenseManager.changeExpenseStatus(friendUID: sharedFriendUID, expenseID: expenseID, changeSelfStatus: "accepted", changeFriendStatus: nil)
-            expenseManager.changeExpenseReadStatus(friendUID: self.sharedFriendUID, expenseID: self.expenseID, changeSelfStatus: true, changeFriendStatus: false)
+            expenseManager.changeExpenseStatus(friendUID: sharedFriendUID,
+                                               expenseID: expenseID,
+                                               changeSelfStatus: "accepted",
+                                               changeFriendStatus: nil)
+
+            expenseManager.changeExpenseReadStatus(friendUID: self.sharedFriendUID,
+                                                   expenseID: self.expenseID,
+                                                   changeSelfStatus: true,
+                                                   changeFriendStatus: false)
 
             self.navigationController?.popViewController(animated: true)
 
         } else {
 
-            expenseManager.changeExpenseStatus(friendUID: sharedFriendUID, expenseID: expenseID, changeSelfStatus: "denied", changeFriendStatus: nil)
-            expenseManager.changeExpenseReadStatus(friendUID: self.sharedFriendUID, expenseID: self.expenseID, changeSelfStatus: true, changeFriendStatus: false)
+            expenseManager.changeExpenseStatus(friendUID: sharedFriendUID,
+                                               expenseID: expenseID,
+                                               changeSelfStatus: "denied",
+                                               changeFriendStatus: nil)
+
+            expenseManager.changeExpenseReadStatus(friendUID: self.sharedFriendUID,
+                                                   expenseID: self.expenseID,
+                                                   changeSelfStatus: true,
+                                                   changeFriendStatus: false)
          
             self.navigationController?.popViewController(animated: true)
 
@@ -217,13 +236,18 @@ class ExpeneseDetailViewController: UIViewController {
                                                         message: "This expense will be deleted after your friend approve it",
                                                         preferredStyle: .alert)
                 let notificationAction = UIAlertAction(title: "OK", style: .default, handler: { _ in
-                    
+
                     self.navigationController?.popViewController(animated: true)
 
-                    self.expenseManager.changeExpenseStatus(friendUID: self.sharedFriendUID, expenseID: self.expenseID, changeSelfStatus: "sentDeleted", changeFriendStatus: "receivedDeleted")
-                    
-                    self.expenseManager.changeExpenseReadStatus(friendUID: self.sharedFriendUID, expenseID: self.expenseID, changeSelfStatus: true, changeFriendStatus: false)
+                    self.expenseManager.changeExpenseStatus(friendUID: self.sharedFriendUID,
+                                                            expenseID: self.expenseID,
+                                                            changeSelfStatus: "sentDeleted",
+                                                            changeFriendStatus: "receivedDeleted")
 
+                    self.expenseManager.changeExpenseReadStatus(friendUID: self.sharedFriendUID,
+                                                                expenseID: self.expenseID,
+                                                                changeSelfStatus: true,
+                                                                changeFriendStatus: false)
 
                 })
 
