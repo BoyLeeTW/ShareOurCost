@@ -87,7 +87,7 @@ class FriendManager {
 
             var friendUIDListInClosure = [String]()
             
-            guard let friendListData = dataSnapshot.value as?[String: Bool] else { return }
+            guard let friendListData = dataSnapshot.value as? [String: Bool] else { return }
 
             for (friendID, _) in friendListData {
 

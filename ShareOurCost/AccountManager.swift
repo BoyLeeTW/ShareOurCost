@@ -62,7 +62,6 @@ class AccountManager {
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
 
             if error == nil {
-                print("Successful signed up!")
 
                 userUID = Auth.auth().currentUser!.uid
 
@@ -79,8 +78,6 @@ class AccountManager {
 
             } else {
 
-                print("something went wrong!")
-
             }
 
             userUID = Auth.auth().currentUser!.uid
@@ -94,11 +91,7 @@ class AccountManager {
 
             if let error = error {
 
-                print(error.localizedDescription)
-
             } else {
-
-                print("Sent password reset mail successfully!")
 
             }
 

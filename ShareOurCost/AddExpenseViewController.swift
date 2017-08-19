@@ -73,14 +73,23 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
         setUpButtons()
 
-        userPercentLabel.isHidden = true
-        friendPercentLabel.isHidden = true
-        userSharedPercentTextField.isHidden = true
-        friendSharedPercentTextField.isHidden = true
+        setUpTextFieldTarget()
 
     }
 
     @IBAction func touchSaveExpenseButton(_ sender: Any) {
+
+        if expenseAmountTextField.text == "" || userSharedAmountTextField.text == "" || friendSharedAmountTextField.text == "" || expenseDescriptionTextField.text == "" {
+
+            let alertController = UIAlertController(title: "Oops", message: "Please fill in all information!", preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alertController.addAction(defaultAction)
+            self.present(alertController, animated: true, completion: nil)
+
+            return
+
+        }
+
 
         ref = Database.database().reference()
 
@@ -101,7 +110,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         if self.sharedMethod == .byNumber {
 
             if self.paidByResult == .user {
-                    
+
                 sharedAmountForUser = Double(self.userSharedAmountTextField.text!)!
                     
                 sharedAmountForFriend = -Double(self.friendSharedAmountTextField.text!)!
@@ -146,6 +155,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
             }
 
+//        if self.expenseAmountTextField.text == "" || self.expenseDescriptionTextField == "" ||
             self.ref.database.reference().child("userExpense").child(userUID).child(expenseID).updateChildValues(["status": "sentPending", "isRead": true])
 
             self.ref.database.reference().child("userExpense").child(friendUID).child(expenseID).updateChildValues(["status": "receivedPending", "isRead": false])
@@ -206,7 +216,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         if friendNameList.count == 0 {
 
             let alertController = UIAlertController(title: "Oops",
-                                                    message: "Please add friend so you can share cost with them",
+                                                    message: "Please add friend so you can share cost with them!",
                                                     preferredStyle: .alert)
             let defaultAction = UIAlertAction(title: "OK",
                                               style: .default,
@@ -240,18 +250,21 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         shareExpenseByPercentButton.layer.borderWidth = 2
         shareExpenseByPercentButton.layer.borderColor = UIColor.white.cgColor
 
+    }
+
+    func setUpTextFieldTarget() {
 
         expenseAmountTextField.addTarget(self, action: #selector(expenseAmountTextFieldChanged(_:)), for: .editingChanged)
 
         expenseSharedMemberTextField.addTarget(self, action: #selector(touchSharedMemberText), for: .allEditingEvents)
 
-        userSharedAmountTextField.addTarget(self, action: #selector(userSharedAmountTextFieldChagned), for: .editingChanged)
-        
-        friendSharedAmountTextField.addTarget(self, action: #selector(friendSharedAmountTextFieldChagned), for: .editingChanged)
-        
-        userSharedPercentTextField.addTarget(self, action: #selector(userSharedPercentTextFieldChanged), for: .editingChanged)
-        
-        friendSharedPercentTextField.addTarget(self, action: #selector(friendSharedPercentTextFieldChanged), for: .editingChanged)
+        userSharedAmountTextField.addTarget(self, action: #selector(userSharedAmountTextFieldChagned), for: .editingDidEnd)
+
+        friendSharedAmountTextField.addTarget(self, action: #selector(friendSharedAmountTextFieldChagned), for: .editingDidEnd)
+
+        userSharedPercentTextField.addTarget(self, action: #selector(userSharedPercentTextFieldChanged), for: .editingDidEnd)
+
+        friendSharedPercentTextField.addTarget(self, action: #selector(friendSharedPercentTextFieldChanged), for: .editingDidEnd)
 
     }
 
@@ -276,9 +289,13 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self.expenseDescriptionTextField.layer.borderColor = UIColor.white.cgColor
         self.expenseDescriptionTextField.attributedPlaceholder = NSAttributedString(string: "Description", attributes: [NSForegroundColorAttributeName: UIColor(red: 172/255, green: 206/255, blue: 211/255, alpha: 1.0)])
 
+        userPercentLabel.isHidden = true
+        friendPercentLabel.isHidden = true
+        userSharedPercentTextField.isHidden = true
+        friendSharedPercentTextField.isHidden = true
+
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_navigate_before_white_36pt"), style: .plain, target: self, action: #selector(touchBackButton))
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
-
         self.navigationItem.title = "Add Expense"
 
     }
@@ -341,8 +358,24 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         guard let userSharedPercentText = userSharedPercentTextField.text else { return }
 
         let userSharedPercent = Int(userSharedPercentText) ?? 0
-        friendSharedPercentTextField.text = "\(100 - userSharedPercent)"
-        
+
+        if userSharedPercent > 100 {
+
+            let alertController = UIAlertController(title: "Oops", message: "Shared percent can't be more than 100%", preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alertController.addAction(defaultAction)
+            self.present(alertController, animated: true, completion: nil)
+
+            friendSharedPercentTextField.text = "0"
+            userSharedPercentTextField.text = "\(100)"
+
+        } else {
+
+            friendSharedPercentTextField.text = "\(100 - userSharedPercent)"
+            userSharedPercentTextField.text = "\(userSharedPercent)"
+
+        }
+
     }
 
     func friendSharedPercentTextFieldChanged() {
@@ -350,7 +383,22 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         guard let friendSharedPercentText = friendSharedPercentTextField.text else { return }
         
         let friendSharedPercent = Int(friendSharedPercentText) ?? 0
-        userSharedPercentTextField.text = "\(100 - friendSharedPercent)"
+
+        if friendSharedPercent > 100 {
+            
+            let alertController = UIAlertController(title: "Oops", message: "Shared percent can't be more than 100%", preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alertController.addAction(defaultAction)
+            self.present(alertController, animated: true, completion: nil)
+
+            userSharedPercentTextField.text = "0"
+            friendSharedPercentTextField.text = "\(100)"
+            
+        } else {
+            
+            userSharedPercentTextField.text = "\(100 - friendSharedPercent)"
+            friendSharedPercentTextField.text = "\(friendSharedPercent)"
+        }
 
     }
 
@@ -364,7 +412,22 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         let totalAmount = Int(totalAmountText) ?? 0,
             userSharedAmount = Int(userSharedAmountText) ?? 0
 
-        friendSharedAmountTextField.text = "\((totalAmount - userSharedAmount))"
+        if totalAmount - userSharedAmount < 0 {
+
+            let alertController = UIAlertController(title: "Oops", message: "Shared amount can't be more than total amount", preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alertController.addAction(defaultAction)
+            self.present(alertController, animated: true, completion: nil)
+
+            friendSharedAmountTextField.text = "0"
+            userSharedAmountTextField.text = "\((totalAmount))"
+
+        } else {
+
+            friendSharedAmountTextField.text = "\((totalAmount - userSharedAmount))"
+            userSharedAmountTextField.text = "\(userSharedAmount)"
+
+        }
 
     }
 
@@ -372,13 +435,28 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
         guard let totalAmountText = expenseAmountTextField.text,
             let friendSharedAmountText = friendSharedAmountTextField.text
-            
+
             else { return }
-        
+
         let totalAmount = Int(totalAmountText) ?? 0,
         friendSharedAmount = Int(friendSharedAmountText) ?? 0
-        
-        userSharedAmountTextField.text = "\((totalAmount - friendSharedAmount))"
+
+        if totalAmount - friendSharedAmount < 0 {
+
+            let alertController = UIAlertController(title: "Oops", message: "Shared amount can't be more than total amount", preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alertController.addAction(defaultAction)
+            self.present(alertController, animated: true, completion: nil)
+
+            userSharedAmountTextField.text = "0"
+            friendSharedAmountTextField.text = "\((totalAmount))"
+
+        } else {
+
+            userSharedAmountTextField.text = "\((totalAmount - friendSharedAmount))"
+            friendSharedAmountTextField.text = "\(friendSharedAmount)"
+
+        }
 
     }
 

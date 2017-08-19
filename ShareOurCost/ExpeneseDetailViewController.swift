@@ -218,7 +218,6 @@ class ExpeneseDetailViewController: UIViewController {
                                                         preferredStyle: .alert)
                 let notificationAction = UIAlertAction(title: "OK", style: .default, handler: { _ in
                     
-                    print("sent delete invitation!")
                     self.navigationController?.popViewController(animated: true)
 
                     self.expenseManager.changeExpenseStatus(friendUID: self.sharedFriendUID, expenseID: self.expenseID, changeSelfStatus: "sentDeleted", changeFriendStatus: "receivedDeleted")

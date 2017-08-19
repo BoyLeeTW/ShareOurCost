@@ -88,14 +88,9 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
                     
                     self.balanceLabel.text = "You owe \(friendName) $\(abs(self.balanceToFriend))"
                     
-                    print("You owe \(friendName) $\(abs(self.balanceToFriend))")
-                    
-                    
                 } else {
                     
                     self.balanceLabel.text = "\(friendName) owes you $\(abs(self.balanceToFriend))"
-                    
-                    print("\(friendName) owes you $\(abs(self.balanceToFriend))")
                     
                 }
                 
