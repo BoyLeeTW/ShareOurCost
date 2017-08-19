@@ -9,6 +9,8 @@ pod 'Firebase/Core'
 pod 'Firebase/Auth'
 pod 'Firebase/Database'
 pod 'IQKeyboardManager'
+pod 'Fabric'
+pod 'Crashlytics'
 
 # Pods for ShareOurCost
 

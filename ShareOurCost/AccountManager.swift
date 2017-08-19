@@ -74,13 +74,13 @@ class AccountManager {
 
                 self.ref.child("userID").updateChildValues(["\(user!.uid)": "\(userID)"])
 
+                userUID = Auth.auth().currentUser!.uid
+
                 completion()
 
             } else {
 
             }
-
-            userUID = Auth.auth().currentUser!.uid
 
         }
     }
