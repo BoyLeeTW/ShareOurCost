@@ -89,7 +89,7 @@ class AccountManager {
 
         Auth.auth().sendPasswordReset(withEmail: email) { ( error ) in
 
-            if let error = error {
+            if error != nil {
 
             } else {
 
@@ -100,9 +100,21 @@ class AccountManager {
     }
 
     func logOut() {
-        
+
         UserDefaults.standard.setValue(nil, forKey: "userUid")
-        
+
+        do {
+
+           try Auth.auth().signOut()
+
+        }
+
+        catch {
+
+            print("Something went wrong with sign out!")
+
+        }
+
     }
 
 }

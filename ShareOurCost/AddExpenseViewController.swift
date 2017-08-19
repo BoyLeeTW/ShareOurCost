@@ -13,7 +13,6 @@ import FirebaseDatabase
 enum PaidBy {
 
     case user
-
     case friend
 
 }
@@ -21,8 +20,8 @@ enum PaidBy {
 enum SharedMethod {
 
     case byNumber
-
     case byPercent
+
 }
 
 
@@ -90,7 +89,6 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
         }
 
-
         ref = Database.database().reference()
 
         let friendNameText = expenseSharedMemberTextField.text!
@@ -154,8 +152,6 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 }
 
             }
-
-//        if self.expenseAmountTextField.text == "" || self.expenseDescriptionTextField == "" ||
             self.ref.database.reference().child("userExpense").child(userUID).child(expenseID).updateChildValues(["status": "sentPending", "isRead": true])
 
             self.ref.database.reference().child("userExpense").child(friendUID).child(expenseID).updateChildValues(["status": "receivedPending", "isRead": false])
@@ -206,6 +202,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         if friendNameList.count > 0 {
 
             expenseSharedMemberTextField.text = friendNameList[0]
+            paidByFriendButton.setTitle(friendNameList[0], for: .normal)
 
         }
 
