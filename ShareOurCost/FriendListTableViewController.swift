@@ -234,6 +234,12 @@ class FriendListTableViewController: UITableViewController, UIGestureRecognizerD
         
         self.present(loginVC!, animated: true)
 
+        //clear log out user's data
+        userUID = ""
+        friendUIDandNameList = [String: String]()
+        friendNameAndUIDList = [String: String]()
+        friendUIDList = Array<String>()
+
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
