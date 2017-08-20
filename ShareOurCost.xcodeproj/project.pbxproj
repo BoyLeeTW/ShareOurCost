@@ -15,7 +15,6 @@
 		A20F2C741F276F9700D446F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A20F2C721F276F9700D446F7 /* LaunchScreen.storyboard */; };
 		A23489691F35F7760015698D /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23489681F35F7760015698D /* AccountManager.swift */; };
 		A24F30C51F2B2EFC002E05E2 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24F30C41F2B2EFC002E05E2 /* File.swift */; };
-		A26EB0091F41D1CD009E5C6F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A26EB0081F41D1CD009E5C6F /* GoogleService-Info.plist */; };
 		A26EB00B1F42C51B009E5C6F /* AddFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26EB00A1F42C51B009E5C6F /* AddFriendViewController.swift */; };
 		A26EB00D1F42D0E8009E5C6F /* FriendDetailListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26EB00C1F42D0E8009E5C6F /* FriendDetailListViewController.swift */; };
 		A26EB00F1F444AF2009E5C6F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26EB00E1F444AF2009E5C6F /* TabBarController.swift */; };
@@ -28,6 +27,7 @@
 		A29720761F3D70FD00D92B3F /* ExpenseListSegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29720751F3D70FD00D92B3F /* ExpenseListSegmentViewController.swift */; };
 		A29720781F3D737E00D92B3F /* ExpenseListSegmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29720771F3D737E00D92B3F /* ExpenseListSegmentTableViewCell.swift */; };
 		A2C4243B1F495DB800BC2698 /* ShareOurCostIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = A2C4243A1F495DB800BC2698 /* ShareOurCostIcon.png */; };
+		A2C4243F1F496A4E00BC2698 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = A2C4243E1F496A4E00BC2698 /* .gitignore */; };
 		A2FE33F81F374B6400C3A793 /* FriendManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FE33F71F374B6400C3A793 /* FriendManager.swift */; };
 		A2FE33FA1F3759C600C3A793 /* ExpeneseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FE33F91F3759C600C3A793 /* ExpeneseDetailViewController.swift */; };
 		A2FE33FC1F37EC9000C3A793 /* ExpenseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FE33FB1F37EC9000C3A793 /* ExpenseManager.swift */; };
@@ -47,7 +47,6 @@
 		A20F2C751F276F9700D446F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A23489681F35F7760015698D /* AccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		A24F30C41F2B2EFC002E05E2 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
-		A26EB0081F41D1CD009E5C6F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A26EB00A1F42C51B009E5C6F /* AddFriendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFriendViewController.swift; sourceTree = "<group>"; };
 		A26EB00C1F42D0E8009E5C6F /* FriendDetailListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendDetailListViewController.swift; sourceTree = "<group>"; };
 		A26EB00E1F444AF2009E5C6F /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -60,6 +59,7 @@
 		A29720751F3D70FD00D92B3F /* ExpenseListSegmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseListSegmentViewController.swift; sourceTree = "<group>"; };
 		A29720771F3D737E00D92B3F /* ExpenseListSegmentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseListSegmentTableViewCell.swift; sourceTree = "<group>"; };
 		A2C4243A1F495DB800BC2698 /* ShareOurCostIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ShareOurCostIcon.png; sourceTree = "<group>"; };
+		A2C4243E1F496A4E00BC2698 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = .gitignore; path = ShareOurCost/.gitignore; sourceTree = "<group>"; };
 		A2FE33F71F374B6400C3A793 /* FriendManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendManager.swift; sourceTree = "<group>"; };
 		A2FE33F91F3759C600C3A793 /* ExpeneseDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpeneseDetailViewController.swift; sourceTree = "<group>"; };
 		A2FE33FB1F37EC9000C3A793 /* ExpenseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseManager.swift; sourceTree = "<group>"; };
@@ -81,6 +81,7 @@
 		A20F2C5A1F276F9700D446F7 = {
 			isa = PBXGroup;
 			children = (
+				A2C4243E1F496A4E00BC2698 /* .gitignore */,
 				A2C4243A1F495DB800BC2698 /* ShareOurCostIcon.png */,
 				A20F2C651F276F9700D446F7 /* ShareOurCost */,
 				A20F2C641F276F9700D446F7 /* Products */,
@@ -122,7 +123,6 @@
 				A20F2C721F276F9700D446F7 /* LaunchScreen.storyboard */,
 				A20F2C701F276F9700D446F7 /* Assets.xcassets */,
 				A20F2C751F276F9700D446F7 /* Info.plist */,
-				A26EB0081F41D1CD009E5C6F /* GoogleService-Info.plist */,
 				A20F2C6D1F276F9700D446F7 /* ShareOurCost.xcdatamodeld */,
 			);
 			path = ShareOurCost;
@@ -211,8 +211,8 @@
 			files = (
 				A20F2C741F276F9700D446F7 /* LaunchScreen.storyboard in Resources */,
 				A2C4243B1F495DB800BC2698 /* ShareOurCostIcon.png in Resources */,
-				A26EB0091F41D1CD009E5C6F /* GoogleService-Info.plist in Resources */,
 				A20F2C711F276F9700D446F7 /* Assets.xcassets in Resources */,
+				A2C4243F1F496A4E00BC2698 /* .gitignore in Resources */,
 				A20F2C6C1F276F9700D446F7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
