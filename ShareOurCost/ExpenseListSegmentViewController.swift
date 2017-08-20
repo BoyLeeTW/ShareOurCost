@@ -75,6 +75,8 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
                     self.expenseListTableView.reloadData()
 
+                    NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+
                 })
 
                 self.expenseManager.newFetchExpenseIDList { (acceptedExpenseIDList, receivedPendingExpenseIDList, sentPendingExpenseIDList, deniedExpenseIDList, receivedDeletedExpenseIDList) in

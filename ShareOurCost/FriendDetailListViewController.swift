@@ -105,6 +105,8 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
             
         }
 
+        self.balanceLabel.text = "There is no expense yet!"
+
     }
 
     func setUpLayOut() {

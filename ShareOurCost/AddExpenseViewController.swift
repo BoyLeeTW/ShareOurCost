@@ -209,6 +209,8 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
         if friendNameList.count == 0 {
 
+            self.expenseSharedMemberTextField.deleteBackward()
+
             let alertController = UIAlertController(title: "Oops",
                                                     message: "Please add friend so you can share cost with them!",
                                                     preferredStyle: .alert)

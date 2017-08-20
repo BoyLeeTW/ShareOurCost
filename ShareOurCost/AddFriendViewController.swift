@@ -106,7 +106,7 @@ class AddFriendViewController: UIViewController, UIGestureRecognizerDelegate {
 
             friendManager.sendFriendRequest(friendUID: searchedFriendUID)
 
-            let alertController = UIAlertController(title: "Great",
+            let alertController = UIAlertController(title: "Great!",
                                                     message: "Successfully sent your friend request",
                                                     preferredStyle: .alert)
             let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
