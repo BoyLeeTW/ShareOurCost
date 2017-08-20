@@ -28,6 +28,7 @@
 		A288F1581F30A4FA0061F8FF /* AddExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A288F1571F30A4FA0061F8FF /* AddExpenseViewController.swift */; };
 		A29720761F3D70FD00D92B3F /* ExpenseListSegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29720751F3D70FD00D92B3F /* ExpenseListSegmentViewController.swift */; };
 		A29720781F3D737E00D92B3F /* ExpenseListSegmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29720771F3D737E00D92B3F /* ExpenseListSegmentTableViewCell.swift */; };
+		A2C4243B1F495DB800BC2698 /* ShareOurCostIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = A2C4243A1F495DB800BC2698 /* ShareOurCostIcon.png */; };
 		A2FE33F81F374B6400C3A793 /* FriendManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FE33F71F374B6400C3A793 /* FriendManager.swift */; };
 		A2FE33FA1F3759C600C3A793 /* ExpeneseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FE33F91F3759C600C3A793 /* ExpeneseDetailViewController.swift */; };
 		A2FE33FC1F37EC9000C3A793 /* ExpenseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FE33FB1F37EC9000C3A793 /* ExpenseManager.swift */; };
@@ -60,6 +61,7 @@
 		A288F1571F30A4FA0061F8FF /* AddExpenseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddExpenseViewController.swift; sourceTree = "<group>"; };
 		A29720751F3D70FD00D92B3F /* ExpenseListSegmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseListSegmentViewController.swift; sourceTree = "<group>"; };
 		A29720771F3D737E00D92B3F /* ExpenseListSegmentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseListSegmentTableViewCell.swift; sourceTree = "<group>"; };
+		A2C4243A1F495DB800BC2698 /* ShareOurCostIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ShareOurCostIcon.png; sourceTree = "<group>"; };
 		A2FE33F71F374B6400C3A793 /* FriendManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendManager.swift; sourceTree = "<group>"; };
 		A2FE33F91F3759C600C3A793 /* ExpeneseDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpeneseDetailViewController.swift; sourceTree = "<group>"; };
 		A2FE33FB1F37EC9000C3A793 /* ExpenseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseManager.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 		A20F2C5A1F276F9700D446F7 = {
 			isa = PBXGroup;
 			children = (
+				A2C4243A1F495DB800BC2698 /* ShareOurCostIcon.png */,
 				A20F2C651F276F9700D446F7 /* ShareOurCost */,
 				A20F2C641F276F9700D446F7 /* Products */,
 				CD5B69F21542BE2E90FD8293 /* Pods */,
@@ -119,8 +122,8 @@
 				A23489681F35F7760015698D /* AccountManager.swift */,
 				A20F2C811F28C01B00D446F7 /* MatchingViewController.swift */,
 				A24F30C41F2B2EFC002E05E2 /* File.swift */,
-				A20F2C701F276F9700D446F7 /* Assets.xcassets */,
 				A20F2C721F276F9700D446F7 /* LaunchScreen.storyboard */,
+				A20F2C701F276F9700D446F7 /* Assets.xcassets */,
 				A20F2C751F276F9700D446F7 /* Info.plist */,
 				A26EB0081F41D1CD009E5C6F /* GoogleService-Info.plist */,
 				A20F2C6D1F276F9700D446F7 /* ShareOurCost.xcdatamodeld */,
@@ -210,6 +213,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A20F2C741F276F9700D446F7 /* LaunchScreen.storyboard in Resources */,
+				A2C4243B1F495DB800BC2698 /* ShareOurCostIcon.png in Resources */,
 				A26EB0091F41D1CD009E5C6F /* GoogleService-Info.plist in Resources */,
 				A20F2C711F276F9700D446F7 /* Assets.xcassets in Resources */,
 				A20F2C6C1F276F9700D446F7 /* Main.storyboard in Resources */,
