@@ -21,7 +21,9 @@ class AccountManager {
         var loginResult = false
 
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
-                
+
+            Analytics.logEvent("login", parameters: nil)
+
             if error == nil {
 
                 loginResult = true

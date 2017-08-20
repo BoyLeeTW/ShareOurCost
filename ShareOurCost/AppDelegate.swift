@@ -36,11 +36,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if UserDefaults.standard.value(forKey: "userUid") != nil {
 
-            let tabBarVC = mainStoryboard.instantiateViewController(withIdentifier: "TabBarController")
+            let tabBarVC = mainStoryboard.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
 
             userUID = Auth.auth().currentUser!.uid
 
             window?.rootViewController = tabBarVC
+
+            tabBarVC.selectedIndex = 1
 
         } else {
 
