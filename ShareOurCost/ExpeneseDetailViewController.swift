@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class ExpeneseDetailViewController: UIViewController, UIGestureRecognizerDelegate {
 
@@ -143,6 +144,8 @@ class ExpeneseDetailViewController: UIViewController, UIGestureRecognizerDelegat
 
     func touchAcceptButton() {
 
+        Analytics.logEvent("clickAcceptExpenseButton", parameters: nil)
+
         guard let expenseCreatedBy = expenseInformation["createdBy"] as? String,
               let expenseSahreWith = expenseInformation["sharedWith"] as? String,
               let expenseID = expenseInformation["id"] as? String
@@ -175,6 +178,8 @@ class ExpeneseDetailViewController: UIViewController, UIGestureRecognizerDelegat
     }
 
     func touchDenyButton() {
+
+        Analytics.logEvent("clickDenyExpenseButton", parameters: nil)
 
         guard let expenseCreatedBy = expenseInformation["createdBy"] as? String,
               let expenseSahreWith = expenseInformation["sharedWith"] as? String,
@@ -227,6 +232,8 @@ class ExpeneseDetailViewController: UIViewController, UIGestureRecognizerDelegat
 
     func touchDeleteButton() {
 
+        Analytics.logEvent("clickDeleteExpenseButton", parameters: nil)
+
         let alertController = UIAlertController(title: "Attention",
                                                 message: "Do you really want to delete?",
                                                 preferredStyle: .alert)
@@ -236,6 +243,8 @@ class ExpeneseDetailViewController: UIViewController, UIGestureRecognizerDelegat
 
                 self.navigationController?.popViewController(animated: true)
 
+                Analytics.logEvent("clickDeleteExpenseButtonAndDeleteDirectly", parameters: nil)
+
                 self.expenseManager.deleteExpense(friendUID: self.sharedFriendUID, expenseID: self.expenseID)
 
             } else {
@@ -244,6 +253,8 @@ class ExpeneseDetailViewController: UIViewController, UIGestureRecognizerDelegat
                                                         message: "This expense will be deleted after your friend approve it",
                                                         preferredStyle: .alert)
                 let notificationAction = UIAlertAction(title: "OK", style: .default, handler: { _ in
+
+                    Analytics.logEvent("clickDeleteExpenseButtonAndDeletePending", parameters: nil)
 
                     self.navigationController?.popViewController(animated: true)
 

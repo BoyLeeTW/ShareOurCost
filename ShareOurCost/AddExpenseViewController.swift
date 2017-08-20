@@ -7,8 +7,7 @@
 //
 
 import UIKit
-import FirebaseAuth
-import FirebaseDatabase
+import Firebase
 
 enum PaidBy {
 
@@ -79,7 +78,11 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
     @IBAction func touchSaveExpenseButton(_ sender: Any) {
 
+        Analytics.logEvent("clickSaveExpenseButton", parameters: nil)
+
         if expenseAmountTextField.text == "" || userSharedAmountTextField.text == "" || friendSharedAmountTextField.text == "" || expenseDescriptionTextField.text == "" {
+
+            Analytics.logEvent("clickSaveExpenseButtonWithoutAllInformation", parameters: nil)
 
             let alertController = UIAlertController(title: "Oops", message: "Please fill in all information!", preferredStyle: .alert)
             let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
@@ -89,6 +92,8 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
             return
 
         }
+
+        Analytics.logEvent("saveExpenseSuccessfully", parameters: nil)
 
         ref = Database.database().reference()
 

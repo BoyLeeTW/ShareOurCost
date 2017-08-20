@@ -190,12 +190,13 @@ class FriendListTableViewController: UITableViewController, UIGestureRecognizerD
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "friendRequestListCell", for: indexPath) as? FriendRequestListTableViewCell else { return }
 
         cell.friendNameLabel.text = ""
-        
 
     }
 
     //change the status in the pendingFriendRequest and add friendID to friendList.
     func handleAcceptFriend(_ sender: UIButton) {
+
+        Analytics.logEvent("acceptFriendRequest", parameters: nil)
 
         let friendID = friendRequestIDList[sender.tag]
 
@@ -219,6 +220,8 @@ class FriendListTableViewController: UITableViewController, UIGestureRecognizerD
 
     //NOT FINISH YET
     func handleDenyFriend(_ sender: UIButton) {
+
+        Analytics.logEvent("clickDenyFriendRequest", parameters: nil)
 
         let friendID = friendRequestIDList[sender.tag]
         ref.database.reference().child("userInfo").child(userUID).child("pendingFriendRequest").child("\(friendID)").observe(.value, with: { (dataSnapshot) in
@@ -255,6 +258,8 @@ class FriendListTableViewController: UITableViewController, UIGestureRecognizerD
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        Analytics.logEvent("clickFriendDetailCell", parameters: nil)
 
         selectedRow = indexPath.row
 

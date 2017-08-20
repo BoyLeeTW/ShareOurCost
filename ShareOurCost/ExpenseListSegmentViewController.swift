@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 import NVActivityIndicatorView
 
 class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -438,6 +439,8 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        Analytics.logEvent("clickExpenseDetailCell", parameters: nil)
 
         selectedRow = indexPath.row
 

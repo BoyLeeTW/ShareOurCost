@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 import NVActivityIndicatorView
 
 class FriendDetailListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
@@ -196,6 +197,8 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        Analytics.logEvent("clickExpenseDetailFromFriendDetailPage", parameters: nil)
 
         selectedRow = indexPath.row
 

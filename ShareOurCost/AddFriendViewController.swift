@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class AddFriendViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var searchFriendUIDTextField: UITextField!
@@ -59,6 +60,8 @@ class AddFriendViewController: UIViewController, UIGestureRecognizerDelegate {
 
     func touchSearchFriendButton() {
 
+        Analytics.logEvent("clickSearchFriend", parameters: nil)
+
         searchedFriendUID = ""
 
         guard let searchedUserUID = searchFriendUIDTextField.text else { return }
@@ -101,6 +104,8 @@ class AddFriendViewController: UIViewController, UIGestureRecognizerDelegate {
     }
 
     func touchAddFriend() {
+
+        Analytics.logEvent("clickAddFriend", parameters: nil)
 
         if self.searchedFriendUID != "" {
 

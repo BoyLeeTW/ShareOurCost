@@ -26,6 +26,8 @@ class AccountManager {
 
             if error == nil {
 
+                Analytics.logEvent("loginSuccessfully", parameters: nil)
+
                 loginResult = true
 
                 UserDefaults.standard.setValue(user!.uid, forKey: "userUid")
@@ -36,6 +38,7 @@ class AccountManager {
 
             } else {
 
+                Analytics.logEvent("loginFailed", parameters: nil)
                 completion(loginResult, error)
 
             }
@@ -49,7 +52,6 @@ class AccountManager {
         ref = Database.database().reference()
 
         //check if userID is unique
-        
         ref.child("userID").queryOrderedByValue().queryEqual(toValue: userID).observeSingleEvent(of: .value, with: { (dataSnapshot) in
             completion(!dataSnapshot.exists())
         })
@@ -64,6 +66,8 @@ class AccountManager {
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
 
             if error == nil {
+
+                Analytics.logEvent("regiterSuccessfully", parameters: nil)
 
                 userUID = Auth.auth().currentUser!.uid
 
@@ -82,6 +86,8 @@ class AccountManager {
 
             } else {
 
+                Analytics.logEvent("registerFailed", parameters: nil)
+
             }
 
         }
@@ -89,13 +95,14 @@ class AccountManager {
 
     func firebaseResetPassword(email: String) {
 
+        Analytics.logEvent("clickResetPassword", parameters: nil)
+
         Auth.auth().sendPasswordReset(withEmail: email) { ( error ) in
 
             if error != nil {
 
             } else {
 
-                print("NOT WORK!")
             }
 
         }
@@ -105,6 +112,8 @@ class AccountManager {
     func logOut() {
 
         UserDefaults.standard.setValue(nil, forKey: "userUid")
+
+        Analytics.logEvent("clickLogOut", parameters: nil)
 
         do {
 
