@@ -53,15 +53,13 @@ class FriendListTableViewController: UITableViewController, UIGestureRecognizerD
 
         ref = Database.database().reference()
 
-        ref.child("userInfo").child(userUID).child("pendingFriendRequest").observe(.childAdded, with: { (dataSnapshot) in
+        ref.child("userInfo").child(userUID).child("pendingFriendRequest").observe(.value, with: { (dataSnapshot) in
 
-            if let friendRequestStatus = dataSnapshot.value! as? Bool {
+            guard let pendingFriendRequestList = dataSnapshot.value as? [String: Bool] else { return }
 
-                if friendRequestStatus == false {
+            for (friendUID, status) in pendingFriendRequestList where status == false {
 
-                    self.friendRequestIDList.append(dataSnapshot.key)
-
-                }
+                self.friendRequestIDList.append(friendUID)
 
             }
 
@@ -218,15 +216,19 @@ class FriendListTableViewController: UITableViewController, UIGestureRecognizerD
 
     }
 
-    //NOT FINISH YET
     func handleDenyFriend(_ sender: UIButton) {
 
         Analytics.logEvent("clickDenyFriendRequest", parameters: nil)
 
         let friendID = friendRequestIDList[sender.tag]
-        ref.database.reference().child("userInfo").child(userUID).child("pendingFriendRequest").child("\(friendID)").observe(.value, with: { (dataSnapshot) in
-        })
+        
+        //change the pendingFriendRequest value of user who accepted request to true
+        self.ref.database.reference().child("userInfo").child(userUID).child("pendingFriendRequest").updateChildValues([friendID: true])
+        
+        //change the pendingSentFriendRequest value of user who sent request to true
+        self.ref.database.reference().child("userInfo").child(friendID).child("pendingSentFriendRequest").updateChildValues([userUID: true])
 
+        self.friendListTableView.reloadData()
     }
 
     func handleLogout() {
