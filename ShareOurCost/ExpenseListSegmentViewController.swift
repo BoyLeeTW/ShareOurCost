@@ -325,12 +325,14 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
             else { return cell }
 
             if isRead == true {
-                
-                cell.contentView.backgroundColor = UIColor.clear
-                
+
+                cell.friendNameLabel.font = UIFont.systemFont(ofSize: 15.0)
+                cell.expenseCreatedDateLabel.font = UIFont.systemFont(ofSize: 10.0)
+
             } else {
                 
-                cell.contentView.backgroundColor = UIColor.black
+                cell.friendNameLabel.font = UIFont.systemFont(ofSize: 15.0, weight: 1)
+                cell.expenseCreatedDateLabel.font = UIFont.systemFont(ofSize: 10.0, weight: 1)
                 
             }
             
