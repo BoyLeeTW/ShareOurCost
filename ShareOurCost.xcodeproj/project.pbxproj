@@ -13,10 +13,8 @@
 		A20F2C6F1F276F9700D446F7 /* ShareOurCost.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A20F2C6D1F276F9700D446F7 /* ShareOurCost.xcdatamodeld */; };
 		A20F2C711F276F9700D446F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20F2C701F276F9700D446F7 /* Assets.xcassets */; };
 		A20F2C741F276F9700D446F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A20F2C721F276F9700D446F7 /* LaunchScreen.storyboard */; };
-		A20F2C821F28C01B00D446F7 /* MatchingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20F2C811F28C01B00D446F7 /* MatchingViewController.swift */; };
 		A23489691F35F7760015698D /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23489681F35F7760015698D /* AccountManager.swift */; };
 		A24F30C51F2B2EFC002E05E2 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24F30C41F2B2EFC002E05E2 /* File.swift */; };
-		A26EB0091F41D1CD009E5C6F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A26EB0081F41D1CD009E5C6F /* GoogleService-Info.plist */; };
 		A26EB00B1F42C51B009E5C6F /* AddFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26EB00A1F42C51B009E5C6F /* AddFriendViewController.swift */; };
 		A26EB00D1F42D0E8009E5C6F /* FriendDetailListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26EB00C1F42D0E8009E5C6F /* FriendDetailListViewController.swift */; };
 		A26EB00F1F444AF2009E5C6F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26EB00E1F444AF2009E5C6F /* TabBarController.swift */; };
@@ -28,6 +26,9 @@
 		A288F1581F30A4FA0061F8FF /* AddExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A288F1571F30A4FA0061F8FF /* AddExpenseViewController.swift */; };
 		A29720761F3D70FD00D92B3F /* ExpenseListSegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29720751F3D70FD00D92B3F /* ExpenseListSegmentViewController.swift */; };
 		A29720781F3D737E00D92B3F /* ExpenseListSegmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29720771F3D737E00D92B3F /* ExpenseListSegmentTableViewCell.swift */; };
+		A2C4243B1F495DB800BC2698 /* ShareOurCostIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = A2C4243A1F495DB800BC2698 /* ShareOurCostIcon.png */; };
+		A2C4243F1F496A4E00BC2698 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = A2C4243E1F496A4E00BC2698 /* .gitignore */; };
+		A2DF3F181F49D91700DAD7A2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A2DF3F171F49D91700DAD7A2 /* GoogleService-Info.plist */; };
 		A2FE33F81F374B6400C3A793 /* FriendManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FE33F71F374B6400C3A793 /* FriendManager.swift */; };
 		A2FE33FA1F3759C600C3A793 /* ExpeneseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FE33F91F3759C600C3A793 /* ExpeneseDetailViewController.swift */; };
 		A2FE33FC1F37EC9000C3A793 /* ExpenseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FE33FB1F37EC9000C3A793 /* ExpenseManager.swift */; };
@@ -45,10 +46,8 @@
 		A20F2C701F276F9700D446F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A20F2C731F276F9700D446F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A20F2C751F276F9700D446F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A20F2C811F28C01B00D446F7 /* MatchingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchingViewController.swift; sourceTree = "<group>"; };
 		A23489681F35F7760015698D /* AccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		A24F30C41F2B2EFC002E05E2 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
-		A26EB0081F41D1CD009E5C6F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A26EB00A1F42C51B009E5C6F /* AddFriendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFriendViewController.swift; sourceTree = "<group>"; };
 		A26EB00C1F42D0E8009E5C6F /* FriendDetailListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendDetailListViewController.swift; sourceTree = "<group>"; };
 		A26EB00E1F444AF2009E5C6F /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -60,6 +59,9 @@
 		A288F1571F30A4FA0061F8FF /* AddExpenseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddExpenseViewController.swift; sourceTree = "<group>"; };
 		A29720751F3D70FD00D92B3F /* ExpenseListSegmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseListSegmentViewController.swift; sourceTree = "<group>"; };
 		A29720771F3D737E00D92B3F /* ExpenseListSegmentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseListSegmentTableViewCell.swift; sourceTree = "<group>"; };
+		A2C4243A1F495DB800BC2698 /* ShareOurCostIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ShareOurCostIcon.png; sourceTree = "<group>"; };
+		A2C4243E1F496A4E00BC2698 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = .gitignore; path = ShareOurCost/.gitignore; sourceTree = "<group>"; };
+		A2DF3F171F49D91700DAD7A2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		A2FE33F71F374B6400C3A793 /* FriendManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendManager.swift; sourceTree = "<group>"; };
 		A2FE33F91F3759C600C3A793 /* ExpeneseDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpeneseDetailViewController.swift; sourceTree = "<group>"; };
 		A2FE33FB1F37EC9000C3A793 /* ExpenseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseManager.swift; sourceTree = "<group>"; };
@@ -81,6 +83,8 @@
 		A20F2C5A1F276F9700D446F7 = {
 			isa = PBXGroup;
 			children = (
+				A2C4243E1F496A4E00BC2698 /* .gitignore */,
+				A2C4243A1F495DB800BC2698 /* ShareOurCostIcon.png */,
 				A20F2C651F276F9700D446F7 /* ShareOurCost */,
 				A20F2C641F276F9700D446F7 /* Products */,
 				CD5B69F21542BE2E90FD8293 /* Pods */,
@@ -117,12 +121,11 @@
 				A26EB00A1F42C51B009E5C6F /* AddFriendViewController.swift */,
 				A20F2C681F276F9700D446F7 /* LoginViewController.swift */,
 				A23489681F35F7760015698D /* AccountManager.swift */,
-				A20F2C811F28C01B00D446F7 /* MatchingViewController.swift */,
 				A24F30C41F2B2EFC002E05E2 /* File.swift */,
-				A20F2C701F276F9700D446F7 /* Assets.xcassets */,
 				A20F2C721F276F9700D446F7 /* LaunchScreen.storyboard */,
+				A20F2C701F276F9700D446F7 /* Assets.xcassets */,
+				A2DF3F171F49D91700DAD7A2 /* GoogleService-Info.plist */,
 				A20F2C751F276F9700D446F7 /* Info.plist */,
-				A26EB0081F41D1CD009E5C6F /* GoogleService-Info.plist */,
 				A20F2C6D1F276F9700D446F7 /* ShareOurCost.xcdatamodeld */,
 			);
 			path = ShareOurCost;
@@ -181,7 +184,7 @@
 				TargetAttributes = {
 					A20F2C621F276F9700D446F7 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 8KK974MW9K;
+						DevelopmentTeam = FD4LSQTJCB;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -210,8 +213,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				A20F2C741F276F9700D446F7 /* LaunchScreen.storyboard in Resources */,
-				A26EB0091F41D1CD009E5C6F /* GoogleService-Info.plist in Resources */,
+				A2DF3F181F49D91700DAD7A2 /* GoogleService-Info.plist in Resources */,
+				A2C4243B1F495DB800BC2698 /* ShareOurCostIcon.png in Resources */,
 				A20F2C711F276F9700D446F7 /* Assets.xcassets in Resources */,
+				A2C4243F1F496A4E00BC2698 /* .gitignore in Resources */,
 				A20F2C6C1F276F9700D446F7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -245,7 +250,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" aaa27cf12ac635e97e49e90009e4b504155fdcd5 20c5429e22603b21983471054e5a2daeb4b1dc329f10063b335d49385a15728c";
 		};
 		CF78F4D338C486FA68A73538 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -257,12 +262,14 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
+				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -304,7 +311,6 @@
 				A20F2C6F1F276F9700D446F7 /* ShareOurCost.xcdatamodeld in Sources */,
 				A26EB0131F45889E009E5C6F /* ExpenseStatusSegmentControl.swift in Sources */,
 				A288F1541F2E337F0061F8FF /* FriendRequestListTableViewCell.swift in Sources */,
-				A20F2C821F28C01B00D446F7 /* MatchingViewController.swift in Sources */,
 				A23489691F35F7760015698D /* AccountManager.swift in Sources */,
 				A26EB00B1F42C51B009E5C6F /* AddFriendViewController.swift in Sources */,
 				A288F1581F30A4FA0061F8FF /* AddExpenseViewController.swift in Sources */,
@@ -437,11 +443,15 @@
 			baseConfigurationReference = B196AC87C610FC16F941F121 /* Pods-ShareOurCost.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 8KK974MW9K;
+				DEVELOPMENT_TEAM = FD4LSQTJCB;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+				);
 				INFOPLIST_FILE = ShareOurCost/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Lee.ShareOurCost;
+				PRODUCT_BUNDLE_IDENTIFIER = BradLeePo.ShareOurCost;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -452,11 +462,15 @@
 			baseConfigurationReference = 0FB66BD0448C110514B370DC /* Pods-ShareOurCost.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 8KK974MW9K;
+				DEVELOPMENT_TEAM = FD4LSQTJCB;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+				);
 				INFOPLIST_FILE = ShareOurCost/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Lee.ShareOurCost;
+				PRODUCT_BUNDLE_IDENTIFIER = BradLeePo.ShareOurCost;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};

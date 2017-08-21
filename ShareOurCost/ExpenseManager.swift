@@ -6,8 +6,9 @@
 //  Copyright © 2017 Brad. All rights reserved.
 //
 
-import Foundation
 import Firebase
+import Foundation
+import NVActivityIndicatorView
 
 class ExpenseManager {
 
@@ -32,7 +33,13 @@ class ExpenseManager {
             var receivedDeletedExpenseIDList = ExpenseInfoList()
 
             //key is the ID of expense
-            guard let expenseData = dataSnapshot.value as? [String: Any] else { return }
+            guard let expenseData = dataSnapshot.value as? [String: Any] else {
+
+                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+
+                return
+
+            }
             for (key, value) in expenseData {
 
                 guard let expenseStatusDic = value as? [String: Any],
@@ -194,7 +201,14 @@ class ExpenseManager {
             var acceptedExpenseList = ExpenseInfoList()
 
             //key is the ID of expense
-            guard let expenseData = dataSnapshot.value as? [String: Any] else { return }
+            guard let expenseData = dataSnapshot.value as? [String: Any] else {
+
+                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+
+                return
+
+            }
+
             for (key, value) in expenseData {
                 
                 guard let expenseStatusDic = value as? [String: Any],

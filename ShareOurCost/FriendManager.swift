@@ -10,6 +10,7 @@ import Foundation
 import Firebase
 import FirebaseAuth
 import FirebaseDatabase
+import NVActivityIndicatorView
 
 class FriendManager {
 
@@ -48,7 +49,9 @@ class FriendManager {
 
                 completion(userSelfID, dataSnapshot.exists(), "nothing")
 
-                return }
+                return
+
+            }
             
             completion(userSelfID, dataSnapshot.exists(), searchedUID)
 
@@ -87,7 +90,13 @@ class FriendManager {
 
             var friendUIDListInClosure = [String]()
             
-            guard let friendListData = dataSnapshot.value as? [String: Bool] else { return }
+            guard let friendListData = dataSnapshot.value as? [String: Bool] else {
+
+                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+
+                return
+
+            }
 
             for (friendID, _) in friendListData {
 

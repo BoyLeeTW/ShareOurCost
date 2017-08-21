@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import Firebase
 
-class AddFriendViewController: UIViewController {
+class AddFriendViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var searchFriendUIDTextField: UITextField!
     @IBOutlet weak var searchFriendUIDButton: UIButton!
     @IBOutlet weak var searchFriendUIDResultLabel: UILabel!
@@ -40,8 +41,15 @@ class AddFriendViewController: UIViewController {
 
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_navigate_before_white_36pt"), style: .plain, target: self, action: #selector(touchBackButton))
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
-
-
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        
+        return true
+        
     }
 
     func touchBackButton() {
@@ -51,6 +59,8 @@ class AddFriendViewController: UIViewController {
     }
 
     func touchSearchFriendButton() {
+
+        Analytics.logEvent("clickSearchFriend", parameters: nil)
 
         searchedFriendUID = ""
 
@@ -95,11 +105,13 @@ class AddFriendViewController: UIViewController {
 
     func touchAddFriend() {
 
+        Analytics.logEvent("clickAddFriend", parameters: nil)
+
         if self.searchedFriendUID != "" {
 
             friendManager.sendFriendRequest(friendUID: searchedFriendUID)
 
-            let alertController = UIAlertController(title: "Great",
+            let alertController = UIAlertController(title: "Great!",
                                                     message: "Successfully sent your friend request",
                                                     preferredStyle: .alert)
             let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)

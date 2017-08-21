@@ -7,8 +7,7 @@
 //
 
 import UIKit
-import FirebaseAuth
-import FirebaseDatabase
+import Firebase
 
 enum PaidBy {
 
@@ -25,7 +24,7 @@ enum SharedMethod {
 }
 
 
-class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate {
 
     var ref: DatabaseReference!
 
@@ -55,6 +54,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var friendSharedPercentTextField: UITextField!
     @IBOutlet weak var userPercentLabel: UILabel!
     @IBOutlet weak var friendPercentLabel: UILabel!
+    @IBOutlet weak var friendSharesLabel: UILabel!
     @IBOutlet weak var biggestView: UIView!
 
     override func viewDidLoad() {
@@ -78,7 +78,11 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
     @IBAction func touchSaveExpenseButton(_ sender: Any) {
 
+        Analytics.logEvent("clickSaveExpenseButton", parameters: nil)
+
         if expenseAmountTextField.text == "" || userSharedAmountTextField.text == "" || friendSharedAmountTextField.text == "" || expenseDescriptionTextField.text == "" {
+
+            Analytics.logEvent("clickSaveExpenseButtonWithoutAllInformation", parameters: nil)
 
             let alertController = UIAlertController(title: "Oops", message: "Please fill in all information!", preferredStyle: .alert)
             let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
@@ -88,6 +92,8 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
             return
 
         }
+
+        Analytics.logEvent("saveExpenseSuccessfully", parameters: nil)
 
         ref = Database.database().reference()
 
@@ -172,11 +178,6 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 ]
             )
 
-            self.expenseSharedMemberTextField.text = ""
-            self.expenseDayTextField.text = ""
-            self.expenseAmountTextField.text = ""
-            self.expenseDescriptionTextField.text = ""
-
             self.navigationController?.popViewController(animated: true)
 
     }
@@ -201,6 +202,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         expenseSharedMemberTextField.inputView = friendNamePickerView
         if friendNameList.count > 0 {
 
+            friendSharesLabel.text = "\(friendNameList[0])\nshares"
             expenseSharedMemberTextField.text = friendNameList[0]
             paidByFriendButton.setTitle(friendNameList[0], for: .normal)
 
@@ -211,6 +213,8 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
     func touchSharedMemberText() {
 
         if friendNameList.count == 0 {
+
+            self.expenseSharedMemberTextField.deleteBackward()
 
             let alertController = UIAlertController(title: "Oops",
                                                     message: "Please add friend so you can share cost with them!",
@@ -252,16 +256,16 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
     func setUpTextFieldTarget() {
 
         expenseAmountTextField.addTarget(self, action: #selector(expenseAmountTextFieldChanged(_:)), for: .editingChanged)
+        
+        expenseSharedMemberTextField.addTarget(self, action: #selector(touchSharedMemberText), for: .editingChanged)
 
-        expenseSharedMemberTextField.addTarget(self, action: #selector(touchSharedMemberText), for: .allEditingEvents)
+        userSharedAmountTextField.addTarget(self, action: #selector(userSharedAmountTextFieldChagned), for: .editingChanged)
 
-        userSharedAmountTextField.addTarget(self, action: #selector(userSharedAmountTextFieldChagned), for: .editingDidEnd)
+        friendSharedAmountTextField.addTarget(self, action: #selector(friendSharedAmountTextFieldChagned), for: .editingChanged)
 
-        friendSharedAmountTextField.addTarget(self, action: #selector(friendSharedAmountTextFieldChagned), for: .editingDidEnd)
+        userSharedPercentTextField.addTarget(self, action: #selector(userSharedPercentTextFieldChanged), for: .editingChanged)
 
-        userSharedPercentTextField.addTarget(self, action: #selector(userSharedPercentTextFieldChanged), for: .editingDidEnd)
-
-        friendSharedPercentTextField.addTarget(self, action: #selector(friendSharedPercentTextFieldChanged), for: .editingDidEnd)
+        friendSharedPercentTextField.addTarget(self, action: #selector(friendSharedPercentTextFieldChanged), for: .editingChanged)
 
     }
 
@@ -294,7 +298,15 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_navigate_before_white_36pt"), style: .plain, target: self, action: #selector(touchBackButton))
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
         self.navigationItem.title = "Add Expense"
-
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        
+        return true
+        
     }
 
     func touchBackButton() {
@@ -307,13 +319,13 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
         guard let totalAmountText = expenseAmountTextField.text else { return }
         let totalAmount: Double = Double(totalAmountText) ?? 0
-        
+
         userSharedAmountTextField.text = "\(Int(round(totalAmount / 2)))"
         friendSharedAmountTextField.text = "\(Int(floor(totalAmount / 2)))"
 
         shareExpenseByPercentButton.backgroundColor = UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0)
         shareExpenseByPercentButton.setTitleColor(UIColor.white, for: .normal)
-        
+
         shareExpenseEquallyButton.backgroundColor = UIColor.white
         shareExpenseEquallyButton.setTitleColor(UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0), for: .normal)
 
@@ -329,7 +341,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
 
     func touchShareExpenseByPercentButton() {
-        
+
         userSharedPercentTextField.text = "50"
         friendSharedPercentTextField.text = "50"
 
@@ -339,10 +351,10 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         friendSharedPercentTextField.isHidden = false
         userSharedAmountTextField.isHidden = true
         friendSharedAmountTextField.isHidden = true
-        
+
         shareExpenseByPercentButton.backgroundColor = UIColor.white
         shareExpenseByPercentButton.setTitleColor(UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0), for: .normal)
-        
+
         shareExpenseEquallyButton.backgroundColor = UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0)
         shareExpenseEquallyButton.setTitleColor(UIColor.white, for: .normal)
 
@@ -403,8 +415,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
         guard let totalAmountText = expenseAmountTextField.text,
               let userSharedAmountText = userSharedAmountTextField.text
-        
-            else { return }
+        else { return }
 
         let totalAmount = Int(totalAmountText) ?? 0,
             userSharedAmount = Int(userSharedAmountText) ?? 0
@@ -431,9 +442,8 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
     func friendSharedAmountTextFieldChagned() {
 
         guard let totalAmountText = expenseAmountTextField.text,
-            let friendSharedAmountText = friendSharedAmountTextField.text
-
-            else { return }
+              let friendSharedAmountText = friendSharedAmountTextField.text
+        else { return }
 
         let totalAmount = Int(totalAmountText) ?? 0,
         friendSharedAmount = Int(friendSharedAmountText) ?? 0
@@ -463,7 +473,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
         paidByFriendButton.backgroundColor = UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0)
         paidByFriendButton.setTitleColor(UIColor.white, for: .normal)
-        
+
         paidByUserButton.backgroundColor = UIColor.white
         paidByUserButton.setTitleColor(UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0), for: .normal)
 
@@ -484,27 +494,42 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
     func setUpDatePicker() {
 
         let datePicker = UIDatePicker()
-        
+
         datePicker.datePickerMode = .date
-        
+
         expenseDayTextField.inputView = datePicker
-        
+
         let dateFormatter = DateFormatter()
-        
+
         dateFormatter.dateFormat = "yyyy/MM/dd"
-        
+
         expenseDayTextField.text = dateFormatter.string(from: Date())
-        
+
         datePicker.addTarget(self, action: #selector(handleDatePicker(sender:)), for: .valueChanged)
 
     }
 
     func expenseAmountTextFieldChanged(_ sender: UITextField) {
-        guard let amountText = sender.text else { return }
-        let amount: Double = Double(amountText) ?? 0
 
-        userSharedAmountTextField.text = "\(Int(round(amount / 2)))"
-        friendSharedAmountTextField.text = "\(Int(floor(amount / 2)))"
+        guard let amountText = sender.text else { return }
+
+        if amountText.characters.count > 7 {
+
+            expenseAmountTextField.deleteBackward()
+
+            let alertController = UIAlertController(title: "Oops", message: "Amount cannot have more than 7 digits", preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alertController.addAction(defaultAction)
+            self.present(alertController, animated: true, completion: nil)
+
+        } else {
+
+            let amount: Double = Double(amountText) ?? 0
+
+            userSharedAmountTextField.text = "\(Int(round(amount / 2)))"
+            friendSharedAmountTextField.text = "\(Int(floor(amount / 2)))"
+
+        }
 
     }
 
@@ -538,6 +563,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
         expenseSharedMemberTextField.text = friendNameList[row]
         paidByFriendButton.setTitle(friendNameList[row], for: .normal)
+        friendSharesLabel.text = "\(friendNameList[row])\nshares"
 
         self.view.endEditing(true)
     }

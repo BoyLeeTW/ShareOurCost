@@ -10,6 +10,9 @@ import UIKit
 import CoreData
 import Firebase
 import IQKeyboardManager
+import Fabric
+import Crashlytics
+import NVActivityIndicatorView
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,9 +22,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 
+        Fabric.with([Crashlytics.self])
+
         FirebaseApp.configure()
 
         IQKeyboardManager.shared().isEnabled = true
+
+        NVActivityIndicatorView.DEFAULT_TYPE  = .ballRotateChase
 
         UIApplication.shared.statusBarStyle = .lightContent
 
@@ -29,11 +36,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if UserDefaults.standard.value(forKey: "userUid") != nil {
 
-            let tabBarVC = mainStoryboard.instantiateViewController(withIdentifier: "TabBarController")
+            let tabBarVC = mainStoryboard.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
 
             userUID = Auth.auth().currentUser!.uid
 
             window?.rootViewController = tabBarVC
+
+            tabBarVC.selectedIndex = 1
 
         } else {
 

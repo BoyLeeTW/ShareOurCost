@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import Firebase
+import NVActivityIndicatorView
 
-class FriendDetailListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class FriendDetailListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
     @IBOutlet weak var balanceLabel: UILabel!
     @IBOutlet weak var friendDetailExpenseListTableView: UITableView!
 
@@ -37,12 +39,18 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
 
     func fetchAcceptedExpenseData() {
 
+        let activityData = ActivityData(message: "Loading...")
+
+        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
+
         expenseManager.fetchAcceptedExpenseList { (acceptedExepnseList) in
-            
+
             self.acceptedExpenseList = acceptedExepnseList
-            
+
             self.friendDetailExpenseListTableView.reloadData()
-            
+
+            NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+
             guard let expenseInfoSource = acceptedExepnseList[self.friendUID] else {
                 
                 self.balanceLabel.text = "There is no expense yet!"
@@ -98,6 +106,8 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
             
         }
 
+        self.balanceLabel.text = "There is no expense yet!"
+
     }
 
     func setUpLayOut() {
@@ -111,6 +121,14 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
 
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_navigate_before_white_36pt"), style: .plain, target: self, action: #selector(touchBackButton))
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+
+    }
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+
+        return true
 
     }
 
@@ -179,6 +197,8 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        Analytics.logEvent("clickExpenseDetailFromFriendDetailPage", parameters: nil)
 
         selectedRow = indexPath.row
 

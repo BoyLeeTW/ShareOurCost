@@ -9,8 +9,9 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
+import NVActivityIndicatorView
 
-class FriendListTableViewController: UITableViewController {
+class FriendListTableViewController: UITableViewController, UIGestureRecognizerDelegate {
     @IBOutlet var friendListTableView: UITableView!
     @IBAction func touchAcceptFriendButton(_ sender: Any) {
     }
@@ -28,6 +29,10 @@ class FriendListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let activityData = ActivityData(message: "Loading...")
+
+        NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
+
         setUpNavigationBar()
 
         friendManager.fetchFriendUIDList { (friendUIDListOfBlock) in
@@ -40,21 +45,21 @@ class FriendListTableViewController: UITableViewController {
 
                 self.friendListTableView.reloadData()
 
+                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+
             })
 
         }
 
         ref = Database.database().reference()
 
-        ref.child("userInfo").child(userUID).child("pendingFriendRequest").observe(.childAdded, with: { (dataSnapshot) in
+        ref.child("userInfo").child(userUID).child("pendingFriendRequest").observe(.value, with: { (dataSnapshot) in
 
-            if let friendRequestStatus = dataSnapshot.value! as? Bool {
+            guard let pendingFriendRequestList = dataSnapshot.value as? [String: Bool] else { return }
 
-                if friendRequestStatus == false {
+            for (friendUID, status) in pendingFriendRequestList where status == false {
 
-                    self.friendRequestIDList.append(dataSnapshot.key)
-
-                }
+                self.friendRequestIDList.append(friendUID)
 
             }
 
@@ -76,6 +81,15 @@ class FriendListTableViewController: UITableViewController {
 
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "icon-exit"), style: .plain, target: self, action: #selector(handleLogout))
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        
+        return true
+        
     }
 
     func touchBackButton() {
@@ -83,8 +97,6 @@ class FriendListTableViewController: UITableViewController {
         self.dismiss(animated: true, completion: nil)
 
     }
-
-    // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
 
@@ -176,12 +188,13 @@ class FriendListTableViewController: UITableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "friendRequestListCell", for: indexPath) as? FriendRequestListTableViewCell else { return }
 
         cell.friendNameLabel.text = ""
-        
 
     }
 
     //change the status in the pendingFriendRequest and add friendID to friendList.
     func handleAcceptFriend(_ sender: UIButton) {
+
+        Analytics.logEvent("acceptFriendRequest", parameters: nil)
 
         let friendID = friendRequestIDList[sender.tag]
 
@@ -203,13 +216,19 @@ class FriendListTableViewController: UITableViewController {
 
     }
 
-    //NOT FINISH YET
     func handleDenyFriend(_ sender: UIButton) {
 
-        let friendID = friendRequestIDList[sender.tag]
-        ref.database.reference().child("userInfo").child(userUID).child("pendingFriendRequest").child("\(friendID)").observe(.value, with: { (dataSnapshot) in
-        })
+        Analytics.logEvent("clickDenyFriendRequest", parameters: nil)
 
+        let friendID = friendRequestIDList[sender.tag]
+        
+        //change the pendingFriendRequest value of user who accepted request to true
+        self.ref.database.reference().child("userInfo").child(userUID).child("pendingFriendRequest").updateChildValues([friendID: true])
+        
+        //change the pendingSentFriendRequest value of user who sent request to true
+        self.ref.database.reference().child("userInfo").child(friendID).child("pendingSentFriendRequest").updateChildValues([userUID: true])
+
+        self.friendListTableView.reloadData()
     }
 
     func handleLogout() {
@@ -219,6 +238,12 @@ class FriendListTableViewController: UITableViewController {
         let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC")
         
         self.present(loginVC!, animated: true)
+
+        //clear log out user's data
+        userUID = ""
+        friendUIDandNameList = [String: String]()
+        friendNameAndUIDList = [String: String]()
+        friendUIDList = Array<String>()
 
     }
 
@@ -235,6 +260,8 @@ class FriendListTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        Analytics.logEvent("clickFriendDetailCell", parameters: nil)
 
         selectedRow = indexPath.row
 
