@@ -130,43 +130,43 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
             }
 
+        } else {
+
+            guard let sharedPercentAmountForUserText = self.userSharedPercentTextField.text,
+                  let totalExepnseAmountText = self.expenseAmountTextField.text
+            else { return }
+            let sharedPercentAmountForUser = Double(sharedPercentAmountForUserText) ?? 0
+            let totalExpenseAmount = Double(totalExepnseAmountText) ?? 0
+
+            if self.paidByResult == .user {
+
+                sharedAmountForUser = round(Double(sharedPercentAmountForUser * totalExpenseAmount / 100))
+
+                sharedAmountForFriend = -floor(Double((100 - sharedPercentAmountForUser) * totalExpenseAmount / 100))
+
+                paidBy = userUID
+
             } else {
 
-                guard let sharedPercentAmountForUserText = self.userSharedPercentTextField.text,
-                      let totalExepnseAmountText = self.expenseAmountTextField.text
-                    else { return }
-                let sharedPercentAmountForUser = Double(sharedPercentAmountForUserText) ?? 0
-                let totalExpenseAmount = Double(totalExepnseAmountText) ?? 0
+                sharedAmountForUser = -round(Double(sharedPercentAmountForUser * totalExpenseAmount / 100))
 
-                if self.paidByResult == .user {
+                sharedAmountForFriend = floor(Double((100 - sharedPercentAmountForUser) * totalExpenseAmount / 100))
 
-                    sharedAmountForUser = round(Double(sharedPercentAmountForUser * totalExpenseAmount / 100))
-
-                    sharedAmountForFriend = -floor(Double((100 - sharedPercentAmountForUser) * totalExpenseAmount / 100))
-
-                    paidBy = userUID
-
-                } else {
-
-                    sharedAmountForUser = -round(Double(sharedPercentAmountForUser * totalExpenseAmount / 100))
-
-                    sharedAmountForFriend = floor(Double((100 - sharedPercentAmountForUser) * totalExpenseAmount / 100))
-
-                    paidBy = friendUID
-
-                }
+                paidBy = friendUID
 
             }
-            self.ref.database.reference().child("userExpense").child(userUID).child(expenseID).updateChildValues(["status": "sentPending", "isRead": true])
 
-            self.ref.database.reference().child("userExpense").child(friendUID).child(expenseID).updateChildValues(["status": "receivedPending", "isRead": false])
+        }
+        self.ref.database.reference().child("userExpense").child(userUID).child(expenseID).updateChildValues(["status": "sentPending", "isRead": true])
 
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy/MM/dd"
+        self.ref.database.reference().child("userExpense").child(friendUID).child(expenseID).updateChildValues(["status": "receivedPending", "isRead": false])
 
-            expenseRef.updateChildValues(
-                ["amount": Int(self.expenseAmountTextField.text!)!,
-                "description": "\(self.expenseDescriptionTextField.text!)",
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy/MM/dd"
+
+        expenseRef.updateChildValues(
+            ["amount": Int(self.expenseAmountTextField.text!)!,
+             "description": "\(self.expenseDescriptionTextField.text!)",
                 "expenseDay": "\(self.expenseDayTextField.text!)",
                 "sharedMember": "\(self.expenseSharedMemberTextField.text!)",
                 "expensePaidBy": "\(paidBy)",
@@ -174,10 +174,11 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 "createdBy": "\(userUID)",
                 "sharedWith": "\(friendUID)",
                 "sharedResult": ["\(userUID)": Int(sharedAmountForUser), "\(friendUID)": Int(sharedAmountForFriend)]
-                ]
-            )
+            ]
 
-            self.navigationController?.popViewController(animated: true)
+        )
+
+        self.navigationController?.popViewController(animated: true)
 
     }
 
