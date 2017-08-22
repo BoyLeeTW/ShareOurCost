@@ -200,18 +200,34 @@ class ViewController: UIViewController {
                                                          password: passwordText,
                                                          userName: nameText,
                                                          userID: userIDText,
-                                                         completion: {
+                                                         completion: { (errorMessage) in
 
-                                                            weakSelf.emailTextField.text = ""
-                                                            weakSelf.passwordTextField.text = ""
-                                                            weakSelf.fullNameTextField.text = ""
-                                                            weakSelf.userIDTextField.text = ""
+                                                            if errorMessage != nil {
 
-                                                            NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+                                                                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
 
-                                                            let vc = weakSelf.storyboard?.instantiateViewController(withIdentifier: "TabBarController")
-                                                            weakSelf.present(vc!, animated: true, completion: nil)
+                                                                guard let errorMesssageString = errorMessage else { return }
 
+                                                                let alertController = UIAlertController(title: "Oops",
+                                                                                                        message: "\(errorMesssageString)",
+                                                                                                        preferredStyle: .alert)
+                                                                let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                                                                alertController.addAction(defaultAction)
+                                                                weakSelf.present(alertController, animated: true, completion:  nil)
+
+                                                            } else {
+
+                                                                NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+
+                                                                let vc = weakSelf.storyboard?.instantiateViewController(withIdentifier: "TabBarController")
+                                                                weakSelf.present(vc!, animated: true, completion: nil)
+
+                                                                weakSelf.emailTextField.text = ""
+                                                                weakSelf.passwordTextField.text = ""
+                                                                weakSelf.fullNameTextField.text = ""
+                                                                weakSelf.userIDTextField.text = ""
+
+                                                            }
                 })
 
             } else {
