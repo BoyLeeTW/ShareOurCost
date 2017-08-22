@@ -53,7 +53,9 @@ class AccountManager {
 
         //check if userID is unique
         ref.child("userID").queryOrderedByValue().queryEqual(toValue: userID).observeSingleEvent(of: .value, with: { (dataSnapshot) in
+
             completion(!dataSnapshot.exists())
+
         })
 
     }

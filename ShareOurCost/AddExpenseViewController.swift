@@ -23,7 +23,6 @@ enum SharedMethod {
 
 }
 
-
 class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate {
 
     var ref: DatabaseReference!
@@ -116,19 +115,19 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
             if self.paidByResult == .user {
 
                 sharedAmountForUser = Double(self.userSharedAmountTextField.text!)!
-                    
+
                 sharedAmountForFriend = -Double(self.friendSharedAmountTextField.text!)!
-                    
+
                 paidBy = userUID
-                    
+
             } else {
-                    
+
                 sharedAmountForUser = -Double(self.userSharedAmountTextField.text!)!
-                    
+
                 sharedAmountForFriend = Double(self.friendSharedAmountTextField.text!)!
 
                 paidBy = friendUID
-                    
+
             }
 
             } else {
@@ -138,23 +137,23 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
                     else { return }
                 let sharedPercentAmountForUser = Double(sharedPercentAmountForUserText) ?? 0
                 let totalExpenseAmount = Double(totalExepnseAmountText) ?? 0
-                
+
                 if self.paidByResult == .user {
-                    
+
                     sharedAmountForUser = round(Double(sharedPercentAmountForUser * totalExpenseAmount / 100))
-                    
+
                     sharedAmountForFriend = -floor(Double((100 - sharedPercentAmountForUser) * totalExpenseAmount / 100))
-                    
+
                     paidBy = userUID
-                    
+
                 } else {
-                    
+
                     sharedAmountForUser = -round(Double(sharedPercentAmountForUser * totalExpenseAmount / 100))
-                    
+
                     sharedAmountForFriend = floor(Double((100 - sharedPercentAmountForUser) * totalExpenseAmount / 100))
-                    
+
                     paidBy = friendUID
-                    
+
                 }
 
             }
@@ -164,7 +163,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy/MM/dd"
-            
+
             expenseRef.updateChildValues(
                 ["amount": Int(self.expenseAmountTextField.text!)!,
                 "description": "\(self.expenseDescriptionTextField.text!)",
@@ -224,9 +223,9 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
                                               handler: nil)
             alertController.addAction(defaultAction)
             self.present(alertController, animated: true, completion: {
-                
+
                 self.navigationController?.popViewController(animated: true)
-                
+
             })
 
         }
@@ -256,7 +255,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
     func setUpTextFieldTarget() {
 
         expenseAmountTextField.addTarget(self, action: #selector(expenseAmountTextFieldChanged(_:)), for: .editingChanged)
-        
+
         expenseSharedMemberTextField.addTarget(self, action: #selector(touchSharedMemberText), for: .editingChanged)
 
         userSharedAmountTextField.addTarget(self, action: #selector(userSharedAmountTextFieldChagned), for: .editingChanged)
@@ -300,13 +299,13 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self.navigationItem.title = "Add Expense"
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-        
+
     }
-    
+
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        
+
         return true
-        
+
     }
 
     func touchBackButton() {
@@ -390,11 +389,11 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
     func friendSharedPercentTextFieldChanged() {
 
         guard let friendSharedPercentText = friendSharedPercentTextField.text else { return }
-        
+
         let friendSharedPercent = Int(friendSharedPercentText) ?? 0
 
         if friendSharedPercent > 100 {
-            
+
             let alertController = UIAlertController(title: "Oops", message: "Shared percent can't be more than 100%", preferredStyle: .alert)
             let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
             alertController.addAction(defaultAction)
@@ -402,9 +401,9 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
             userSharedPercentTextField.text = "0"
             friendSharedPercentTextField.text = "\(100)"
-            
+
         } else {
-            
+
             userSharedPercentTextField.text = "\(100 - friendSharedPercent)"
             friendSharedPercentTextField.text = "\(friendSharedPercent)"
         }

@@ -13,10 +13,9 @@ class ExpenseStatusSegmentControl: UISegmentedControl {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        for selectView in subviews{
+        for selectView in subviews {
             selectView.layer.borderColor = UIColor.clear.cgColor
             selectView.layer.cornerRadius = 0
-//            selectView.layer.masksToBounds = true
         }
     }
 }

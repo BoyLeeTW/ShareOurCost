@@ -64,31 +64,33 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
         DispatchQueue.global().async {
 
-            self.friendManager.fetchFriendUIDList { (friendUIDList) in
+            self.friendManager.fetchFriendUIDList { [weak self] (friendUIDList) in
 
-                self.friendUIDList = friendUIDList
+                guard let weakSelf = self else { return }
 
-                self.friendManager.fetchFriendUIDtoNameList(friendUIDList: self.friendUIDList, completion: { (friendUIDtoNameList) in
+                weakSelf.friendUIDList = friendUIDList
+
+                weakSelf.friendManager.fetchFriendUIDtoNameList(friendUIDList: weakSelf.friendUIDList, completion: { (friendUIDtoNameList) in
 
                     friendUIDandNameList = friendUIDtoNameList
 
-                    self.friendUIDtoNameList = friendUIDtoNameList
+                    weakSelf.friendUIDtoNameList = friendUIDtoNameList
 
-                    self.expenseListTableView.reloadData()
+                    weakSelf.expenseListTableView.reloadData()
 
                     NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
 
                 })
 
-                self.expenseManager.newFetchExpenseIDList { (acceptedExpenseIDList, receivedPendingExpenseIDList, sentPendingExpenseIDList, deniedExpenseIDList, receivedDeletedExpenseIDList) in
+                weakSelf.expenseManager.newFetchExpenseIDList { (acceptedExpenseIDList, receivedPendingExpenseIDList, sentPendingExpenseIDList, deniedExpenseIDList, receivedDeletedExpenseIDList) in
 
-                    self.acceptedExpenseIDList = acceptedExpenseIDList
-                    self.receivedPendingExpenseIDList = receivedPendingExpenseIDList
-                    self.sentPendingExpenseIDList = sentPendingExpenseIDList
-                    self.deniedExpenseIDList = deniedExpenseIDList
-                    self.receivedDeletedExpenseIDList = receivedDeletedExpenseIDList
+                    weakSelf.acceptedExpenseIDList = acceptedExpenseIDList
+                    weakSelf.receivedPendingExpenseIDList = receivedPendingExpenseIDList
+                    weakSelf.sentPendingExpenseIDList = sentPendingExpenseIDList
+                    weakSelf.deniedExpenseIDList = deniedExpenseIDList
+                    weakSelf.receivedDeletedExpenseIDList = receivedDeletedExpenseIDList
 
-                    self.expenseListTableView.reloadData()
+                    weakSelf.expenseListTableView.reloadData()
 
                     NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
 
@@ -146,10 +148,13 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 
         return friendUIDtoNameList[friendUIDList[section]]
+
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
+
         return friendUIDList.count
+
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -189,6 +194,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
         let cell = tableView.dequeueReusableCell(withIdentifier: "ExpenseListSegmentCell", for: indexPath) as! ExpenseListSegmentTableViewCell
 
         switch expenseStatusSegmentController.selectedSegmentIndex {
+
         case 0:
 
             guard let expenseData = acceptedExpenseIDList[friendUIDList[indexPath.section]]?[indexPath.row],
@@ -200,28 +206,29 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
             else { return cell }
 
             if isRead == true {
-                
+
                 cell.friendNameLabel.font = UIFont.systemFont(ofSize: 15.0)
                 cell.expenseCreatedDateLabel.font = UIFont.systemFont(ofSize: 10.0)
-                
+
             } else {
-                
+
                 cell.friendNameLabel.font = UIFont.systemFont(ofSize: 15.0, weight: 1)
                 cell.expenseCreatedDateLabel.font = UIFont.systemFont(ofSize: 10.0, weight: 1)
+
             }
 
             for (key, value) in sharedResult where value < 0 {
-                
+
                 if key == userUID {
-                    
+
                     cell.friendNameLabel.text = ("You owe \(friendName) $\(-value) for \(expenseDescription)" )
-                    
+
                 } else {
-                    
+
                     cell.friendNameLabel.text = ("\(friendName) owes you $\(-value) for \(expenseDescription)")
-                    
+
                 }
-                
+
             }
 
             cell.expenseCreatedDateLabel.text = expenseDate
@@ -278,26 +285,26 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
         else { return cell }
 
         for (key, value) in sharedResult where value < 0 {
-            
+
             if key == userUID {
-                
+
                 cell.friendNameLabel.text = ("You owe \(friendName) $\(-value) for \(expenseDescription)" )
-                
+
             } else {
-                
+
                 cell.friendNameLabel.text = ("\(friendName) owes you $\(-value) for \(expenseDescription)")
-                
+
             }
-            
+
         }
 
         if isRead == true {
-            
+
             cell.friendNameLabel.font = UIFont.systemFont(ofSize: 15.0)
             cell.expenseCreatedDateLabel.font = UIFont.systemFont(ofSize: 10.0)
-            
+
         } else {
-            
+
             cell.friendNameLabel.font = UIFont.systemFont(ofSize: 15.0, weight: 1)
             cell.expenseCreatedDateLabel.font = UIFont.systemFont(ofSize: 10.0, weight: 1)
         }
@@ -331,24 +338,24 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                 cell.expenseCreatedDateLabel.font = UIFont.systemFont(ofSize: 10.0)
 
             } else {
-                
+
                 cell.friendNameLabel.font = UIFont.systemFont(ofSize: 15.0, weight: 1)
                 cell.expenseCreatedDateLabel.font = UIFont.systemFont(ofSize: 10.0, weight: 1)
-                
+
             }
-            
+
             for (key, value) in sharedResult where value < 0 {
-                
+
                 if key == userUID {
-                    
+
                     cell.friendNameLabel.text = ("You owe \(friendName) $\(-value) for \(expenseDescription)" )
-                    
+
                 } else {
-                    
+
                     cell.friendNameLabel.text = ("\(friendName) owes you $\(-value) for \(expenseDescription)")
-                    
+
                 }
-                
+
             }
 
             cell.expenseCreatedDateLabel.text = expenseDate
@@ -364,30 +371,30 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                   let isRead = expenseData["isRead"] as? Bool,
                   let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]]
             else { return cell }
-            
+
             if isRead == true {
-                
+
                 cell.friendNameLabel.font = UIFont.systemFont(ofSize: 15.0)
                 cell.expenseCreatedDateLabel.font = UIFont.systemFont(ofSize: 10.0)
-                
+
             } else {
-                
+
                 cell.friendNameLabel.font = UIFont.systemFont(ofSize: 15.0, weight: 1)
                 cell.expenseCreatedDateLabel.font = UIFont.systemFont(ofSize: 10.0, weight: 1)
             }
 
             for (key, value) in sharedResult where value < 0 {
-                
+
                 if key == userUID {
-                    
+
                     cell.friendNameLabel.text = ("You owe \(friendName) $\(-value) for \(expenseDescription)" )
-                    
+
                 } else {
-                    
+
                     cell.friendNameLabel.text = ("\(friendName) owes you $\(-value) for \(expenseDescription)")
-                    
+
                 }
-                
+
             }
 
             cell.expenseCreatedDateLabel.text = expenseDate
@@ -468,16 +475,15 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
             guard let expenseID = receivedPendingExpenseIDList[friendUIDList[selectedSection]]![selectedRow]["id"] as? String,
                 let friendUID = friendUIDList[selectedSection] as? String
                 else { return }
-            
-            expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: nil)
 
+            expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: nil)
 
         case 3:
 
             guard let expenseID = sentPendingExpenseIDList[friendUIDList[selectedSection]]![selectedRow]["id"] as? String,
                 let friendUID = friendUIDList[selectedSection] as? String
                 else { return }
-            
+
             expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: nil)
 
         default:
@@ -485,7 +491,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
             guard let expenseID = receivedDeletedExpenseIDList[friendUIDList[selectedSection]]![selectedRow]["id"] as? String,
                 let friendUID = friendUIDList[selectedSection] as? String
                 else { return }
-            
+
             expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: nil)
 
         }
