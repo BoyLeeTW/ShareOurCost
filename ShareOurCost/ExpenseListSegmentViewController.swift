@@ -222,6 +222,8 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                   let expenseDate = expenseData["expenseDay"] as? String,
                   let sharedResult = expenseData["sharedResult"] as? [String: Int],
                   let isRead = expenseData["isRead"] as? Bool,
+                  let paidBy = expenseData["expensePaidBy"] as? String,
+                  let totalAmount = expenseData["amount"] as? Int,
                   let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]]
             else { return cell }
 
@@ -237,19 +239,65 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
             }
 
-            for (key, value) in sharedResult where value < 0 {
+            for (UID, amount) in sharedResult {
 
-                if key == userUID {
+                if UID == userUID {
 
-                    cell.friendNameLabel.text = ("You owe \(friendName) $\(-value) for \(expenseDescription)" )
+                    if amount < 0 {
+
+                        cell.friendNameLabel.text = ("You owe \(friendName) $\(-amount) for \(expenseDescription)" )
+
+                    } else if amount == 0 {
+
+                        if paidBy == userUID {
+
+                            cell.friendNameLabel.text = ("\(friendName) owes you $\(totalAmount) for \(expenseDescription)")
+
+                        } else {
+
+                            cell.friendNameLabel.text = ("You share nothing in this expense" )
+
+                        }
+
+                    }
 
                 } else {
 
-                    cell.friendNameLabel.text = ("\(friendName) owes you $\(-value) for \(expenseDescription)")
+                    if amount < 0 {
+
+                        cell.friendNameLabel.text = ("\(friendName) owes you $\(-amount) for \(expenseDescription)")
+
+                    } else if amount == 0 {
+
+                        if paidBy == userUID {
+                            
+                            cell.friendNameLabel.text = ("You share nothing in this expense" )
+                            
+                        } else {
+                            
+                            cell.friendNameLabel.text = ("You owe \(friendName) $\(totalAmount) for \(expenseDescription)" )
+                            
+                        }
+
+                    }
 
                 }
 
             }
+
+//            for (key, value) in sharedResult where value < 0 {
+//
+//                if key == userUID {
+//
+//                    cell.friendNameLabel.text = ("You owe \(friendName) $\(-value) for \(expenseDescription)" )
+//
+//                } else {
+//
+//                    cell.friendNameLabel.text = ("\(friendName) owes you $\(-value) for \(expenseDescription)")
+//
+//                }
+//
+//            }
 
             cell.expenseCreatedDateLabel.text = expenseDate
             cell.acceptButton.isHidden = true
@@ -262,6 +310,8 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                   let expenseDescription = expenseData["description"] as? String,
                   let sharedResult = expenseData["sharedResult"] as? [String: Int],
                   let isRead = expenseData["isRead"] as? Bool,
+                  let paidBy = expenseData["expensePaidBy"] as? String,
+                  let totalAmount = expenseData["amount"] as? Int,
                   let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]]
             else { return cell }
 
@@ -276,18 +326,50 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                 cell.expenseCreatedDateLabel.font = UIFont.systemFont(ofSize: 10.0, weight: 1)
             }
 
-            for (key, value) in sharedResult where value < 0 {
-
-                if key == userUID {
-
-                    cell.friendNameLabel.text = ("You owe \(friendName) $\(-value) for \(expenseDescription)" )
-
+            for (UID, amount) in sharedResult {
+                
+                if UID == userUID {
+                    
+                    if amount < 0 {
+                        
+                        cell.friendNameLabel.text = ("You owe \(friendName) $\(-amount) for \(expenseDescription)" )
+                        
+                    } else if amount == 0 {
+                        
+                        if paidBy == userUID {
+                            
+                            cell.friendNameLabel.text = ("\(friendName) owes you $\(totalAmount) for \(expenseDescription)")
+                            
+                        } else {
+                            
+                            cell.friendNameLabel.text = ("You share nothing in this expense" )
+                            
+                        }
+                        
+                    }
+                    
                 } else {
-
-                    cell.friendNameLabel.text = ("\(friendName) owes you $\(-value) for \(expenseDescription)")
-
+                    
+                    if amount < 0 {
+                        
+                        cell.friendNameLabel.text = ("\(friendName) owes you $\(-amount) for \(expenseDescription)")
+                        
+                    } else if amount == 0 {
+                        
+                        if paidBy == userUID {
+                            
+                            cell.friendNameLabel.text = ("You share nothing in this expense" )
+                            
+                        } else {
+                            
+                            cell.friendNameLabel.text = ("You owe \(friendName) $\(totalAmount) for \(expenseDescription)" )
+                            
+                        }
+                        
+                    }
+                    
                 }
-
+                
             }
 
             cell.expenseCreatedDateLabel.text = expenseDate
@@ -301,18 +383,52 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
               let expenseDate = expenseData["expenseDay"] as? String,
               let sharedResult = expenseData["sharedResult"] as? [String: Int],
               let isRead = expenseData["isRead"] as? Bool,
+              let paidBy = expenseData["expensePaidBy"] as? String,
+              let totalAmount = expenseData["amount"] as? Int,
               let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]]
         else { return cell }
 
-        for (key, value) in sharedResult where value < 0 {
+        for (UID, amount) in sharedResult {
+            
+            if UID == userUID {
+                
+                if amount < 0 {
+                    
+                    cell.friendNameLabel.text = ("You owe \(friendName) $\(-amount) for \(expenseDescription)" )
+                    
+                } else if amount == 0 {
+                    
+                    if paidBy == userUID {
+                        
+                        cell.friendNameLabel.text = ("\(friendName) owes you $\(totalAmount) for \(expenseDescription)")
+                        
+                    } else {
 
-            if key == userUID {
+                        cell.friendNameLabel.text = ("You share nothing in this expense" )
 
-                cell.friendNameLabel.text = ("You owe \(friendName) $\(-value)\nfor \(expenseDescription)" )
+                    }
+
+                }
 
             } else {
 
-                cell.friendNameLabel.text = ("\(friendName) owes you $\(-value)\nfor \(expenseDescription)")
+                if amount < 0 {
+
+                    cell.friendNameLabel.text = ("\(friendName) owes you $\(-amount) for \(expenseDescription)")
+
+                } else if amount == 0 {
+
+                    if paidBy == userUID {
+
+                        cell.friendNameLabel.text = ("You share nothing in this expense" )
+
+                    } else {
+
+                        cell.friendNameLabel.text = ("You owe \(friendName) $\(totalAmount) for \(expenseDescription)" )
+
+                    }
+
+                }
 
             }
 
@@ -349,6 +465,8 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                   let expenseDescription = expenseData["description"] as? String,
                   let sharedResult = expenseData["sharedResult"] as? [String: Int],
                   let isRead = expenseData["isRead"] as? Bool,
+                  let paidBy = expenseData["expensePaidBy"] as? String,
+                  let totalAmount = expenseData["amount"] as? Int,
                   let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]]
             else { return cell }
 
@@ -364,18 +482,50 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
             }
 
-            for (key, value) in sharedResult where value < 0 {
-
-                if key == userUID {
-
-                    cell.friendNameLabel.text = ("You owe \(friendName) $\(-value) for \(expenseDescription)" )
-
+            for (UID, amount) in sharedResult {
+                
+                if UID == userUID {
+                    
+                    if amount < 0 {
+                        
+                        cell.friendNameLabel.text = ("You owe \(friendName) $\(-amount) for \(expenseDescription)" )
+                        
+                    } else if amount == 0 {
+                        
+                        if paidBy == userUID {
+                            
+                            cell.friendNameLabel.text = ("\(friendName) owes you $\(totalAmount) for \(expenseDescription)")
+                            
+                        } else {
+                            
+                            cell.friendNameLabel.text = ("You share nothing in this expense" )
+                            
+                        }
+                        
+                    }
+                    
                 } else {
-
-                    cell.friendNameLabel.text = ("\(friendName) owes you $\(-value) for \(expenseDescription)")
-
+                    
+                    if amount < 0 {
+                        
+                        cell.friendNameLabel.text = ("\(friendName) owes you $\(-amount) for \(expenseDescription)")
+                        
+                    } else if amount == 0 {
+                        
+                        if paidBy == userUID {
+                            
+                            cell.friendNameLabel.text = ("You share nothing in this expense" )
+                            
+                        } else {
+                            
+                            cell.friendNameLabel.text = ("You owe \(friendName) $\(totalAmount) for \(expenseDescription)" )
+                            
+                        }
+                        
+                    }
+                    
                 }
-
+                
             }
 
             cell.expenseCreatedDateLabel.text = expenseDate
@@ -389,6 +539,8 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                   let expenseDescription = expenseData["description"] as? String,
                   let sharedResult = expenseData["sharedResult"] as? [String: Int],
                   let isRead = expenseData["isRead"] as? Bool,
+                  let paidBy = expenseData["expensePaidBy"] as? String,
+                  let totalAmount = expenseData["amount"] as? Int,
                   let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]]
             else { return cell }
 
@@ -403,18 +555,50 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                 cell.expenseCreatedDateLabel.font = UIFont.systemFont(ofSize: 10.0, weight: 1)
             }
 
-            for (key, value) in sharedResult where value < 0 {
-
-                if key == userUID {
-
-                    cell.friendNameLabel.text = ("You owe \(friendName) $\(-value) for \(expenseDescription)" )
-
+            for (UID, amount) in sharedResult {
+                
+                if UID == userUID {
+                    
+                    if amount < 0 {
+                        
+                        cell.friendNameLabel.text = ("You owe \(friendName) $\(-amount) for \(expenseDescription)" )
+                        
+                    } else if amount == 0 {
+                        
+                        if paidBy == userUID {
+                            
+                            cell.friendNameLabel.text = ("\(friendName) owes you $\(totalAmount) for \(expenseDescription)")
+                            
+                        } else {
+                            
+                            cell.friendNameLabel.text = ("You share nothing in this expense" )
+                            
+                        }
+                        
+                    }
+                    
                 } else {
-
-                    cell.friendNameLabel.text = ("\(friendName) owes you $\(-value) for \(expenseDescription)")
-
+                    
+                    if amount < 0 {
+                        
+                        cell.friendNameLabel.text = ("\(friendName) owes you $\(-amount) for \(expenseDescription)")
+                        
+                    } else if amount == 0 {
+                        
+                        if paidBy == userUID {
+                            
+                            cell.friendNameLabel.text = ("You share nothing in this expense" )
+                            
+                        } else {
+                            
+                            cell.friendNameLabel.text = ("You owe \(friendName) $\(totalAmount) for \(expenseDescription)" )
+                            
+                        }
+                        
+                    }
+                    
                 }
-
+                
             }
 
             cell.expenseCreatedDateLabel.text = expenseDate
