@@ -93,18 +93,17 @@
                         </subviews>
                         <color key="backgroundColor" red="0.26897078749999997" green="0.60757797960000004" blue="0.70563191179999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Bnu-lN-pe1" firstAttribute="top" secondItem="EbX-jM-ZUv" secondAttribute="bottom" constant="15" id="2W2-76-4tx"/>
                             <constraint firstItem="cle-oB-Pfl" firstAttribute="top" secondItem="5TN-a6-VNm" secondAttribute="bottom" constant="16" id="37G-0V-TYX"/>
                             <constraint firstItem="YSW-kC-XEh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="22" id="5Ta-aB-4ft"/>
-                            <constraint firstItem="25g-Qu-GXv" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="243" id="6Vi-vH-Fo7"/>
-                            <constraint firstItem="603-aW-78K" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="193" id="DaK-qL-QNO"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="603-aW-78K" secondAttribute="bottom" constant="320" id="8bz-7I-ltt"/>
                             <constraint firstItem="5TN-a6-VNm" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Dqw-bj-Iek"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="EbX-jM-ZUv" secondAttribute="bottom" constant="420" id="ELG-ln-Pp8"/>
                             <constraint firstItem="cle-oB-Pfl" firstAttribute="trailing" secondItem="5TN-a6-VNm" secondAttribute="trailing" id="FF0-6S-hHq"/>
                             <constraint firstItem="603-aW-78K" firstAttribute="leading" secondItem="Bnu-lN-pe1" secondAttribute="leading" id="I2Y-gm-Kzn"/>
                             <constraint firstItem="Bnu-lN-pe1" firstAttribute="leading" secondItem="EbX-jM-ZUv" secondAttribute="leading" id="QZQ-5z-qhU"/>
                             <constraint firstItem="EbX-jM-ZUv" firstAttribute="leading" secondItem="YSW-kC-XEh" secondAttribute="leading" id="QuF-GV-vTK"/>
                             <constraint firstItem="25g-Qu-GXv" firstAttribute="trailing" secondItem="603-aW-78K" secondAttribute="trailing" id="UNc-d1-MWr"/>
-                            <constraint firstItem="EbX-jM-ZUv" firstAttribute="top" secondItem="YSW-kC-XEh" secondAttribute="bottom" constant="20" id="Zqa-Sh-4Ll"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Bnu-lN-pe1" secondAttribute="bottom" constant="370" id="XBz-DW-hPp"/>
                             <constraint firstItem="YSW-kC-XEh" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="45" id="b1d-15-QPe"/>
                             <constraint firstAttribute="trailingMargin" secondItem="YSW-kC-XEh" secondAttribute="trailing" constant="22" id="fIV-5n-g5d"/>
                             <constraint firstItem="cle-oB-Pfl" firstAttribute="leading" secondItem="5TN-a6-VNm" secondAttribute="leading" id="gVg-Lo-MVD"/>
@@ -113,6 +112,7 @@
                             <constraint firstItem="EbX-jM-ZUv" firstAttribute="trailing" secondItem="YSW-kC-XEh" secondAttribute="trailing" id="nNc-AY-vAZ"/>
                             <constraint firstItem="5TN-a6-VNm" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="srD-e8-8uk"/>
                             <constraint firstItem="5TN-a6-VNm" firstAttribute="top" secondItem="25g-Qu-GXv" secondAttribute="bottom" constant="50" id="u9z-Pc-Ljj"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="cle-oB-Pfl" secondAttribute="bottom" constant="114" id="uj2-a7-jqG"/>
                             <constraint firstItem="Bnu-lN-pe1" firstAttribute="trailing" secondItem="EbX-jM-ZUv" secondAttribute="trailing" id="veK-BX-Ohp"/>
                         </constraints>
                     </view>
