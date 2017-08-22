@@ -50,6 +50,10 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
         expenseListTableView.tableFooterView = UIView(frame:CGRect(x: 0, y: 0, width: 0, height: 0))
 
+        expenseListTableView.estimatedRowHeight = 60.00
+
+        expenseListTableView.rowHeight = UITableViewAutomaticDimension
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -144,6 +148,20 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
         headerView.addSubview(headerLabel)
 
         return headerView
+
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+
+        if tableView.dataSource?.tableView(expenseListTableView, numberOfRowsInSection: section) == 0 {
+
+            return 0
+
+        } else {
+
+            return 33
+
+        }
 
     }
 
@@ -290,11 +308,11 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
             if key == userUID {
 
-                cell.friendNameLabel.text = ("You owe \(friendName) $\(-value) for \(expenseDescription)" )
+                cell.friendNameLabel.text = ("You owe \(friendName) $\(-value)\nfor \(expenseDescription)" )
 
             } else {
 
-                cell.friendNameLabel.text = ("\(friendName) owes you $\(-value) for \(expenseDescription)")
+                cell.friendNameLabel.text = ("\(friendName) owes you $\(-value)\nfor \(expenseDescription)")
 
             }
 

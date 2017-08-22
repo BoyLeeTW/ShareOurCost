@@ -59,11 +59,13 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        friendManager.fetchFriendNameAndUIDList(completion: {
+//        friendManager.fetchFriendNameAndUIDList(completion: {
+//
+//            self.setUpFriendNamePicker()
+//
+//        })
 
-            self.setUpFriendNamePicker()
-
-        })
+        fetchFriendUIDAndNameListThenSetUpTableView()
 
         setUpDatePicker()
 
@@ -182,6 +184,35 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
     }
 
+    func fetchFriendUIDAndNameListThenSetUpTableView() {
+
+        if friendUIDList.count == 0 {
+
+            friendManager.fetchFriendUIDList (completion: { [weak self] (friendUIDListOfBlock) in
+
+                guard let weakSelf = self else { return }
+
+                friendUIDList = friendUIDListOfBlock
+
+                weakSelf.friendManager.fetchFriendNameAndUIDList(completion: {
+
+                    weakSelf.setUpFriendNamePicker()
+
+                })
+
+            })
+
+        } else {
+
+            friendManager.fetchFriendNameAndUIDList(completion: {
+
+                self.setUpFriendNamePicker()
+
+            })
+
+        }
+    }
+
     func setUpFriendNamePicker() {
 
         for (name, _) in friendNameAndUIDList {
@@ -202,9 +233,19 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         expenseSharedMemberTextField.inputView = friendNamePickerView
         if friendNameList.count > 0 {
 
-            friendSharesLabel.text = "\(friendNameList[0])\nshares"
             expenseSharedMemberTextField.text = friendNameList[0]
-            paidByFriendButton.setTitle(friendNameList[0], for: .normal)
+
+            if friendNameList[0].characters.count > 7 {
+
+                friendSharesLabel.text = "Friend\nshares"
+                paidByFriendButton.setTitle("Friend", for: .normal)
+
+            } else {
+
+                friendSharesLabel.text = "\(friendNameList[0])\nshares"
+                paidByFriendButton.setTitle(friendNameList[0], for: .normal)
+
+            }
 
         }
 
@@ -257,7 +298,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
         expenseAmountTextField.addTarget(self, action: #selector(expenseAmountTextFieldChanged(_:)), for: .editingChanged)
 
-        expenseSharedMemberTextField.addTarget(self, action: #selector(touchSharedMemberText), for: .editingChanged)
+        expenseSharedMemberTextField.addTarget(self, action: #selector(touchSharedMemberText), for: .editingDidBegin)
 
         userSharedAmountTextField.addTarget(self, action: #selector(userSharedAmountTextFieldChagned), for: .editingChanged)
 
@@ -562,10 +603,21 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
 
         expenseSharedMemberTextField.text = friendNameList[row]
-        paidByFriendButton.setTitle(friendNameList[row], for: .normal)
-        friendSharesLabel.text = "\(friendNameList[row])\nshares"
+
+        if friendNameList[row].characters.count > 7 {
+
+            paidByFriendButton.setTitle("Friend", for: .normal)
+            friendSharesLabel.text = "Friend\nshares"
+
+        } else {
+
+            paidByFriendButton.setTitle(friendNameList[row], for: .normal)
+            friendSharesLabel.text = "\(friendNameList[row])\nshares"
+
+        }
 
         self.view.endEditing(true)
+
     }
 
 }
