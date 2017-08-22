@@ -35,6 +35,8 @@ class FriendListTableViewController: UITableViewController, UIGestureRecognizerD
 
         setUpNavigationBar()
 
+        friendListTableView.tableFooterView = UIView(frame:CGRect(x: 0, y: 0, width: 0, height: 0))
+
         friendManager.fetchFriendUIDList { [weak self] (friendUIDListOfBlock) in
 
             guard let weakSelf = self else { return }

@@ -35,6 +35,8 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
 
         setUpLayOut()
 
+        friendDetailExpenseListTableView.tableFooterView = UIView(frame:CGRect(x: 0, y: 0, width: 0, height: 0))
+
     }
 
     func fetchAcceptedExpenseData() {

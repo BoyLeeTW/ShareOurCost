@@ -48,6 +48,8 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
         setUpNavigationBar()
 
+        expenseListTableView.tableFooterView = UIView(frame:CGRect(x: 0, y: 0, width: 0, height: 0))
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
