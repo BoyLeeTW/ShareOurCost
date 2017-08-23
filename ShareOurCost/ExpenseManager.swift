@@ -23,54 +23,50 @@ class ExpenseManager {
         ref.child("userExpense").child(userUID).observe(.value, with: { (dataSnapshot) in
 
             var acceptedExpenseIDList = ExpenseInfoList()
-            
+
             var sentPendingExpenseIDList = ExpenseInfoList()
-            
+
             var receivedPendingExpenseIDList = ExpenseInfoList()
-            
+
             var deniedExpenseIDList = ExpenseInfoList()
-            
+
             var receivedDeletedExpenseIDList = ExpenseInfoList()
 
             //key is the ID of expense
-            guard let expenseData = dataSnapshot.value as? [String: Any] else {
+            guard let expenseData = dataSnapshot.value as? [String: Any]
+
+            else {
 
                 NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
 
                 return
 
             }
+
             for (key, value) in expenseData {
 
                 guard let expenseStatusDic = value as? [String: Any],
-                    let isReadStatus = expenseStatusDic["isRead"] as? Bool,
-                    let expenseStatus = expenseStatusDic["status"] as? String
-                    else { return }
+                      let isReadStatus = expenseStatusDic["isRead"] as? Bool,
+                      let expenseStatus = expenseStatusDic["status"] as? String
+                else { return }
 
                 self.ref.child("expenseList").child(key).observe(.value, with: { (dataSnapshot) in
 
                     var sharedFriendID = String()
-                    
+
                     guard let expenseDetailData = dataSnapshot.value as? [String: Any],
-                        let expenseTotalAmount = expenseDetailData["amount"] as? Int,
-                        let expenseCreatedBy = expenseDetailData["createdBy"] as? String,
-                        let expenseCreatedDay = expenseDetailData["createdTime"] as? String,
-                        let expensePaidby = expenseDetailData["expensePaidBy"] as? String,
-                        let expenseDescription = expenseDetailData["description"] as? String,
-                        let expenseDay = expenseDetailData["expenseDay"] as? String,
-                        let expenseSahreWith = expenseDetailData["sharedWith"] as? String,
-                        let sharedAmount = expenseDetailData["sharedResult"] as? [String: Int],
-                        let amountYouShared = sharedAmount["\(userUID)"]
-                        else { return }
-                    
+                          let expenseCreatedBy = expenseDetailData["createdBy"] as? String,
+                          let expenseSahreWith = expenseDetailData["sharedWith"] as? String
+                    else { return }
+
                     if expenseCreatedBy == userUID {
                         
                         sharedFriendID = expenseSahreWith
-                        
+
                     } else {
-                        
+
                         sharedFriendID = expenseCreatedBy
-                        
+
                     }
 
                     var expenseDetailDataVar = expenseDetailData
@@ -90,17 +86,17 @@ class ExpenseManager {
                             acceptedExpenseIDList[sharedFriendID]?.append(expenseDetailDataVar)
 
                         }
-                        
+
                     } else if expenseStatus == ExpenseStatus.receivedPending.rawValue {
 
                         if receivedPendingExpenseIDList[sharedFriendID] == nil {
-                            
+
                             receivedPendingExpenseIDList.updateValue([expenseDetailDataVar], forKey: sharedFriendID)
-                            
+
                         } else {
-                            
+
                             receivedPendingExpenseIDList[sharedFriendID]?.append(expenseDetailDataVar)
-                            
+
                         }
 
                     } else if expenseStatus == ExpenseStatus.sentPending.rawValue {
@@ -110,11 +106,10 @@ class ExpenseManager {
                             sentPendingExpenseIDList.updateValue([expenseDetailDataVar], forKey: sharedFriendID)
 
                         } else {
-                            
-                            sentPendingExpenseIDList[sharedFriendID]?.append(expenseDetailDataVar)
-                            
-                        }
 
+                            sentPendingExpenseIDList[sharedFriendID]?.append(expenseDetailDataVar)
+
+                        }
 
                     } else if expenseStatus == ExpenseStatus.denied.rawValue {
 
@@ -123,29 +118,33 @@ class ExpenseManager {
                             deniedExpenseIDList.updateValue([expenseDetailDataVar], forKey: sharedFriendID)
                             
                         } else {
-                            
+
                             deniedExpenseIDList[sharedFriendID]?.append(expenseDetailDataVar)
-                            
+
                         }
 
                     } else if expenseStatus == ExpenseStatus.receivedDeleted.rawValue {
-                        
+
                         if receivedDeletedExpenseIDList[sharedFriendID] == nil {
-                            
+
                             receivedDeletedExpenseIDList.updateValue([expenseDetailDataVar], forKey: sharedFriendID)
-                            
+
                         } else {
-                            
+
                             receivedDeletedExpenseIDList[sharedFriendID]?.append(expenseDetailDataVar)
-                            
+
                         }
-                        
+
                     }
-                    
+
                     DispatchQueue.main.async {
 
-                        completion(acceptedExpenseIDList, receivedPendingExpenseIDList, sentPendingExpenseIDList, deniedExpenseIDList, receivedDeletedExpenseIDList)
-                        
+                        completion(acceptedExpenseIDList,
+                                   receivedPendingExpenseIDList,
+                                   sentPendingExpenseIDList,
+                                   deniedExpenseIDList,
+                                   receivedDeletedExpenseIDList)
+
                     }
 
                 })
@@ -158,7 +157,12 @@ class ExpenseManager {
 
     }
 
-    func changeExpenseStatus(friendUID: String, expenseID: String, changeSelfStatus: String, changeFriendStatus: String?) {
+    func changeExpenseStatus(friendUID: String,
+                             expenseID: String,
+                             changeSelfStatus: String,
+                             changeFriendStatus: String? )
+
+    {
 
         ref = Database.database().reference()
 
@@ -172,9 +176,7 @@ class ExpenseManager {
             ref.child("userExpense").child(userUID).child(expenseID).updateChildValues(["status": changeSelfStatus])
             ref.child("userExpense").child(friendUID).child(expenseID).updateChildValues(["status": changeFriendStatus!])
 
-
         }
-
 
     }
 
@@ -193,7 +195,7 @@ class ExpenseManager {
     }
 
     func fetchAcceptedExpenseList(completion: @escaping (ExpenseInfoList) -> () ) {
-        
+
         ref = Database.database().reference()
 
         ref.child("userExpense").child(userUID).queryOrdered(byChild: "status").queryEqual(toValue: "accepted").observe(.value, with: { (dataSnapshot) in
@@ -201,7 +203,9 @@ class ExpenseManager {
             var acceptedExpenseList = ExpenseInfoList()
 
             //key is the ID of expense
-            guard let expenseData = dataSnapshot.value as? [String: Any] else {
+            guard let expenseData = dataSnapshot.value as? [String: Any]
+
+            else {
 
                 NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
 
@@ -210,31 +214,31 @@ class ExpenseManager {
             }
 
             for (key, value) in expenseData {
-                
+
                 guard let expenseStatusDic = value as? [String: Any],
-                    let isReadStatus = expenseStatusDic["isRead"] as? Bool,
-                    let expenseStatus = expenseStatusDic["status"] as? String
-                    else { return }
-                
+                      let isReadStatus = expenseStatusDic["isRead"] as? Bool,
+                      let expenseStatus = expenseStatusDic["status"] as? String
+                else { return }
+
                 self.ref.child("expenseList").child(key).observe(.value, with: { (dataSnapshot) in
-                    
+
                     var sharedFriendID = String()
-                    
+
                     guard let expenseDetailData = dataSnapshot.value as? [String: Any],
-                        let expenseCreatedBy = expenseDetailData["createdBy"] as? String,
-                        let expenseSahreWith = expenseDetailData["sharedWith"] as? String
-                        else { return }
-                    
+                          let expenseCreatedBy = expenseDetailData["createdBy"] as? String,
+                          let expenseSahreWith = expenseDetailData["sharedWith"] as? String
+                    else { return }
+
                     if expenseCreatedBy == userUID {
-                        
+
                         sharedFriendID = expenseSahreWith
-                        
+
                     } else {
-                        
+
                         sharedFriendID = expenseCreatedBy
-                        
+
                     }
-                    
+
                     var expenseDetailDataVar = expenseDetailData
                     
                     expenseDetailDataVar.updateValue(isReadStatus, forKey: "isRead")
@@ -242,35 +246,28 @@ class ExpenseManager {
                     expenseDetailDataVar.updateValue(key, forKey: "id")
 
                     if acceptedExpenseList[sharedFriendID] == nil {
-                            
+
                         acceptedExpenseList.updateValue([expenseDetailDataVar], forKey: sharedFriendID)
-                            
+
                     } else {
-                            
+
                         acceptedExpenseList[sharedFriendID]?.append(expenseDetailDataVar)
-                            
+
                     }
 
                     DispatchQueue.main.async {
-                        
+
                         completion(acceptedExpenseList)
-                        
+
                     }
-                    
+
                 })
-                
+
                 self.ref.child("expenseList").removeAllObservers()
-                
+
             }
-            
+
         })
-        
-    }
-
-    //Action: View expense detail or accept directly
-    func sendSettleUpRequest() {
-
-        
 
     }
 
@@ -281,9 +278,7 @@ class ExpenseManager {
         for expenseID in expenseIDList {
 
             ref.child("expenseList").child(expenseID).removeValue()
-
             ref.child("userExpense").child(friendUID).child(expenseID).removeValue()
-
             ref.child("userExpense").child(userUID).child(expenseID).removeValue()
         }
 
@@ -292,20 +287,9 @@ class ExpenseManager {
     func deleteExpense(friendUID: String, expenseID: String) {
 
         ref = Database.database().reference()
-
         ref.child("expenseList").child(expenseID).removeValue()
-
         ref.child("userExpense").child(friendUID).child(expenseID).removeValue()
-        
         ref.child("userExpense").child(userUID).child(expenseID).removeValue()
-
-    }
-
-    func sendSettleUpInvitation() {
-
-        ref = Database.database().reference()
-
-//        ref.child("")
 
     }
 

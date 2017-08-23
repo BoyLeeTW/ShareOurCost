@@ -61,13 +61,13 @@ class ExpeneseDetailViewController: UIViewController, UIGestureRecognizerDelegat
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-        
+
     }
-    
+
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        
+
         return true
-        
+
     }
 
     func touchBackButton() {
@@ -223,7 +223,7 @@ class ExpeneseDetailViewController: UIViewController, UIGestureRecognizerDelegat
                                                    expenseID: self.expenseID,
                                                    changeSelfStatus: true,
                                                    changeFriendStatus: false)
-         
+
             self.navigationController?.popViewController(animated: true)
 
         }

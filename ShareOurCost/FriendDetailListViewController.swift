@@ -35,6 +35,8 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
 
         setUpLayOut()
 
+        friendDetailExpenseListTableView.tableFooterView = UIView(frame:CGRect(x: 0, y: 0, width: 0, height: 0))
+
     }
 
     func fetchAcceptedExpenseData() {
@@ -43,37 +45,38 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
 
         NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
 
-        expenseManager.fetchAcceptedExpenseList { (acceptedExepnseList) in
+        expenseManager.fetchAcceptedExpenseList { [weak self] (acceptedExepnseList) in
 
-            self.acceptedExpenseList = acceptedExepnseList
+            guard let weakSelf = self else { return }
 
-            self.friendDetailExpenseListTableView.reloadData()
+            weakSelf.acceptedExpenseList = acceptedExepnseList
+
+            weakSelf.friendDetailExpenseListTableView.reloadData()
 
             NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
 
-            guard let expenseInfoSource = acceptedExepnseList[self.friendUID] else {
+            guard let expenseInfoSource = acceptedExepnseList[weakSelf.friendUID]
+
+            else { weakSelf.balanceLabel.text = "There is no expense yet!"
                 
-                self.balanceLabel.text = "There is no expense yet!"
-                
-                return }
+                return
+
+            }
             
             for expenseInfo in expenseInfoSource {
                 
-                guard let expenseDescription = expenseInfo["description"] as? String,
-                    let sharedResult = expenseInfo["sharedResult"] as? [String: Int],
-                    let isRead = expenseInfo["isRead"] as? Bool,
-                    let expenseID = expenseInfo["id"] as? String,
-                    let friendName = friendUIDandNameList[self.friendUID]
-                    
-                    else { return }
+                guard let sharedResult = expenseInfo["sharedResult"] as? [String: Int],
+                      let expenseID = expenseInfo["id"] as? String,
+                      let friendName = friendUIDandNameList[weakSelf.friendUID]
+                else { return }
                 
-                if self.existingExpenseIDList.contains(expenseID) {
+                if weakSelf.existingExpenseIDList.contains(expenseID) {
                     
                     continue
                     
                 } else {
                     
-                    self.existingExpenseIDList.append(expenseID)
+                    weakSelf.existingExpenseIDList.append(expenseID)
                 }
                 
                 for (key, value) in sharedResult where value < 0 {
@@ -81,24 +84,24 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
                     //you own friend money
                     if key == userUID {
                         
-                        self.balanceToFriend += value
+                        weakSelf.balanceToFriend += value
                         
                         // friend owes you money
                     } else {
                         
-                        self.balanceToFriend -= value
+                        weakSelf.balanceToFriend -= value
                         
                     }
                     
                 }
                 
-                if self.balanceToFriend < 0 {
+                if weakSelf.balanceToFriend < 0 {
                     
-                    self.balanceLabel.text = "You owe \(friendName) $\(abs(self.balanceToFriend))"
+                    weakSelf.balanceLabel.text = "You owe \(friendName) $\(abs(weakSelf.balanceToFriend))"
                     
                 } else {
                     
-                    self.balanceLabel.text = "\(friendName) owes you $\(abs(self.balanceToFriend))"
+                    weakSelf.balanceLabel.text = "\(friendName) owes you $\(abs(weakSelf.balanceToFriend))"
                     
                 }
                 

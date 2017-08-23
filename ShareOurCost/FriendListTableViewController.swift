@@ -35,15 +35,19 @@ class FriendListTableViewController: UITableViewController, UIGestureRecognizerD
 
         setUpNavigationBar()
 
-        friendManager.fetchFriendUIDList { (friendUIDListOfBlock) in
+        friendListTableView.tableFooterView = UIView(frame:CGRect(x: 0, y: 0, width: 0, height: 0))
+
+        friendManager.fetchFriendUIDList { [weak self] (friendUIDListOfBlock) in
+
+            guard let weakSelf = self else { return }
 
             friendUIDList = friendUIDListOfBlock
 
-            self.friendManager.fetchFriendUIDtoNameList(friendUIDList: friendUIDList, completion: { (friendUIDtoNameListOfBlock) in
+            weakSelf.friendManager.fetchFriendUIDtoNameList(friendUIDList: friendUIDList, completion: { (friendUIDtoNameListOfBlock) in
 
                 friendUIDandNameList = friendUIDtoNameListOfBlock
 
-                self.friendListTableView.reloadData()
+                weakSelf.friendListTableView.reloadData()
 
                 NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
 

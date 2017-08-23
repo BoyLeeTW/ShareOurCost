@@ -11,6 +11,7 @@ import Foundation
 import Firebase
 import FirebaseAuth
 import FirebaseDatabase
+import NVActivityIndicatorView
 
 class AccountManager {
 
@@ -53,13 +54,15 @@ class AccountManager {
 
         //check if userID is unique
         ref.child("userID").queryOrderedByValue().queryEqual(toValue: userID).observeSingleEvent(of: .value, with: { (dataSnapshot) in
+
             completion(!dataSnapshot.exists())
+
         })
 
     }
 
     func firebaseRegistration(email: String, password: String, userName: String, userID: String, completion:
-        @escaping () -> ()) {
+        @escaping (String?) -> ()) {
 
         ref = Database.database().reference()
 
@@ -82,11 +85,13 @@ class AccountManager {
 
                 userUID = Auth.auth().currentUser!.uid
 
-                completion()
+                completion(nil)
 
             } else {
 
                 Analytics.logEvent("registerFailed", parameters: nil)
+
+                completion(error?.localizedDescription)
 
             }
 
