@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import NVActivityIndicatorView
 
-class FriendDetailListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate {
+class FriendDetailListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var balanceLabel: UILabel!
     @IBOutlet weak var friendDetailExpenseListTableView: UITableView!
 
@@ -34,6 +34,8 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
         setUpNavigationBar()
 
         setUpLayOut()
+
+        setUpGesture()
 
         friendDetailExpenseListTableView.tableFooterView = UIView(frame:CGRect(x: 0, y: 0, width: 0, height: 0))
 
@@ -124,14 +126,6 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
 
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_navigate_before_white_36pt"), style: .plain, target: self, action: #selector(touchBackButton))
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
-        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-
-    }
-
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-
-        return true
 
     }
 
@@ -232,4 +226,18 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
         }
     }
 
+    func setUpGesture() {
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
+        swipeRight.direction = .right
+        self.view.addGestureRecognizer(swipeRight)
+        
+    }
+    
+    func handleGesture(gesture: UISwipeGestureRecognizer) -> Void {
+        if gesture.direction == UISwipeGestureRecognizerDirection.right {
+            self.navigationController?.popViewController(animated: true)
+            
+        }
+    }
 }

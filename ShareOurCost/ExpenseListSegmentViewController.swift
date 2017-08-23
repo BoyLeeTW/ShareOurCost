@@ -642,7 +642,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
               let friendUID = friendUIDList[sender.section!] as? String
         else { return }
 
-        expenseManager.changeExpenseStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: "denied", changeFriendStatus: nil)
+        expenseManager.changeExpenseStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: "sentDenied", changeFriendStatus: "denied")
 
         expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: false)
 

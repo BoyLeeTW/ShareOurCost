@@ -11,7 +11,7 @@ import Firebase
 import FirebaseDatabase
 import NVActivityIndicatorView
 
-class FriendListTableViewController: UITableViewController, UIGestureRecognizerDelegate {
+class FriendListTableViewController: UITableViewController {
     @IBOutlet var friendListTableView: UITableView!
     @IBAction func touchAcceptFriendButton(_ sender: Any) {
     }
@@ -86,15 +86,7 @@ class FriendListTableViewController: UITableViewController, UIGestureRecognizerD
 
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "icon-exit"), style: .plain, target: self, action: #selector(handleLogout))
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
-        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-        
-    }
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        
-        return true
-        
+
     }
 
     func touchBackButton() {

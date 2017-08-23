@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class AddFriendViewController: UIViewController, UIGestureRecognizerDelegate {
+class AddFriendViewController: UIViewController {
     @IBOutlet weak var searchFriendUIDTextField: UITextField!
     @IBOutlet weak var searchFriendUIDButton: UIButton!
     @IBOutlet weak var searchFriendUIDResultLabel: UILabel!
@@ -23,6 +23,8 @@ class AddFriendViewController: UIViewController, UIGestureRecognizerDelegate {
         super.viewDidLoad()
 
         setUpLayout()
+
+        setUpGesture()
 
     }
 
@@ -41,14 +43,6 @@ class AddFriendViewController: UIViewController, UIGestureRecognizerDelegate {
 
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_navigate_before_white_36pt"), style: .plain, target: self, action: #selector(touchBackButton))
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
-        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-        
-    }
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        
-        return true
         
     }
 
@@ -122,4 +116,18 @@ class AddFriendViewController: UIViewController, UIGestureRecognizerDelegate {
 
     }
 
+    func setUpGesture() {
+
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
+        swipeRight.direction = .right
+        self.view.addGestureRecognizer(swipeRight)
+
+    }
+
+    func handleGesture(gesture: UISwipeGestureRecognizer) -> Void {
+        if gesture.direction == UISwipeGestureRecognizerDirection.right {
+            self.navigationController?.popViewController(animated: true)
+
+        }
+    }
 }

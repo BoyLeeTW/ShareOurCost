@@ -23,7 +23,7 @@ enum SharedMethod {
 
 }
 
-class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIGestureRecognizerDelegate {
+class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
     var ref: DatabaseReference!
 
@@ -64,6 +64,8 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 //            self.setUpFriendNamePicker()
 //
 //        })
+
+        setUpGesture()
 
         fetchFriendUIDAndNameListThenSetUpTableView()
 
@@ -339,14 +341,6 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_navigate_before_white_36pt"), style: .plain, target: self, action: #selector(touchBackButton))
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
         self.navigationItem.title = "ADD EXPENSE"
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
-        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-
-    }
-
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-
-        return true
 
     }
 
@@ -402,6 +396,40 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         sharedMethod = SharedMethod.byPercent
 
     }
+
+//    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{
+//        
+//        let strMain: String = string
+//        
+//        let arrTemp : NSArray = (expenseAmountTextField.text?.components(separatedBy: (NSCharacterSet.decimalDigits)) as! NSArray)
+//        let str: NSString = arrTemp.componentsJoined(by: "") as NSString
+//        
+//        //NSInteger centAmount = cleanCentString.integerValue;
+//        var centAmount : NSInteger = str.integerValue
+//        
+//        if (string.characters.count > 0)
+//        {
+//            // Digit added
+//            centAmount = centAmount * 10 + strMain.integerValue;
+//        }
+//        else {
+//            // Digit deleted
+//            centAmount = centAmount / 10;
+//        }
+//        
+//        let amount = (Double(centAmount) / 100.0)
+//        
+//        let currencyFormatter = NumberFormatter()
+//        currencyFormatter.numberStyle = .CurrencyStyle
+//        currencyFormatter.currencyCode = "USD"
+//        currencyFormatter.negativeFormat = "-¤#,##0.00"
+//        let convertedPrice = currencyFormatter.stringFromNumber(amount)
+//        
+//        print(convertedPrice)
+//        
+//        centAmount.text = convertedPrice! //set text to your textfiled
+//        return false //return false for exact out put
+//    }
 
     func userSharedPercentTextFieldChanged() {
 
@@ -620,4 +648,18 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
     }
 
+    func setUpGesture() {
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
+        swipeRight.direction = .right
+        self.view.addGestureRecognizer(swipeRight)
+        
+    }
+    
+    func handleGesture(gesture: UISwipeGestureRecognizer) -> Void {
+        if gesture.direction == UISwipeGestureRecognizerDirection.right {
+            self.navigationController?.popViewController(animated: true)
+            
+        }
+    }
 }

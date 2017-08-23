@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class ExpeneseDetailViewController: UIViewController, UIGestureRecognizerDelegate {
+class ExpeneseDetailViewController: UIViewController {
 
     @IBOutlet weak var totalAmountLabel: UILabel!
     @IBOutlet weak var amountYouSharedLabel: UILabel!
@@ -51,6 +51,8 @@ class ExpeneseDetailViewController: UIViewController, UIGestureRecognizerDelegat
 
         setUpNavigationBar()
 
+        setUpGesture()
+
     }
 
     func setUpNavigationBar() {
@@ -59,14 +61,6 @@ class ExpeneseDetailViewController: UIViewController, UIGestureRecognizerDelegat
                                                                 target: self,
                                                                 action: #selector(touchBackButton))
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
-        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-
-    }
-
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-
-        return true
 
     }
 
@@ -216,8 +210,8 @@ class ExpeneseDetailViewController: UIViewController, UIGestureRecognizerDelegat
 
             expenseManager.changeExpenseStatus(friendUID: sharedFriendUID,
                                                expenseID: expenseID,
-                                               changeSelfStatus: "denied",
-                                               changeFriendStatus: nil)
+                                               changeSelfStatus: "sentDenied",
+                                               changeFriendStatus: "denied")
 
             expenseManager.changeExpenseReadStatus(friendUID: self.sharedFriendUID,
                                                    expenseID: self.expenseID,
@@ -285,4 +279,18 @@ class ExpeneseDetailViewController: UIViewController, UIGestureRecognizerDelegat
 
     }
 
+    func setUpGesture() {
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
+        swipeRight.direction = .right
+        self.view.addGestureRecognizer(swipeRight)
+        
+    }
+    
+    func handleGesture(gesture: UISwipeGestureRecognizer) -> Void {
+        if gesture.direction == UISwipeGestureRecognizerDirection.right {
+            self.navigationController?.popViewController(animated: true)
+            
+        }
+    }
 }

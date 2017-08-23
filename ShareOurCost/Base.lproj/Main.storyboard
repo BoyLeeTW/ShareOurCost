@@ -171,7 +171,7 @@
                                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Amount" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZWm-ud-6QE">
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Amount" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZWm-ud-6QE" customClass="VSTextField" customModule="ShareOurCost" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="133.5" width="206" height="46.5"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
@@ -399,10 +399,10 @@ SHARES</string>
                     </navigationItem>
                     <connections>
                         <outlet property="biggestView" destination="liY-5x-fjT" id="cFD-rS-oAk"/>
-                        <outlet property="expenseAmountTextField" destination="ZWm-ud-6QE" id="YUD-Bm-SRz"/>
+                        <outlet property="expenseAmountTextField" destination="ZWm-ud-6QE" id="mc5-pY-vRi"/>
                         <outlet property="expenseDayTextField" destination="9lr-J4-8bJ" id="gUO-cE-uyg"/>
                         <outlet property="expenseDescriptionTextField" destination="PO0-7z-HwZ" id="6dI-mS-u2f"/>
-                        <outlet property="expenseSharedMemberTextField" destination="Gp1-ob-HGl" id="0Vh-gG-5PA"/>
+                        <outlet property="expenseSharedMemberTextField" destination="Gp1-ob-HGl" id="c4d-sY-GUk"/>
                         <outlet property="friendPercentLabel" destination="tSn-l6-Uci" id="zP9-Id-88C"/>
                         <outlet property="friendSharedAmountTextField" destination="CI8-VE-JpX" id="6MS-sa-F8a"/>
                         <outlet property="friendSharedPercentTextField" destination="xuA-p4-WY6" id="ISs-X7-MRL"/>
