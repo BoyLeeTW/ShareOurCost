@@ -121,12 +121,12 @@ class ExpeneseDetailViewController: UIViewController, UIGestureRecognizerDelegat
 
         }
 
-        self.totalAmountLabel.text = "Total Amount: $\(expenseTotalAmount)"
-        self.expenseCreatedByLabel.text = "Created By: \(expenseCreatedByName)"
-        self.expenseCreatedDayLabel.text = "Create Day: \(expenseCreatedDay)"
-        self.expenseDescriptionLabel.text = "Description: \(expenseDescription)"
-        self.amountYouSharedLabel.text = "Amount You Shared: $\(abs(amountYouShared))"
-        self.expenseDateLabel.text = "Expense Day: \(expenseDay)"
+        self.totalAmountLabel.text = "TOTAL Amount: $\(expenseTotalAmount)"
+        self.expenseCreatedByLabel.text = "CREATED BY: \(expenseCreatedByName)"
+        self.expenseCreatedDayLabel.text = "Added by \(expenseCreatedByName) on \(expenseCreatedDay)"
+        self.expenseDescriptionLabel.text = "DESCRIPTION: \(expenseDescription)"
+        self.amountYouSharedLabel.text = "AMOUNT\nYOU SHARED: $\(abs(amountYouShared))"
+        self.expenseDateLabel.text = "EXPENSE DAY: \(expenseDay)"
 
     }
 

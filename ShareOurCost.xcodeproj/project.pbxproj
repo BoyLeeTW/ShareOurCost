@@ -14,6 +14,7 @@
 		A20F2C711F276F9700D446F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20F2C701F276F9700D446F7 /* Assets.xcassets */; };
 		A20F2C741F276F9700D446F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A20F2C721F276F9700D446F7 /* LaunchScreen.storyboard */; };
 		A23489691F35F7760015698D /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23489681F35F7760015698D /* AccountManager.swift */; };
+		A24D05631F4D237B008C9BE8 /* LoginSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24D05621F4D237B008C9BE8 /* LoginSegmentedControl.swift */; };
 		A24F30C51F2B2EFC002E05E2 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24F30C41F2B2EFC002E05E2 /* File.swift */; };
 		A26EB00B1F42C51B009E5C6F /* AddFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26EB00A1F42C51B009E5C6F /* AddFriendViewController.swift */; };
 		A26EB00D1F42D0E8009E5C6F /* FriendDetailListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26EB00C1F42D0E8009E5C6F /* FriendDetailListViewController.swift */; };
@@ -47,6 +48,7 @@
 		A20F2C731F276F9700D446F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A20F2C751F276F9700D446F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A23489681F35F7760015698D /* AccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
+		A24D05621F4D237B008C9BE8 /* LoginSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginSegmentedControl.swift; sourceTree = "<group>"; };
 		A24F30C41F2B2EFC002E05E2 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		A26EB00A1F42C51B009E5C6F /* AddFriendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFriendViewController.swift; sourceTree = "<group>"; };
 		A26EB00C1F42D0E8009E5C6F /* FriendDetailListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendDetailListViewController.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				A26EB00E1F444AF2009E5C6F /* TabBarController.swift */,
 				A26EB00A1F42C51B009E5C6F /* AddFriendViewController.swift */,
 				A20F2C681F276F9700D446F7 /* LoginViewController.swift */,
+				A24D05621F4D237B008C9BE8 /* LoginSegmentedControl.swift */,
 				A23489681F35F7760015698D /* AccountManager.swift */,
 				A24F30C41F2B2EFC002E05E2 /* File.swift */,
 				A20F2C721F276F9700D446F7 /* LaunchScreen.storyboard */,
@@ -301,6 +304,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A24D05631F4D237B008C9BE8 /* LoginSegmentedControl.swift in Sources */,
 				A29720761F3D70FD00D92B3F /* ExpenseListSegmentViewController.swift in Sources */,
 				A24F30C51F2B2EFC002E05E2 /* File.swift in Sources */,
 				A2FE33F81F374B6400C3A793 /* FriendManager.swift in Sources */,

@@ -76,12 +76,13 @@ class FriendListTableViewController: UITableViewController, UIGestureRecognizerD
 
     func setUpNavigationBar() {
         
-        self.navigationController?.navigationBar.topItem?.title = "Friend"
+        self.navigationController?.navigationBar.topItem?.title = "FRIEND"
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0)
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont(name: "Avenir-Medium", size: 18.0)!]
 
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "icon-exit"), style: .plain, target: self, action: #selector(handleLogout))
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
@@ -110,14 +111,14 @@ class FriendListTableViewController: UITableViewController, UIGestureRecognizerD
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 
-        var sections = ["Your Friends", "Friend Request"]
+        var sectionNameList = ["FRIENDS", "FRIEND REQUEST"]
 
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 30))
         headerView.backgroundColor = UIColor.white
         
         let headerLabel = UILabel(frame: CGRect(x: 10, y: 5, width: tableView.bounds.size.width, height: 25))
-        headerLabel.text = sections[section]
-        headerLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        headerLabel.text = sectionNameList[section]
+        headerLabel.font = UIFont(name: "Avenir-Medium", size: 16.0)
         headerLabel.textColor = UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0)
         
         headerView.addSubview(headerLabel)
@@ -129,9 +130,9 @@ class FriendListTableViewController: UITableViewController, UIGestureRecognizerD
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 
-        var sections = ["Your Friends", "Friend Request"]
+        var sectionNameList = ["FRIENDS", "FRIEND REQUEST"]
 
-        return sections[section]
+        return sectionNameList[section]
 
     }
 
@@ -237,17 +238,31 @@ class FriendListTableViewController: UITableViewController, UIGestureRecognizerD
 
     func handleLogout() {
 
-        accountManager.logOut()
+        let alertController = UIAlertController(title: "Log Out",
+                                                message: "Are you sure?",
+                                                preferredStyle: .alert)
+        let logOutAction = UIAlertAction(title: "Log Out", style: .default, handler: { _ in
 
-        let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC")
+            self.accountManager.logOut()
+            
+            let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC")
+            
+            self.present(loginVC!, animated: true)
+            
+            //clear log out user's data
+            userUID = ""
+            friendUIDandNameList = [String: String]()
+            friendNameAndUIDList = [String: String]()
+            friendUIDList = Array<String>()
+
+        })
+
+        let cancelLogOutAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
         
-        self.present(loginVC!, animated: true)
+        alertController.addAction(logOutAction)
+        alertController.addAction(cancelLogOutAction)
 
-        //clear log out user's data
-        userUID = ""
-        friendUIDandNameList = [String: String]()
-        friendNameAndUIDList = [String: String]()
-        friendUIDList = Array<String>()
+        self.present(alertController, animated: true, completion:  nil)
 
     }
 

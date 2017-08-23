@@ -107,13 +107,14 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
     func setUpNavigationBar() {
 
-        self.navigationController?.navigationBar.topItem?.title = "Shared Expense"
+        self.navigationController?.navigationBar.topItem?.title = "SHARED EXPENSE"
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0)
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.layer.borderColor = UIColor.clear.cgColor
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont(name: "Avenir-Medium", size: 18.0)!]
 
     }
 
@@ -142,7 +143,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
         let headerLabel = UILabel(frame: CGRect(x: 10, y: 5, width: tableView.bounds.size.width, height: 25))
         headerLabel.text = friendUIDtoNameList[friendUIDList[section]]
-        headerLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        headerLabel.font = UIFont(name: "Avenir-Medium", size: 16.0)
         headerLabel.textColor = UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0)
 
         headerView.addSubview(headerLabel)
@@ -638,8 +639,8 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
     func touchDenyButton(sender: MyButton) {
 
         guard let expenseID = receivedPendingExpenseIDList[friendUIDList[sender.section!]]![sender.row!]["id"] as? String,
-            let friendUID = friendUIDList[sender.section!] as? String
-            else { return }
+              let friendUID = friendUIDList[sender.section!] as? String
+        else { return }
 
         expenseManager.changeExpenseStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: "denied", changeFriendStatus: nil)
 
@@ -661,40 +662,40 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
         case 0:
 
             guard let expenseID = acceptedExpenseIDList[friendUIDList[selectedSection]]![selectedRow]["id"] as? String,
-                let friendUID = friendUIDList[selectedSection] as? String
-                else { return }
+                  let friendUID = friendUIDList[selectedSection] as? String
+            else { return }
             
             expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: nil)
 
         case 1:
 
             guard let expenseID = deniedExpenseIDList[friendUIDList[selectedSection]]![selectedRow]["id"] as? String,
-                let friendUID = friendUIDList[selectedSection] as? String
-                else { return }
+                  let friendUID = friendUIDList[selectedSection] as? String
+            else { return }
 
             expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: nil)
 
         case 2:
 
             guard let expenseID = receivedPendingExpenseIDList[friendUIDList[selectedSection]]![selectedRow]["id"] as? String,
-                let friendUID = friendUIDList[selectedSection] as? String
-                else { return }
+                  let friendUID = friendUIDList[selectedSection] as? String
+            else { return }
 
             expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: nil)
 
         case 3:
 
             guard let expenseID = sentPendingExpenseIDList[friendUIDList[selectedSection]]![selectedRow]["id"] as? String,
-                let friendUID = friendUIDList[selectedSection] as? String
-                else { return }
+                  let friendUID = friendUIDList[selectedSection] as? String
+            else { return }
 
             expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: nil)
 
         default:
 
             guard let expenseID = receivedDeletedExpenseIDList[friendUIDList[selectedSection]]![selectedRow]["id"] as? String,
-                let friendUID = friendUIDList[selectedSection] as? String
-                else { return }
+                  let friendUID = friendUIDList[selectedSection] as? String
+            else { return }
 
             expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: nil)
 

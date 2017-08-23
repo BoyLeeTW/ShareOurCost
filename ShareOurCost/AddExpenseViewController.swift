@@ -85,7 +85,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
             Analytics.logEvent("clickSaveExpenseButtonWithoutAllInformation", parameters: nil)
 
-            let alertController = UIAlertController(title: "Oops", message: "Please fill in all information!", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Oops!", message: "Please fill in all information!", preferredStyle: .alert)
             let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
             alertController.addAction(defaultAction)
             self.present(alertController, animated: true, completion: nil)
@@ -237,12 +237,12 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
             if friendNameList[0].characters.count > 7 {
 
-                friendSharesLabel.text = "Friend\nshares"
-                paidByFriendButton.setTitle("Friend", for: .normal)
+                friendSharesLabel.text = "FRIEND\nSHARES"
+                paidByFriendButton.setTitle("FRIEND", for: .normal)
 
             } else {
 
-                friendSharesLabel.text = "\(friendNameList[0])\nshares"
+                friendSharesLabel.text = "\(friendNameList[0])\nSHARES"
                 paidByFriendButton.setTitle(friendNameList[0], for: .normal)
 
             }
@@ -257,8 +257,8 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
             self.expenseSharedMemberTextField.deleteBackward()
 
-            let alertController = UIAlertController(title: "Oops",
-                                                    message: "Please add friend so you can share cost with them!",
+            let alertController = UIAlertController(title: "Oops!",
+                                                    message: "Please add friend so you can share cost with them",
                                                     preferredStyle: .alert)
             let defaultAction = UIAlertAction(title: "OK",
                                               style: .default,
@@ -317,19 +317,19 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
         self.expenseDayTextField.layer.borderWidth = 3
         self.expenseDayTextField.layer.borderColor = UIColor.white.cgColor
-        self.expenseDayTextField.attributedPlaceholder = NSAttributedString(string: "Date", attributes: [NSForegroundColorAttributeName: UIColor(red: 172/255, green: 206/255, blue: 211/255, alpha: 1.0)])
+        self.expenseDayTextField.attributedPlaceholder = NSAttributedString(string: "DATE", attributes: [NSForegroundColorAttributeName: UIColor(red: 172/255, green: 206/255, blue: 211/255, alpha: 1.0)])
 
         self.expenseSharedMemberTextField.layer.borderWidth = 3
         self.expenseSharedMemberTextField.layer.borderColor = UIColor.white.cgColor
-        self.expenseSharedMemberTextField.attributedPlaceholder = NSAttributedString(string: "Shared friend", attributes: [NSForegroundColorAttributeName: UIColor(red: 172/255, green: 206/255, blue: 211/255, alpha: 1.0)])
+        self.expenseSharedMemberTextField.attributedPlaceholder = NSAttributedString(string: "SHARED FRIEND", attributes: [NSForegroundColorAttributeName: UIColor(red: 172/255, green: 206/255, blue: 211/255, alpha: 1.0)])
 
         self.expenseAmountTextField.layer.borderWidth = 3
         self.expenseAmountTextField.layer.borderColor = UIColor.white.cgColor
-        self.expenseAmountTextField.attributedPlaceholder = NSAttributedString(string: "Shared amount", attributes: [NSForegroundColorAttributeName: UIColor(red: 172/255, green: 206/255, blue: 211/255, alpha: 1.0)])
+        self.expenseAmountTextField.attributedPlaceholder = NSAttributedString(string: "SHARED AMOUNT", attributes: [NSForegroundColorAttributeName: UIColor(red: 172/255, green: 206/255, blue: 211/255, alpha: 1.0)])
 
         self.expenseDescriptionTextField.layer.borderWidth = 3
         self.expenseDescriptionTextField.layer.borderColor = UIColor.white.cgColor
-        self.expenseDescriptionTextField.attributedPlaceholder = NSAttributedString(string: "Description", attributes: [NSForegroundColorAttributeName: UIColor(red: 172/255, green: 206/255, blue: 211/255, alpha: 1.0)])
+        self.expenseDescriptionTextField.attributedPlaceholder = NSAttributedString(string: "DESCRIPTION", attributes: [NSForegroundColorAttributeName: UIColor(red: 172/255, green: 206/255, blue: 211/255, alpha: 1.0)])
 
         userPercentLabel.isHidden = true
         friendPercentLabel.isHidden = true
@@ -338,7 +338,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_navigate_before_white_36pt"), style: .plain, target: self, action: #selector(touchBackButton))
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
-        self.navigationItem.title = "Add Expense"
+        self.navigationItem.title = "ADD EXPENSE"
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
 
@@ -411,7 +411,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
         if userSharedPercent > 100 {
 
-            let alertController = UIAlertController(title: "Oops", message: "Shared percent can't be more than 100%", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Oops!", message: "Shared percent can't be more than 100%", preferredStyle: .alert)
             let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
             alertController.addAction(defaultAction)
             self.present(alertController, animated: true, completion: nil)
@@ -436,7 +436,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
         if friendSharedPercent > 100 {
 
-            let alertController = UIAlertController(title: "Oops", message: "Shared percent can't be more than 100%", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Oops!", message: "Shared percent can't be more than 100%", preferredStyle: .alert)
             let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
             alertController.addAction(defaultAction)
             self.present(alertController, animated: true, completion: nil)
@@ -463,7 +463,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
         if totalAmount - userSharedAmount < 0 {
 
-            let alertController = UIAlertController(title: "Oops", message: "Shared amount can't be more than total amount", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Oops!", message: "Shared amount can't be more than total amount", preferredStyle: .alert)
             let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
             alertController.addAction(defaultAction)
             self.present(alertController, animated: true, completion: nil)
@@ -491,7 +491,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
         if totalAmount - friendSharedAmount < 0 {
 
-            let alertController = UIAlertController(title: "Oops", message: "Shared amount can't be more than total amount", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Oops!", message: "Shared amount can't be more than total amount", preferredStyle: .alert)
             let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
             alertController.addAction(defaultAction)
             self.present(alertController, animated: true, completion: nil)
@@ -558,7 +558,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
             expenseAmountTextField.deleteBackward()
 
-            let alertController = UIAlertController(title: "Oops", message: "Amount cannot have more than 7 digits", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Oops!", message: "Amount cannot have more than 7 digits", preferredStyle: .alert)
             let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
             alertController.addAction(defaultAction)
             self.present(alertController, animated: true, completion: nil)
