@@ -644,8 +644,6 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
         }
 
-        self.view.endEditing(true)
-
     }
 
     func setUpGesture() {
