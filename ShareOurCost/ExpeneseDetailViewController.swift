@@ -119,7 +119,7 @@ class ExpeneseDetailViewController: UIViewController {
         self.expenseCreatedByLabel.text = "CREATED BY: \(expenseCreatedByName)"
         self.expenseCreatedDayLabel.text = "Added by \(expenseCreatedByName) on \(expenseCreatedDay)"
         self.expenseDescriptionLabel.text = "DESCRIPTION: \(expenseDescription)"
-        self.amountYouSharedLabel.text = "AMOUNT\nYOU SHARED: $\(abs(amountYouShared))"
+        self.amountYouSharedLabel.text = "AMOUNT YOU SHARED: $\(abs(amountYouShared))"
         self.expenseDateLabel.text = "EXPENSE DAY: \(expenseDay)"
 
     }

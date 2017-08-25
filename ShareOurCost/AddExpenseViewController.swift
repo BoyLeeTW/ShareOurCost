@@ -59,12 +59,6 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        friendManager.fetchFriendNameAndUIDList(completion: {
-//
-//            self.setUpFriendNamePicker()
-//
-//        })
-
         setUpGesture()
 
         fetchFriendUIDAndNameListThenSetUpTableView()
@@ -118,17 +112,17 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
             if self.paidByResult == .user {
 
-                sharedAmountForUser = Double(self.userSharedAmountTextField.text!)!
+                sharedAmountForUser = Double(self.userSharedAmountTextField.text!.replacingOccurrences(of: ",", with: "", options: .literal, range: nil))!
 
-                sharedAmountForFriend = -Double(self.friendSharedAmountTextField.text!)!
+                sharedAmountForFriend = -Double(self.friendSharedAmountTextField.text!.replacingOccurrences(of: ",", with: "", options: .literal, range: nil))!
 
                 paidBy = userUID
 
             } else {
 
-                sharedAmountForUser = -Double(self.userSharedAmountTextField.text!)!
+                sharedAmountForUser = -Double(self.userSharedAmountTextField.text!.replacingOccurrences(of: ",", with: "", options: .literal, range: nil))!
 
-                sharedAmountForFriend = Double(self.friendSharedAmountTextField.text!)!
+                sharedAmountForFriend = Double(self.friendSharedAmountTextField.text!.replacingOccurrences(of: ",", with: "", options: .literal, range: nil))!
 
                 paidBy = friendUID
 
@@ -137,7 +131,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         } else {
 
             guard let sharedPercentAmountForUserText = self.userSharedPercentTextField.text,
-                  let totalExepnseAmountText = self.expenseAmountTextField.text
+                  let totalExepnseAmountText = self.expenseAmountTextField.text?.replacingOccurrences(of: ",", with: "", options: .literal, range: nil)
             else { return }
             let sharedPercentAmountForUser = Double(sharedPercentAmountForUserText) ?? 0
             let totalExpenseAmount = Double(totalExepnseAmountText) ?? 0
@@ -169,7 +163,7 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         dateFormatter.dateFormat = "yyyy/MM/dd"
 
         expenseRef.updateChildValues(
-            ["amount": Int(self.expenseAmountTextField.text!)!,
+            ["amount": Int(self.expenseAmountTextField.text!.replacingOccurrences(of: ",", with: "", options: .literal, range: nil))!,
              "description": "\(self.expenseDescriptionTextField.text!)",
                 "expenseDay": "\(self.expenseDayTextField.text!)",
                 "sharedMember": "\(self.expenseSharedMemberTextField.text!)",
@@ -397,40 +391,6 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
     }
 
-//    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{
-//        
-//        let strMain: String = string
-//        
-//        let arrTemp : NSArray = (expenseAmountTextField.text?.components(separatedBy: (NSCharacterSet.decimalDigits)) as! NSArray)
-//        let str: NSString = arrTemp.componentsJoined(by: "") as NSString
-//        
-//        //NSInteger centAmount = cleanCentString.integerValue;
-//        var centAmount : NSInteger = str.integerValue
-//        
-//        if (string.characters.count > 0)
-//        {
-//            // Digit added
-//            centAmount = centAmount * 10 + strMain.integerValue;
-//        }
-//        else {
-//            // Digit deleted
-//            centAmount = centAmount / 10;
-//        }
-//        
-//        let amount = (Double(centAmount) / 100.0)
-//        
-//        let currencyFormatter = NumberFormatter()
-//        currencyFormatter.numberStyle = .CurrencyStyle
-//        currencyFormatter.currencyCode = "USD"
-//        currencyFormatter.negativeFormat = "-¤#,##0.00"
-//        let convertedPrice = currencyFormatter.stringFromNumber(amount)
-//        
-//        print(convertedPrice)
-//        
-//        centAmount.text = convertedPrice! //set text to your textfiled
-//        return false //return false for exact out put
-//    }
-
     func userSharedPercentTextFieldChanged() {
 
         guard let userSharedPercentText = userSharedPercentTextField.text else { return }
@@ -482,8 +442,8 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
     func userSharedAmountTextFieldChagned() {
 
-        guard let totalAmountText = expenseAmountTextField.text,
-              let userSharedAmountText = userSharedAmountTextField.text
+        guard let totalAmountText = expenseAmountTextField.text?.replacingOccurrences(of: ",", with: "", options: .literal, range: nil),
+              let userSharedAmountText = userSharedAmountTextField.text?.replacingOccurrences(of: ",", with: "", options: .literal, range: nil)
         else { return }
 
         let totalAmount = Int(totalAmountText) ?? 0,
@@ -497,12 +457,12 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
             self.present(alertController, animated: true, completion: nil)
 
             friendSharedAmountTextField.text = "0"
-            userSharedAmountTextField.text = "\((totalAmount))"
+            userSharedAmountTextField.text = "\((totalAmount))".currencyInputFormatting()
 
         } else {
 
-            friendSharedAmountTextField.text = "\((totalAmount - userSharedAmount))"
-            userSharedAmountTextField.text = "\(userSharedAmount)"
+            friendSharedAmountTextField.text = "\((totalAmount - userSharedAmount))".currencyInputFormatting()
+            userSharedAmountTextField.text = "\(userSharedAmount)".currencyInputFormatting()
 
         }
 
@@ -510,8 +470,8 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
     func friendSharedAmountTextFieldChagned() {
 
-        guard let totalAmountText = expenseAmountTextField.text,
-              let friendSharedAmountText = friendSharedAmountTextField.text
+        guard let totalAmountText = expenseAmountTextField.text?.replacingOccurrences(of: ",", with: "", options: .literal, range: nil),
+              let friendSharedAmountText = friendSharedAmountTextField.text?.replacingOccurrences(of: ",", with: "", options: .literal, range: nil)
         else { return }
 
         let totalAmount = Int(totalAmountText) ?? 0,
@@ -525,12 +485,12 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
             self.present(alertController, animated: true, completion: nil)
 
             userSharedAmountTextField.text = "0"
-            friendSharedAmountTextField.text = "\((totalAmount))"
+            friendSharedAmountTextField.text = "\((totalAmount))".currencyInputFormatting()
 
         } else {
 
-            userSharedAmountTextField.text = "\((totalAmount - friendSharedAmount))"
-            friendSharedAmountTextField.text = "\(friendSharedAmount)"
+            userSharedAmountTextField.text = "\((totalAmount - friendSharedAmount))".currencyInputFormatting()
+            friendSharedAmountTextField.text = "\(friendSharedAmount)".currencyInputFormatting()
 
         }
 
@@ -582,7 +542,11 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
         guard let amountText = sender.text else { return }
 
-        if amountText.characters.count > 7 {
+        if let amountString = expenseAmountTextField.text?.currencyInputFormatting() {
+            expenseAmountTextField.text = amountString
+        }
+
+        if amountText.characters.count > 9 {
 
             expenseAmountTextField.deleteBackward()
 
@@ -593,10 +557,14 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
         } else {
 
-            let amount: Double = Double(amountText) ?? 0
+            let amountWithoutComma = amountText.replacingOccurrences(of: ",", with: "", options: .literal, range: nil)
 
-            userSharedAmountTextField.text = "\(Int(round(amount / 2)))"
-            friendSharedAmountTextField.text = "\(Int(floor(amount / 2)))"
+            print(amountWithoutComma)
+
+            let amount: Double = Double(amountWithoutComma) ?? 0
+
+            userSharedAmountTextField.text = "\(Int(round(amount / 2)))".currencyInputFormatting()
+            friendSharedAmountTextField.text = "\(Int(floor(amount / 2)))".currencyInputFormatting()
 
         }
 
@@ -635,12 +603,12 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         if friendNameList[row].characters.count > 7 {
 
             paidByFriendButton.setTitle("Friend", for: .normal)
-            friendSharesLabel.text = "Friend\nshares"
+            friendSharesLabel.text = "Friend\nSHARES"
 
         } else {
 
             paidByFriendButton.setTitle(friendNameList[row], for: .normal)
-            friendSharesLabel.text = "\(friendNameList[row])\nshares"
+            friendSharesLabel.text = "\(friendNameList[row])\nSHARES"
 
         }
 
@@ -660,4 +628,5 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
             
         }
     }
+
 }
