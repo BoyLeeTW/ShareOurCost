@@ -76,6 +76,8 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
                 weakSelf.friendUIDList = friendUIDList
 
+                weakSelf.friendManager.fetchFriendList(friendUIDList: weakSelf.friendUIDList)
+
                 weakSelf.friendManager.fetchFriendUIDtoNameList(friendUIDList: weakSelf.friendUIDList, completion: { (friendUIDtoNameList) in
 
                     friendUIDandNameList = friendUIDtoNameList

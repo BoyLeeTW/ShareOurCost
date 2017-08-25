@@ -12,6 +12,7 @@ pod 'IQKeyboardManager'
 pod 'Fabric'
 pod 'Crashlytics'
 pod 'NVActivityIndicatorView'
+pod 'PageMenu'
 
 # Pods for ShareOurCost
 

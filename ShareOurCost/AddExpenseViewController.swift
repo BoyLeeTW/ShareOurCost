@@ -559,8 +559,6 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
             let amountWithoutComma = amountText.replacingOccurrences(of: ",", with: "", options: .literal, range: nil)
 
-            print(amountWithoutComma)
-
             let amount: Double = Double(amountWithoutComma) ?? 0
 
             userSharedAmountTextField.text = "\(Int(round(amount / 2)))".currencyInputFormatting()
