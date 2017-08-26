@@ -174,21 +174,24 @@ class ExpenseListViewController: UIViewController {
         
         // a bunch of random customization
         let parameters: [CAPSPageMenuOption] = [
-            .menuItemSeparatorWidth(4.3),
-            .scrollMenuBackgroundColor(UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0)),
+            .scrollMenuBackgroundColor(UIColor.clear),
+//            .scrollMenuBackgroundColor(UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0)),
             .viewBackgroundColor(UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0)),
             .bottomMenuHairlineColor(UIColor.clear),
             .selectionIndicatorColor(UIColor.white),
             .selectionIndicatorHeight(5),
-            .menuMargin(20.0),
-            .menuHeight(30.0),
+            .menuMargin(5.0),
+            .menuHeight(25.0),
+            .menuItemWidth(90),
+            .menuItemFont(UIFont(name: "Avenir-Medium", size: 14.0)!),
             .selectedMenuItemLabelColor(UIColor.white),
             .unselectedMenuItemLabelColor(UIColor.white),
-            .menuItemFont(UIFont(name: "Avenir-Medium", size: 14.0)!),
             .useMenuLikeSegmentedControl(false),
-            .menuItemSeparatorRoundEdges(true),
-            .selectionIndicatorHeight(1.0),
-            .menuItemSeparatorPercentageHeight(0.1)
+            .selectionIndicatorHeight(5.0),
+//            .menuItemSeparatorRoundEdges(true),
+//            .menuItemSeparatorWidth(1),
+            .menuItemSeparatorWidth(0.0),
+            .menuItemSeparatorPercentageHeight(0.0)
         ]
 
         let navigationBarHeight = (navigationController?.navigationBar.frame.size.height ?? 0) + UIApplication.shared.statusBarFrame.size.height

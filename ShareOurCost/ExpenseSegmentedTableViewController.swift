@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAnalytics
 
 class ExpenseSegmentedTableViewController: UITableViewController {
     @IBOutlet var expenseListTableView: UITableView!
@@ -34,6 +35,7 @@ class ExpenseSegmentedTableViewController: UITableViewController {
 
         setupTableView()
 
+//        self.navigationController = navigationController.
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -64,9 +66,9 @@ class ExpenseSegmentedTableViewController: UITableViewController {
         headerLabel.textColor = UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0)
         
         headerView.addSubview(headerLabel)
-        
+
         return headerView
-        
+
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -297,6 +299,79 @@ class ExpenseSegmentedTableViewController: UITableViewController {
 
         self.expenseListTableView.reloadData()
 
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        Analytics.logEvent("clickExpenseDetailCell", parameters: nil)
+        
+        selectedRow = indexPath.row
+        
+        selectedSection = indexPath.section
+
+            guard let expenseID = expenseInfoList[friendUIDList[selectedSection]]![selectedRow]["id"] as? String,
+                let friendUID = friendUIDList[selectedSection] as? String
+                else { return }
+            
+            expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: nil)
+
+        self.performSegue(withIdentifier: "showExpenseDetailVC", sender: self)
+
+    }
+
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "showExpenseDetailVC" {
+            
+            let destinationVC = segue.destination as? ExpeneseDetailViewController
+            
+            switch expenseStatus {
+                
+            case .accepted:
+                
+                destinationVC?.expenseInformation = (expenseInfoList[friendUIDList[selectedSection]]?[selectedRow])!
+                destinationVC?.isAcceptButtonHidden = true
+                destinationVC?.isDenyButtonHidden = true
+                destinationVC?.isDeleteButtonHidden = false
+                destinationVC?.expenseStatus = ExpenseStatus.accepted.rawValue
+                
+            case .denied:
+                
+                destinationVC?.expenseInformation = (expenseInfoList[friendUIDList[selectedSection]]?[selectedRow])!
+                destinationVC?.isAcceptButtonHidden = true
+                destinationVC?.isDenyButtonHidden = true
+                destinationVC?.isDeleteButtonHidden = false
+                destinationVC?.expenseStatus = ExpenseStatus.denied.rawValue
+                
+            case .receivedPending:
+                
+                destinationVC?.expenseInformation = (expenseInfoList[friendUIDList[selectedSection]]?[selectedRow])!
+                destinationVC?.isAcceptButtonHidden = false
+                destinationVC?.isDenyButtonHidden = false
+                destinationVC?.isDeleteButtonHidden = true
+                destinationVC?.expenseStatus = ExpenseStatus.receivedPending.rawValue
+                
+            case .sentPending:
+                
+                destinationVC?.expenseInformation = (expenseInfoList[friendUIDList[selectedSection]]?[selectedRow])!
+                destinationVC?.isAcceptButtonHidden = true
+                destinationVC?.isDenyButtonHidden = true
+                destinationVC?.isDeleteButtonHidden = false
+                destinationVC?.expenseStatus = ExpenseStatus.sentPending.rawValue
+                
+            case .receivedDeleted:
+                
+                destinationVC?.expenseInformation = (expenseInfoList[friendUIDList[selectedSection]]?[selectedRow])!
+                destinationVC?.isAcceptButtonHidden = true
+                destinationVC?.isDenyButtonHidden = false
+                destinationVC?.isDeleteButtonHidden = false
+                destinationVC?.expenseStatus = ExpenseStatus.receivedDeleted.rawValue
+                
+            }
+            
+        }
+        
     }
 
 }
