@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import NVActivityIndicatorView
+import PageMenu
 
 class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -287,20 +288,6 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                 }
 
             }
-
-//            for (key, value) in sharedResult where value < 0 {
-//
-//                if key == userUID {
-//
-//                    cell.friendNameLabel.text = ("You owe \(friendName) $\(-value) for \(expenseDescription)" )
-//
-//                } else {
-//
-//                    cell.friendNameLabel.text = ("\(friendName) owes you $\(-value) for \(expenseDescription)")
-//
-//                }
-//
-//            }
 
             cell.expenseCreatedDateLabel.text = expenseDate
             cell.acceptButton.isHidden = true

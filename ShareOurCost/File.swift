@@ -17,6 +17,8 @@ var friendNameAndUIDList = [String: String]()
 
 var friendUIDList = Array<String>()
 
+typealias ExpenseInfoList = [String: [[String: Any]]]
+
 enum ExpenseStatus: String {
     
     case accepted = "accepted"
