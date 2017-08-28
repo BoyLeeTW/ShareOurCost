@@ -57,10 +57,19 @@ class ExpeneseDetailViewController: UIViewController {
 
     func setUpNavigationBar() {
 
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_navigate_before_white_36pt"), style: .plain,
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_close_white"), style: .plain,
                                                                 target: self,
                                                                 action: #selector(touchBackButton))
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
+
+        self.navigationController?.navigationBar.topItem?.title = "EXPENSE DETAIL"
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0)
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.layer.borderColor = UIColor.clear.cgColor
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont(name: "Avenir-Medium", size: 18.0)!]
 
     }
 
@@ -274,6 +283,7 @@ class ExpeneseDetailViewController: UIViewController {
         })
 
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+
         alertController.addAction(deleteAction)
         alertController.addAction(cancelAction)
 
@@ -284,15 +294,15 @@ class ExpeneseDetailViewController: UIViewController {
     func setUpGesture() {
         
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
-        swipeRight.direction = .right
+        swipeRight.direction = .down
         self.view.addGestureRecognizer(swipeRight)
         
     }
-    
+
     func handleGesture(gesture: UISwipeGestureRecognizer) -> Void {
-        if gesture.direction == UISwipeGestureRecognizerDirection.right {
-            self.navigationController?.popViewController(animated: true)
-            
+        if gesture.direction == UISwipeGestureRecognizerDirection.down {
+            self.dismiss(animated: true, completion: nil)
+
         }
     }
 }
