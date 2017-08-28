@@ -188,14 +188,11 @@ class ExpenseListViewController: UIViewController {
             .unselectedMenuItemLabelColor(UIColor.white),
             .useMenuLikeSegmentedControl(false),
             .selectionIndicatorHeight(5.0),
-//            .menuItemSeparatorRoundEdges(true),
-//            .menuItemSeparatorWidth(1),
             .menuItemSeparatorWidth(0.0),
             .menuItemSeparatorPercentageHeight(0.0)
         ]
 
-        let navigationBarHeight = (navigationController?.navigationBar.frame.size.height ?? 0) + UIApplication.shared.statusBarFrame.size.height
-        let frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height-navigationBarHeight
+        let frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height
         )
 
         pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: frame, pageMenuOptions: parameters)

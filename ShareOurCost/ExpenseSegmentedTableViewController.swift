@@ -323,9 +323,10 @@ class ExpenseSegmentedTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "showExpenseDetailVC" {
-            
-            let destinationVC = segue.destination as? ExpeneseDetailViewController
-            
+
+            let destinationNC = segue.destination as? UINavigationController
+            let destinationVC = destinationNC?.viewControllers.first as? ExpeneseDetailViewController
+
             switch expenseStatus {
                 
             case .accepted:
