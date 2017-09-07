@@ -39,6 +39,8 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
     var friendNameList = [String]()
 
+    var isTouchShareMemberTextFieldFirstTime: Bool = true
+
     @IBOutlet weak var expenseAmountTextField: UITextField!
     @IBOutlet weak var expenseDescriptionTextField: UITextField!
     @IBOutlet weak var expenseDayTextField: UITextField!
@@ -226,24 +228,26 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
         }
 
         friendNamePickerView.delegate = self
+
         expenseSharedMemberTextField.inputView = friendNamePickerView
-        if friendNameList.count > 0 {
 
-            expenseSharedMemberTextField.text = friendNameList[0]
+//        if friendNameList.count > 0 {
 
-            if friendNameList[0].characters.count > 7 {
+//            expenseSharedMemberTextField.text = friendNameList[0]
 
-                friendSharesLabel.text = "FRIEND\nSHARES"
-                paidByFriendButton.setTitle("FRIEND", for: .normal)
+//        if friendNameList[0].characters.count > 7 {
+//
+//            friendSharesLabel.text = "FRIEND\nSHARES"
+//            paidByFriendButton.setTitle("FRIEND", for: .normal)
+//
+//        } else {
+//
+//            friendSharesLabel.text = "\(friendNameList[0])\nSHARES"
+//            paidByFriendButton.setTitle(friendNameList[0], for: .normal)
+//
+//            }
 
-            } else {
-
-                friendSharesLabel.text = "\(friendNameList[0])\nSHARES"
-                paidByFriendButton.setTitle(friendNameList[0], for: .normal)
-
-            }
-
-        }
+//        }
 
     }
 
@@ -265,6 +269,28 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 self.navigationController?.popViewController(animated: true)
 
             })
+
+        } else {
+
+            if isTouchShareMemberTextFieldFirstTime {
+
+                self.isTouchShareMemberTextFieldFirstTime = false
+
+                expenseSharedMemberTextField.text = friendNameList[0]
+
+                if friendNameList[0].characters.count > 7 {
+
+                    friendSharesLabel.text = "FRIEND\nSHARES"
+                    paidByFriendButton.setTitle("FRIEND", for: .normal)
+
+                } else {
+
+                    friendSharesLabel.text = "\(friendNameList[0])\nSHARES"
+                    paidByFriendButton.setTitle(friendNameList[0], for: .normal)
+
+                }
+
+            }
 
         }
 
@@ -621,7 +647,9 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     func handleGesture(gesture: UISwipeGestureRecognizer) -> Void {
+
         if gesture.direction == UISwipeGestureRecognizerDirection.right {
+
             self.navigationController?.popViewController(animated: true)
             
         }
