@@ -140,11 +140,11 @@ class ExpeneseDetailViewController: UIViewController {
 
         }
 
-        self.totalAmountLabel.text = "TOTAL Amount: $\(expenseTotalAmount)"
+        self.totalAmountLabel.text = "TOTAL Amount: $" + "\(expenseTotalAmount)".currencyInputFormatting()
         self.expensePaidByLabel.text = "PAID BY: \(expensePaidByName)"
         self.expenseCreatedDayLabel.text = "Added by \(expenseCreatedByName) on \(expenseCreatedDay)"
         self.expenseDescriptionLabel.text = "DESCRIPTION: \(expenseDescription)"
-        self.amountYouSharedLabel.text = "AMOUNT YOU SHARED: $\(abs(amountYouShared))"
+        self.amountYouSharedLabel.text = "AMOUNT YOU SHARED: $" + "\(abs(amountYouShared))".currencyInputFormatting()
         self.expenseDateLabel.text = "EXPENSE DAY: \(expenseDay)"
 
     }
