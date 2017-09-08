@@ -99,11 +99,11 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
                 
                 if weakSelf.balanceToFriend < 0 {
                     
-                    weakSelf.balanceLabel.text = "You owe \(friendName) $\(abs(weakSelf.balanceToFriend))"
+                    weakSelf.balanceLabel.text = "You owe \(friendName) $" + "\(abs(weakSelf.balanceToFriend))".currencyInputFormatting()
                     
                 } else {
                     
-                    weakSelf.balanceLabel.text = "\(friendName) owes you $\(abs(weakSelf.balanceToFriend))"
+                    weakSelf.balanceLabel.text = "\(friendName) owes you $" + "\(abs(weakSelf.balanceToFriend))".currencyInputFormatting()
                     
                 }
                 

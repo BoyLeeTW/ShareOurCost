@@ -138,14 +138,18 @@ class ExpenseSegmentedTableViewController: UITableViewController {
                 if UID == userUID {
                     
                     if amount < 0 {
-                        
-                        cell.expenseBriefLabel.text = ("You owe \(friendName) $\(-amount) for \(expenseDescription)" )
+
+                        let displayAmount: String = "\(-amount)".currencyInputFormatting()
+
+                        cell.expenseBriefLabel.text = ("You owe \(friendName) $\(displayAmount) for \(expenseDescription)" )
                         
                     } else if amount == 0 {
                         
                         if paidBy == userUID {
-                            
-                            cell.expenseBriefLabel.text = ("\(friendName) owes you $\(totalAmount) for \(expenseDescription)")
+
+                            let displayAmount: String = "\(totalAmount)".currencyInputFormatting()
+
+                            cell.expenseBriefLabel.text = ("\(friendName) owes you $\(displayAmount) for \(expenseDescription)")
                             
                         } else {
                             
@@ -158,8 +162,10 @@ class ExpenseSegmentedTableViewController: UITableViewController {
                 } else {
                     
                     if amount < 0 {
-                        
-                        cell.expenseBriefLabel.text = ("\(friendName) owes you $\(-amount) for \(expenseDescription)")
+
+                        let displayAmount: String = "\(-amount)".currencyInputFormatting()
+
+                        cell.expenseBriefLabel.text = ("\(friendName) owes you $\(displayAmount) for \(expenseDescription)")
                         
                     } else if amount == 0 {
                         
@@ -168,8 +174,10 @@ class ExpenseSegmentedTableViewController: UITableViewController {
                             cell.expenseBriefLabel.text = ("You share nothing in this expense" )
                             
                         } else {
-                            
-                            cell.expenseBriefLabel.text = ("You owe \(friendName) $\(totalAmount) for \(expenseDescription)" )
+
+                            let displayAmount: String = "\(totalAmount)".currencyInputFormatting()
+
+                            cell.expenseBriefLabel.text = ("You owe \(friendName) $\(displayAmount) for \(expenseDescription)" )
                             
                         }
                         
