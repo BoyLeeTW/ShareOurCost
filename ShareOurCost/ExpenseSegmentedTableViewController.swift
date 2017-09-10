@@ -312,9 +312,9 @@ class ExpenseSegmentedTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         Analytics.logEvent("clickExpenseDetailCell", parameters: nil)
-        
+
         selectedRow = indexPath.row
-        
+
         selectedSection = indexPath.section
 
             guard let expenseID = expenseInfoList[friendUIDList[selectedSection]]![selectedRow]["id"] as? String,

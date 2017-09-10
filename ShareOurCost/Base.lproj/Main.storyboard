@@ -471,7 +471,7 @@ SHARES</string>
                                                 <constraint firstAttribute="width" constant="30" id="Xpk-6R-bt8"/>
                                             </constraints>
                                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <state key="normal" image="ic_thumb_up_white"/>
+                                            <state key="normal" image="ic_check_white"/>
                                             <connections>
                                                 <action selector="touchAcceptFriendButton:" destination="G8W-8X-A4A" eventType="touchUpInside" id="jbz-sP-xRR"/>
                                             </connections>
@@ -482,7 +482,7 @@ SHARES</string>
                                                 <constraint firstAttribute="width" constant="30" id="wvT-Ye-Qa4"/>
                                             </constraints>
                                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <state key="normal" image="ic_thumb_down_white"/>
+                                            <state key="normal" image="ic_close_white"/>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vjz-sW-QGN">
                                             <rect key="frame" x="15" y="24.5" width="215" height="0.0"/>
@@ -758,7 +758,7 @@ SHARES</string>
                                                         <constraint firstAttribute="width" constant="30" id="rWl-jA-vd5"/>
                                                     </constraints>
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <state key="normal" image="ic_thumb_up_white"/>
+                                                    <state key="normal" image="ic_check_white"/>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r4O-XG-gYx" customClass="MyButton" customModule="ShareOurCost" customModuleProvider="target">
                                                     <rect key="frame" x="280" y="18" width="30" height="24"/>
@@ -766,7 +766,7 @@ SHARES</string>
                                                         <constraint firstAttribute="width" constant="30" id="pgW-cG-VEg"/>
                                                     </constraints>
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <state key="normal" image="ic_thumb_down_white"/>
+                                                    <state key="normal" image="ic_close_white"/>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dtx-hm-uRo">
                                                     <rect key="frame" x="15" y="12" width="215" height="15.5"/>
@@ -1152,7 +1152,7 @@ SHARES</string>
                                                 <constraint firstAttribute="width" constant="30" id="Ll5-g5-fca"/>
                                             </constraints>
                                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <state key="normal" image="ic_thumb_down_white"/>
+                                            <state key="normal" image="ic_close_white"/>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sVb-Le-aVf">
                                             <rect key="frame" x="15" y="12" width="215" height="18.5"/>
@@ -1175,7 +1175,7 @@ SHARES</string>
                                                 <constraint firstAttribute="width" constant="30" id="R5l-eF-K0g"/>
                                             </constraints>
                                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <state key="normal" image="ic_thumb_up_white"/>
+                                            <state key="normal" image="ic_check_white"/>
                                         </button>
                                     </subviews>
                                     <constraints>
@@ -1281,6 +1281,8 @@ SHARES</string>
     <resources>
         <image name="ic_add_white" width="24" height="24"/>
         <image name="ic_attach_money_white" width="24" height="24"/>
+        <image name="ic_check_white" width="24" height="24"/>
+        <image name="ic_close_white" width="24" height="24"/>
         <image name="ic_delete_white" width="24" height="24"/>
         <image name="ic_people_outline_white" width="24" height="24"/>
         <image name="ic_person_white" width="24" height="24"/>
