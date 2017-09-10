@@ -214,7 +214,8 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
 
         if segue.identifier == "showExpenseDetailVC" {
 
-            let destinationVC = segue.destination as? ExpeneseDetailViewController
+            let destinationNC = segue.destination as? UINavigationController
+            let destinationVC = destinationNC?.viewControllers.first as? ExpeneseDetailViewController
 
             destinationVC?.expenseInformation = (self.acceptedExpenseList[friendUID]?[selectedRow])!
             
@@ -222,6 +223,8 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
             destinationVC?.isDenyButtonHidden = true
             destinationVC?.isDeleteButtonHidden = false
             destinationVC?.expenseStatus = ExpenseStatus.accepted.rawValue
+
+//            destinationVC?.expenseInformation = (expenseInfoList[friendUIDList[selectedSection]]?[selectedRow])!
 
         }
     }
