@@ -224,8 +224,6 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
             destinationVC?.isDeleteButtonHidden = false
             destinationVC?.expenseStatus = ExpenseStatus.accepted.rawValue
 
-//            destinationVC?.expenseInformation = (expenseInfoList[friendUIDList[selectedSection]]?[selectedRow])!
-
         }
     }
 

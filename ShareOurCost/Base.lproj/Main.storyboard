@@ -119,7 +119,6 @@
                             <constraint firstItem="Bnu-lN-pe1" firstAttribute="trailing" secondItem="EbX-jM-ZUv" secondAttribute="trailing" id="veK-BX-Ohp"/>
                         </constraints>
                     </view>
-                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
                         <outlet property="emailTextField" destination="EbX-jM-ZUv" id="Egm-Oq-SIq"/>
                         <outlet property="forgetPasswordButton" destination="cle-oB-Pfl" id="0D2-9W-fox"/>

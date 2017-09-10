@@ -163,7 +163,7 @@ class ExpenseListViewController: UIViewController {
 
         sentPendingExpenseListTVC.title = "SENT"
 
-        receivedDeletedExepsneListTVC.title = "DELETED?"
+        receivedDeletedExepsneListTVC.title = "DELETE?"
 
         controllerArray.append(acceptedExpenseListTVC)
         controllerArray.append(deniedExpenseListTVC)
