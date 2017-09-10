@@ -12,8 +12,6 @@ import NVActivityIndicatorView
 
 class ExpenseManager {
 
-    typealias ExpenseInfoList = [String: [[String: Any]]]
-
     var ref: DatabaseReference!
 
     func newFetchExpenseIDList(completion: @escaping (ExpenseInfoList, ExpenseInfoList, ExpenseInfoList, ExpenseInfoList, ExpenseInfoList) -> () ) {

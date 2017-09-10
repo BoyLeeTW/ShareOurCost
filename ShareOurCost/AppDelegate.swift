@@ -30,8 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         NVActivityIndicatorView.DEFAULT_TYPE  = .ballRotateChase
 
-        UIApplication.shared.statusBarStyle = .lightContent
-
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
 
         if UserDefaults.standard.value(forKey: "userUid") != nil {

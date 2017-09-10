@@ -17,6 +17,8 @@ var friendNameAndUIDList = [String: String]()
 
 var friendUIDList = Array<String>()
 
+typealias ExpenseInfoList = [String: [[String: Any]]]
+
 enum ExpenseStatus: String {
     
     case accepted = "accepted"
@@ -31,5 +33,57 @@ class MyButton: UIButton {
 
     var section: Int?
     var row: Int?
+
+}
+
+struct Expense {
+
+    var ID: Int
+    var totalAmount: Int
+    var dexsription: String
+    var sharedMember: String
+    var paidBy: String
+    var createdTime: String
+    var createdBy: String
+    var sharedWith: String
+    var sharedResult: [String: Int]
+
+}
+
+struct Friend {
+
+    var firebaseUID: String
+    var Name: String
+    var userID: String
+
+}
+
+extension String {
+    
+    // formatting text for currency textField
+    func currencyInputFormatting() -> String {
+        
+        var number: NSNumber!
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 3
+        formatter.minimumFractionDigits = 0
+
+        var amountWithPrefix = self
+        
+        // remove from String: "$", ".", ","
+        let regex = try! NSRegularExpression(pattern: "[^0-9]", options: .caseInsensitive)
+        amountWithPrefix = regex.stringByReplacingMatches(in: amountWithPrefix, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, self.characters.count), withTemplate: "")
+        
+        let double = (amountWithPrefix as NSString).doubleValue
+        number = NSNumber(value: (double))
+        
+        // if first number is 0 or all numbers were deleted
+        guard number != 0 as NSNumber else {
+            return ""
+        }
+        
+        return formatter.string(from: number)!
+    }
 
 }

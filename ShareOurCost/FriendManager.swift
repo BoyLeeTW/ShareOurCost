@@ -192,4 +192,27 @@ class FriendManager {
         }
     }
 
+    func fetchFriendList(friendUIDList: Array<String>) {
+
+        ref = Database.database().reference()
+
+        var friendInfoList = [Friend]()
+
+        for friendUID in friendUIDList {
+            
+            ref.child("userInfo").child(friendUID).observeSingleEvent(of: .value, with: { (dataSnapshot) in
+
+                guard let friendInfoListData = dataSnapshot.value as? [String: Any],
+                      let friendName = friendInfoListData["fullName"] as? String,
+                      let friendID = friendInfoListData["userID"] as? String
+                else { return }
+
+                let friendInfo = Friend.init(firebaseUID: friendUID, Name: friendName, userID: friendID)
+
+                friendInfoList.append(friendInfo)
+
+            })
+        }
+    }
+
 }

@@ -20,11 +20,14 @@ class ViewController: UIViewController {
     @IBOutlet weak var fullNameTextField: UITextField!
     @IBOutlet weak var forgetPasswordButton: UIButton!
     @IBOutlet weak var userIDTextField: UITextField!
+    @IBOutlet weak var loginOrRegistrationSegmentedControl: LoginSegmentedControl!
 
     var accountManager = AccountManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        setUpSegmentedControl()
 
         setUpButtons()
 
@@ -36,23 +39,29 @@ class ViewController: UIViewController {
 
     }
 
+    func setUpSegmentedControl() {
+
+        loginOrRegistrationSegmentedControl.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "Avenir-Medium", size: 13.0)! ], for: .normal)
+
+    }
+
     func setUpButtons() {
 
         self.emailTextField.layer.borderWidth = 3
         self.emailTextField.layer.borderColor = UIColor.white.cgColor
-        self.emailTextField.attributedPlaceholder = NSAttributedString(string: "E-mail", attributes: [NSForegroundColorAttributeName: UIColor(red: 172/255, green: 206/255, blue: 211/255, alpha: 1.0)])
+        self.emailTextField.attributedPlaceholder = NSAttributedString(string: "E-MAIL", attributes: [NSForegroundColorAttributeName: UIColor(red: 172/255, green: 206/255, blue: 211/255, alpha: 1.0)])
 
         self.passwordTextField.layer.borderWidth = 3
         self.passwordTextField.layer.borderColor = UIColor.white.cgColor
-        self.passwordTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSForegroundColorAttributeName: UIColor(red: 172/255, green: 206/255, blue: 211/255, alpha: 1.0)])
+        self.passwordTextField.attributedPlaceholder = NSAttributedString(string: "PASSWORD", attributes: [NSForegroundColorAttributeName: UIColor(red: 172/255, green: 206/255, blue: 211/255, alpha: 1.0)])
 
         self.fullNameTextField.layer.borderWidth = 3
         self.fullNameTextField.layer.borderColor = UIColor.white.cgColor
-        self.fullNameTextField.attributedPlaceholder = NSAttributedString(string: "Name", attributes: [NSForegroundColorAttributeName: UIColor(red: 172/255, green: 206/255, blue: 211/255, alpha: 1.0)])
+        self.fullNameTextField.attributedPlaceholder = NSAttributedString(string: "NAME", attributes: [NSForegroundColorAttributeName: UIColor(red: 172/255, green: 206/255, blue: 211/255, alpha: 1.0)])
 
         self.userIDTextField.layer.borderWidth = 3
         self.userIDTextField.layer.borderColor = UIColor.white.cgColor
-        self.userIDTextField.attributedPlaceholder = NSAttributedString(string: "User ID", attributes: [NSForegroundColorAttributeName: UIColor(red: 172/255, green: 206/255, blue: 211/255, alpha: 1.0)])
+        self.userIDTextField.attributedPlaceholder = NSAttributedString(string: "USER ID", attributes: [NSForegroundColorAttributeName: UIColor(red: 172/255, green: 206/255, blue: 211/255, alpha: 1.0)])
 
         signInOrUpButton.addTarget(self, action: #selector(handleSignInOrRegister), for: .touchUpInside)
 
@@ -64,7 +73,7 @@ class ViewController: UIViewController {
 
         if signInOrRegisterSegmentedControl.selectedSegmentIndex == 1 {
 
-            signInOrUpButton.setTitle("Register", for: .normal)
+            signInOrUpButton.setTitle("REGISTER", for: .normal)
 
             fullNameTextField.isHidden = false
 
@@ -74,7 +83,7 @@ class ViewController: UIViewController {
 
         } else {
 
-            signInOrUpButton.setTitle("Sign In", for: .normal)
+            signInOrUpButton.setTitle("SIGN IN", for: .normal)
 
             fullNameTextField.isHidden = true
 

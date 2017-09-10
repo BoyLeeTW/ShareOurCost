@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import NVActivityIndicatorView
+import PageMenu
 
 class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -76,6 +77,8 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
                 weakSelf.friendUIDList = friendUIDList
 
+                weakSelf.friendManager.fetchFriendList(friendUIDList: weakSelf.friendUIDList)
+
                 weakSelf.friendManager.fetchFriendUIDtoNameList(friendUIDList: weakSelf.friendUIDList, completion: { (friendUIDtoNameList) in
 
                     friendUIDandNameList = friendUIDtoNameList
@@ -107,13 +110,14 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
     func setUpNavigationBar() {
 
-        self.navigationController?.navigationBar.topItem?.title = "Shared Expense"
+        self.navigationController?.navigationBar.topItem?.title = "SHARED EXPENSE"
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0)
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.layer.borderColor = UIColor.clear.cgColor
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont(name: "Avenir-Medium", size: 18.0)!]
 
     }
 
@@ -142,7 +146,7 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
         let headerLabel = UILabel(frame: CGRect(x: 10, y: 5, width: tableView.bounds.size.width, height: 25))
         headerLabel.text = friendUIDtoNameList[friendUIDList[section]]
-        headerLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        headerLabel.font = UIFont(name: "Avenir-Medium", size: 16.0)
         headerLabel.textColor = UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0)
 
         headerView.addSubview(headerLabel)
@@ -222,6 +226,8 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                   let expenseDate = expenseData["expenseDay"] as? String,
                   let sharedResult = expenseData["sharedResult"] as? [String: Int],
                   let isRead = expenseData["isRead"] as? Bool,
+                  let paidBy = expenseData["expensePaidBy"] as? String,
+                  let totalAmount = expenseData["amount"] as? Int,
                   let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]]
             else { return cell }
 
@@ -237,15 +243,47 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
             }
 
-            for (key, value) in sharedResult where value < 0 {
+            for (UID, amount) in sharedResult {
 
-                if key == userUID {
+                if UID == userUID {
 
-                    cell.friendNameLabel.text = ("You owe \(friendName) $\(-value) for \(expenseDescription)" )
+                    if amount < 0 {
+
+                        cell.friendNameLabel.text = ("You owe \(friendName) $\(-amount) for \(expenseDescription)" )
+
+                    } else if amount == 0 {
+
+                        if paidBy == userUID {
+
+                            cell.friendNameLabel.text = ("\(friendName) owes you $\(totalAmount) for \(expenseDescription)")
+
+                        } else {
+
+                            cell.friendNameLabel.text = ("You share nothing in this expense" )
+
+                        }
+
+                    }
 
                 } else {
 
-                    cell.friendNameLabel.text = ("\(friendName) owes you $\(-value) for \(expenseDescription)")
+                    if amount < 0 {
+
+                        cell.friendNameLabel.text = ("\(friendName) owes you $\(-amount) for \(expenseDescription)")
+
+                    } else if amount == 0 {
+
+                        if paidBy == userUID {
+                            
+                            cell.friendNameLabel.text = ("You share nothing in this expense" )
+                            
+                        } else {
+                            
+                            cell.friendNameLabel.text = ("You owe \(friendName) $\(totalAmount) for \(expenseDescription)" )
+                            
+                        }
+
+                    }
 
                 }
 
@@ -262,6 +300,8 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                   let expenseDescription = expenseData["description"] as? String,
                   let sharedResult = expenseData["sharedResult"] as? [String: Int],
                   let isRead = expenseData["isRead"] as? Bool,
+                  let paidBy = expenseData["expensePaidBy"] as? String,
+                  let totalAmount = expenseData["amount"] as? Int,
                   let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]]
             else { return cell }
 
@@ -276,18 +316,50 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                 cell.expenseCreatedDateLabel.font = UIFont.systemFont(ofSize: 10.0, weight: 1)
             }
 
-            for (key, value) in sharedResult where value < 0 {
-
-                if key == userUID {
-
-                    cell.friendNameLabel.text = ("You owe \(friendName) $\(-value) for \(expenseDescription)" )
-
+            for (UID, amount) in sharedResult {
+                
+                if UID == userUID {
+                    
+                    if amount < 0 {
+                        
+                        cell.friendNameLabel.text = ("You owe \(friendName) $\(-amount) for \(expenseDescription)" )
+                        
+                    } else if amount == 0 {
+                        
+                        if paidBy == userUID {
+                            
+                            cell.friendNameLabel.text = ("\(friendName) owes you $\(totalAmount) for \(expenseDescription)")
+                            
+                        } else {
+                            
+                            cell.friendNameLabel.text = ("You share nothing in this expense" )
+                            
+                        }
+                        
+                    }
+                    
                 } else {
-
-                    cell.friendNameLabel.text = ("\(friendName) owes you $\(-value) for \(expenseDescription)")
-
+                    
+                    if amount < 0 {
+                        
+                        cell.friendNameLabel.text = ("\(friendName) owes you $\(-amount) for \(expenseDescription)")
+                        
+                    } else if amount == 0 {
+                        
+                        if paidBy == userUID {
+                            
+                            cell.friendNameLabel.text = ("You share nothing in this expense" )
+                            
+                        } else {
+                            
+                            cell.friendNameLabel.text = ("You owe \(friendName) $\(totalAmount) for \(expenseDescription)" )
+                            
+                        }
+                        
+                    }
+                    
                 }
-
+                
             }
 
             cell.expenseCreatedDateLabel.text = expenseDate
@@ -301,18 +373,52 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
               let expenseDate = expenseData["expenseDay"] as? String,
               let sharedResult = expenseData["sharedResult"] as? [String: Int],
               let isRead = expenseData["isRead"] as? Bool,
+              let paidBy = expenseData["expensePaidBy"] as? String,
+              let totalAmount = expenseData["amount"] as? Int,
               let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]]
         else { return cell }
 
-        for (key, value) in sharedResult where value < 0 {
+        for (UID, amount) in sharedResult {
+            
+            if UID == userUID {
+                
+                if amount < 0 {
+                    
+                    cell.friendNameLabel.text = ("You owe \(friendName) $\(-amount) for \(expenseDescription)" )
+                    
+                } else if amount == 0 {
+                    
+                    if paidBy == userUID {
+                        
+                        cell.friendNameLabel.text = ("\(friendName) owes you $\(totalAmount) for \(expenseDescription)")
+                        
+                    } else {
 
-            if key == userUID {
+                        cell.friendNameLabel.text = ("You share nothing in this expense" )
 
-                cell.friendNameLabel.text = ("You owe \(friendName) $\(-value)\nfor \(expenseDescription)" )
+                    }
+
+                }
 
             } else {
 
-                cell.friendNameLabel.text = ("\(friendName) owes you $\(-value)\nfor \(expenseDescription)")
+                if amount < 0 {
+
+                    cell.friendNameLabel.text = ("\(friendName) owes you $\(-amount) for \(expenseDescription)")
+
+                } else if amount == 0 {
+
+                    if paidBy == userUID {
+
+                        cell.friendNameLabel.text = ("You share nothing in this expense" )
+
+                    } else {
+
+                        cell.friendNameLabel.text = ("You owe \(friendName) $\(totalAmount) for \(expenseDescription)" )
+
+                    }
+
+                }
 
             }
 
@@ -349,6 +455,8 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                   let expenseDescription = expenseData["description"] as? String,
                   let sharedResult = expenseData["sharedResult"] as? [String: Int],
                   let isRead = expenseData["isRead"] as? Bool,
+                  let paidBy = expenseData["expensePaidBy"] as? String,
+                  let totalAmount = expenseData["amount"] as? Int,
                   let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]]
             else { return cell }
 
@@ -364,18 +472,50 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
 
             }
 
-            for (key, value) in sharedResult where value < 0 {
-
-                if key == userUID {
-
-                    cell.friendNameLabel.text = ("You owe \(friendName) $\(-value) for \(expenseDescription)" )
-
+            for (UID, amount) in sharedResult {
+                
+                if UID == userUID {
+                    
+                    if amount < 0 {
+                        
+                        cell.friendNameLabel.text = ("You owe \(friendName) $\(-amount) for \(expenseDescription)" )
+                        
+                    } else if amount == 0 {
+                        
+                        if paidBy == userUID {
+                            
+                            cell.friendNameLabel.text = ("\(friendName) owes you $\(totalAmount) for \(expenseDescription)")
+                            
+                        } else {
+                            
+                            cell.friendNameLabel.text = ("You share nothing in this expense" )
+                            
+                        }
+                        
+                    }
+                    
                 } else {
-
-                    cell.friendNameLabel.text = ("\(friendName) owes you $\(-value) for \(expenseDescription)")
-
+                    
+                    if amount < 0 {
+                        
+                        cell.friendNameLabel.text = ("\(friendName) owes you $\(-amount) for \(expenseDescription)")
+                        
+                    } else if amount == 0 {
+                        
+                        if paidBy == userUID {
+                            
+                            cell.friendNameLabel.text = ("You share nothing in this expense" )
+                            
+                        } else {
+                            
+                            cell.friendNameLabel.text = ("You owe \(friendName) $\(totalAmount) for \(expenseDescription)" )
+                            
+                        }
+                        
+                    }
+                    
                 }
-
+                
             }
 
             cell.expenseCreatedDateLabel.text = expenseDate
@@ -389,6 +529,8 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                   let expenseDescription = expenseData["description"] as? String,
                   let sharedResult = expenseData["sharedResult"] as? [String: Int],
                   let isRead = expenseData["isRead"] as? Bool,
+                  let paidBy = expenseData["expensePaidBy"] as? String,
+                  let totalAmount = expenseData["amount"] as? Int,
                   let friendName = friendUIDtoNameList[friendUIDList[indexPath.section]]
             else { return cell }
 
@@ -403,18 +545,50 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
                 cell.expenseCreatedDateLabel.font = UIFont.systemFont(ofSize: 10.0, weight: 1)
             }
 
-            for (key, value) in sharedResult where value < 0 {
-
-                if key == userUID {
-
-                    cell.friendNameLabel.text = ("You owe \(friendName) $\(-value) for \(expenseDescription)" )
-
+            for (UID, amount) in sharedResult {
+                
+                if UID == userUID {
+                    
+                    if amount < 0 {
+                        
+                        cell.friendNameLabel.text = ("You owe \(friendName) $\(-amount) for \(expenseDescription)" )
+                        
+                    } else if amount == 0 {
+                        
+                        if paidBy == userUID {
+                            
+                            cell.friendNameLabel.text = ("\(friendName) owes you $\(totalAmount) for \(expenseDescription)")
+                            
+                        } else {
+                            
+                            cell.friendNameLabel.text = ("You share nothing in this expense" )
+                            
+                        }
+                        
+                    }
+                    
                 } else {
-
-                    cell.friendNameLabel.text = ("\(friendName) owes you $\(-value) for \(expenseDescription)")
-
+                    
+                    if amount < 0 {
+                        
+                        cell.friendNameLabel.text = ("\(friendName) owes you $\(-amount) for \(expenseDescription)")
+                        
+                    } else if amount == 0 {
+                        
+                        if paidBy == userUID {
+                            
+                            cell.friendNameLabel.text = ("You share nothing in this expense" )
+                            
+                        } else {
+                            
+                            cell.friendNameLabel.text = ("You owe \(friendName) $\(totalAmount) for \(expenseDescription)" )
+                            
+                        }
+                        
+                    }
+                    
                 }
-
+                
             }
 
             cell.expenseCreatedDateLabel.text = expenseDate
@@ -454,10 +628,10 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
     func touchDenyButton(sender: MyButton) {
 
         guard let expenseID = receivedPendingExpenseIDList[friendUIDList[sender.section!]]![sender.row!]["id"] as? String,
-            let friendUID = friendUIDList[sender.section!] as? String
-            else { return }
+              let friendUID = friendUIDList[sender.section!] as? String
+        else { return }
 
-        expenseManager.changeExpenseStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: "denied", changeFriendStatus: nil)
+        expenseManager.changeExpenseStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: "sentDenied", changeFriendStatus: "denied")
 
         expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: false)
 
@@ -477,40 +651,40 @@ class ExpenseListSegmentViewController: UIViewController, UITableViewDelegate, U
         case 0:
 
             guard let expenseID = acceptedExpenseIDList[friendUIDList[selectedSection]]![selectedRow]["id"] as? String,
-                let friendUID = friendUIDList[selectedSection] as? String
-                else { return }
+                  let friendUID = friendUIDList[selectedSection] as? String
+            else { return }
             
             expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: nil)
 
         case 1:
 
             guard let expenseID = deniedExpenseIDList[friendUIDList[selectedSection]]![selectedRow]["id"] as? String,
-                let friendUID = friendUIDList[selectedSection] as? String
-                else { return }
+                  let friendUID = friendUIDList[selectedSection] as? String
+            else { return }
 
             expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: nil)
 
         case 2:
 
             guard let expenseID = receivedPendingExpenseIDList[friendUIDList[selectedSection]]![selectedRow]["id"] as? String,
-                let friendUID = friendUIDList[selectedSection] as? String
-                else { return }
+                  let friendUID = friendUIDList[selectedSection] as? String
+            else { return }
 
             expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: nil)
 
         case 3:
 
             guard let expenseID = sentPendingExpenseIDList[friendUIDList[selectedSection]]![selectedRow]["id"] as? String,
-                let friendUID = friendUIDList[selectedSection] as? String
-                else { return }
+                  let friendUID = friendUIDList[selectedSection] as? String
+            else { return }
 
             expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: nil)
 
         default:
 
             guard let expenseID = receivedDeletedExpenseIDList[friendUIDList[selectedSection]]![selectedRow]["id"] as? String,
-                let friendUID = friendUIDList[selectedSection] as? String
-                else { return }
+                  let friendUID = friendUIDList[selectedSection] as? String
+            else { return }
 
             expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: nil)
 

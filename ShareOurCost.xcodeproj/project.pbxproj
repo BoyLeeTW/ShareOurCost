@@ -14,6 +14,7 @@
 		A20F2C711F276F9700D446F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20F2C701F276F9700D446F7 /* Assets.xcassets */; };
 		A20F2C741F276F9700D446F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A20F2C721F276F9700D446F7 /* LaunchScreen.storyboard */; };
 		A23489691F35F7760015698D /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23489681F35F7760015698D /* AccountManager.swift */; };
+		A24D05631F4D237B008C9BE8 /* LoginSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24D05621F4D237B008C9BE8 /* LoginSegmentedControl.swift */; };
 		A24F30C51F2B2EFC002E05E2 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24F30C41F2B2EFC002E05E2 /* File.swift */; };
 		A26EB00B1F42C51B009E5C6F /* AddFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26EB00A1F42C51B009E5C6F /* AddFriendViewController.swift */; };
 		A26EB00D1F42D0E8009E5C6F /* FriendDetailListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26EB00C1F42D0E8009E5C6F /* FriendDetailListViewController.swift */; };
@@ -26,6 +27,9 @@
 		A288F1581F30A4FA0061F8FF /* AddExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A288F1571F30A4FA0061F8FF /* AddExpenseViewController.swift */; };
 		A29720761F3D70FD00D92B3F /* ExpenseListSegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29720751F3D70FD00D92B3F /* ExpenseListSegmentViewController.swift */; };
 		A29720781F3D737E00D92B3F /* ExpenseListSegmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29720771F3D737E00D92B3F /* ExpenseListSegmentTableViewCell.swift */; };
+		A2AEAAE41F5156A7009E208D /* ExpenseSegmentedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AEAAE31F5156A7009E208D /* ExpenseSegmentedTableViewController.swift */; };
+		A2AEAAE61F516106009E208D /* ExpenseListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AEAAE51F516106009E208D /* ExpenseListTableViewCell.swift */; };
+		A2AEAAE81F5162E2009E208D /* ExpenseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AEAAE71F5162E2009E208D /* ExpenseListViewController.swift */; };
 		A2C4243B1F495DB800BC2698 /* ShareOurCostIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = A2C4243A1F495DB800BC2698 /* ShareOurCostIcon.png */; };
 		A2C4243F1F496A4E00BC2698 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = A2C4243E1F496A4E00BC2698 /* .gitignore */; };
 		A2DF3F181F49D91700DAD7A2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A2DF3F171F49D91700DAD7A2 /* GoogleService-Info.plist */; };
@@ -47,6 +51,7 @@
 		A20F2C731F276F9700D446F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A20F2C751F276F9700D446F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A23489681F35F7760015698D /* AccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
+		A24D05621F4D237B008C9BE8 /* LoginSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginSegmentedControl.swift; sourceTree = "<group>"; };
 		A24F30C41F2B2EFC002E05E2 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		A26EB00A1F42C51B009E5C6F /* AddFriendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFriendViewController.swift; sourceTree = "<group>"; };
 		A26EB00C1F42D0E8009E5C6F /* FriendDetailListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendDetailListViewController.swift; sourceTree = "<group>"; };
@@ -59,6 +64,9 @@
 		A288F1571F30A4FA0061F8FF /* AddExpenseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddExpenseViewController.swift; sourceTree = "<group>"; };
 		A29720751F3D70FD00D92B3F /* ExpenseListSegmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseListSegmentViewController.swift; sourceTree = "<group>"; };
 		A29720771F3D737E00D92B3F /* ExpenseListSegmentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseListSegmentTableViewCell.swift; sourceTree = "<group>"; };
+		A2AEAAE31F5156A7009E208D /* ExpenseSegmentedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseSegmentedTableViewController.swift; sourceTree = "<group>"; };
+		A2AEAAE51F516106009E208D /* ExpenseListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseListTableViewCell.swift; sourceTree = "<group>"; };
+		A2AEAAE71F5162E2009E208D /* ExpenseListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseListViewController.swift; sourceTree = "<group>"; };
 		A2C4243A1F495DB800BC2698 /* ShareOurCostIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ShareOurCostIcon.png; sourceTree = "<group>"; };
 		A2C4243E1F496A4E00BC2698 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = .gitignore; path = ShareOurCost/.gitignore; sourceTree = "<group>"; };
 		A2DF3F171F49D91700DAD7A2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -105,6 +113,9 @@
 			children = (
 				A20F2C661F276F9700D446F7 /* AppDelegate.swift */,
 				A20F2C6A1F276F9700D446F7 /* Main.storyboard */,
+				A2AEAAE71F5162E2009E208D /* ExpenseListViewController.swift */,
+				A2AEAAE31F5156A7009E208D /* ExpenseSegmentedTableViewController.swift */,
+				A2AEAAE51F516106009E208D /* ExpenseListTableViewCell.swift */,
 				A2FE33FB1F37EC9000C3A793 /* ExpenseManager.swift */,
 				A29720751F3D70FD00D92B3F /* ExpenseListSegmentViewController.swift */,
 				A26EB0121F45889E009E5C6F /* ExpenseStatusSegmentControl.swift */,
@@ -120,6 +131,7 @@
 				A26EB00E1F444AF2009E5C6F /* TabBarController.swift */,
 				A26EB00A1F42C51B009E5C6F /* AddFriendViewController.swift */,
 				A20F2C681F276F9700D446F7 /* LoginViewController.swift */,
+				A24D05621F4D237B008C9BE8 /* LoginSegmentedControl.swift */,
 				A23489681F35F7760015698D /* AccountManager.swift */,
 				A24F30C41F2B2EFC002E05E2 /* File.swift */,
 				A20F2C721F276F9700D446F7 /* LaunchScreen.storyboard */,
@@ -263,6 +275,7 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
+				"${BUILT_PRODUCTS_DIR}/PageMenu/PageMenu.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -270,6 +283,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PageMenu.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -301,6 +315,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A24D05631F4D237B008C9BE8 /* LoginSegmentedControl.swift in Sources */,
 				A29720761F3D70FD00D92B3F /* ExpenseListSegmentViewController.swift in Sources */,
 				A24F30C51F2B2EFC002E05E2 /* File.swift in Sources */,
 				A2FE33F81F374B6400C3A793 /* FriendManager.swift in Sources */,
@@ -309,9 +324,12 @@
 				A26EB0111F454129009E5C6F /* FriendDetailListTableViewCell.swift in Sources */,
 				A2FE33FC1F37EC9000C3A793 /* ExpenseManager.swift in Sources */,
 				A20F2C6F1F276F9700D446F7 /* ShareOurCost.xcdatamodeld in Sources */,
+				A2AEAAE81F5162E2009E208D /* ExpenseListViewController.swift in Sources */,
 				A26EB0131F45889E009E5C6F /* ExpenseStatusSegmentControl.swift in Sources */,
+				A2AEAAE61F516106009E208D /* ExpenseListTableViewCell.swift in Sources */,
 				A288F1541F2E337F0061F8FF /* FriendRequestListTableViewCell.swift in Sources */,
 				A23489691F35F7760015698D /* AccountManager.swift in Sources */,
+				A2AEAAE41F5156A7009E208D /* ExpenseSegmentedTableViewController.swift in Sources */,
 				A26EB00B1F42C51B009E5C6F /* AddFriendViewController.swift in Sources */,
 				A288F1581F30A4FA0061F8FF /* AddExpenseViewController.swift in Sources */,
 				A288F1521F2E2C0C0061F8FF /* FriendListTableViewController.swift in Sources */,

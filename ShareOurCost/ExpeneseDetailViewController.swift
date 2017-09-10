@@ -9,13 +9,13 @@
 import UIKit
 import Firebase
 
-class ExpeneseDetailViewController: UIViewController, UIGestureRecognizerDelegate {
+class ExpeneseDetailViewController: UIViewController {
 
     @IBOutlet weak var totalAmountLabel: UILabel!
     @IBOutlet weak var amountYouSharedLabel: UILabel!
     @IBOutlet weak var expenseDateLabel: UILabel!
     @IBOutlet weak var expenseDescriptionLabel: UILabel!
-    @IBOutlet weak var expenseCreatedByLabel: UILabel!
+    @IBOutlet weak var expensePaidByLabel: UILabel!
     @IBOutlet weak var expenseCreatedDayLabel: UILabel!
     @IBOutlet weak var acceptExpenseButton: UIButton!
     @IBOutlet weak var denyExpenseButton: UIButton!
@@ -51,28 +51,31 @@ class ExpeneseDetailViewController: UIViewController, UIGestureRecognizerDelegat
 
         setUpNavigationBar()
 
+        setUpGesture()
+
     }
 
     func setUpNavigationBar() {
 
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_navigate_before_white_36pt"), style: .plain,
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_close_white"), style: .plain,
                                                                 target: self,
                                                                 action: #selector(touchBackButton))
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
-        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
 
-    }
-
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-
-        return true
+        self.navigationController?.navigationBar.topItem?.title = "EXPENSE DETAIL"
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0)
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.layer.borderColor = UIColor.clear.cgColor
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont(name: "Avenir-Medium", size: 18.0)!]
 
     }
 
     func touchBackButton() {
 
-        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
 
     }
 
@@ -87,14 +90,16 @@ class ExpeneseDetailViewController: UIViewController, UIGestureRecognizerDelegat
 
         var expenseCreatedByName = String()
 
+        var expensePaidByName = String()
+        
         guard let expenseTotalAmount = expenseInformation["amount"] as? Int,
               let expenseCreatedBy = expenseInformation["createdBy"] as? String,
               let expenseCreatedDay = expenseInformation["createdTime"] as? String,
-              let expensePaidBy = expenseInformation["expensePaidBy"] as? String,
+              let expensePaidByUID = expenseInformation["expensePaidBy"] as? String,
               let expenseDescription = expenseInformation["description"] as? String,
               let expenseDay = expenseInformation["expenseDay"] as? String,
               let expenseID = expenseInformation["id"] as? String,
-              let expenseSahreWith = expenseInformation["sharedWith"] as? String,
+              let expenseShareWith = expenseInformation["sharedWith"] as? String,
               let sharedAmount = expenseInformation["sharedResult"] as? [String: Any],
               let amountYouShared = sharedAmount["\(userUID)"] as? Int
         else { return }
@@ -103,7 +108,7 @@ class ExpeneseDetailViewController: UIViewController, UIGestureRecognizerDelegat
 
         if expenseCreatedBy == userUID {
 
-            self.sharedFriendUID = expenseSahreWith
+            self.sharedFriendUID = expenseShareWith
 
         } else {
 
@@ -112,21 +117,35 @@ class ExpeneseDetailViewController: UIViewController, UIGestureRecognizerDelegat
         }
 
         if friendUIDandNameList[expenseCreatedBy] == nil {
+            
+            expensePaidByName = "You"
+            
+        } else {
+
+            guard let expensePaidByNameString = friendUIDandNameList[expenseCreatedBy] else { return }
+
+            expensePaidByName = expensePaidByNameString
+            
+        }
+
+        if friendUIDandNameList[expenseCreatedBy] == nil {
 
             expenseCreatedByName = "You"
 
         } else {
 
-            expenseCreatedByName = friendUIDandNameList[expenseCreatedBy]!
+            guard let expenseCreatedByNameString = friendUIDandNameList[expenseCreatedBy] else { return }
+
+            expenseCreatedByName = expenseCreatedByNameString
 
         }
 
-        self.totalAmountLabel.text = "Total Amount: $\(expenseTotalAmount)"
-        self.expenseCreatedByLabel.text = "Created By: \(expenseCreatedByName)"
-        self.expenseCreatedDayLabel.text = "Create Day: \(expenseCreatedDay)"
-        self.expenseDescriptionLabel.text = "Description: \(expenseDescription)"
-        self.amountYouSharedLabel.text = "Amount You Shared: $\(abs(amountYouShared))"
-        self.expenseDateLabel.text = "Expense Day: \(expenseDay)"
+        self.totalAmountLabel.text = "TOTAL Amount: $" + "\(expenseTotalAmount)".currencyInputFormatting()
+        self.expensePaidByLabel.text = "PAID BY: \(expensePaidByName)"
+        self.expenseCreatedDayLabel.text = "Added by \(expenseCreatedByName) on \(expenseCreatedDay)"
+        self.expenseDescriptionLabel.text = "DESCRIPTION: \(expenseDescription)"
+        self.amountYouSharedLabel.text = "AMOUNT YOU SHARED: $" + "\(abs(amountYouShared))".currencyInputFormatting()
+        self.expenseDateLabel.text = "EXPENSE DAY: \(expenseDay)"
 
     }
 
@@ -147,13 +166,13 @@ class ExpeneseDetailViewController: UIViewController, UIGestureRecognizerDelegat
         Analytics.logEvent("clickAcceptExpenseButton", parameters: nil)
 
         guard let expenseCreatedBy = expenseInformation["createdBy"] as? String,
-              let expenseSahreWith = expenseInformation["sharedWith"] as? String,
+              let expenseShareWith = expenseInformation["sharedWith"] as? String,
               let expenseID = expenseInformation["id"] as? String
         else { return }
 
         if expenseCreatedBy == userUID {
 
-            sharedFriendUID = expenseSahreWith
+            sharedFriendUID = expenseShareWith
 
         } else {
 
@@ -216,8 +235,8 @@ class ExpeneseDetailViewController: UIViewController, UIGestureRecognizerDelegat
 
             expenseManager.changeExpenseStatus(friendUID: sharedFriendUID,
                                                expenseID: expenseID,
-                                               changeSelfStatus: "denied",
-                                               changeFriendStatus: nil)
+                                               changeSelfStatus: "sentDenied",
+                                               changeFriendStatus: "denied")
 
             expenseManager.changeExpenseReadStatus(friendUID: self.sharedFriendUID,
                                                    expenseID: self.expenseID,
@@ -278,6 +297,7 @@ class ExpeneseDetailViewController: UIViewController, UIGestureRecognizerDelegat
         })
 
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+
         alertController.addAction(deleteAction)
         alertController.addAction(cancelAction)
 
@@ -285,4 +305,18 @@ class ExpeneseDetailViewController: UIViewController, UIGestureRecognizerDelegat
 
     }
 
+    func setUpGesture() {
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
+        swipeRight.direction = .down
+        self.view.addGestureRecognizer(swipeRight)
+        
+    }
+
+    func handleGesture(gesture: UISwipeGestureRecognizer) -> Void {
+        if gesture.direction == UISwipeGestureRecognizerDirection.down {
+            self.dismiss(animated: true, completion: nil)
+
+        }
+    }
 }
