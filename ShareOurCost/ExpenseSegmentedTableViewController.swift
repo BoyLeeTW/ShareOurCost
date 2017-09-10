@@ -142,25 +142,25 @@ class ExpenseSegmentedTableViewController: UITableViewController {
                         let displayAmount: String = "\(-amount)".currencyInputFormatting()
 
                         cell.expenseBriefLabel.text = ("You owe \(friendName) $\(displayAmount) for \(expenseDescription)" )
-                        
+
                     } else if amount == 0 {
-                        
+
                         if paidBy == userUID {
 
                             let displayAmount: String = "\(totalAmount)".currencyInputFormatting()
 
                             cell.expenseBriefLabel.text = ("\(friendName) owes you $\(displayAmount) for \(expenseDescription)")
-                            
+
                         } else {
-                            
+
                             cell.expenseBriefLabel.text = ("You share nothing in this expense" )
-                            
+
                         }
-                        
+
                     }
-                    
+
                 } else {
-                    
+
                     if amount < 0 {
 
                         let displayAmount: String = "\(-amount)".currencyInputFormatting()
@@ -206,18 +206,22 @@ class ExpenseSegmentedTableViewController: UITableViewController {
                 else { return cell }
             
             for (UID, amount) in sharedResult {
-                
+
                 if UID == userUID {
-                    
+
                     if amount < 0 {
-                        
-                        cell.friendNameLabel.text = ("You owe \(friendName) $\(-amount) for \(expenseDescription)" )
-                        
+
+                        let displayAmount: String = "\(-amount)".currencyInputFormatting()
+
+                        cell.friendNameLabel.text = ("You owe \(friendName) $\(displayAmount) for \(expenseDescription)" )
+
                     } else if amount == 0 {
                         
                         if paidBy == userUID {
+
+                            let displayAmount: String = "\(totalAmount)".currencyInputFormatting()
                             
-                            cell.friendNameLabel.text = ("\(friendName) owes you $\(totalAmount) for \(expenseDescription)")
+                            cell.friendNameLabel.text = ("\(friendName) owes you $\(displayAmount) for \(expenseDescription)")
                             
                         } else {
                             
@@ -230,8 +234,10 @@ class ExpenseSegmentedTableViewController: UITableViewController {
                 } else {
                     
                     if amount < 0 {
-                        
-                        cell.friendNameLabel.text = ("\(friendName) owes you $\(-amount) for \(expenseDescription)")
+
+                        let displayAmount: String = "\(-amount)".currencyInputFormatting()
+
+                        cell.friendNameLabel.text = ("\(friendName) owes you $\(displayAmount) for \(expenseDescription)")
                         
                     } else if amount == 0 {
                         
@@ -240,8 +246,10 @@ class ExpenseSegmentedTableViewController: UITableViewController {
                             cell.friendNameLabel.text = ("You share nothing in this expense" )
                             
                         } else {
+
+                            let displayAmount: String = "\(totalAmount)".currencyInputFormatting()
                             
-                            cell.friendNameLabel.text = ("You owe \(friendName) $\(totalAmount) for \(expenseDescription)" )
+                            cell.friendNameLabel.text = ("You owe \(friendName) $\(displayAmount) for \(expenseDescription)" )
                             
                         }
                         

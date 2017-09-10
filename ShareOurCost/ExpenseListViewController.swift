@@ -74,9 +74,13 @@ class ExpenseListViewController: UIViewController {
                 guard let weakSelf = self else { return }
 
                 weakSelf.acceptedExpenseListTVC.friendUIDList = friendUIDList
+
                 weakSelf.deniedExpenseListTVC.friendUIDList = friendUIDList
+
                 weakSelf.receivedPendingExpenseListTVC.friendUIDList = friendUIDList
+
                 weakSelf.sentPendingExpenseListTVC.friendUIDList = friendUIDList
+
                 weakSelf.receivedDeletedExepsneListTVC.friendUIDList = friendUIDList
 
                 weakSelf.friendUIDList = friendUIDList
@@ -171,11 +175,8 @@ class ExpenseListViewController: UIViewController {
         controllerArray.append(sentPendingExpenseListTVC)
         controllerArray.append(receivedDeletedExepsneListTVC)
 
-        
-        // a bunch of random customization
         let parameters: [CAPSPageMenuOption] = [
             .scrollMenuBackgroundColor(UIColor.clear),
-//            .scrollMenuBackgroundColor(UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0)),
             .viewBackgroundColor(UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0)),
             .bottomMenuHairlineColor(UIColor.clear),
             .selectionIndicatorColor(UIColor.white),
