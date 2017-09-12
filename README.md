@@ -1,6 +1,9 @@
-## ShareOurCost
+# ShareOurCost <img src="https://github.com/BoyLeeTW/ShareOurCost/blob/master/ShareOurCost/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60%403x.png" width="40">
 
-ShareOurCost is an application for recording common expense between you and your friends in a careful way. Instead of using your personal information like phone number or e-mail, you can unique user ID for connecting with your friends. And you can send expense sharing invitation to your friend and track the status and details of expenses.'
+
+ShareOurCost is an application for recording common expense between you and your friends in a careful way. Instead of using your personal information like phone number or e-mail, you can unique user ID for connecting with your friends. And you can send expense sharing invitation to your friend and track the status and details of expenses.
+
+
 
 是一款能夠嚴謹的紀錄兩人共同花費的分帳軟體，能透過不重複的 ID 進行好友邀請及確認，並與發送分帳邀請給好友以及追蹤每筆分賬資訊的狀態及詳細資訊。
 
@@ -11,8 +14,8 @@ Xcode 8.3+
 ## Features
 
 ### Login View<br/>
- - Use e-mail for registration or login, use Firebase Authorization for user account management
- - Need to enter user ID for user identification and sending friend invitation, app will check if it is unique while having registration
+ - Use e-mail for registration or login, use Firebase Authorization for user account management.
+ - Enter user ID for user identification and sending friend invitation, app will check if it is unique while registration.
 
 <kbd>
 <img src="https://github.com/BoyLeeTW/ShareOurCost/blob/master/Screenshots/login.png" width = "275" height = "500" align=center />
@@ -23,8 +26,8 @@ Xcode 8.3+
 </kbd>
 
 ### Search friend<br/>
- - Search friend by user ID, which is set up when registration
- - Send friend invitation by touching "ADD" button
+ - Search friend by user ID, which is set up when registration.
+ - Send friend invitation by touching "ADD" button.
 
 <kbd>
 <img src="https://github.com/BoyLeeTW/ShareOurCost/blob/master/Screenshots/searchFriendID1.png" width = "275" height = "500" align=center />
@@ -36,9 +39,9 @@ Xcode 8.3+
 
 
 ### Friend List<br/>
- - Friend list for existing friends and received friend request
- - Touch friend name label will show accepted expenses between you and friend
- - Touch expense label will show the details of corresponding expense
+ - Friend list for existing friends and received friend request.
+ - Touch friend name label will show accepted expenses between you and friend.
+ - Touch expense label will show the details of corresponding expense.
 
 <kbd>
 <img src="https://github.com/BoyLeeTW/ShareOurCost/blob/master/Screenshots/friendList.png" width = "275" height = "500" align=center />
@@ -53,8 +56,8 @@ Xcode 8.3+
 </kbd>
 
 ### Add expense<br/>
- - Choose a friend to share your common expense with date, description and shared amount 
- - Shared amount can be set by number directly or by percent
+ - Choose a friend to share your common expense with date, description and shared amount. 
+ - Shared amount can be set by number directly or by percent.
  
 <kbd>
 <img src="https://github.com/BoyLeeTW/ShareOurCost/blob/master/Screenshots/addExpense1.png" width = "275" height = "500" align=center />
@@ -71,13 +74,13 @@ Xcode 8.3+
 ### Expense List<br/>
 
  - There are five expense status:<br/>
-  `-` Accepted: Expenses accepted by user who recieved this expense sharing invitation<br/>
-  `-` Denied: Expenses denied by the friend you want to share expense with <br/>
-  `-` Received: Expenses your friend wants to share with you, waiting for your approval<br/>
-  `-` Sent: Expenses sharing invitation you sent, waiting for the approval from your firend<br/>
-  `-` Delete?: Expenses was accepted before but your friend wants to delete it afterwards, waiting for your approval
- - Can directly choose accept or deny by touching "check" or "cross" image
- - Touch expense label will show the details of corresponding expense
+  `-` Accepted: Expenses accepted by user who recieved this expense sharing invitation.<br/>
+  `-` Denied: Expenses denied by the friend you want to share expense with.<br/>
+  `-` Received: Expenses your friend wants to share with you, waiting for your approval.<br/>
+  `-` Sent: Expenses sharing invitation you sent, waiting for the approval from your firend.<br/>
+  `-` Delete?: Expenses was accepted before but your friend wants to delete it afterwards, waiting for your approval.
+ - Can directly choose accept or deny by touching "check" or "cross" image.
+ - Touch expense label will show the details of corresponding expense.
 
 <kbd>
 <img src="https://github.com/BoyLeeTW/ShareOurCost/blob/master/Screenshots/expenseList-Accepted.png" width = "275" height = "500" align=center />
