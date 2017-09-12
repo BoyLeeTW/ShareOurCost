@@ -8,9 +8,6 @@ Xcode 8.3+
 
 ## Features
 
-
-## Screen Shots
-
 ### Login View<br/>
  - Use e-mail for registration or login, use Firebase Authorization for user account management.
  - Enter user ID for user identification and sending friend invitation, the application will check if it is unique while registration.
@@ -52,7 +49,7 @@ Xcode 8.3+
 <img src="https://github.com/BoyLeeTW/ShareOurCost/blob/master/Screenshots/expenseDetail.png" width = "275" height = "500" align=center />
 </kbd>
 
-### Add expense<br/>
+### Add Expense<br/>
  - Choose a friend to share your common expense with date, description and shared amount. 
  - Shared amount can be set by number directly or by percent.
  
@@ -98,7 +95,7 @@ Xcode 8.3+
 - NVActivityIndicatorView (3.7.0)
 - PageMenu (2.0.0)
 
-## Contact
+## Contact Me
 
 Brad Lee <br/>
 :email: <boy0726@gmail.com><br/>
