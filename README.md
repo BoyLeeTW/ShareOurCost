@@ -35,7 +35,7 @@ Xcode 8.3+
 ### Friend List<br/>
  - Friend list for existing friends and received friend requests.
  - Touch friend name label will show accepted expenses between you and friend.
- - Touch expense label will show the details of corresponding expense.
+ - Touch expense label will show the details of corresponding expense, and you can slide from up to down to dismiss the view.
 
 <kbd>
 <img src="https://github.com/BoyLeeTW/ShareOurCost/blob/master/Screenshots/friendList.png" width = "275" height = "500" align=center />
