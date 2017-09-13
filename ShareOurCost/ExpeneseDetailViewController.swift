@@ -192,7 +192,7 @@ class ExpeneseDetailViewController: UIViewController {
                                                changeSelfStatus: true,
                                                changeFriendStatus: false)
 
-        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
 
     }
 
@@ -229,7 +229,7 @@ class ExpeneseDetailViewController: UIViewController {
                                                    changeSelfStatus: true,
                                                    changeFriendStatus: false)
 
-            self.navigationController?.popViewController(animated: true)
+            self.dismiss(animated: true, completion: nil)
 
         } else {
 
@@ -243,7 +243,7 @@ class ExpeneseDetailViewController: UIViewController {
                                                    changeSelfStatus: true,
                                                    changeFriendStatus: false)
 
-            self.navigationController?.popViewController(animated: true)
+            self.dismiss(animated: true, completion: nil)
 
         }
 
@@ -260,7 +260,7 @@ class ExpeneseDetailViewController: UIViewController {
 
             if self.expenseStatus == "sentPending" || self.expenseStatus == "denied" || self.expenseStatus == "receivedDeleted" {
 
-                self.navigationController?.popViewController(animated: true)
+                self.dismiss(animated: true, completion: nil)
 
                 Analytics.logEvent("clickDeleteExpenseButtonAndDeleteDirectly", parameters: nil)
 
@@ -275,7 +275,7 @@ class ExpeneseDetailViewController: UIViewController {
 
                     Analytics.logEvent("clickDeleteExpenseButtonAndDeletePending", parameters: nil)
 
-                    self.navigationController?.popViewController(animated: true)
+                    self.dismiss(animated: true, completion: nil)
 
                     self.expenseManager.changeExpenseStatus(friendUID: self.sharedFriendUID,
                                                             expenseID: self.expenseID,
@@ -301,7 +301,7 @@ class ExpeneseDetailViewController: UIViewController {
         alertController.addAction(deleteAction)
         alertController.addAction(cancelAction)
 
-        self.present(alertController, animated: true, completion:  nil)
+        self.present(alertController, animated: true, completion: nil)
 
     }
 

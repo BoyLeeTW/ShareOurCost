@@ -35,13 +35,12 @@ class ExpenseSegmentedTableViewController: UITableViewController {
 
         setupTableView()
 
-//        self.navigationController = navigationController.
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(false)
         
-        self.tableView.reloadData()
+        self.expenseListTableView.reloadData()
 
     }
 

@@ -42,7 +42,7 @@ class ExpenseListViewController: UIViewController {
         super.viewDidLoad()
 
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        
+
         acceptedExpenseListTVC = storyboard.instantiateViewController(withIdentifier: "ExpenseSegmentTVC") as! ExpenseSegmentedTableViewController
         
         deniedExpenseListTVC = storyboard.instantiateViewController(withIdentifier: "ExpenseSegmentTVC") as! ExpenseSegmentedTableViewController

@@ -247,6 +247,8 @@ class FriendListTableViewController: UITableViewController {
             friendNameAndUIDList = [String: String]()
             friendUIDList = Array<String>()
 
+            try? Auth.auth().signOut()
+
         })
 
         let cancelLogOutAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
