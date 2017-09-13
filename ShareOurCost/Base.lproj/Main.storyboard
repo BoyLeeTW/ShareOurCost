@@ -417,7 +417,7 @@ SHARES</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lqu-aD-qOV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3877.5" y="1142.9577464788733"/>
+            <point key="canvasLocation" x="3878" y="1263"/>
         </scene>
         <!--Friend List Table View Controller-->
         <scene sceneID="cB5-qP-Kk4">
@@ -640,7 +640,7 @@ SHARES</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CyQ-tB-yDF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3877.5" y="-877.81690140845069"/>
+            <point key="canvasLocation" x="3878" y="-144"/>
         </scene>
         <!--Add Friend View Controller-->
         <scene sceneID="iLz-0s-ioG">
@@ -720,146 +720,7 @@ SHARES</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gco-RA-JZ9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3877.5" y="-195.42253521126761"/>
-        </scene>
-        <!--Expense List Segment View Controller-->
-        <scene sceneID="VxQ-25-h2I">
-            <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="tA7-tw-Ano" customClass="ExpenseListSegmentViewController" customModule="ShareOurCost" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="g4f-rv-fef"/>
-                        <viewControllerLayoutGuide type="bottom" id="RYc-Aa-LLg"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="rnA-jM-y8H">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eDJ-Gg-QQD">
-                                <rect key="frame" x="0.0" y="103" width="320" height="465"/>
-                                <color key="backgroundColor" red="0.26897078749999997" green="0.60757797960000004" blue="0.70563191179999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="32" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nH6-Ff-pQp">
-                                <rect key="frame" x="0.0" y="113" width="320" height="455"/>
-                                <color key="backgroundColor" red="0.26897078749999997" green="0.60757797960000004" blue="0.70563191179999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <inset key="separatorInset" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <color key="sectionIndexColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ExpenseListSegmentCell" id="IRN-up-F5C" customClass="ExpenseListSegmentTableViewCell" customModule="ShareOurCost" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="32" width="320" height="60"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IRN-up-F5C" id="agb-Q9-XV4">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v7W-in-k5I" customClass="MyButton" customModule="ShareOurCost" customModuleProvider="target">
-                                                    <rect key="frame" x="240" y="18" width="30" height="24"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="30" id="rWl-jA-vd5"/>
-                                                    </constraints>
-                                                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <state key="normal" image="ic_check_white"/>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r4O-XG-gYx" customClass="MyButton" customModule="ShareOurCost" customModuleProvider="target">
-                                                    <rect key="frame" x="280" y="18" width="30" height="24"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="30" id="pgW-cG-VEg"/>
-                                                    </constraints>
-                                                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <state key="normal" image="ic_close_white"/>
-                                                </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dtx-hm-uRo">
-                                                    <rect key="frame" x="15" y="12" width="215" height="15.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sSD-ub-kK0">
-                                                    <rect key="frame" x="15" y="32.5" width="215" height="12"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="12" id="E9O-9k-ULS"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" red="0.67450980390000004" green="0.80784313730000001" blue="0.82745098039999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="sSD-ub-kK0" firstAttribute="top" secondItem="dtx-hm-uRo" secondAttribute="bottom" constant="5" id="Bm5-RG-VZG"/>
-                                                <constraint firstItem="dtx-hm-uRo" firstAttribute="leading" secondItem="agb-Q9-XV4" secondAttribute="leading" constant="15" id="Dsc-cV-vi9"/>
-                                                <constraint firstAttribute="trailing" secondItem="r4O-XG-gYx" secondAttribute="trailing" constant="10" id="LTY-4u-gPa"/>
-                                                <constraint firstItem="v7W-in-k5I" firstAttribute="leading" secondItem="dtx-hm-uRo" secondAttribute="trailing" constant="10" id="YSo-gq-zkz"/>
-                                                <constraint firstItem="r4O-XG-gYx" firstAttribute="leading" secondItem="v7W-in-k5I" secondAttribute="trailing" constant="10" id="kav-5L-izC"/>
-                                                <constraint firstItem="dtx-hm-uRo" firstAttribute="top" secondItem="agb-Q9-XV4" secondAttribute="top" constant="12" id="mYb-eO-CvC"/>
-                                                <constraint firstItem="sSD-ub-kK0" firstAttribute="centerX" secondItem="dtx-hm-uRo" secondAttribute="centerX" id="o9E-TZ-5HO"/>
-                                                <constraint firstItem="r4O-XG-gYx" firstAttribute="centerY" secondItem="v7W-in-k5I" secondAttribute="centerY" id="qyh-n0-hAZ"/>
-                                                <constraint firstItem="sSD-ub-kK0" firstAttribute="leading" secondItem="dtx-hm-uRo" secondAttribute="leading" id="rL0-n1-49V"/>
-                                                <constraint firstAttribute="bottom" secondItem="sSD-ub-kK0" secondAttribute="bottom" constant="15" id="sWv-d2-AtH"/>
-                                                <constraint firstItem="sSD-ub-kK0" firstAttribute="trailing" secondItem="dtx-hm-uRo" secondAttribute="trailing" id="ss5-66-5hu"/>
-                                                <constraint firstItem="v7W-in-k5I" firstAttribute="centerY" secondItem="agb-Q9-XV4" secondAttribute="centerY" id="wCs-84-Fog"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.26897078749999997" green="0.60757797960000004" blue="0.70563191179999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <connections>
-                                            <outlet property="acceptButton" destination="v7W-in-k5I" id="Jfh-UK-tQt"/>
-                                            <outlet property="denyButton" destination="r4O-XG-gYx" id="T8X-TN-fnE"/>
-                                            <outlet property="expenseCreatedDateLabel" destination="sSD-ub-kK0" id="RVN-ge-PfK"/>
-                                            <outlet property="friendNameLabel" destination="dtx-hm-uRo" id="5mC-7p-8yc"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="tA7-tw-Ano" id="rnN-SL-AoZ"/>
-                                    <outlet property="delegate" destination="tA7-tw-Ano" id="jaE-oC-nSC"/>
-                                </connections>
-                            </tableView>
-                            <segmentedControl opaque="NO" contentMode="center" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="eHj-UN-dPX" customClass="ExpenseStatusSegmentControl" customModule="ShareOurCost" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="64" width="320" height="40"/>
-                                <color key="backgroundColor" red="0.26897078749999997" green="0.60757797960000004" blue="0.70563191179999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="eHj-UN-dPX" secondAttribute="height" multiplier="100:12" constant="-3.0769230769230944" id="RCq-rH-BVx"/>
-                                </constraints>
-                                <segments>
-                                    <segment title="" image="ic_thumb_up_white"/>
-                                    <segment title="" image="ic_thumb_down_white"/>
-                                    <segment title="" image="receive-mail-3"/>
-                                    <segment title="" image="send-mail-3"/>
-                                    <segment title="" image="ic_delete_white"/>
-                                </segments>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </segmentedControl>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="eDJ-Gg-QQD" firstAttribute="trailing" secondItem="eHj-UN-dPX" secondAttribute="trailing" id="50A-gO-GCc"/>
-                            <constraint firstItem="nH6-Ff-pQp" firstAttribute="top" secondItem="eHj-UN-dPX" secondAttribute="bottom" constant="10" id="7Pl-Ij-LMT"/>
-                            <constraint firstItem="eDJ-Gg-QQD" firstAttribute="leading" secondItem="eHj-UN-dPX" secondAttribute="leading" id="7Zn-Vw-7yM"/>
-                            <constraint firstItem="eDJ-Gg-QQD" firstAttribute="bottom" secondItem="nH6-Ff-pQp" secondAttribute="bottom" id="Dp7-S5-8dK"/>
-                            <constraint firstItem="RYc-Aa-LLg" firstAttribute="top" secondItem="nH6-Ff-pQp" secondAttribute="bottom" id="KLD-dC-ObE"/>
-                            <constraint firstAttribute="trailing" secondItem="nH6-Ff-pQp" secondAttribute="trailing" id="Va0-f1-2Am"/>
-                            <constraint firstItem="eDJ-Gg-QQD" firstAttribute="top" secondItem="eHj-UN-dPX" secondAttribute="bottom" id="esN-5f-xeL"/>
-                            <constraint firstItem="eHj-UN-dPX" firstAttribute="leading" secondItem="rnA-jM-y8H" secondAttribute="leading" id="f7f-on-un9"/>
-                            <constraint firstItem="nH6-Ff-pQp" firstAttribute="leading" secondItem="rnA-jM-y8H" secondAttribute="leading" id="gBY-Cd-DzD"/>
-                            <constraint firstItem="eHj-UN-dPX" firstAttribute="top" secondItem="g4f-rv-fef" secondAttribute="bottom" id="tSo-yd-9cp"/>
-                            <constraint firstItem="eHj-UN-dPX" firstAttribute="centerX" secondItem="rnA-jM-y8H" secondAttribute="centerX" id="vVA-GR-DEo"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="6Xb-H5-H2g">
-                        <barButtonItem key="rightBarButtonItem" image="ic_add_white" id="QoP-IJ-lhp">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <segue destination="0jq-iu-og4" kind="show" id="EN1-Cb-XnZ"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
-                    <connections>
-                        <outlet property="expenseListTableView" destination="nH6-Ff-pQp" id="BP1-zt-t9c"/>
-                        <outlet property="expenseStatusSegmentController" destination="eHj-UN-dPX" id="O7w-df-l6v"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ee7-8a-1n3" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2955" y="1985"/>
+            <point key="canvasLocation" x="3878" y="-837"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="W86-G1-W1T">
@@ -1062,7 +923,7 @@ SHARES</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XzU-g4-8Uv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5437.5" y="473.23943661971833"/>
+            <point key="canvasLocation" x="5994" y="354"/>
         </scene>
         <!--Expense List View Controller-->
         <scene sceneID="xgF-6D-K4g">
@@ -1212,28 +1073,7 @@ SHARES</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hvW-he-FeM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6353" y="-105"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="Wkd-4f-om7">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="JOc-3g-wBH" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="ic_attach_money_white" id="wF8-gb-38d">
-                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
-                    </tabBarItem>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Nfu-3t-8Lz">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="tA7-tw-Ano" kind="relationship" relationship="rootViewController" id="erL-fm-F42"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="a4A-vl-YY7" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1811" y="2018"/>
+            <point key="canvasLocation" x="3878" y="557"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Wo1-3r-FcF">
@@ -1274,7 +1114,7 @@ SHARES</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6uO-rG-Ica" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4440" y="473.23943661971833"/>
+            <point key="canvasLocation" x="5033" y="204"/>
         </scene>
     </scenes>
     <resources>
@@ -1282,16 +1122,10 @@ SHARES</string>
         <image name="ic_attach_money_white" width="24" height="24"/>
         <image name="ic_check_white" width="24" height="24"/>
         <image name="ic_close_white" width="24" height="24"/>
-        <image name="ic_delete_white" width="24" height="24"/>
         <image name="ic_people_outline_white" width="24" height="24"/>
         <image name="ic_person_white" width="24" height="24"/>
-        <image name="ic_thumb_down_white" width="24" height="24"/>
-        <image name="ic_thumb_up_white" width="24" height="24"/>
-        <image name="receive-mail-3" width="24" height="24"/>
-        <image name="send-mail-3" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="F4V-6k-dEt"/>
-        <segue reference="EN1-Cb-XnZ"/>
+        <segue reference="MOL-wE-Rbk"/>
     </inferredMetricsTieBreakers>
 </document>

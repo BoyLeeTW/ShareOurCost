@@ -20,12 +20,10 @@
 		A26EB00D1F42D0E8009E5C6F /* FriendDetailListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26EB00C1F42D0E8009E5C6F /* FriendDetailListViewController.swift */; };
 		A26EB00F1F444AF2009E5C6F /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26EB00E1F444AF2009E5C6F /* TabBarController.swift */; };
 		A26EB0111F454129009E5C6F /* FriendDetailListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26EB0101F454129009E5C6F /* FriendDetailListTableViewCell.swift */; };
-		A26EB0131F45889E009E5C6F /* ExpenseStatusSegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26EB0121F45889E009E5C6F /* ExpenseStatusSegmentControl.swift */; };
 		A288F1521F2E2C0C0061F8FF /* FriendListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A288F1511F2E2C0C0061F8FF /* FriendListTableViewController.swift */; };
 		A288F1541F2E337F0061F8FF /* FriendRequestListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A288F1531F2E337F0061F8FF /* FriendRequestListTableViewCell.swift */; };
 		A288F1561F3055F40061F8FF /* FriendListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A288F1551F3055F40061F8FF /* FriendListTableViewCell.swift */; };
 		A288F1581F30A4FA0061F8FF /* AddExpenseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A288F1571F30A4FA0061F8FF /* AddExpenseViewController.swift */; };
-		A29720761F3D70FD00D92B3F /* ExpenseListSegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29720751F3D70FD00D92B3F /* ExpenseListSegmentViewController.swift */; };
 		A29720781F3D737E00D92B3F /* ExpenseListSegmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29720771F3D737E00D92B3F /* ExpenseListSegmentTableViewCell.swift */; };
 		A2AEAAE41F5156A7009E208D /* ExpenseSegmentedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AEAAE31F5156A7009E208D /* ExpenseSegmentedTableViewController.swift */; };
 		A2AEAAE61F516106009E208D /* ExpenseListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AEAAE51F516106009E208D /* ExpenseListTableViewCell.swift */; };
@@ -57,12 +55,10 @@
 		A26EB00C1F42D0E8009E5C6F /* FriendDetailListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendDetailListViewController.swift; sourceTree = "<group>"; };
 		A26EB00E1F444AF2009E5C6F /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		A26EB0101F454129009E5C6F /* FriendDetailListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendDetailListTableViewCell.swift; sourceTree = "<group>"; };
-		A26EB0121F45889E009E5C6F /* ExpenseStatusSegmentControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseStatusSegmentControl.swift; sourceTree = "<group>"; };
 		A288F1511F2E2C0C0061F8FF /* FriendListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendListTableViewController.swift; sourceTree = "<group>"; };
 		A288F1531F2E337F0061F8FF /* FriendRequestListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendRequestListTableViewCell.swift; sourceTree = "<group>"; };
 		A288F1551F3055F40061F8FF /* FriendListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendListTableViewCell.swift; sourceTree = "<group>"; };
 		A288F1571F30A4FA0061F8FF /* AddExpenseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddExpenseViewController.swift; sourceTree = "<group>"; };
-		A29720751F3D70FD00D92B3F /* ExpenseListSegmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseListSegmentViewController.swift; sourceTree = "<group>"; };
 		A29720771F3D737E00D92B3F /* ExpenseListSegmentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseListSegmentTableViewCell.swift; sourceTree = "<group>"; };
 		A2AEAAE31F5156A7009E208D /* ExpenseSegmentedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseSegmentedTableViewController.swift; sourceTree = "<group>"; };
 		A2AEAAE51F516106009E208D /* ExpenseListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseListTableViewCell.swift; sourceTree = "<group>"; };
@@ -117,8 +113,6 @@
 				A2AEAAE31F5156A7009E208D /* ExpenseSegmentedTableViewController.swift */,
 				A2AEAAE51F516106009E208D /* ExpenseListTableViewCell.swift */,
 				A2FE33FB1F37EC9000C3A793 /* ExpenseManager.swift */,
-				A29720751F3D70FD00D92B3F /* ExpenseListSegmentViewController.swift */,
-				A26EB0121F45889E009E5C6F /* ExpenseStatusSegmentControl.swift */,
 				A29720771F3D737E00D92B3F /* ExpenseListSegmentTableViewCell.swift */,
 				A2FE33F91F3759C600C3A793 /* ExpeneseDetailViewController.swift */,
 				A288F1571F30A4FA0061F8FF /* AddExpenseViewController.swift */,
@@ -316,7 +310,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A24D05631F4D237B008C9BE8 /* LoginSegmentedControl.swift in Sources */,
-				A29720761F3D70FD00D92B3F /* ExpenseListSegmentViewController.swift in Sources */,
 				A24F30C51F2B2EFC002E05E2 /* File.swift in Sources */,
 				A2FE33F81F374B6400C3A793 /* FriendManager.swift in Sources */,
 				A26EB00D1F42D0E8009E5C6F /* FriendDetailListViewController.swift in Sources */,
@@ -325,7 +318,6 @@
 				A2FE33FC1F37EC9000C3A793 /* ExpenseManager.swift in Sources */,
 				A20F2C6F1F276F9700D446F7 /* ShareOurCost.xcdatamodeld in Sources */,
 				A2AEAAE81F5162E2009E208D /* ExpenseListViewController.swift in Sources */,
-				A26EB0131F45889E009E5C6F /* ExpenseStatusSegmentControl.swift in Sources */,
 				A2AEAAE61F516106009E208D /* ExpenseListTableViewCell.swift in Sources */,
 				A288F1541F2E337F0061F8FF /* FriendRequestListTableViewCell.swift in Sources */,
 				A23489691F35F7760015698D /* AccountManager.swift in Sources */,
