@@ -39,7 +39,8 @@ class FriendListTableViewController: UITableViewController {
 
         friendManager.fetchFriendUIDList { [weak self] (friendUIDListOfBlock) in
 
-            guard let weakSelf = self else { return }
+            guard let weakSelf = self
+                else { return }
 
             friendUIDList = friendUIDListOfBlock
 
@@ -59,7 +60,8 @@ class FriendListTableViewController: UITableViewController {
 
         ref.child("userInfo").child(userUID).child("pendingFriendRequest").observe(.value, with: { (dataSnapshot) in
 
-            guard let pendingFriendRequestList = dataSnapshot.value as? [String: Bool] else { return }
+            guard let pendingFriendRequestList = dataSnapshot.value as? [String: Bool]
+                else { return }
 
             for (friendUID, status) in pendingFriendRequestList where status == false {
 
@@ -148,9 +150,11 @@ class FriendListTableViewController: UITableViewController {
         switch (indexPath.section) {
         case 0:
 
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "friendListCell", for: indexPath) as? FriendListTableViewCell else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "friendListCell", for: indexPath) as? FriendListTableViewCell
+                else { return UITableViewCell() }
 
-            guard let friendName = friendUIDandNameList[friendUIDList[indexPath.row]] else { return cell }
+            guard let friendName = friendUIDandNameList[friendUIDList[indexPath.row]]
+                else { return cell }
 
             cell.friendNameLabel.text = friendName
 
@@ -158,7 +162,8 @@ class FriendListTableViewController: UITableViewController {
 
         default:
 
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "friendRequestListCell", for: indexPath) as? FriendRequestListTableViewCell else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "friendRequestListCell", for: indexPath) as? FriendRequestListTableViewCell
+                else { return UITableViewCell() }
 
             ref.child("userInfo").child(friendRequestIDList[indexPath.row]).child("fullName").observe(.value, with: { (dataSnapshot) in
 
@@ -182,7 +187,8 @@ class FriendListTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "friendRequestListCell", for: indexPath) as? FriendRequestListTableViewCell else { return }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "friendRequestListCell", for: indexPath) as? FriendRequestListTableViewCell
+            else { return }
 
         cell.friendNameLabel.text = ""
 

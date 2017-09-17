@@ -103,7 +103,8 @@ class ExpenseSegmentedTableViewController: UITableViewController {
 
             let cell = tableView.dequeueReusableCell(withIdentifier: "ExpenseListCell", for: indexPath) as! ExpenseListTableViewCell
 
-            guard let expenseData = expenseInfoList[friendUIDList[indexPath.section]]?[indexPath.row],
+            guard
+                let expenseData = expenseInfoList[friendUIDList[indexPath.section]]?[indexPath.row],
                 let expenseDescription = expenseData["description"] as? String,
                 let expenseDate = expenseData["expenseDay"] as? String,
                 let sharedResult = expenseData["sharedResult"] as? [String: Int],
@@ -187,7 +188,8 @@ class ExpenseSegmentedTableViewController: UITableViewController {
 
             let cell = tableView.dequeueReusableCell(withIdentifier: "ExpenseRequestListCell", for: indexPath) as! ExpenseListApprovalTableViewCell
 
-            guard let expenseData = expenseInfoList[friendUIDList[indexPath.section]]?[indexPath.row],
+            guard
+                let expenseData = expenseInfoList[friendUIDList[indexPath.section]]?[indexPath.row],
                 let expenseDescription = expenseData["description"] as? String,
                 let expenseDate = expenseData["expenseDay"] as? String,
                 let sharedResult = expenseData["sharedResult"] as? [String: Int],
@@ -283,9 +285,10 @@ class ExpenseSegmentedTableViewController: UITableViewController {
 
     func touchAcceptButton(sender: MyButton) {
 
-        guard let expenseID = expenseInfoList[friendUIDList[sender.section!]]![sender.row!]["id"] as? String,
-              let friendUID = friendUIDList[sender.section!] as? String
-              else { return }
+        guard
+            let expenseID = expenseInfoList[friendUIDList[sender.section!]]![sender.row!]["id"] as? String,
+            let friendUID = friendUIDList[sender.section!] as? String
+            else { return }
 
         expenseManager.changeExpenseStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: "accepted", changeFriendStatus: nil)
 
@@ -297,9 +300,10 @@ class ExpenseSegmentedTableViewController: UITableViewController {
 
     func touchDenyButton(sender: MyButton) {
 
-        guard let expenseID = expenseInfoList[friendUIDList[sender.section!]]![sender.row!]["id"] as? String,
-              let friendUID = friendUIDList[sender.section!] as? String
-              else { return }
+        guard
+            let expenseID = expenseInfoList[friendUIDList[sender.section!]]![sender.row!]["id"] as? String,
+            let friendUID = friendUIDList[sender.section!] as? String
+            else { return }
 
         expenseManager.changeExpenseStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: "sentDenied", changeFriendStatus: "denied")
 
@@ -317,9 +321,10 @@ class ExpenseSegmentedTableViewController: UITableViewController {
 
         selectedSection = indexPath.section
 
-            guard let expenseID = expenseInfoList[friendUIDList[selectedSection]]![selectedRow]["id"] as? String,
-                  let friendUID = friendUIDList[selectedSection] as? String
-                  else { return }
+            guard
+                let expenseID = expenseInfoList[friendUIDList[selectedSection]]![selectedRow]["id"] as? String,
+                let friendUID = friendUIDList[selectedSection] as? String
+                else { return }
             
             expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: nil)
 

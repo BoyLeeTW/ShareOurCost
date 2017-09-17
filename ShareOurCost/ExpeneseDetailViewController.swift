@@ -92,17 +92,18 @@ class ExpeneseDetailViewController: UIViewController {
 
         var expensePaidByName = String()
         
-        guard let expenseTotalAmount = expenseInformation["amount"] as? Int,
-              let expenseCreatedBy = expenseInformation["createdBy"] as? String,
-              let expenseCreatedDay = expenseInformation["createdTime"] as? String,
-              let expensePaidByUID = expenseInformation["expensePaidBy"] as? String,
-              let expenseDescription = expenseInformation["description"] as? String,
-              let expenseDay = expenseInformation["expenseDay"] as? String,
-              let expenseID = expenseInformation["id"] as? String,
-              let expenseShareWith = expenseInformation["sharedWith"] as? String,
-              let sharedAmount = expenseInformation["sharedResult"] as? [String: Any],
-              let amountYouShared = sharedAmount["\(userUID)"] as? Int
-        else { return }
+        guard
+            let expenseTotalAmount = expenseInformation["amount"] as? Int,
+            let expenseCreatedBy = expenseInformation["createdBy"] as? String,
+            let expenseCreatedDay = expenseInformation["createdTime"] as? String,
+            let expensePaidByUID = expenseInformation["expensePaidBy"] as? String,
+            let expenseDescription = expenseInformation["description"] as? String,
+            let expenseDay = expenseInformation["expenseDay"] as? String,
+            let expenseID = expenseInformation["id"] as? String,
+            let expenseShareWith = expenseInformation["sharedWith"] as? String,
+            let sharedAmount = expenseInformation["sharedResult"] as? [String: Any],
+            let amountYouShared = sharedAmount["\(userUID)"] as? Int
+            else { return }
 
         self.expenseID = expenseID
 
@@ -122,7 +123,8 @@ class ExpeneseDetailViewController: UIViewController {
             
         } else {
 
-            guard let expensePaidByNameString = friendUIDandNameList[expenseCreatedBy] else { return }
+            guard let expensePaidByNameString = friendUIDandNameList[expenseCreatedBy]
+                else { return }
 
             expensePaidByName = expensePaidByNameString
             
@@ -134,7 +136,8 @@ class ExpeneseDetailViewController: UIViewController {
 
         } else {
 
-            guard let expenseCreatedByNameString = friendUIDandNameList[expenseCreatedBy] else { return }
+            guard let expenseCreatedByNameString = friendUIDandNameList[expenseCreatedBy]
+                else { return }
 
             expenseCreatedByName = expenseCreatedByNameString
 
@@ -165,10 +168,11 @@ class ExpeneseDetailViewController: UIViewController {
 
         Analytics.logEvent("clickAcceptExpenseButton", parameters: nil)
 
-        guard let expenseCreatedBy = expenseInformation["createdBy"] as? String,
-              let expenseShareWith = expenseInformation["sharedWith"] as? String,
-              let expenseID = expenseInformation["id"] as? String
-        else { return }
+        guard
+            let expenseCreatedBy = expenseInformation["createdBy"] as? String,
+            let expenseShareWith = expenseInformation["sharedWith"] as? String,
+            let expenseID = expenseInformation["id"] as? String
+            else { return }
 
         if expenseCreatedBy == userUID {
 
@@ -200,10 +204,11 @@ class ExpeneseDetailViewController: UIViewController {
 
         Analytics.logEvent("clickDenyExpenseButton", parameters: nil)
 
-        guard let expenseCreatedBy = expenseInformation["createdBy"] as? String,
-              let expenseSahreWith = expenseInformation["sharedWith"] as? String,
-              let expenseID = expenseInformation["id"] as? String
-        else { return }
+        guard
+            let expenseCreatedBy = expenseInformation["createdBy"] as? String,
+            let expenseSahreWith = expenseInformation["sharedWith"] as? String,
+            let expenseID = expenseInformation["id"] as? String
+            else { return }
 
         if expenseCreatedBy == userUID {
 

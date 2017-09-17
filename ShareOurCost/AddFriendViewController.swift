@@ -58,11 +58,13 @@ class AddFriendViewController: UIViewController {
 
         searchedFriendUID = ""
 
-        guard let searchedUserUID = searchFriendUIDTextField.text else { return }
+        guard let searchedUserUID = searchFriendUIDTextField.text
+            else { return }
 
         friendManager.searchFriendNameByUserID(userID: searchedUserUID, completion: { [weak self] (searchResult, searchedFriendUID, searchedUserName) in
 
-            guard let weakSelf = self else { return }
+            guard let weakSelf = self
+                else { return }
 
             if searchResult == true {
 

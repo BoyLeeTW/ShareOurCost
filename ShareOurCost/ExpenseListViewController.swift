@@ -71,7 +71,8 @@ class ExpenseListViewController: UIViewController {
             
             self.friendManager.fetchFriendUIDList { [weak self] (friendUIDList) in
                 
-                guard let weakSelf = self else { return }
+                guard let weakSelf = self
+                    else { return }
 
                 weakSelf.acceptedExpenseListTVC.friendUIDList = friendUIDList
 

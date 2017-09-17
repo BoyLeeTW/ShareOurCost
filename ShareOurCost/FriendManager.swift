@@ -24,7 +24,8 @@ class FriendManager {
 
         ref.child("userID").child(userUID).observeSingleEvent(of: .value, with: { (dataSnapshot) in
 
-            guard let userID = dataSnapshot.value as? String else { return }
+            guard let userID = dataSnapshot.value as? String
+                else { return }
 
             userSelfID = userID
 
@@ -45,7 +46,8 @@ class FriendManager {
                 })
                 .first
             
-            guard let searchedUID = pair?.key else {
+            guard let searchedUID = pair?.key
+                else {
 
                 completion(userSelfID, dataSnapshot.exists(), "nothing")
 
@@ -65,7 +67,8 @@ class FriendManager {
 
         ref.child("userInfo").child(searchedUID).child("fullName").observeSingleEvent(of: .value, with: { (dataSnapshot) in
 
-            guard let userName = dataSnapshot.value as? String else { return }
+            guard let userName = dataSnapshot.value as? String
+                else { return }
 
             completion(userName)
 
@@ -90,7 +93,8 @@ class FriendManager {
 
             var friendUIDListInClosure = [String]()
             
-            guard let friendListData = dataSnapshot.value as? [String: Bool] else {
+            guard let friendListData = dataSnapshot.value as? [String: Bool]
+                else {
 
                 NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
 
@@ -118,7 +122,8 @@ class FriendManager {
 
             ref.child("userInfo").child(friendUID).child("fullName").observeSingleEvent(of: .value, with: { (dataSnapshot) in
 
-                guard let friendName = dataSnapshot.value as? String else { return }
+                guard let friendName = dataSnapshot.value as? String
+                    else { return }
 
                 friendUIDtoNameList[friendUID] = friendName
 
@@ -142,12 +147,14 @@ class FriendManager {
 
             if dataSnapshot.exists() == true {
 
-                guard let searchedUserInfoOrigin = dataSnapshot.value as? [String: Any]                 else { return }
+                guard let searchedUserInfoOrigin = dataSnapshot.value as? [String: Any]
+                    else { return }
                 
                 //key is userUID
                 for (key, value) in searchedUserInfoOrigin {
                     
-                    guard let searchedUserInfo = value as? [String: Any],
+                    guard
+                        let searchedUserInfo = value as? [String: Any],
                         let searchedUserName = searchedUserInfo["fullName"] as? String
                         else { return }
                     
@@ -181,7 +188,8 @@ class FriendManager {
 
         ref.child("userInfo").child(friendUID).child("fullName").observeSingleEvent(of: .value, with: { (dataSnapshot) in
 
-            guard let friendName = dataSnapshot.value as? String else { return }
+            guard let friendName = dataSnapshot.value as? String
+                else { return }
 
             friendNameAndUIDList.updateValue(friendUID, forKey: friendName)
 
@@ -202,10 +210,11 @@ class FriendManager {
             
             ref.child("userInfo").child(friendUID).observeSingleEvent(of: .value, with: { (dataSnapshot) in
 
-                guard let friendInfoListData = dataSnapshot.value as? [String: Any],
-                      let friendName = friendInfoListData["fullName"] as? String,
-                      let friendID = friendInfoListData["userID"] as? String
-                else { return }
+                guard
+                    let friendInfoListData = dataSnapshot.value as? [String: Any],
+                    let friendName = friendInfoListData["fullName"] as? String,
+                    let friendID = friendInfoListData["userID"] as? String
+                    else { return }
 
                 let friendInfo = Friend.init(firebaseUID: friendUID, Name: friendName, userID: friendID)
 
