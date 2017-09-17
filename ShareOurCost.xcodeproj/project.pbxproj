@@ -10,7 +10,6 @@
 		A20F2C671F276F9700D446F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20F2C661F276F9700D446F7 /* AppDelegate.swift */; };
 		A20F2C691F276F9700D446F7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20F2C681F276F9700D446F7 /* LoginViewController.swift */; };
 		A20F2C6C1F276F9700D446F7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A20F2C6A1F276F9700D446F7 /* Main.storyboard */; };
-		A20F2C6F1F276F9700D446F7 /* ShareOurCost.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A20F2C6D1F276F9700D446F7 /* ShareOurCost.xcdatamodeld */; };
 		A20F2C711F276F9700D446F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A20F2C701F276F9700D446F7 /* Assets.xcassets */; };
 		A20F2C741F276F9700D446F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A20F2C721F276F9700D446F7 /* LaunchScreen.storyboard */; };
 		A23489691F35F7760015698D /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23489681F35F7760015698D /* AccountManager.swift */; };
@@ -44,7 +43,6 @@
 		A20F2C661F276F9700D446F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A20F2C681F276F9700D446F7 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		A20F2C6B1F276F9700D446F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		A20F2C6E1F276F9700D446F7 /* ShareOurCost.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ShareOurCost.xcdatamodel; sourceTree = "<group>"; };
 		A20F2C701F276F9700D446F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A20F2C731F276F9700D446F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A20F2C751F276F9700D446F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -132,7 +130,6 @@
 				A20F2C701F276F9700D446F7 /* Assets.xcassets */,
 				A2DF3F171F49D91700DAD7A2 /* GoogleService-Info.plist */,
 				A20F2C751F276F9700D446F7 /* Info.plist */,
-				A20F2C6D1F276F9700D446F7 /* ShareOurCost.xcdatamodeld */,
 			);
 			path = ShareOurCost;
 			sourceTree = "<group>";
@@ -316,7 +313,6 @@
 				A26EB00F1F444AF2009E5C6F /* TabBarController.swift in Sources */,
 				A26EB0111F454129009E5C6F /* FriendDetailListTableViewCell.swift in Sources */,
 				A2FE33FC1F37EC9000C3A793 /* ExpenseManager.swift in Sources */,
-				A20F2C6F1F276F9700D446F7 /* ShareOurCost.xcdatamodeld in Sources */,
 				A2AEAAE81F5162E2009E208D /* ExpenseListViewController.swift in Sources */,
 				A2AEAAE61F516106009E208D /* ExpenseListTableViewCell.swift in Sources */,
 				A288F1541F2E337F0061F8FF /* FriendRequestListTableViewCell.swift in Sources */,
@@ -508,19 +504,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		A20F2C6D1F276F9700D446F7 /* ShareOurCost.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				A20F2C6E1F276F9700D446F7 /* ShareOurCost.xcdatamodel */,
-			);
-			currentVersion = A20F2C6E1F276F9700D446F7 /* ShareOurCost.xcdatamodel */;
-			path = ShareOurCost.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = A20F2C5B1F276F9700D446F7 /* Project object */;
 }

@@ -56,7 +56,6 @@ class ExpenseSegmentedTableViewController: UITableViewController {
         headerLabel.text = friendUIDtoNameList[friendUIDList[section]]
         headerLabel.font = UIFont(name: "Avenir-Medium", size: 16.0)
         headerLabel.textColor = UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0)
-
         headerView.addSubview(headerLabel)
 
         return headerView
@@ -117,11 +116,13 @@ class ExpenseSegmentedTableViewController: UITableViewController {
             if isRead == true {
                 
                 cell.expenseBriefLabel.font = UIFont.systemFont(ofSize: 15.0)
+
                 cell.expenseCreateDayLabel.font = UIFont.systemFont(ofSize: 10.0)
                 
             } else {
                 
                 cell.expenseBriefLabel.font = UIFont.systemFont(ofSize: 15.0, weight: 1)
+
                 cell.expenseCreateDayLabel.font = UIFont.systemFont(ofSize: 10.0, weight: 1)
                 
             }
@@ -270,11 +271,15 @@ class ExpenseSegmentedTableViewController: UITableViewController {
 
             cell.acceptButton.section = indexPath.section
             cell.acceptButton.row = indexPath.row
-            cell.acceptButton.addTarget(self, action: #selector(self.touchAcceptButton(sender:)), for: .touchUpInside)
+            cell.acceptButton.addTarget(self,
+                                        action: #selector(self.touchAcceptButton(sender:)),
+                                        for: .touchUpInside)
 
             cell.denyButton.section = indexPath.section
             cell.denyButton.row = indexPath.row
-            cell.denyButton.addTarget(self, action: #selector(self.touchDenyButton(sender:)), for: .touchUpInside)
+            cell.denyButton.addTarget(self,
+                                      action: #selector(self.touchDenyButton(sender:)),
+                                      for: .touchUpInside)
 
             return cell
 
@@ -316,9 +321,15 @@ class ExpenseSegmentedTableViewController: UITableViewController {
 
         let friendUID = friendUIDList[sender.section!]
 
-        expenseManager.changeExpenseStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: "sentDenied", changeFriendStatus: "denied")
+        expenseManager.changeExpenseStatus(friendUID: friendUID,
+                                           expenseID: expenseID,
+                                           changeSelfStatus: "sentDenied",
+                                           changeFriendStatus: "denied")
 
-        expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: false)
+        expenseManager.changeExpenseReadStatus(friendUID: friendUID,
+                                               expenseID: expenseID,
+                                               changeSelfStatus: true,
+                                               changeFriendStatus: false)
 
         self.expenseListTableView.reloadData()
 

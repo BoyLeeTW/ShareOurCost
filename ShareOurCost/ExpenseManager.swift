@@ -14,7 +14,7 @@ class ExpenseManager {
 
     var ref: DatabaseReference!
 
-    func newFetchExpenseIDList(completion: @escaping (ExpenseInfoList, ExpenseInfoList, ExpenseInfoList, ExpenseInfoList, ExpenseInfoList) -> () ) {
+    func fetchExpenseIDList(completion: @escaping (ExpenseInfoList, ExpenseInfoList, ExpenseInfoList, ExpenseInfoList, ExpenseInfoList) -> () ) {
 
         ref = Database.database().reference()
 

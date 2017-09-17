@@ -9,20 +9,10 @@
 import UIKit
 
 class ExpenseListApprovalTableViewCell: UITableViewCell {
+
     @IBOutlet weak var expenseBriefLabel: UILabel!
     @IBOutlet weak var expenseCreatedDateLabel: UILabel!
     @IBOutlet weak var acceptButton: MyButton!
     @IBOutlet weak var denyButton: MyButton!
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
 
 }

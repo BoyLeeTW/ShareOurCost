@@ -13,7 +13,9 @@ import NVActivityIndicatorView
 class ExpenseListViewController: UIViewController {
 
     var pageMenu : CAPSPageMenu?
-    
+
+    typealias ExpenseIDList = [String: [[String: Any]]]
+
     var acceptedExpenseListTVC = ExpenseSegmentedTableViewController()
     
     var deniedExpenseListTVC = ExpenseSegmentedTableViewController()
@@ -23,8 +25,6 @@ class ExpenseListViewController: UIViewController {
     var sentPendingExpenseListTVC = ExpenseSegmentedTableViewController()
 
     var receivedDeletedExepsneListTVC = ExpenseSegmentedTableViewController()
-
-    typealias ExpenseIDList = [String: [[String: Any]]]
     
     var friendManager = FriendManager()
     
@@ -33,10 +33,6 @@ class ExpenseListViewController: UIViewController {
     var friendUIDList = [String]()
     
     var friendUIDtoNameList = [String: String]()
-
-    var selectedRow = Int()
-    
-    var selectedSection = Int()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,7 +112,7 @@ class ExpenseListViewController: UIViewController {
                     
                 })
                 
-                weakSelf.expenseManager.newFetchExpenseIDList { (acceptedExpenseIDList, receivedPendingExpenseIDList, sentPendingExpenseIDList, deniedExpenseIDList, receivedDeletedExpenseIDList) in
+                weakSelf.expenseManager.fetchExpenseIDList { (acceptedExpenseIDList, receivedPendingExpenseIDList, sentPendingExpenseIDList, deniedExpenseIDList, receivedDeletedExpenseIDList) in
 
                     weakSelf.acceptedExpenseListTVC.expenseInfoList = acceptedExpenseIDList
                     weakSelf.deniedExpenseListTVC.expenseInfoList = deniedExpenseIDList
@@ -147,12 +143,17 @@ class ExpenseListViewController: UIViewController {
         
         self.navigationController?.navigationBar.topItem?.title = "SHARED EXPENSE"
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-        self.navigationController?.navigationBar.barTintColor = UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0)
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 69/255,
+                                                                        green: 155/255,
+                                                                        blue: 180/255,
+                                                                        alpha: 1.0)
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.layer.borderColor = UIColor.clear.cgColor
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont(name: "Avenir-Medium", size: 18.0)!]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white,
+                                                                        NSFontAttributeName: UIFont(name: "Avenir-Medium",
+                                                                                                    size: 18.0)!]
         
     }
 
@@ -178,7 +179,10 @@ class ExpenseListViewController: UIViewController {
 
         let parameters: [CAPSPageMenuOption] = [
             .scrollMenuBackgroundColor(UIColor.clear),
-            .viewBackgroundColor(UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0)),
+            .viewBackgroundColor(UIColor(red: 69/255,
+                                         green: 155/255,
+                                         blue: 180/255,
+                                         alpha: 1.0)),
             .bottomMenuHairlineColor(UIColor.clear),
             .selectionIndicatorColor(UIColor.white),
             .selectionIndicatorHeight(5),
