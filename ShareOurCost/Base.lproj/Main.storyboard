@@ -999,7 +999,7 @@ SHARES</string>
                                     <outlet property="expenseCreateDayLabel" destination="gKf-2d-FI1" id="Pia-u0-T6S"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="ExpenseRequestCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="ExpenseRequestListCell" id="0AT-Hz-jJc" customClass="ExpenseListSegmentTableViewCell" customModule="ShareOurCost" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="ExpenseRequestCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="ExpenseRequestListCell" id="0AT-Hz-jJc" customClass="ExpenseListApprovalTableViewCell" customModule="ShareOurCost" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="88" width="320" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0AT-Hz-jJc" id="HDf-tG-Y31">
@@ -1056,8 +1056,8 @@ SHARES</string>
                                 <connections>
                                     <outlet property="acceptButton" destination="dfd-YV-FSf" id="fc9-43-c7A"/>
                                     <outlet property="denyButton" destination="H6L-6u-3YD" id="gQU-pv-Nwl"/>
+                                    <outlet property="expenseBriefLabel" destination="sVb-Le-aVf" id="3Oi-gU-Y7E"/>
                                     <outlet property="expenseCreatedDateLabel" destination="L4n-7F-HJS" id="vMF-mx-6oG"/>
-                                    <outlet property="friendNameLabel" destination="sVb-Le-aVf" id="EWc-m9-YpG"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1126,6 +1126,6 @@ SHARES</string>
         <image name="ic_person_white" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="MOL-wE-Rbk"/>
+        <segue reference="F4V-6k-dEt"/>
     </inferredMetricsTieBreakers>
 </document>

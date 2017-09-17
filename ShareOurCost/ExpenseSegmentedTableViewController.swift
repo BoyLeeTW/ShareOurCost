@@ -37,15 +37,6 @@ class ExpenseSegmentedTableViewController: UITableViewController {
 
     }
 
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(false)
-//        
-//        self.expenseListTableView.reloadData()
-//
-//        print("RELOADED!")
-//
-//    }
-
     func setupTableView() {
 
         expenseListTableView.tableFooterView = UIView(frame:CGRect(x: 0, y: 0, width: 0, height: 0))
@@ -194,7 +185,7 @@ class ExpenseSegmentedTableViewController: UITableViewController {
 
         case .receivedPending:
 
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ExpenseRequestListCell", for: indexPath) as! ExpenseListSegmentTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ExpenseRequestListCell", for: indexPath) as! ExpenseListApprovalTableViewCell
 
             guard let expenseData = expenseInfoList[friendUIDList[indexPath.section]]?[indexPath.row],
                 let expenseDescription = expenseData["description"] as? String,
@@ -214,7 +205,7 @@ class ExpenseSegmentedTableViewController: UITableViewController {
 
                         let displayAmount: String = "\(-amount)".currencyInputFormatting()
 
-                        cell.friendNameLabel.text = ("You owe \(friendName) $\(displayAmount) for \(expenseDescription)" )
+                        cell.expenseBriefLabel.text = ("You owe \(friendName) $\(displayAmount) for \(expenseDescription)" )
 
                     } else if amount == 0 {
                         
@@ -222,11 +213,11 @@ class ExpenseSegmentedTableViewController: UITableViewController {
 
                             let displayAmount: String = "\(totalAmount)".currencyInputFormatting()
                             
-                            cell.friendNameLabel.text = ("\(friendName) owes you $\(displayAmount) for \(expenseDescription)")
+                            cell.expenseBriefLabel.text = ("\(friendName) owes you $\(displayAmount) for \(expenseDescription)")
                             
                         } else {
                             
-                            cell.friendNameLabel.text = ("You share nothing in this expense" )
+                            cell.expenseBriefLabel.text = ("You share nothing in this expense" )
                             
                         }
                         
@@ -238,19 +229,19 @@ class ExpenseSegmentedTableViewController: UITableViewController {
 
                         let displayAmount: String = "\(-amount)".currencyInputFormatting()
 
-                        cell.friendNameLabel.text = ("\(friendName) owes you $\(displayAmount) for \(expenseDescription)")
+                        cell.expenseBriefLabel.text = ("\(friendName) owes you $\(displayAmount) for \(expenseDescription)")
                         
                     } else if amount == 0 {
                         
                         if paidBy == userUID {
                             
-                            cell.friendNameLabel.text = ("You share nothing in this expense" )
+                            cell.expenseBriefLabel.text = ("You share nothing in this expense" )
                             
                         } else {
 
                             let displayAmount: String = "\(totalAmount)".currencyInputFormatting()
                             
-                            cell.friendNameLabel.text = ("You owe \(friendName) $\(displayAmount) for \(expenseDescription)" )
+                            cell.expenseBriefLabel.text = ("You owe \(friendName) $\(displayAmount) for \(expenseDescription)" )
                             
                         }
                         
@@ -262,12 +253,12 @@ class ExpenseSegmentedTableViewController: UITableViewController {
             
             if isRead == true {
                 
-                cell.friendNameLabel.font = UIFont.systemFont(ofSize: 15.0)
+                cell.expenseBriefLabel.font = UIFont.systemFont(ofSize: 15.0)
                 cell.expenseCreatedDateLabel.font = UIFont.systemFont(ofSize: 10.0)
                 
             } else {
                 
-                cell.friendNameLabel.font = UIFont.systemFont(ofSize: 15.0, weight: 1)
+                cell.expenseBriefLabel.font = UIFont.systemFont(ofSize: 15.0, weight: 1)
                 cell.expenseCreatedDateLabel.font = UIFont.systemFont(ofSize: 10.0, weight: 1)
             }
             

@@ -8,8 +8,8 @@
 
 import UIKit
 
-class ExpenseListSegmentTableViewCell: UITableViewCell {
-    @IBOutlet weak var friendNameLabel: UILabel!
+class ExpenseListApprovalTableViewCell: UITableViewCell {
+    @IBOutlet weak var expenseBriefLabel: UILabel!
     @IBOutlet weak var expenseCreatedDateLabel: UILabel!
     @IBOutlet weak var acceptButton: MyButton!
     @IBOutlet weak var denyButton: MyButton!
