@@ -256,25 +256,24 @@ class ExpenseSegmentedTableViewController: UITableViewController {
             if isRead == true {
                 
                 cell.expenseBriefLabel.font = UIFont.systemFont(ofSize: 15.0)
+
                 cell.expenseCreatedDateLabel.font = UIFont.systemFont(ofSize: 10.0)
                 
             } else {
                 
                 cell.expenseBriefLabel.font = UIFont.systemFont(ofSize: 15.0, weight: 1)
+
                 cell.expenseCreatedDateLabel.font = UIFont.systemFont(ofSize: 10.0, weight: 1)
             }
             
             cell.expenseCreatedDateLabel.text = expenseDate
-            cell.acceptButton.isHidden = false
-            cell.denyButton.isHidden = false
-            
+
             cell.acceptButton.section = indexPath.section
             cell.acceptButton.row = indexPath.row
+            cell.acceptButton.addTarget(self, action: #selector(self.touchAcceptButton(sender:)), for: .touchUpInside)
+
             cell.denyButton.section = indexPath.section
             cell.denyButton.row = indexPath.row
-            
-            cell.acceptButton.addTarget(self, action: #selector(self.touchAcceptButton(sender:)), for: .touchUpInside)
-            
             cell.denyButton.addTarget(self, action: #selector(self.touchDenyButton(sender:)), for: .touchUpInside)
 
             return cell
@@ -286,13 +285,22 @@ class ExpenseSegmentedTableViewController: UITableViewController {
     func touchAcceptButton(sender: MyButton) {
 
         guard
-            let expenseID = expenseInfoList[friendUIDList[sender.section!]]![sender.row!]["id"] as? String,
-            let friendUID = friendUIDList[sender.section!] as? String
+            let senderSection: Int = sender.section,
+            let senderRow: Int = sender.row,
+            let expenseID: String = expenseInfoList[friendUIDList[senderSection]]?[senderRow]["id"] as? String
             else { return }
+        
+        let friendUID = friendUIDList[sender.section!]
 
-        expenseManager.changeExpenseStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: "accepted", changeFriendStatus: nil)
+        expenseManager.changeExpenseStatus(friendUID: friendUID,
+                                           expenseID: expenseID,
+                                           changeSelfStatus: "accepted",
+                                           changeFriendStatus: nil)
 
-        expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: false)
+        expenseManager.changeExpenseReadStatus(friendUID: friendUID,
+                                               expenseID: expenseID,
+                                               changeSelfStatus: true,
+                                               changeFriendStatus: false)
 
         self.expenseListTableView.reloadData()
 
@@ -301,9 +309,12 @@ class ExpenseSegmentedTableViewController: UITableViewController {
     func touchDenyButton(sender: MyButton) {
 
         guard
-            let expenseID = expenseInfoList[friendUIDList[sender.section!]]![sender.row!]["id"] as? String,
-            let friendUID = friendUIDList[sender.section!] as? String
+            let senderSection: Int = sender.section,
+            let senderRow: Int = sender.row,
+            let expenseID: String = expenseInfoList[friendUIDList[senderSection]]?[senderRow]["id"] as? String
             else { return }
+
+        let friendUID = friendUIDList[sender.section!]
 
         expenseManager.changeExpenseStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: "sentDenied", changeFriendStatus: "denied")
 
@@ -321,13 +332,17 @@ class ExpenseSegmentedTableViewController: UITableViewController {
 
         selectedSection = indexPath.section
 
-            guard
-                let expenseID = expenseInfoList[friendUIDList[selectedSection]]![selectedRow]["id"] as? String,
-                let friendUID = friendUIDList[selectedSection] as? String
-                else { return }
-            
-            expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: nil)
+        guard
+            let expenseID = expenseInfoList[friendUIDList[selectedSection]]![selectedRow]["id"] as? String
+            else { return }
 
+        let friendUID = friendUIDList[selectedSection]
+
+        expenseManager.changeExpenseReadStatus(friendUID: friendUID,
+                                               expenseID: expenseID,
+                                               changeSelfStatus: true,
+                                               changeFriendStatus: nil)
+        
         self.performSegue(withIdentifier: "showExpenseDetailVC", sender: self)
 
     }

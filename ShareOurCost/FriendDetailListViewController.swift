@@ -125,7 +125,9 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
 
     func setUpNavigationBar() {
 
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_navigate_before_white_36pt"), style: .plain, target: self, action: #selector(touchBackButton))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_navigate_before_white_36pt"),
+                                                                style: .plain, target: self,
+                                                                action: #selector(touchBackButton))
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
 
     }
@@ -218,9 +220,7 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
 
             let destinationNC = segue.destination as? UINavigationController
             let destinationVC = destinationNC?.viewControllers.first as? ExpeneseDetailViewController
-
             destinationVC?.expenseInformation = (self.acceptedExpenseList[friendUID]?[selectedRow])!
-            
             destinationVC?.isAcceptButtonHidden = true
             destinationVC?.isDenyButtonHidden = true
             destinationVC?.isDeleteButtonHidden = false

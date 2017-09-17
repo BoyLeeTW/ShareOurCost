@@ -132,7 +132,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-270" y="136"/>
+            <point key="canvasLocation" x="792" y="211"/>
         </scene>
         <!--Add Expense View Controller-->
         <scene sceneID="TMg-lR-0wm">
@@ -156,7 +156,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="206" height="46.5"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
-                                                <textInputTraits key="textInputTraits" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                             </textField>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Shared Member ID" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gp1-ob-HGl">
                                                 <rect key="frame" x="0.0" y="44.5" width="206" height="46.5"/>
@@ -374,7 +374,6 @@ SHARES</string>
                                     <constraint firstItem="3Eb-6E-IZz" firstAttribute="height" secondItem="p6N-Nb-iut" secondAttribute="height" id="ulr-Xb-zQm"/>
                                     <constraint firstItem="6Cc-Z7-UUr" firstAttribute="top" secondItem="UNW-wE-dcu" secondAttribute="bottom" constant="12" id="vhm-rI-8hi"/>
                                     <constraint firstItem="xuA-p4-WY6" firstAttribute="top" secondItem="mEG-Y6-zC9" secondAttribute="bottom" constant="15" id="w8D-rz-hfS"/>
-                                    <constraint firstAttribute="bottom" secondItem="rik-qx-hhN" secondAttribute="bottom" constant="42" id="wiM-bA-Hil"/>
                                     <constraint firstItem="6Cc-Z7-UUr" firstAttribute="leading" secondItem="p6N-Nb-iut" secondAttribute="trailing" constant="-1" id="xuO-up-ehv"/>
                                 </constraints>
                             </view>
@@ -417,7 +416,7 @@ SHARES</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lqu-aD-qOV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3878" y="1263"/>
+            <point key="canvasLocation" x="3298" y="1270"/>
         </scene>
         <!--Friend List Table View Controller-->
         <scene sceneID="cB5-qP-Kk4">
@@ -471,9 +470,6 @@ SHARES</string>
                                             </constraints>
                                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <state key="normal" image="ic_check_white"/>
-                                            <connections>
-                                                <action selector="touchAcceptFriendButton:" destination="G8W-8X-A4A" eventType="touchUpInside" id="jbz-sP-xRR"/>
-                                            </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0yk-Th-IFN">
                                             <rect key="frame" x="280" y="13" width="30" height="24"/>
@@ -531,7 +527,7 @@ SHARES</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K6r-c8-pIL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2955" y="-436.26760563380282"/>
+            <point key="canvasLocation" x="2617" y="-435"/>
         </scene>
         <!--Friend Detail List View Controller-->
         <scene sceneID="dTa-GI-df0">
@@ -565,7 +561,7 @@ SHARES</string>
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="59"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="myc-hS-WKt">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="myc-hS-WKt">
                                                     <rect key="frame" x="15" y="12" width="290" height="18"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="18" id="M10-bY-1K6"/>
@@ -640,7 +636,7 @@ SHARES</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CyQ-tB-yDF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3878" y="-144"/>
+            <point key="canvasLocation" x="3298" y="-137"/>
         </scene>
         <!--Add Friend View Controller-->
         <scene sceneID="iLz-0s-ioG">
@@ -720,7 +716,7 @@ SHARES</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gco-RA-JZ9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3878" y="-837"/>
+            <point key="canvasLocation" x="3298" y="-830"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="W86-G1-W1T">
@@ -738,7 +734,7 @@ SHARES</string>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Poq-Vq-MC9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1121" y="137"/>
+            <point key="canvasLocation" x="1336" y="211"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="dcG-EZ-n5f">
@@ -774,10 +770,10 @@ SHARES</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="faQ-8k-k1y">
-                                <rect key="frame" x="36" y="74" width="248" height="345"/>
+                                <rect key="frame" x="36" y="74" width="248" height="394"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0NX-ia-Kt3">
-                                        <rect key="frame" x="133" y="246" width="100" height="36"/>
+                                        <rect key="frame" x="133" y="295" width="100" height="36"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="0NX-ia-Kt3" secondAttribute="height" multiplier="25:9" id="MeH-6m-Ip6"/>
@@ -788,7 +784,7 @@ SHARES</string>
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ula-Im-4pr">
-                                        <rect key="frame" x="15" y="292" width="218" height="36"/>
+                                        <rect key="frame" x="15" y="341" width="218" height="36"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="ula-Im-4pr" secondAttribute="height" multiplier="109:18" id="Z1P-KS-XgE"/>
@@ -799,7 +795,7 @@ SHARES</string>
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6EA-xX-2fW">
-                                        <rect key="frame" x="15" y="246" width="100" height="36"/>
+                                        <rect key="frame" x="15" y="295" width="100" height="36"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="6EA-xX-2fW" secondAttribute="height" multiplier="25:9" id="fvs-Ep-gNd"/>
@@ -852,7 +848,7 @@ SHARES</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WUV-Ph-5Mn">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="WUV-Ph-5Mn">
                                 <rect key="frame" x="40" y="187" width="240" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="WUV-Ph-5Mn" secondAttribute="height" multiplier="20:3" id="qd0-gS-twB"/>
@@ -923,7 +919,7 @@ SHARES</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XzU-g4-8Uv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5994" y="354"/>
+            <point key="canvasLocation" x="4372" y="211"/>
         </scene>
         <!--Expense List View Controller-->
         <scene sceneID="xgF-6D-K4g">
@@ -949,7 +945,7 @@ SHARES</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uph-XE-LwK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2994" y="708"/>
+            <point key="canvasLocation" x="2656" y="710"/>
         </scene>
         <!--Expense Segmented Table View Controller-->
         <scene sceneID="Mac-h0-0GC">
@@ -1073,7 +1069,7 @@ SHARES</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hvW-he-FeM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3878" y="557"/>
+            <point key="canvasLocation" x="3298" y="564"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Wo1-3r-FcF">
@@ -1114,7 +1110,7 @@ SHARES</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6uO-rG-Ica" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5033" y="204"/>
+            <point key="canvasLocation" x="3885" y="211"/>
         </scene>
     </scenes>
     <resources>

@@ -13,8 +13,6 @@ import NVActivityIndicatorView
 
 class FriendListTableViewController: UITableViewController {
     @IBOutlet var friendListTableView: UITableView!
-    @IBAction func touchAcceptFriendButton(_ sender: Any) {
-    }
 
     var friendRequestIDList = [String]()
 

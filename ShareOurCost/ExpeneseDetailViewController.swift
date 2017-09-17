@@ -96,7 +96,6 @@ class ExpeneseDetailViewController: UIViewController {
             let expenseTotalAmount = expenseInformation["amount"] as? Int,
             let expenseCreatedBy = expenseInformation["createdBy"] as? String,
             let expenseCreatedDay = expenseInformation["createdTime"] as? String,
-            let expensePaidByUID = expenseInformation["expensePaidBy"] as? String,
             let expenseDescription = expenseInformation["description"] as? String,
             let expenseDay = expenseInformation["expenseDay"] as? String,
             let expenseID = expenseInformation["id"] as? String,

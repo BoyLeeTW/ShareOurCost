@@ -9,21 +9,21 @@
 import UIKit
 import Firebase
 
-enum PaidBy {
-
-    case user
-    case friend
-
-}
-
-enum SharedMethod {
-
-    case byNumber
-    case byPercent
-
-}
-
 class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+
+    enum PaidBy {
+        
+        case user
+        case friend
+        
+    }
+    
+    enum SharedMethod {
+        
+        case byNumber
+        case byPercent
+        
+    }
 
     var ref: DatabaseReference!
 
