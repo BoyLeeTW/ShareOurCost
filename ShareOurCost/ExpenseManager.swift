@@ -46,7 +46,7 @@ class ExpenseManager {
                 guard let expenseStatusDic = value as? [String: Any],
                       let isReadStatus = expenseStatusDic["isRead"] as? Bool,
                       let expenseStatus = expenseStatusDic["status"] as? String
-                else { return }
+                      else { return }
 
                 self.ref.child("expenseList").child(key).observe(.value, with: { (dataSnapshot) in
 
@@ -55,7 +55,7 @@ class ExpenseManager {
                     guard let expenseDetailData = dataSnapshot.value as? [String: Any],
                           let expenseCreatedBy = expenseDetailData["createdBy"] as? String,
                           let expenseSahreWith = expenseDetailData["sharedWith"] as? String
-                    else { return }
+                          else { return }
 
                     if expenseCreatedBy == userUID {
                         
@@ -158,9 +158,7 @@ class ExpenseManager {
     func changeExpenseStatus(friendUID: String,
                              expenseID: String,
                              changeSelfStatus: String,
-                             changeFriendStatus: String? )
-
-    {
+                             changeFriendStatus: String? ) {
 
         ref = Database.database().reference()
 

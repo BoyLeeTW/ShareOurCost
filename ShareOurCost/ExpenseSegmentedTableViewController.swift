@@ -37,12 +37,14 @@ class ExpenseSegmentedTableViewController: UITableViewController {
 
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(false)
-        
-        self.expenseListTableView.reloadData()
-
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(false)
+//        
+//        self.expenseListTableView.reloadData()
+//
+//        print("RELOADED!")
+//
+//    }
 
     func setupTableView() {
 
@@ -55,15 +57,15 @@ class ExpenseSegmentedTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
+
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 30))
         headerView.backgroundColor = UIColor.white
-        
+
         let headerLabel = UILabel(frame: CGRect(x: 10, y: 5, width: tableView.bounds.size.width, height: 25))
         headerLabel.text = friendUIDtoNameList[friendUIDList[section]]
         headerLabel.font = UIFont(name: "Avenir-Medium", size: 16.0)
         headerLabel.textColor = UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0)
-        
+
         headerView.addSubview(headerLabel)
 
         return headerView
@@ -285,28 +287,28 @@ class ExpenseSegmentedTableViewController: UITableViewController {
             return cell
 
         }
-        
+
     }
 
     func touchAcceptButton(sender: MyButton) {
-        
+
         guard let expenseID = expenseInfoList[friendUIDList[sender.section!]]![sender.row!]["id"] as? String,
-            let friendUID = friendUIDList[sender.section!] as? String
-            else { return }
-        
+              let friendUID = friendUIDList[sender.section!] as? String
+              else { return }
+
         expenseManager.changeExpenseStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: "accepted", changeFriendStatus: nil)
-        
+
         expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: false)
-        
+
         self.expenseListTableView.reloadData()
-        
+
     }
 
     func touchDenyButton(sender: MyButton) {
 
         guard let expenseID = expenseInfoList[friendUIDList[sender.section!]]![sender.row!]["id"] as? String,
-            let friendUID = friendUIDList[sender.section!] as? String
-            else { return }
+              let friendUID = friendUIDList[sender.section!] as? String
+              else { return }
 
         expenseManager.changeExpenseStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: "sentDenied", changeFriendStatus: "denied")
 
@@ -317,7 +319,7 @@ class ExpenseSegmentedTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+
         Analytics.logEvent("clickExpenseDetailCell", parameters: nil)
 
         selectedRow = indexPath.row
@@ -325,8 +327,8 @@ class ExpenseSegmentedTableViewController: UITableViewController {
         selectedSection = indexPath.section
 
             guard let expenseID = expenseInfoList[friendUIDList[selectedSection]]![selectedRow]["id"] as? String,
-                let friendUID = friendUIDList[selectedSection] as? String
-                else { return }
+                  let friendUID = friendUIDList[selectedSection] as? String
+                  else { return }
             
             expenseManager.changeExpenseReadStatus(friendUID: friendUID, expenseID: expenseID, changeSelfStatus: true, changeFriendStatus: nil)
 
@@ -334,18 +336,17 @@ class ExpenseSegmentedTableViewController: UITableViewController {
 
     }
 
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+
         if segue.identifier == "showExpenseDetailVC" {
 
             let destinationNC = segue.destination as? UINavigationController
             let destinationVC = destinationNC?.viewControllers.first as? ExpeneseDetailViewController
 
             switch expenseStatus {
-                
+
             case .accepted:
-                
+
                 destinationVC?.expenseInformation = (expenseInfoList[friendUIDList[selectedSection]]?[selectedRow])!
                 destinationVC?.isAcceptButtonHidden = true
                 destinationVC?.isDenyButtonHidden = true
@@ -383,7 +384,7 @@ class ExpenseSegmentedTableViewController: UITableViewController {
                 destinationVC?.isDenyButtonHidden = false
                 destinationVC?.isDeleteButtonHidden = false
                 destinationVC?.expenseStatus = ExpenseStatus.receivedDeleted.rawValue
-                
+
             }
             
         }

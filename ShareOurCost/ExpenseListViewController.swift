@@ -107,10 +107,10 @@ class ExpenseListViewController: UIViewController {
 
                     weakSelf.acceptedExpenseListTVC.tableView.reloadData()
                     weakSelf.deniedExpenseListTVC.tableView.reloadData()
-                    weakSelf.receivedDeletedExepsneListTVC.tableView.reloadData()
+                    weakSelf.receivedPendingExpenseListTVC.tableView.reloadData()
                     weakSelf.sentPendingExpenseListTVC.tableView.reloadData()
                     weakSelf.receivedDeletedExepsneListTVC.tableView.reloadData()
-                    
+
                     NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
                     
                 })
@@ -131,7 +131,7 @@ class ExpenseListViewController: UIViewController {
 
                     weakSelf.acceptedExpenseListTVC.tableView.reloadData()
                     weakSelf.deniedExpenseListTVC.tableView.reloadData()
-                    weakSelf.receivedDeletedExepsneListTVC.tableView.reloadData()
+                    weakSelf.receivedPendingExpenseListTVC.tableView.reloadData()
                     weakSelf.sentPendingExpenseListTVC.tableView.reloadData()
                     weakSelf.receivedDeletedExepsneListTVC.tableView.reloadData()
 
@@ -163,7 +163,7 @@ class ExpenseListViewController: UIViewController {
         
         deniedExpenseListTVC.title = "DENIED"
         
-        receivedPendingExpenseListTVC.title = "RECIEVED"
+        receivedPendingExpenseListTVC.title = "RECEIVED"
 
         sentPendingExpenseListTVC.title = "SENT"
 
