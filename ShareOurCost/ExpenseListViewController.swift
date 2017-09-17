@@ -25,7 +25,7 @@ class ExpenseListViewController: UIViewController {
     var sentPendingExpenseListTVC = ExpenseSegmentedTableViewController()
 
     var receivedDeletedExepsneListTVC = ExpenseSegmentedTableViewController()
-    
+
     var friendManager = FriendManager()
     
     var expenseManager = ExpenseManager()
@@ -153,7 +153,7 @@ class ExpenseListViewController: UIViewController {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white,
                                                                         NSFontAttributeName: UIFont(name: "Avenir-Medium",
-                                                                                                    size: 18.0)!]
+                                                                        size: 18.0)!]
         
     }
 
@@ -202,9 +202,9 @@ class ExpenseListViewController: UIViewController {
         )
 
         pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: frame, pageMenuOptions: parameters)
-        
+
         self.view.addSubview(pageMenu!.view)
-        
+
     }
 
 }

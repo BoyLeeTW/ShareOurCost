@@ -79,8 +79,9 @@ extension String {
         number = NSNumber(value: (double))
         
         // if first number is 0 or all numbers were deleted
-        guard number != 0 as NSNumber else {
-            return ""
+        guard number != 0 as NSNumber
+            else {
+                return ""
         }
         
         return formatter.string(from: number)!

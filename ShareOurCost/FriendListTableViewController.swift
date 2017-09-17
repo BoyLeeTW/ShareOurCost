@@ -12,6 +12,7 @@ import FirebaseDatabase
 import NVActivityIndicatorView
 
 class FriendListTableViewController: UITableViewController {
+
     @IBOutlet var friendListTableView: UITableView!
 
     var friendRequestIDList = [String]()
