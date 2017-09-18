@@ -14,9 +14,4 @@ class FriendRequestListTableViewCell: UITableViewCell {
     @IBOutlet weak var acceptFriendRequestButton: UIButton!
     @IBOutlet weak var denyFriendRequestButton: UIButton!
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-
-    }
-
 }

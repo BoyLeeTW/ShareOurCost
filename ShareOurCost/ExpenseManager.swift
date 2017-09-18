@@ -14,7 +14,7 @@ class ExpenseManager {
 
     var ref: DatabaseReference!
 
-    func newFetchExpenseIDList(completion: @escaping (ExpenseInfoList, ExpenseInfoList, ExpenseInfoList, ExpenseInfoList, ExpenseInfoList) -> () ) {
+    func fetchExpenseIDList(completion: @escaping (ExpenseInfoList, ExpenseInfoList, ExpenseInfoList, ExpenseInfoList, ExpenseInfoList) -> () ) {
 
         ref = Database.database().reference()
 
@@ -32,8 +32,7 @@ class ExpenseManager {
 
             //key is the ID of expense
             guard let expenseData = dataSnapshot.value as? [String: Any]
-
-            else {
+                else {
 
                 NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
 
@@ -43,19 +42,21 @@ class ExpenseManager {
 
             for (key, value) in expenseData {
 
-                guard let expenseStatusDic = value as? [String: Any],
-                      let isReadStatus = expenseStatusDic["isRead"] as? Bool,
-                      let expenseStatus = expenseStatusDic["status"] as? String
-                else { return }
+                guard
+                    let expenseStatusDic = value as? [String: Any],
+                    let isReadStatus = expenseStatusDic["isRead"] as? Bool,
+                    let expenseStatus = expenseStatusDic["status"] as? String
+                    else { return }
 
                 self.ref.child("expenseList").child(key).observe(.value, with: { (dataSnapshot) in
 
                     var sharedFriendID = String()
 
-                    guard let expenseDetailData = dataSnapshot.value as? [String: Any],
-                          let expenseCreatedBy = expenseDetailData["createdBy"] as? String,
-                          let expenseSahreWith = expenseDetailData["sharedWith"] as? String
-                    else { return }
+                    guard
+                        let expenseDetailData = dataSnapshot.value as? [String: Any],
+                        let expenseCreatedBy = expenseDetailData["createdBy"] as? String,
+                        let expenseSahreWith = expenseDetailData["sharedWith"] as? String
+                        else { return }
 
                     if expenseCreatedBy == userUID {
                         
@@ -158,9 +159,7 @@ class ExpenseManager {
     func changeExpenseStatus(friendUID: String,
                              expenseID: String,
                              changeSelfStatus: String,
-                             changeFriendStatus: String? )
-
-    {
+                             changeFriendStatus: String? ) {
 
         ref = Database.database().reference()
 
@@ -202,8 +201,7 @@ class ExpenseManager {
 
             //key is the ID of expense
             guard let expenseData = dataSnapshot.value as? [String: Any]
-
-            else {
+                else {
 
                 NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
 
@@ -213,19 +211,21 @@ class ExpenseManager {
 
             for (key, value) in expenseData {
 
-                guard let expenseStatusDic = value as? [String: Any],
-                      let isReadStatus = expenseStatusDic["isRead"] as? Bool,
-                      let expenseStatus = expenseStatusDic["status"] as? String
-                else { return }
+                guard
+                    let expenseStatusDic = value as? [String: Any],
+                    let isReadStatus = expenseStatusDic["isRead"] as? Bool,
+                    let expenseStatus = expenseStatusDic["status"] as? String
+                    else { return }
 
                 self.ref.child("expenseList").child(key).observe(.value, with: { (dataSnapshot) in
 
                     var sharedFriendID = String()
 
-                    guard let expenseDetailData = dataSnapshot.value as? [String: Any],
-                          let expenseCreatedBy = expenseDetailData["createdBy"] as? String,
-                          let expenseSahreWith = expenseDetailData["sharedWith"] as? String
-                    else { return }
+                    guard
+                        let expenseDetailData = dataSnapshot.value as? [String: Any],
+                        let expenseCreatedBy = expenseDetailData["createdBy"] as? String,
+                        let expenseSahreWith = expenseDetailData["sharedWith"] as? String
+                        else { return }
 
                     if expenseCreatedBy == userUID {
 

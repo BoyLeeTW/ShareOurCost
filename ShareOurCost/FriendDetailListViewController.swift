@@ -49,7 +49,8 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
 
         expenseManager.fetchAcceptedExpenseList { [weak self] (acceptedExepnseList) in
 
-            guard let weakSelf = self else { return }
+            guard let weakSelf = self
+                else { return }
 
             weakSelf.acceptedExpenseList = acceptedExepnseList
 
@@ -58,8 +59,7 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
             NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
 
             guard let expenseInfoSource = acceptedExepnseList[weakSelf.friendUID]
-
-            else { weakSelf.balanceLabel.text = "There is no expense yet!"
+                else { weakSelf.balanceLabel.text = "There is no expense yet!"
                 
                 return
 
@@ -67,10 +67,11 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
             
             for expenseInfo in expenseInfoSource {
                 
-                guard let sharedResult = expenseInfo["sharedResult"] as? [String: Int],
-                      let expenseID = expenseInfo["id"] as? String,
-                      let friendName = friendUIDandNameList[weakSelf.friendUID]
-                else { return }
+                guard
+                    let sharedResult = expenseInfo["sharedResult"] as? [String: Int],
+                    let expenseID = expenseInfo["id"] as? String,
+                    let friendName = friendUIDandNameList[weakSelf.friendUID]
+                    else { return }
                 
                 if weakSelf.existingExpenseIDList.contains(expenseID) {
                     
@@ -124,7 +125,9 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
 
     func setUpNavigationBar() {
 
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_navigate_before_white_36pt"), style: .plain, target: self, action: #selector(touchBackButton))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_navigate_before_white_36pt"),
+                                                                style: .plain, target: self,
+                                                                action: #selector(touchBackButton))
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
 
     }
@@ -143,7 +146,8 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        guard let numberOfRowsInSectionList = acceptedExpenseList[self.friendUID] else { return 0 }
+        guard let numberOfRowsInSectionList = acceptedExpenseList[self.friendUID]
+            else { return 0 }
 
         return numberOfRowsInSectionList.count
 
@@ -153,13 +157,13 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "FriendDetailListCell", for: indexPath) as! FriendDetailListTableViewCell
 
-        guard let expenseData = acceptedExpenseList[friendUID]?[indexPath.row],
+        guard
+            let expenseData = acceptedExpenseList[friendUID]?[indexPath.row],
             let expenseDescription = expenseData["description"] as? String,
             let sharedResult = expenseData["sharedResult"] as? [String: Int],
             let isRead = expenseData["isRead"] as? Bool,
             let expenseDate = expenseData["expenseDay"] as? String,
             let friendName = friendUIDandNameList[friendUID]
-            
             else { return cell }
         
         if isRead == true {
@@ -216,9 +220,7 @@ class FriendDetailListViewController: UIViewController, UITableViewDelegate, UIT
 
             let destinationNC = segue.destination as? UINavigationController
             let destinationVC = destinationNC?.viewControllers.first as? ExpeneseDetailViewController
-
             destinationVC?.expenseInformation = (self.acceptedExpenseList[friendUID]?[selectedRow])!
-            
             destinationVC?.isAcceptButtonHidden = true
             destinationVC?.isDenyButtonHidden = true
             destinationVC?.isDeleteButtonHidden = false

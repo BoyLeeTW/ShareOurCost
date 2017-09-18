@@ -132,7 +132,8 @@ class ViewController: UIViewController {
                                           password: passwordTextField.text!,
                                           completion: { [weak self] (loginResultBool, error) in
 
-            guard let weakSelf = self else { return }
+            guard let weakSelf = self
+                else { return }
 
             if loginResultBool == true {
 
@@ -163,11 +164,12 @@ class ViewController: UIViewController {
 
     func handleRegistration() {
 
-        guard let emailText = emailTextField.text,
-              let passwordText = passwordTextField.text,
-              let nameText = fullNameTextField.text,
-              let userIDText = userIDTextField.text
-        else {
+        guard
+            let emailText = emailTextField.text,
+            let passwordText = passwordTextField.text,
+            let nameText = fullNameTextField.text,
+            let userIDText = userIDTextField.text
+            else {
 
             let alertController = UIAlertController(title: "Error",
                                                     message: "Please enter all information",
@@ -184,7 +186,8 @@ class ViewController: UIViewController {
         //weak to avoid memory leak
         accountManager.checkIfUserIDUnique(userID: userIDText, completion: { [weak self] (resultBool) in
             //in order to use self instead of self?
-            guard let weakSelf = self else { return }
+            guard let weakSelf = self
+                else { return }
 
             if resultBool == true {
 
@@ -215,7 +218,8 @@ class ViewController: UIViewController {
 
                                                                 NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
 
-                                                                guard let errorMesssageString = errorMessage else { return }
+                                                                guard let errorMesssageString = errorMessage
+                                                                    else { return }
 
                                                                 let alertController = UIAlertController(title: "Oops",
                                                                                                         message: "\(errorMesssageString)",
