@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A20F08491F73B8C700A0B664 /* CustomNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20F08481F73B8C700A0B664 /* CustomNavigationViewController.swift */; };
 		A20F2C671F276F9700D446F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20F2C661F276F9700D446F7 /* AppDelegate.swift */; };
 		A20F2C691F276F9700D446F7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20F2C681F276F9700D446F7 /* LoginViewController.swift */; };
 		A20F2C6C1F276F9700D446F7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A20F2C6A1F276F9700D446F7 /* Main.storyboard */; };
@@ -39,6 +40,7 @@
 /* Begin PBXFileReference section */
 		0FB66BD0448C110514B370DC /* Pods-ShareOurCost.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareOurCost.release.xcconfig"; path = "Pods/Target Support Files/Pods-ShareOurCost/Pods-ShareOurCost.release.xcconfig"; sourceTree = "<group>"; };
 		10CC0D0489CC3AF52482997E /* Pods_ShareOurCost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShareOurCost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A20F08481F73B8C700A0B664 /* CustomNavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationViewController.swift; sourceTree = "<group>"; };
 		A20F2C631F276F9700D446F7 /* ShareOurCost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShareOurCost.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A20F2C661F276F9700D446F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A20F2C681F276F9700D446F7 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				A2FE33FB1F37EC9000C3A793 /* ExpenseManager.swift */,
 				A29720771F3D737E00D92B3F /* ExpenseListApprovalTableViewCell.swift */,
 				A2FE33F91F3759C600C3A793 /* ExpeneseDetailViewController.swift */,
+				A20F08481F73B8C700A0B664 /* CustomNavigationViewController.swift */,
 				A288F1571F30A4FA0061F8FF /* AddExpenseViewController.swift */,
 				A2FE33F71F374B6400C3A793 /* FriendManager.swift */,
 				A288F1551F3055F40061F8FF /* FriendListTableViewCell.swift */,
@@ -322,6 +325,7 @@
 				A288F1581F30A4FA0061F8FF /* AddExpenseViewController.swift in Sources */,
 				A288F1521F2E2C0C0061F8FF /* FriendListTableViewController.swift in Sources */,
 				A2FE33FA1F3759C600C3A793 /* ExpeneseDetailViewController.swift in Sources */,
+				A20F08491F73B8C700A0B664 /* CustomNavigationViewController.swift in Sources */,
 				A20F2C691F276F9700D446F7 /* LoginViewController.swift in Sources */,
 				A20F2C671F276F9700D446F7 /* AppDelegate.swift in Sources */,
 				A288F1561F3055F40061F8FF /* FriendListTableViewCell.swift in Sources */,

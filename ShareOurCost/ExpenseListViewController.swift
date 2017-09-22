@@ -51,7 +51,7 @@ class ExpenseListViewController: UIViewController {
 
         fetchData()
 
-        setUpNavigationBar()
+        setUpNavigationBar(withTitle: "SHARED EXPENSE", presentedOrPushed: .nil)
 
         setupPages()
 
@@ -139,24 +139,6 @@ class ExpenseListViewController: UIViewController {
         }
     }
     
-    func setUpNavigationBar() {
-        
-        self.navigationController?.navigationBar.topItem?.title = "SHARED EXPENSE"
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-        self.navigationController?.navigationBar.barTintColor = UIColor(red: 69/255,
-                                                                        green: 155/255,
-                                                                        blue: 180/255,
-                                                                        alpha: 1.0)
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.layer.borderColor = UIColor.clear.cgColor
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white,
-                                                                        NSFontAttributeName: UIFont(name: "Avenir-Medium",
-                                                                        size: 18.0)!]
-        
-    }
-
     func setupPages() {
         
         var controllerArray: [UIViewController] = []

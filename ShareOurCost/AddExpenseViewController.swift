@@ -73,6 +73,8 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
         setUpTextFieldTarget()
 
+        setUpNavigationBar(withTitle: "ADD EXPENSE", presentedOrPushed: .pushed)
+
     }
 
     @IBAction func touchSaveExpenseButton(_ sender: Any) {

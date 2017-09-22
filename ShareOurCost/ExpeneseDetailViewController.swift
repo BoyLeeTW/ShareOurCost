@@ -22,23 +22,23 @@ class ExpeneseDetailViewController: UIViewController {
     @IBOutlet weak var deleteExpenseButton: UIButton!
     @IBOutlet weak var biggestView: UIView!
 
-    var allExpenseIDList = [String]()
+    var allExpenseIDList: [String] = [String]()
 
-    var expenseInformation = [String: Any]()
+    var expenseInformation: [String: Any] = [String: Any]()
 
-    var expenseID = String()
+    var expenseID: String = String()
 
-    var sharedFriendUID = String()
+    var sharedFriendUID: String = String()
 
-    var expenseStatus = String()
+    var expenseStatus: String = String()
 
-    var isAcceptButtonHidden = Bool()
+    var isAcceptButtonHidden: Bool = Bool()
 
-    var isDenyButtonHidden = Bool()
+    var isDenyButtonHidden: Bool = Bool()
 
-    var isDeleteButtonHidden = Bool()
+    var isDeleteButtonHidden: Bool = Bool()
 
-    let expenseManager = ExpenseManager()
+    let expenseManager: ExpenseManager = ExpenseManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,27 +49,9 @@ class ExpeneseDetailViewController: UIViewController {
 
         setUpViews()
 
-        setUpNavigationBar()
+        setUpNavigationBar(withTitle: "EXPENSE DETAIL", presentedOrPushed: .presented)
 
         setUpGesture()
-
-    }
-
-    func setUpNavigationBar() {
-
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_close_white"), style: .plain,
-                                                                target: self,
-                                                                action: #selector(touchBackButton))
-        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
-
-        self.navigationController?.navigationBar.topItem?.title = "EXPENSE DETAIL"
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-        self.navigationController?.navigationBar.barTintColor = UIColor(red: 69/255, green: 155/255, blue: 180/255, alpha: 1.0)
-        self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.layer.borderColor = UIColor.clear.cgColor
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont(name: "Avenir-Medium", size: 18.0)!]
 
     }
 
@@ -88,9 +70,9 @@ class ExpeneseDetailViewController: UIViewController {
 
     func setUpExpenseDetailLabel() {
 
-        var expenseCreatedByName = String()
+        var expenseCreatedByName:String = String()
 
-        var expensePaidByName = String()
+        var expensePaidByName: String = String()
         
         guard
             let expenseTotalAmount = expenseInformation["amount"] as? Int,
