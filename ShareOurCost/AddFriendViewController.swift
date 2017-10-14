@@ -22,6 +22,8 @@ class AddFriendViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        hideKeyboardWhenTappedAround()
+
         setUpLayout()
 
         setUpGesture()

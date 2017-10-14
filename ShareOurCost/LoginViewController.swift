@@ -27,6 +27,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        hideKeyboardWhenTappedAround()
+
         setUpSegmentedControl()
 
         setUpButtons()

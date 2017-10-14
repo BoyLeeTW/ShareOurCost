@@ -61,6 +61,8 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        hideKeyboardWhenTappedAround()
+
         setUpGesture()
 
         fetchFriendUIDAndNameListThenSetUpTableView()

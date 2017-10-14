@@ -8,7 +8,7 @@ target 'ShareOurCost' do
 pod 'Firebase/Core'
 pod 'Firebase/Auth'
 pod 'Firebase/Database'
-pod 'IQKeyboardManager'
+pod 'IQKeyboardManagerSwift'
 pod 'Fabric'
 pod 'Crashlytics'
 pod 'NVActivityIndicatorView'
