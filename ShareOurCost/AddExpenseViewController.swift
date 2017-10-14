@@ -636,7 +636,9 @@ class AddExpenseViewController: UIViewController, UIPickerViewDelegate, UIPicker
     func setUpGesture() {
         
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(handleGesture))
+
         swipeRight.direction = .right
+
         self.view.addGestureRecognizer(swipeRight)
         
     }

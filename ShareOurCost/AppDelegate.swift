@@ -21,16 +21,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
+        //Enable Crashlytics
         Fabric.with([Crashlytics.self])
 
+        //Enable Firebase
         FirebaseApp.configure()
 
+        //Enable IQKeyboardManager
         IQKeyboardManager.shared().isEnabled = true
 
+        //Set up NVActivityIndicatorView type
         NVActivityIndicatorView.DEFAULT_TYPE  = .ballRotateChase
 
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
 
+        //Determine landing page based on login record
         if UserDefaults.standard.value(forKey: "userUid") != nil {
 
             let tabBarVC = mainStoryboard.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController

@@ -26,9 +26,9 @@ class ExpenseListViewController: UIViewController {
 
     var receivedDeletedExepsneListTVC = ExpenseSegmentedTableViewController()
 
-    var friendManager = FriendManager()
+    let friendManager = FriendManager()
     
-    var expenseManager = ExpenseManager()
+    let expenseManager = ExpenseManager()
     
     var friendUIDList = [String]()
     
@@ -180,10 +180,14 @@ class ExpenseListViewController: UIViewController {
             .menuItemSeparatorPercentageHeight(0.0)
         ]
 
-        let frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height
-        )
+        let frame = CGRect(x: 0.0,
+                           y: 0.0,
+                           width: self.view.frame.width,
+                           height: self.view.frame.height)
 
-        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: frame, pageMenuOptions: parameters)
+        pageMenu = CAPSPageMenu(viewControllers: controllerArray,
+                                frame: frame,
+                                pageMenuOptions: parameters)
 
         self.view.addSubview(pageMenu!.view)
 

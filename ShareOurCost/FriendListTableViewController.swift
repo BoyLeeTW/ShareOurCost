@@ -185,9 +185,8 @@ class FriendListTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "friendRequestListCell", for: indexPath) as? FriendRequestListTableViewCell
-            else { return }
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "friendRequestListCell") as! FriendRequestListTableViewCell
 
         cell.friendNameLabel.text = ""
 
